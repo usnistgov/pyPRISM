@@ -1,4 +1,3 @@
-
 import numpy as np
 from scipy.fftpack import dst
 

@@ -1,5 +1,5 @@
-
 import numpy as np
+from typyPRISM.MatrixArray import MatrixArray
 
 class IdentityMatrixArray(MatrixArray):
     '''Specialization of MatrixArray for Identity Matrices '''

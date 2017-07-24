@@ -1,7 +1,6 @@
-
 import unittest
-from py.MatrixArray import MatrixArray
-from py.Domain import Domain
+from typyPRISM.MatrixArray import MatrixArray
+from typyPRISM.Domain import Domain
 import numpy as np
 
 class Domain_TestCase(unittest.TestCase):

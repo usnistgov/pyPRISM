@@ -1,5 +1,4 @@
-
-from MatrixArray import MatrixArray
+from typyPRISM.MatrixArray import MatrixArray
 import numpy as np
 import unittest
 
