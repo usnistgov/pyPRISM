@@ -1,3 +1,5 @@
+
+from typyPRISM.Space import Space
 from itertools import product
 import numpy as np
 
@@ -31,10 +33,17 @@ class MatrixArray:
     data: float np.ndarray, size (length,rank,rank)
         Interface for specifying the MatrixArray data directly. If not given,
         all matrices will be set to zero. 
-    '''
-    __slots__ = ('rank','length','data')
     
-    def __init__(self,length,rank,data=None):
+    space: typyPRISM.Space
+        Enumerated value tracking whether the array represents real or Fourier
+        spaced data. As we will be transferring arrays to and from these spaces,
+        it's important for safety that we track this.
+    '''
+    __slots__ = ('rank','length','data','space')
+    
+    SpaceError = "Attempting MatrixArray math in non-matching spaces"
+    
+    def __init__(self,length,rank,data=None,space=None):
         self.rank = rank
         self.length = length
                     
@@ -42,6 +51,11 @@ class MatrixArray:
             self.data = np.zeros((length,rank,rank))
         else:
             self.data = data
+        
+        if space is None:
+            self.space = Space.Real
+        else:
+            self.space = space
             
     def __repr__(self):
         return '<MatrixArray rank:{:d} length:{:d}>'.format(self.rank,self.length)
@@ -67,17 +81,37 @@ class MatrixArray:
         type1,type2 = key
         return self.data[:,type1,type2]
     
+    def __truediv__(self,other):
+        '''Scalar or elementwise division'''
+        if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
+            data = self.data / other.data
+        else:
+            data = self.data / other
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+    
+    def __itruediv__(self,other):
+        '''Scalar or elementwise division'''
+        if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
+            self.data /= other.data
+        else:
+            self.data /= other
+        return self
+    
     def __mul__(self,other):
         '''Scalar or elementwise multiplication'''
         if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
             data = self.data * other.data
         else:
             data = self.data * other
-        return MatrixArray(self.rank,self.length,data=data)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
     
     def __imul__(self,other):
         '''Scalar or elementwise multiplication'''
         if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
             self.data *= other.data
         else:
             self.data *= other
@@ -85,13 +119,15 @@ class MatrixArray:
             
     def __add__(self,other):
         if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
             data = self.data + other.data
         else:
             data = self.data + other
-        return MatrixArray(self.rank,self.length,data=data)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
     
     def __iadd__(self,other):
         if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
             self.data += other.data
         else:
             self.data += other
@@ -99,13 +135,15 @@ class MatrixArray:
             
     def __sub__(self,other):
         if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
             data = self.data - other.data
         else:
             data = self.data - other
-        return MatrixArray(self.rank,self.length,data=data)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
     
     def __isub__(self,other):
         if type(other) is MatrixArray:
+            assert self.space == other.space,MatrixArray.SpaceError
             self.data -= other.data
         else:
             self.data -= other
@@ -128,8 +166,10 @@ class MatrixArray:
         for i in range(self.length):
             data[i] = np.linalg.inv(self.data[i])
             
-        if not inplace:
-            return data
+        if inplace:
+            return self
+        else:
+            return MatrixArray(rank=self.rank,length=self.length,data=data,space=self.space)
             
     def dot(self,other,inplace=False):
         ''' Matrix multiplication for each matrix in two MatrixArrays
@@ -147,8 +187,17 @@ class MatrixArray:
         '''
         if inplace:
             self.data = np.einsum('lij,ljk->lik', self.data, other.data)
+            return self
         else:
             data = np.einsum('lij,ljk->lik', self.data, other.data)
-            return MatrixArray(self.rank,self.length,data=data)
+            return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        
+    def __matmul__(self,other):
+        assert self.space == other.space,MatrixArray.SpaceError
+        return self.dot(other,inplace=False)
+        
+    def __imatmul__(self,other):
+        assert self.space == other.space,MatrixArray.SpaceError
+        return self.dot(other,inplace=True)
         
         

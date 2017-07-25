@@ -1,23 +1,24 @@
+from typyPRISM.Space import Space
 import numpy as np
 from scipy.fftpack import dst
 
 class Domain:
-    ''' Define and transform between real and Fourier space
+    '''Define and transform between Real and Fourier space
     
-    Domain describes the discretization of real and Fourier space
+    Domain describes the discretization of Real and Fourier space
     and also sets up the functions and coefficients for transforming
     data between them.
     
     Attributes
     ----------
     length: int
-        Number of gridpoints in real and Fourier space grid
+        Number of gridpoints in Real and Fourier space grid
         
     dr,dk: float
-        Grid spacing in real and Fourier space
+        Grid spacing in Real and Fourier space
     
     r,k: float ndarray
-        Numpy arrays of grid locations in real and Fourier space
+        Numpy arrays of grid locations in Real and Fourier space
     
     DST_II_coeffs,DST_III_coeffs: float
         Coefficients needed for Discrete Sine Transforms. Note that these
@@ -46,15 +47,15 @@ class Domain:
     def to_fourier(self,array):
         ''' Discrete Sine Transform of a numpy array 
         
-        Peforms a real-to-real Discrete Sine Transform  of type II 
+        Peforms a Real-to-Real Discrete Sine Transform  of type II 
         on a numpy array of non-complex values. For radial data that is 
         symmetric in \phi and \theta, this is **a** correct transform
-        to go from real-space to Fourier-space. 
+        to go from Real-space to Fourier-space. 
         
         Parameters
         ----------
         array: float ndarray
-            real-space data to be transformed
+            Real-space data to be transformed
             
         Returns
         -------
@@ -67,10 +68,10 @@ class Domain:
     def to_real(self,array):
         ''' Discrete Sine Transform of a numpy array 
         
-        Peforms a real-to-real Discrete Sine Transform  of type III 
+        Peforms a Real-to-Real Discrete Sine Transform  of type III 
         on a numpy array of non-complex values. For radial data that is 
         symmetric in \phi and \theta, this is **a** correct transform
-        to go from Fourier-space to real space.
+        to go from Fourier-space to Real space.
         
         Parameters
         ----------
@@ -80,18 +81,28 @@ class Domain:
         Returns
         -------
         array: float ndarray
-            data transformed to real space
+            data transformed to Real space
         
         '''
         return dst(self.DST_III_coeffs*array,type=3)/self.r
     
     def MatrixArray_to_fourier(self,marray):
         ''' Transform all columns of a MatrixArray to Fourier space in-place'''
+        if marray.space == Space.Fourier:
+            raise ValueError('MatrixArray is marked as already in Fourier space')
+            
         for (i,j),column in marray.itercolumn():
             marray[i,j] = self.to_fourier(column)
+        
+        marray.space = Space.Fourier
             
     def MatrixArray_to_real(self,marray):
-        ''' Transform all columns of a MatrixArray to real space in-place '''
+        ''' Transform all columns of a MatrixArray to Real space in-place '''
+        if marray.space == Space.Real:
+            raise ValueError('MatrixArray is marked as already in Real space')
+            
         for (i,j),column in marray.itercolumn():
             marray[i,j] = self.to_real(column)
+            
+        marray.space = Space.Real
             

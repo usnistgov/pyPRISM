@@ -123,6 +123,31 @@ class MatrixArray_TestCase(unittest.TestCase):
         np.testing.assert_array_almost_equal(MA2.data,array2)
         np.testing.assert_array_almost_equal(MA3.data,array3)
         
+    def test_div(self):
+        '''Can we truediv and itruediv?'''
+        
+        length = 100
+        rank = 3
+        (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
+        
+        ## Test Add
+        MA3 = MA1 / MA2
+        array3 = array1 / array2
+        MA3 = MA3 / 542.345
+        array3 = array3 / 542.345
+        np.testing.assert_array_almost_equal(MA1.data,array1)
+        np.testing.assert_array_almost_equal(MA2.data,array2)
+        np.testing.assert_array_almost_equal(MA3.data,array3)
+        
+        ## Test iAdd
+        MA3 /= MA2
+        array3 /= array2
+        MA3 /= 324
+        array3 /= 324
+        np.testing.assert_array_almost_equal(MA1.data,array1)
+        np.testing.assert_array_almost_equal(MA2.data,array2)
+        np.testing.assert_array_almost_equal(MA3.data,array3)
+        
     def test_invert(self):
         '''Can we matrix invert?'''
         
@@ -149,7 +174,8 @@ class MatrixArray_TestCase(unittest.TestCase):
         rank = 3
         (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
         
-        MA3 = MA1.dot(MA2,inplace=False)
+        # MA3 = MA1.dot(MA2,inplace=False)
+        MA3 = MA1 @ MA2
         
         array3 = np.empty_like(array1)
         for i in range(length):

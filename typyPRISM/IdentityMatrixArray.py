@@ -1,11 +1,12 @@
-import numpy as np
 from typyPRISM.MatrixArray import MatrixArray
+from typyPRISM.Space import Space
+import numpy as np
 
 class IdentityMatrixArray(MatrixArray):
     '''Specialization of MatrixArray for Identity Matrices '''
-    __slots__ = ('rank','length','data')
+    __slots__ = ('rank','length','data','space')
     
-    def __init__(self,length,rank,data=None):
+    def __init__(self,length,rank,data=None,space=None):
         self.rank = rank
         self.length = length
         
@@ -15,4 +16,9 @@ class IdentityMatrixArray(MatrixArray):
                 self.data[:,i,i] = 1.0
         else:
             self.data = data
+            
+        if space is None:
+            self.space = Space.Real
+        else:
+            self.space = space
         
