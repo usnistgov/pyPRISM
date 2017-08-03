@@ -1,5 +1,5 @@
-from typyPRISM.MatrixArray import MatrixArray
-from typyPRISM.Space import Space
+from typyPRISM.core.MatrixArray import MatrixArray
+from typyPRISM.core.Space import Space
 import numpy as np
 
 class IdentityMatrixArray(MatrixArray):

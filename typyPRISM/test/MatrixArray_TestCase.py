@@ -1,4 +1,4 @@
-from typyPRISM.MatrixArray import MatrixArray
+from typyPRISM.core.MatrixArray import MatrixArray
 import numpy as np
 import unittest
 
@@ -21,6 +21,41 @@ class MatrixArray_TestCase(unittest.TestCase):
         array[:,1,2] = np.ones(length)*3.0
         array[:,2,1] = np.ones(length)*3.0
         np.testing.assert_array_almost_equal(MA.data,array)
+        
+    def test_div(self):
+        '''Can we truediv and itruediv?'''
+        
+        length = 100
+        rank = 3
+        (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
+        
+        MA2[0,2] = np.ones(length)*2.0
+        MA2[0,1] = np.ones(length)*3.0
+        MA2[1,2] = np.ones(length)*5.0
+        MA2[0,0] += 1.0
+        
+        array2[:,0,2] = array2[:,2,0] = np.ones(length)*2.0
+        array2[:,0,1] = array2[:,1,0] = np.ones(length)*3.0
+        array2[:,1,2] = array2[:,2,1] = np.ones(length)*5.0
+        array2[:,0,0] += 1.0
+        
+        ## Test Add
+        MA3 = MA1 / MA2
+        array3 = array1 / array2
+        MA3 = MA3 / 542.345
+        array3 = array3 / 542.345
+        np.testing.assert_array_almost_equal(MA1.data,array1)
+        np.testing.assert_array_almost_equal(MA2.data,array2)
+        np.testing.assert_array_almost_equal(MA3.data,array3)
+        
+        ## Test iAdd
+        MA3 /= MA2
+        array3 /= array2
+        MA3 /= 324
+        array3 /= 324
+        np.testing.assert_array_almost_equal(MA1.data,array1)
+        np.testing.assert_array_almost_equal(MA2.data,array2)
+        np.testing.assert_array_almost_equal(MA3.data,array3)
         
     def set_up_test_arrays(self,length=100,rank=3):
         ''' Helper for set up arrays to test math'''
@@ -119,31 +154,6 @@ class MatrixArray_TestCase(unittest.TestCase):
         array3 *= array2
         MA3 *= 324
         array3 *= 324
-        np.testing.assert_array_almost_equal(MA1.data,array1)
-        np.testing.assert_array_almost_equal(MA2.data,array2)
-        np.testing.assert_array_almost_equal(MA3.data,array3)
-        
-    def test_div(self):
-        '''Can we truediv and itruediv?'''
-        
-        length = 100
-        rank = 3
-        (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
-        
-        ## Test Add
-        MA3 = MA1 / MA2
-        array3 = array1 / array2
-        MA3 = MA3 / 542.345
-        array3 = array3 / 542.345
-        np.testing.assert_array_almost_equal(MA1.data,array1)
-        np.testing.assert_array_almost_equal(MA2.data,array2)
-        np.testing.assert_array_almost_equal(MA3.data,array3)
-        
-        ## Test iAdd
-        MA3 /= MA2
-        array3 /= array2
-        MA3 /= 324
-        array3 /= 324
         np.testing.assert_array_almost_equal(MA1.data,array1)
         np.testing.assert_array_almost_equal(MA2.data,array2)
         np.testing.assert_array_almost_equal(MA3.data,array3)

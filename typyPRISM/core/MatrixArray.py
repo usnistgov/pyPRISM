@@ -1,5 +1,5 @@
 
-from typyPRISM.Space import Space
+from typyPRISM.core.Space import Space
 from itertools import product
 import numpy as np
 
@@ -39,7 +39,7 @@ class MatrixArray:
         spaced data. As we will be transferring arrays to and from these spaces,
         it's important for safety that we track this.
     '''
-    __slots__ = ('rank','length','data','space')
+    # __slots__ = ('rank','length','data','space')
     
     SpaceError = "Attempting MatrixArray math in non-matching spaces"
     
@@ -99,6 +99,10 @@ class MatrixArray:
             self.data /= other
         return self
     
+    # def __rmul__(self,other):
+    #     '''Scalar or elementwise multiplication'''
+    #     return self.__mul__(other)
+        
     def __mul__(self,other):
         '''Scalar or elementwise multiplication'''
         if type(other) is MatrixArray:
@@ -116,6 +120,10 @@ class MatrixArray:
         else:
             self.data *= other
         return self
+    
+    # def __radd__(self,other):
+    #     '''Scalar or elementwise addition'''
+    #     return self.__add__(other)
             
     def __add__(self,other):
         if type(other) is MatrixArray:
@@ -133,6 +141,10 @@ class MatrixArray:
             self.data += other
         return self
             
+    # def __rsub__(self,other):
+    #     '''Scalar or elementwise subtraction'''
+    #     return self.__sub__(other)
+    
     def __sub__(self,other):
         if type(other) is MatrixArray:
             assert self.space == other.space,MatrixArray.SpaceError
@@ -163,14 +175,14 @@ class MatrixArray:
         else:
             data = np.copy(self.data)
             
-        for i in range(self.length):
-            data[i] = np.linalg.inv(self.data[i])
+        data = np.linalg.inv(self.data)
             
         if inplace:
+            self.data = data
             return self
         else:
             return MatrixArray(rank=self.rank,length=self.length,data=data,space=self.space)
-            
+        
     def dot(self,other,inplace=False):
         ''' Matrix multiplication for each matrix in two MatrixArrays
         

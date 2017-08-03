@@ -1,4 +1,4 @@
-from typyPRISM.Space import Space
+from typyPRISM.core.Space import Space
 import numpy as np
 from scipy.fftpack import dst
 
