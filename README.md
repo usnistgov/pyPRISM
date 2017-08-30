@@ -38,11 +38,11 @@ and then create the ``peopt`` environment by executing::
 When installation is complete you must activate the environment. If you
 are on Windows:
 ```
-   > activate peopt
+   > activate typyPRISM
 ```
 If you are using OSX/Linux:
 ```
-   $ source activate peopt
+   $ source activate typyPRISM
 ```
 
 Later, when you are ready to exit the environment after the tutorial, you can type:
@@ -52,5 +52,5 @@ Later, when you are ready to exit the environment after the tutorial, you can ty
 If for some reason you want to remove the environment entirely, you can do so by writing:
 
 ```
-   > conda env remove --name peopt
+   > conda env remove --name typyPRISM
 ```
