@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 from typyPRISM.potential.Potential import Potential
 import numpy as np
 class HardSphere(Potential):
@@ -5,8 +7,8 @@ class HardSphere(Potential):
     
     .. math::
     
-        U(r>=\sigma)  = 0.0
-        U(r<\sigma) = high_value
+        U(r>\sigma)  = 0.0
+        U(r<=\sigma) = high_value
     
     
     Parameters
@@ -15,15 +17,14 @@ class HardSphere(Potential):
         Contact distance 
     
     high_value: float, *optional*
-        Cutoff distance for potential. Useful for comparing directly to results
-        from simulations where cutoffs are necessary. 
+        Value of potential when overlapping
     
     
     '''
     def __init__(self,sigma,high_value=1e6):
         self.sigma = sigma
         self.high_value = high_value
-        self.funk  = lambda r: np.where(r>=sigma,0.0,high_value)
+        self.funk  = lambda r: np.where(r>sigma,0.0,high_value)
     def __repr__(self):
         return '<Potential: HardSphere>'
     

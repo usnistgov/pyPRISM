@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 import numpy as np
 class AtomicClosure:
     '''Baseclass for all atomic closures

@@ -9,7 +9,7 @@ from typyPRISM.core.Domain import Domain
 from typyPRISM import calculate
 from typyPRISM import closure
 from typyPRISM import potential
-from typyPRISM import intraMolCorr
+from typyPRISM import omega
 
 
 

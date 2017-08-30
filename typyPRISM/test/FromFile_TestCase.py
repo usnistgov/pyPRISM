@@ -1,10 +1,12 @@
-from typyPRISM.intraMolCorr.FromFile import FromFile
+#!python
+from __future__ import division,print_function
+from typyPRISM.omega.FromFile import FromFile
 import unittest
 import numpy as np
 
 class FromFile_TestCase(unittest.TestCase):
     def test_create(self):
-        '''Can we create a FromFile intraMolCorr?'''
+        '''Can we create a FromFile Omega?'''
         k = np.arange(0.75,3.5,0.05)
         fname = 'FromFileTestCase.dat'
         
@@ -22,7 +24,7 @@ class FromFile_TestCase(unittest.TestCase):
         
         np.savetxt(fname,dummy)
         
-        k = np.arange(0.75,3.5,0.01)
+        k = np.arange(0.75,3.5,0.01) #change the asked for domain...
         with self.assertRaises(AssertionError):
             FF = FromFile(fname).calculate(k)
         

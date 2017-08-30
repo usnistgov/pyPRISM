@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 import unittest
 import numpy as np
 import typyPRISM
@@ -17,9 +19,9 @@ class PRISM_TestCase(unittest.TestCase):
         
         sys.potential.setUnset(typyPRISM.potential.HardSphere(sigma=1.0))
         
-        sys.intraMolCorr['A','A'] = typyPRISM.intraMolCorr.SingleSite()
-        sys.intraMolCorr['A','B'] = typyPRISM.intraMolCorr.NoIntra()
-        sys.intraMolCorr['B','B'] = typyPRISM.intraMolCorr.Gaussian(sigma=1.0,length=10)
+        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
+        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10)
         
         PRISM = sys.createPRISM()
         

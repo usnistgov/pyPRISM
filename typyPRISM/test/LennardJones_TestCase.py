@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 import unittest
 from typyPRISM.potential.LennardJones import LennardJones
 import numpy as np

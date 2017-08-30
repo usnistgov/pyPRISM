@@ -3,6 +3,7 @@ from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.Space import Space
 from itertools import product
 import numpy as np
+import copy
 
 class PairTable(Table):
     '''Container for data that is keyed by pairs of types
@@ -63,9 +64,16 @@ class PairTable(Table):
         types1,types2 = index
         for t1 in self.listify(types1):
             for t2 in self.listify(types2):
-                self.values[t1][t2] = value
+                
+                # If we don't copy the value, later modifications to this element
+                # can affect all other set items. While this could be used intentionally,
+                # it negates a primary use case of setting a global "default" value across
+                # the table and then only modifying specific elements afterwards
+                value_copy = copy.deepcopy(value) 
+                
+                self.values[t1][t2] = value_copy
                 if self.symmetric and t1!=t2:
-                    self.values[t2][t1] = value
+                    self.values[t2][t1] = value_copy
             
     def check(self):
         '''Is everything in the table set?'''
@@ -123,7 +131,7 @@ class PairTable(Table):
             MA[i,j] = val
         return MA
     
-    def apply(self,funk):
+    def apply(self,funk,inplace=True):
         '''Apply a function to all elements in the table in place
         
         Parameters
@@ -132,8 +140,15 @@ class PairTable(Table):
             function to be called on all table elements
         
         '''
+        if inplace:
+            table = self
+        else:
+            table = PairTable(types=self.types,name=self.name,symmetric=self.symmetric)
+            
         for i,(t1,t2),val in self.iterpairs():
-            self[t1,t2] = funk(val)
+            table[t1,t2] = funk(val)
+            
+        return table
         
 
         

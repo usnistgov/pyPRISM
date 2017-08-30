@@ -1,13 +1,8 @@
+#!python
+from __future__ import division,print_function
+import typyPRISM
 import unittest
 import numpy as np
-import typyPRISM
-# from typyPRISM import System
-# from typyPRISM import Domain
-# from typyPRISM import Space
-# from typyPRISM import System
-# from typyPRISM import potential
-# from typyPRISM import intraMolCorr
-# from typyPRISM import closure
 
 class System_TestCase(unittest.TestCase):
     def test_create(self):
@@ -26,7 +21,7 @@ class System_TestCase(unittest.TestCase):
         sys.density.setUnset(1.0)
         sys.potential.setUnset(1.0)
         sys.closure.setUnset(1.0)
-        sys.intraMolCorr.setUnset(1.0)
+        sys.omega.setUnset(1.0)
         
         #test should fail if this raises
         try:
@@ -47,9 +42,9 @@ class System_TestCase(unittest.TestCase):
         
         sys.potential.setUnset(typyPRISM.potential.HardSphere(sigma=1.0))
         
-        sys.intraMolCorr['A','A'] = typyPRISM.intraMolCorr.SingleSite()
-        sys.intraMolCorr['A','B'] = typyPRISM.intraMolCorr.NoIntra()
-        sys.intraMolCorr['B','B'] = typyPRISM.intraMolCorr.Gaussian(sigma=1.0,length=100)
+        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
+        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=100)
         
         PRISM = sys.createPRISM()
         

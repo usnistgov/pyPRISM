@@ -1,9 +1,8 @@
-
+#!python
 from typyPRISM.core.Space import Space
 from itertools import product
 import numpy as np
 
-#See for fast inverse https://stackoverflow.com/q/11972102
 class MatrixArray:
     '''A container for creating and interacting with arrays of matrices
     
@@ -30,6 +29,11 @@ class MatrixArray:
         Number of matrices in array. For PRISM theory, this corresponds to
         the number of grid points in real- and Fourier-space i.e. Domain.size.
         
+    types: list, *optional*
+        List of semantic types that can be used to reference data via the 
+        getByTypes method. These types will be output by the itercolumn
+        method as well. If not supplied, integer types will be generated.
+        
     data: float np.ndarray, size (length,rank,rank)
         Interface for specifying the MatrixArray data directly. If not given,
         all matrices will be set to zero. 
@@ -43,14 +47,22 @@ class MatrixArray:
     
     SpaceError = "Attempting MatrixArray math in non-matching spaces"
     
-    def __init__(self,length,rank,data=None,space=None):
-        self.rank = rank
-        self.length = length
+    def __init__(self,length,rank,data=None,space=None,types=None):
                     
         if data is None:
             self.data = np.zeros((length,rank,rank))
+            self.rank = rank
+            self.length = length
         else:
             self.data = data
+            self.rank = data.shape[1]
+            self.length = data.shape[0]
+        
+        if types is None:
+            self.types = list(range(self.rank))
+        else:
+            assert len(types)==self.rank
+            self.types
         
         if space is None:
             self.space = Space.Real
@@ -63,7 +75,9 @@ class MatrixArray:
     def itercolumn(self):
         for i,j in product(range(self.rank),range(self.rank)):
             if i<=j: #upper triangle condition
-                yield (i,j),self.data[:,i,j]
+                type1 = self.types[i]
+                type2 = self.types[j]
+                yield (i,j),(type1,type2),self.data[:,i,j]
             
     def __setitem__(self,key,val):
         '''Column setter 
@@ -71,15 +85,28 @@ class MatrixArray:
         Assumes all matrices are symmetric and enforces symmetry by
         setting both off diagonal elements. 
         '''
-        type1,type2 = key
-        self.data[:,type1,type2] = val
-        if not (type1 == type2):
-            self.data[:,type2,type1] = val
+        index1,index2 = key
+        self.data[:,index1,index2] = val
+        if not (index1 == index2):
+            self.data[:,index2,index1] = val
         
     def __getitem__(self,key):
         '''Column getter'''
-        type1,type2 = key
-        return self.data[:,type1,type2]
+        index1,index2 = key
+        return self.data[:,index1,index2]
+    
+    def getByTypes(self,type1,type2):
+        '''Column getter via supplied types
+        
+        .. warning::
+        
+            This getter should not be used in performance critical code
+            as it has to look up the index of the semantic types.
+        
+        '''
+        index1 = self.types.index(type1)
+        index2 = self.types.index(type2)
+        return self.data[:,index1,index2]
     
     def __truediv__(self,other):
         '''Scalar or elementwise division'''

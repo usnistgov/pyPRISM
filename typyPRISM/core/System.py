@@ -1,3 +1,5 @@
+#!python 
+from __future__ import division,print_function
 import numpy as np
 from typyPRISM.core.PRISM import PRISM
 from typyPRISM.core.MatrixArray import MatrixArray
@@ -10,7 +12,7 @@ class System:
     
     .. warning::
     
-        The *intra*-molecular correlation functions (intraMolCorr attribute)
+        The *intra*-molecular correlation functions (omega attribute)
         should be specified such that they are in Fourier space and such
         that their k->0 values approach the total number of sites in a 
         given molecule for the self (i==j) pairs.
@@ -32,28 +34,33 @@ class System:
     closure: typyPRISM.core.PairTable
         Table of closures between all site pairs
         
-    intraMolCorr: typyPRISM.core.PairTable
-        Table of intramolecular correlation functions in k-space
+    omega: typyPRISM.core.PairTable
+        Table of omega correlation functions in k-space
     
     domain: typyPRISM.core.Domain
         Domain object which specifies the Real and Fourier space 
         solution grid.
+        
+    kT: float
+        Value of the thermal energy scale. Used to vary temperature and
+        scale the potential energy functions.
     
     
     '''
-    def __init__(self,types):
+    def __init__(self,types,kT=1.0):
         self.types = types
         self.rank  = len(types)
+        self.kT = kT
         
         self.domain    = None
         self.density   = ValueTable(types,'density')
         self.potential = PairTable(types,'potential')
         self.closure   = PairTable(types,'closure')
-        self.intraMolCorr = PairTable(types,'intraMolCorr')
+        self.omega = PairTable(types,'omega')
     
     def check(self):
         '''Make sure all values in the system are specified'''
-        for table in [self.density,self.potential,self.closure,self.intraMolCorr]:
+        for table in [self.density,self.potential,self.closure,self.omega]:
             table.check()
         
         if self.domain is None:
@@ -99,28 +106,28 @@ class System:
         siteDensityMatrix,pairDensityMatrix = self.createDensityMatrices()
         
         
-        # The intraMolCorr objects must be converted to arrays of the actual correlation
+        # The omega objects must be converted to arrays of the actual correlation
         # function values. 
-        self.intraMolCorr.apply(lambda x: x.calculate(self.domain.k))
+        omega = self.omega.apply(lambda x: x.calculate(self.domain.k),inplace=False)
         
-        # Next, the intraMolCorr table is converted to a MatrixArray so that we can easily
+        # Next, the omega table is converted to a MatrixArray so that we can easily
         # do operations during the PRISM solution
-        intraMolCorr = self.intraMolCorr.exportToMatrixArray(space=Space.Fourier)
+        omega = omega.exportToMatrixArray(space=Space.Fourier)
         
         # Finally, the correlation functions are scaled by the density matrix
-        intraMolCorr *= siteDensityMatrix 
+        omega *= siteDensityMatrix 
         
-        # Need to set the intramolecular potential for each closure object
-        r = self.domain.r
+        # Need to set the omega potential for each closure object
         for (i,j),(t1,t2),U in self.potential.iterpairs():
-            self.closure[t1,t2].potential = U.calculate(r)
+            self.closure[t1,t2].potential = U.calculate(self.domain.r) / self.kT
         
-        args = []
-        args.append(self.rank)
-        args.append(self.domain)
-        args.append(self.closure)
-        args.append(intraMolCorr)
-        args.append(pairDensityMatrix)
-        args.append(siteDensityMatrix)
-        return PRISM(*args)
+        kwargs = {}
+        kwargs['kT'] = self.kT
+        kwargs['rank'] = self.rank
+        kwargs['domain'] = self.domain
+        kwargs['closure'] = self.closure
+        kwargs['omega'] = omega
+        kwargs['pairDensityMatrix'] = pairDensityMatrix
+        kwargs['siteDensityMatrix'] = siteDensityMatrix
+        return PRISM(**kwargs)
         

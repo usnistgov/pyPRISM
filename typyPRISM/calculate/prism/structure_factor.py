@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 from typyPRISM.core.Space import Space
 
 def structure_factor(PRISM):
@@ -19,11 +21,12 @@ def structure_factor(PRISM):
     '''
     
     if PRISM.totalCorr.space == Space.Real:
-        PRISM.domain.MatrixArray_to_real(PRISM.totalCorr)
+        PRISM.domain.MatrixArray_to_fourier(PRISM.totalCorr)
         
-    if PRISM.intraMolCorr.space == Space.Real:
-        PRISM.domain.MatrixArray_to_real(PRISM.intraMolCorr)
+    if PRISM.omega.space == Space.Real:
+        PRISM.domain.MatrixArray_to_fourier(PRISM.omega)
     
-    structureFactor = PRISM.totalCorr*PRISM.pairDensityMatrix + PRISM.intraMolCorr
+    structureFactor = (PRISM.totalCorr*PRISM.pairDensityMatrix + PRISM.omega)/PRISM.siteDensityMatrix
+    # structureFactor = PRISM.totalCorr + PRISM.omega
     
     return structureFactor

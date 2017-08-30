@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 from typyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 class PercusYevick(AtomicClosure):

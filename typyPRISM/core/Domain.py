@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 from typyPRISM.core.Space import Space
 import numpy as np
 from scipy.fftpack import dst
@@ -25,21 +27,56 @@ class Domain:
         values are specific to each implementation of the DST and were 
         derived for (Scipy's interface to) FFTPACK. 
     '''
-    __slots__ = ('length',
-                 'r','dr',
-                 'k','dk',
-                 'DST_II_coeffs','DST_III_coeffs')
-    def __init__(self,length,dr):
-        self.length = length
+    def __init__(self,length,dr=None,dk=None):
+        self._length = length
         
-        self.dr = dr
-        self.r = np.arange(dr,dr*(length+1),dr)
-        
-        self.dk = np.pi/(dr*length)
-        self.k = np.arange(self.dk,self.dk*(length+1),self.dk)
-        
-        self.DST_II_coeffs = 2.0*np.pi*self.r*dr 
+        if (dr is None) and (dk is None):
+            raise ValueError('Real or Fourier grid spacing must be specified')
+            
+        elif (dr is not None) and (dk is not None):
+            raise ValueError('Cannot specify **both** Real and Fourier grid spacings independently.')
+            
+        elif dr is not None:
+            self.dr = dr #dk is set in property setter
+            
+        elif dk is not None:
+            self.dk = dk #dr is set in property setter
+            
+            
+        self.build_grid() #build grid should have been called already but we'll be safe
+    
+    def build_grid(self):
+        '''Construct the Real and Fourier Space grids and transform coefficients'''
+        self.r = np.arange(self._dr,self._dr*(self._length+1),self._dr)
+        self.k = np.arange(self.dk,self.dk*(self._length+1),self.dk)
+        self.DST_II_coeffs = 2.0*np.pi *self.r*self._dr 
         self.DST_III_coeffs = self.k * self.dk/(4.0*np.pi*np.pi)
+    
+    @property
+    def dr(self):
+        return self._dr
+    @dr.setter
+    def dr(self,value):
+        self._dr = value
+        self._dk = np.pi/(self._dr*self._length)
+        self.build_grid()#need to re-build grid since spacing has changed
+    
+    @property
+    def dk(self):
+        return self._dk
+    @dk.setter
+    def dk(self,value):
+        self._dk = value
+        self._dr = np.pi/(self._dk*self._length)
+        self.build_grid()#need to re-build grid since spacing has changed
+        
+    @property
+    def length(self):
+        return self._length
+    @length.setter
+    def length(self,value):
+        self._length = value
+        self.build_grid()#need to re-build grid since length has changed
         
     def __repr__(self):
         return '<Domain length:{} dr/rmax:{:4.3f}/{:3.1f} dk/kmax:{:4.3f}/{:3.1f}>'.format(self.length,self.dr,self.r[-1],self.dk,self.k[-1])
@@ -91,7 +128,7 @@ class Domain:
         if marray.space == Space.Fourier:
             raise ValueError('MatrixArray is marked as already in Fourier space')
             
-        for (i,j),column in marray.itercolumn():
+        for (i,j),(t1,t2),column in marray.itercolumn():
             marray[i,j] = self.to_fourier(column)
         
         marray.space = Space.Fourier
@@ -101,7 +138,7 @@ class Domain:
         if marray.space == Space.Real:
             raise ValueError('MatrixArray is marked as already in Real space')
             
-        for (i,j),column in marray.itercolumn():
+        for (i,j),(t1,t2),column in marray.itercolumn():
             marray[i,j] = self.to_real(column)
             
         marray.space = Space.Real

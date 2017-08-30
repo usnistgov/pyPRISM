@@ -1,3 +1,4 @@
+#!python
 from enum import Enum
 
 class Space(Enum):

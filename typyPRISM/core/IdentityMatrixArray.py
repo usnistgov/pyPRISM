@@ -1,3 +1,4 @@
+#!python
 from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.Space import Space
 import numpy as np
@@ -6,9 +7,15 @@ class IdentityMatrixArray(MatrixArray):
     '''Specialization of MatrixArray for Identity Matrices '''
     __slots__ = ('rank','length','data','space')
     
-    def __init__(self,length,rank,data=None,space=None):
+    def __init__(self,length,rank,data=None,space=None,types=None):
         self.rank = rank
         self.length = length
+        
+        if types is None:
+            self.types = list(range(rank))
+        else:
+            assert len(types)==rank
+            self.types
         
         if data is None:
             self.data = np.zeros((length,rank,rank))

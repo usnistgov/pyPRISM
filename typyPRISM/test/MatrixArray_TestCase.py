@@ -1,3 +1,4 @@
+#!python
 from typyPRISM.core.MatrixArray import MatrixArray
 import numpy as np
 import unittest
@@ -205,7 +206,7 @@ class MatrixArray_TestCase(unittest.TestCase):
         (MA1,_),(array1,_) = self.set_up_test_arrays(length,rank)
         
         ncols = 0
-        for (i,j),col in MA1.itercolumn():
+        for (i,j),(t1,t2),col in MA1.itercolumn():
             with self.subTest(i=i,j=j):
                 np.testing.assert_array_almost_equal(col,array1[:,i,j])
             ncols+=1
@@ -218,7 +219,7 @@ class MatrixArray_TestCase(unittest.TestCase):
         (MA1,_),(array1,_) = self.set_up_test_arrays(length,rank)
         
         ncols = 0
-        for (i,j),col in MA1.itercolumn():
+        for (i,j),(t1,t2),col in MA1.itercolumn():
             MA1[i,j] = np.ones(length)*i + j/2.0
             array1[:,i,j] = np.ones(length)*i + j/2.0
             array1[:,j,i] = np.ones(length)*i + j/2.0
@@ -227,6 +228,24 @@ class MatrixArray_TestCase(unittest.TestCase):
         np.testing.assert_array_almost_equal(MA1.data,array1)
         self.assertEqual(ncols,rank*(rank+1)//2)
             
+    def test_getbytypes(self):
+        ''' Can we access the data by semantic types?'''
+        length = 100
+        rank = 3
+        types = ['A','B','C']
+        (MA1,_),(array1,_) = self.set_up_test_arrays(length,rank)
+        
+        MA1.types = types
+        
+        np.testing.assert_array_almost_equal(MA1.getByTypes('A','A'),MA1[0,0])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('A','B'),MA1[0,1])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('A','C'),MA1[0,2])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('B','A'),MA1[1,0])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('B','B'),MA1[1,1])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('B','C'),MA1[1,2])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('C','A'),MA1[2,0])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('C','B'),MA1[2,1])
+        np.testing.assert_array_almost_equal(MA1.getByTypes('C','C'),MA1[2,2])
         
             
         

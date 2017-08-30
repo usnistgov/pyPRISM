@@ -1,10 +1,12 @@
-from typyPRISM.intraMolCorr.SingleSite import SingleSite
+#!python
+from __future__ import division,print_function
+from typyPRISM.omega.SingleSite import SingleSite
 import unittest
 import numpy as np
 
 class SingleSite_TestCase(unittest.TestCase):
     def test_create(self):
-        '''Can we create a SingleSite intraMolCorr?'''
+        '''Can we create a SingleSite Omega?'''
         k = np.arange(0.75,3.5,0.05)
         O1 = np.ones_like(k)
         

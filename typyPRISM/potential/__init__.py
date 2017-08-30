@@ -1,5 +1,7 @@
 from typyPRISM.potential.Potential import Potential
+from typyPRISM.potential.Exponential import Exponential
 from typyPRISM.potential.HardSphere import HardSphere
 from typyPRISM.potential.LennardJones import LennardJones
+from typyPRISM.potential.HardCoreLennardJones import HardCoreLennardJones
 from typyPRISM.potential.WeeksChandlerAndersen import WeeksChandlerAndersen
 

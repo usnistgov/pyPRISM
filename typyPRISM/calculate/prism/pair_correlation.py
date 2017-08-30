@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 from typyPRISM.core.Space import Space
 
 def pair_correlation(PRISM):

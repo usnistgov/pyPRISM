@@ -1,10 +1,12 @@
-from typyPRISM.intraMolCorr.Gaussian import Gaussian
+#!python
+from __future__ import division,print_function
+from typyPRISM.omega.Gaussian import Gaussian
 import unittest
 import numpy as np
 
 class Gaussian_TestCase(unittest.TestCase):
     def test_create(self):
-        '''Can we create a Gaussian closure ?'''
+        '''Can we create a Gaussian Omega?'''
         k = np.arange(0.75,3.5,0.05)
         sigma = 1.0
         length = N = 100

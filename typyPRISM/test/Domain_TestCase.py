@@ -1,6 +1,8 @@
-import unittest
+#!python
+from __future__ import division,print_function
 from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.Domain import Domain
+import unittest
 import numpy as np
 
 class Domain_TestCase(unittest.TestCase):

@@ -1,6 +1,8 @@
-import unittest
-import numpy as np
+#!python
+from __future__ import division,print_function
 import typyPRISM
+import numpy as np
+import unittest
 
 class CalcPRISM_TestCase(unittest.TestCase):
     def setup(self):
@@ -36,5 +38,11 @@ class CalcPRISM_TestCase(unittest.TestCase):
         PRISM = self.setup()
         PRISM.solve(disp=False)
         result = typyPRISM.calculate.prism.structure_factor(PRISM)
+        
+    def test_pmf(self):
+        '''Can we calculate pmf's?'''
+        PRISM = self.setup()
+        PRISM.solve(disp=False)
+        result = typyPRISM.calculate.prism.pmf(PRISM)
         
         

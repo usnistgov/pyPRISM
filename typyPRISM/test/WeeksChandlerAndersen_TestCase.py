@@ -1,3 +1,5 @@
+#!python
+from __future__ import division,print_function
 import unittest
 from typyPRISM.potential.WeeksChandlerAndersen import WeeksChandlerAndersen
 import numpy as np

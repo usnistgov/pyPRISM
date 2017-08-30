@@ -1,10 +1,17 @@
+#!python
+from __future__ import division,print_function
 from typyPRISM.core.Space import Space
 from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.IdentityMatrixArray import IdentityMatrixArray
+from typyPRISM.closure.AtomicClosure import AtomicClosure
+from typyPRISM.closure.MolecularClosure import MolecularClosure
 
 from scipy.optimize import root
 
 import numpy as np
+
+from IPython.core import debugger
+ist = debugger.set_trace
 
 class PRISM:
     '''Primary container for a PRISM problem and solution
@@ -23,7 +30,7 @@ class PRISM:
     directCorr: typyPRISM.MatrixArray
         The direct correlation function for all pairs of sites
         
-    intraMolCorr: typyPRISM.MatrixArray
+    omega: typyPRISM.MatrixArray
         The intra-molecular correlation function for all pairs 
         of sites. This is often shown as $\Omega$ in the PRISM 
         literature and is identical to what those in the scattering 
@@ -85,16 +92,18 @@ class PRISM:
         
         
     '''
-    def __init__(self,rank,domain,closure,intraMolCorr,pairDensityMatrix,siteDensityMatrix):
+    def __init__(self,rank,domain,closure,omega,pairDensityMatrix,siteDensityMatrix,kT):
+        self.kT = kT
         self.rank = rank
         self.domain = domain
         self.closure = closure
+        self.types = closure.types # hacky way to get the types with adding parameters...
         
         # reshape to make Numpy broadcast correctly down the columns
         self.long_r = domain.r.reshape((-1,1,1)) 
         
         
-        self.intraMolCorr  = intraMolCorr
+        self.omega  = omega
         self.x = np.zeros(rank*rank*domain.length)
         self.y = np.zeros(rank*rank*domain.length)
         
@@ -129,7 +138,7 @@ class PRISM:
             
             C(k) = function(\gamma)
             
-            H(k) = [I - C \dot O ]^2 \dot O \dot C \dot O
+            H(k) = [I - C \dot O ]^(-1) \dot O \dot C \dot O
             
             \gamma_{out} = h(r) - c(r)
             
@@ -150,15 +159,20 @@ class PRISM:
         # inverted to Fourier space. We must reset this from the last call.
         self.directCorr.space = Space.Real 
         for (i,j),(t1,t2),closure in self.closure.iterpairs():
-            self.directCorr[i,j] = closure.calculate(self.GammaIn[i,j])
+            if isinstance(closure,AtomicClosure):
+                self.directCorr[i,j] = closure.calculate(self.GammaIn[i,j])
+            elif isinstance(closure,MolecularClosure):
+                self.directCorr[i,j] = closure.calculate(self.GammaIn[i,j],self.omega[i,i],self.omega[j,j])
+            else:
+                raise ValueError('Closure type not recognized')
             
         self.domain.MatrixArray_to_fourier(self.directCorr)
         
-        self.OC = self.intraMolCorr @ self.directCorr
+        self.OC = self.omega @ self.directCorr
         self.IOC = self.I - self.OC
         self.IOC.invert(inplace=True)
         
-        self.totalCorr  = self.IOC @ self.OC @ self.intraMolCorr
+        self.totalCorr  = self.IOC @ self.OC @ self.omega
         self.totalCorr /= self.pairDensityMatrix
         
         self.GammaOut  = self.totalCorr - self.directCorr
