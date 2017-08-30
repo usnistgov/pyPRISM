@@ -3,6 +3,8 @@ domain upscaling tools
 sanity checks for physical parameters
 sanity checks to usage 
 
+make fully 2.7x compatible (remove @ usage)
+
 Docs
     Overall philosophy
     examples
