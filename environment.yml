@@ -1,0 +1,19 @@
+name: typyPRISM
+channels:
+  - conda-forge 
+  - defaults
+dependencies:
+  - python =3
+  - numpy
+  - scipy
+  - cython 
+  - jupyter
+  - jupyter_contrib_nbextensions
+  - matplotlib
+  - bokeh
+  - holoviews
+  - pandas #=0.19
+  - pandas-datareader
+  - snakeviz
+  - memory_profiler
+  - line_profiler
