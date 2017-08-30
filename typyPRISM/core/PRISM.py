@@ -1,5 +1,6 @@
 #!python
 from __future__ import division,print_function
+
 from typyPRISM.core.Space import Space
 from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.IdentityMatrixArray import IdentityMatrixArray
@@ -162,7 +163,7 @@ class PRISM:
             if isinstance(closure,AtomicClosure):
                 self.directCorr[i,j] = closure.calculate(self.GammaIn[i,j])
             elif isinstance(closure,MolecularClosure):
-                self.directCorr[i,j] = closure.calculate(self.GammaIn[i,j],self.omega[i,i],self.omega[j,j])
+                raise NotImplementedError()
             else:
                 raise ValueError('Closure type not recognized')
             
