@@ -10,18 +10,18 @@ class CalcPRISM_TestCase(unittest.TestCase):
         
         sys = typyPRISM.System(['A','B'])
         
-        sys.domain = typyPRISM.Domain(dr=0.1,length=512)
+        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
         
-        sys.density['A'] = 0.5
-        sys.density['B'] = 0.5
+        sys.density['A'] = 0.2
+        sys.density['B'] = 0.6
         
         sys.closure.setUnset(typyPRISM.closure.PercusYevick())
         
         sys.potential.setUnset(typyPRISM.potential.HardSphere(sigma=1.0))
         
-        sys.intraMolCorr['A','A'] = typyPRISM.intraMolCorr.SingleSite()
-        sys.intraMolCorr['A','B'] = typyPRISM.intraMolCorr.NoIntra()
-        sys.intraMolCorr['B','B'] = typyPRISM.intraMolCorr.Gaussian(sigma=1.0,length=10)
+        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
+        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=2000)
         
         PRISM = sys.createPRISM()
         

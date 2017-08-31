@@ -1,6 +1,7 @@
 import unittest
 from typyPRISM.core.PairTable import PairTable
 from typyPRISM.core.MatrixArray import MatrixArray
+from typyPRISM.core.Space import Space
 import numpy as np
 
 class PairTable_TestCase(unittest.TestCase):
@@ -152,6 +153,8 @@ class PairTable_TestCase(unittest.TestCase):
         np.testing.assert_array_almost_equal(MA1.data,MA2.data)
         self.assertEqual(MA1.space,MA2.space)
         
-        
-        
-        
+if __name__ == '__main__':
+    import unittest 
+
+    suite = unittest.TestLoader().loadTestsFromTestCase(PairTable_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)
