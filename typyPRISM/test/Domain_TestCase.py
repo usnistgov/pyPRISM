@@ -19,25 +19,25 @@ class Domain_TestCase(unittest.TestCase):
         array4 = np.cos(np.arange(0,10*np.pi,0.01))[:length] + np.sin(np.arange(0,10*np.pi,0.01))[:length]
         
         MA = MatrixArray(length=length,rank=rank)
-        MA[0,0] = array1
-        MA[1,1] = array2
-        MA[1,2] = array3
-        MA[2,2] = array4
+        MA['A','A'] = array1
+        MA['B','B'] = array2
+        MA['B','C'] = array3
+        MA['C','C'] = array4
         
         d.MatrixArray_to_fourier(MA)
-        np.testing.assert_array_almost_equal(MA[0,0],d.to_fourier(array1))
-        np.testing.assert_array_almost_equal(MA[1,1],d.to_fourier(array2))
-        np.testing.assert_array_almost_equal(MA[1,2],d.to_fourier(array3))
-        np.testing.assert_array_almost_equal(MA[2,1],d.to_fourier(array3))
-        np.testing.assert_array_almost_equal(MA[2,2],d.to_fourier(array4))
+        np.testing.assert_array_almost_equal(MA['A','A'],d.to_fourier(array1))
+        np.testing.assert_array_almost_equal(MA['B','B'],d.to_fourier(array2))
+        np.testing.assert_array_almost_equal(MA['B','C'],d.to_fourier(array3))
+        np.testing.assert_array_almost_equal(MA['C','B'],d.to_fourier(array3))
+        np.testing.assert_array_almost_equal(MA['C','C'],d.to_fourier(array4))
         
         # This should recover the original values of the MatrixArray
         d.MatrixArray_to_real(MA)
-        np.testing.assert_array_almost_equal(MA[0,0],array1)
-        np.testing.assert_array_almost_equal(MA[1,1],array2)
-        np.testing.assert_array_almost_equal(MA[1,2],array3)
-        np.testing.assert_array_almost_equal(MA[2,1],array3)
-        np.testing.assert_array_almost_equal(MA[2,2],array4)
+        np.testing.assert_array_almost_equal(MA['A','A'],array1)
+        np.testing.assert_array_almost_equal(MA['B','B'],array2)
+        np.testing.assert_array_almost_equal(MA['B','C'],array3)
+        np.testing.assert_array_almost_equal(MA['C','B'],array3)
+        np.testing.assert_array_almost_equal(MA['C','C'],array4)
         
     def test_array_loop(self):
         '''Can we go to Fourier space and back again?'''
@@ -52,3 +52,8 @@ class Domain_TestCase(unittest.TestCase):
         # If the DST coefficients are correct, we should get back (within numerical
         # precision) the same array we started with.
         np.testing.assert_array_almost_equal(real_space_data1,real_space_data2)
+
+if __name__ == '__main__':
+    import unittest 
+    suite = unittest.TestLoader().loadTestsFromTestCase(Domain_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -127,8 +127,8 @@ class PairTable(Table):
         rank = len(self.types)
         MA = MatrixArray(length=length,rank=rank,space=space)
         
-        for (i,j),t,val in self.iterpairs():
-            MA[i,j] = val
+        for i,(t1,t2),val in self.iterpairs():
+            MA[t1,t2] = val
         return MA
     
     def apply(self,funk,inplace=True):

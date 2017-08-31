@@ -136,12 +136,12 @@ class PairTable_TestCase(unittest.TestCase):
         values3 = np.ones(length)*2.1234
         
         MA1 = MatrixArray(length=length,rank=rank,space=Space.Fourier)
-        MA1[0,0] = values2
-        MA1[0,1] = values1
-        MA1[0,2] = values1
-        MA1[1,1] = values3
-        MA1[1,2] = values3
-        MA1[2,2] = values3
+        MA1['A','A'] = values2
+        MA1['A','B'] = values1
+        MA1['A','C'] = values1
+        MA1['B','B'] = values3
+        MA1['B','C'] = values3
+        MA1['C','C'] = values3
         
         ntypes = len(types)
         PT = PairTable(types,'density')
@@ -155,6 +155,5 @@ class PairTable_TestCase(unittest.TestCase):
         
 if __name__ == '__main__':
     import unittest 
-
     suite = unittest.TestLoader().loadTestsFromTestCase(PairTable_TestCase)
     unittest.TextTestRunner(verbosity=2).run(suite)

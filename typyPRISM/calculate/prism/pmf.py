@@ -26,7 +26,7 @@ def pmf(PRISM):
     
     #let's ignore any warnings about negative values in the log function
     with np.errstate(invalid='ignore'):
-        rdf = -1.0 * PRISM.kT * np.log(rdf.data)
+        rdf = -1.0 * PRISM.sys.kT * np.log(rdf.data)
     
     #length and rank will be inferred from data
     pmf = MatrixArray(data=rdf,space=Space.Real,length=None,rank=None)

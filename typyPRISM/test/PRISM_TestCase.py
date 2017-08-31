@@ -35,7 +35,5 @@ class PRISM_TestCase(unittest.TestCase):
         
         
 if __name__ == '__main__':
-    suite_list = []
-    suite_list.append(unittest.TestLoader().loadTestsFromTestCase(PRISM_TestCase))
-    suite = unittest.TestSuite(suite_list)
+    suite = unittest.TestLoader().loadTestsFromTestCase(PRISM_TestCase)
     unittest.TextTestRunner(verbosity=2).run(suite)

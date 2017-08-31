@@ -44,6 +44,13 @@ class System:
     kT: float
         Value of the thermal energy scale. Used to vary temperature and
         scale the potential energy functions.
+
+    siteDensityMatrix: np.ndarray, size (rank,rank)
+        Total site density for each pair. For i == j, the site_density =
+        rho_i, for i != j site_density = rho_i + rho_j
+
+    pairDensityMatrix: np.ndarray, size (rank,rank)
+        Pair site density for each pair.  pair_density = rho_i * rho_j
     
     
     '''
@@ -57,6 +64,9 @@ class System:
         self.potential = PairTable(types,'potential')
         self.closure   = PairTable(types,'closure')
         self.omega = PairTable(types,'omega')
+
+        self.siteDensityMatrix = None
+        self.sitePairMatrix = None
     
     def check(self):
         '''Make sure all values in the system are specified'''
@@ -99,35 +109,14 @@ class System:
             
     def createPRISM(self):
         '''Construct a fully specified PRISM object that can be solved'''
-        
         self.check() #sanity check
 
         #create density
-        siteDensityMatrix,pairDensityMatrix = self.createDensityMatrices()
+        self.siteDensityMatrix,self.pairDensityMatrix = self.createDensityMatrices()
         
-        
-        # The omega objects must be converted to arrays of the actual correlation
-        # function values. 
-        omega = self.omega.apply(lambda x: x.calculate(self.domain.k),inplace=False)
-        
-        # Next, the omega table is converted to a MatrixArray so that we can easily
-        # do operations during the PRISM solution
-        omega = omega.exportToMatrixArray(space=Space.Fourier)
-        
-        # Finally, the correlation functions are scaled by the density matrix
-        omega *= siteDensityMatrix 
-        
-        # Need to set the omega potential for each closure object
+        # Need to set the potential for each closure object
         for (i,j),(t1,t2),U in self.potential.iterpairs():
             self.closure[t1,t2].potential = U.calculate(self.domain.r) / self.kT
-        
-        kwargs = {}
-        kwargs['kT'] = self.kT
-        kwargs['rank'] = self.rank
-        kwargs['domain'] = self.domain
-        kwargs['closure'] = self.closure
-        kwargs['omega'] = omega
-        kwargs['pairDensityMatrix'] = pairDensityMatrix
-        kwargs['siteDensityMatrix'] = siteDensityMatrix
-        return PRISM(**kwargs)
+
+        return PRISM(self)
         

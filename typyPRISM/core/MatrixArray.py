@@ -1,5 +1,6 @@
 #!python
 from typyPRISM.core.Space import Space
+import string
 from itertools import product
 import numpy as np
 
@@ -17,7 +18,16 @@ class MatrixArray:
     
         column_11 = numpy_array[:,1,1]
         column_12 = numpy_array[:,1,2]
-    
+
+    Access to the MatrixArray is either by supplied types or numerical indices.
+    If types are not supplied, captial letters starting from 'A' are used. 
+
+    .. python::
+
+        mArray = MatrixArray(length=1024,rank=2,types=['polymer','solvent'])
+        
+        mArray['polymer','solvent'] == mArray['solvent','polymer'] == mArray.get(0,1)
+
     
     Attributes
     ----------
@@ -43,7 +53,6 @@ class MatrixArray:
         spaced data. As we will be transferring arrays to and from these spaces,
         it's important for safety that we track this.
     '''
-    # __slots__ = ('rank','length','data','space')
     
     SpaceError = "Attempting MatrixArray math in non-matching spaces"
     
@@ -59,11 +68,13 @@ class MatrixArray:
             self.length = data.shape[0]
         
         if types is None:
-            self.types = list(range(self.rank))
+            self.types = list(string.ascii_uppercase[:rank])
         else:
             assert len(types)==self.rank
-            self.types
-        
+            self.types = types
+
+        self.typeMap = {t:i for i,t in enumerate(self.types)}
+
         if space is None:
             self.space = Space.Real
         else:
@@ -84,28 +95,38 @@ class MatrixArray:
         
         Assumes all matrices are symmetric and enforces symmetry by
         setting both off diagonal elements. 
+
+        The key parameter should be a tuple of string types which
         '''
-        index1,index2 = key
+        type1,type2 = key 
+        try:
+            index1 = self.typeMap[type1]
+            index2 = self.typeMap[type2]
+        except KeyError:
+            raise ValueError('Either {} or {} is not a type in this MatrixArray with types {}'.format(type1,type2,self.types))
+
         self.data[:,index1,index2] = val
         if not (index1 == index2):
             self.data[:,index2,index1] = val
         
     def __getitem__(self,key):
         '''Column getter'''
-        index1,index2 = key
+        type1,type2 = key 
+        try:
+            index1 = self.typeMap[type1]
+            index2 = self.typeMap[type2]
+        except KeyError:
+            raise ValueError('Either {} or {} is not a type in this MatrixArray with types {}'.format(type1,type2,self.types))
         return self.data[:,index1,index2]
     
-    def getByTypes(self,type1,type2):
-        '''Column getter via supplied types
-        
-        .. warning::
-        
-            This getter should not be used in performance critical code
-            as it has to look up the index of the semantic types.
-        
+    def get(self,index1,index2):
+        '''Column getter via indices
+
+        This method should be slightly more efficient than the standard
+        __getitem__. 
         '''
-        index1 = self.types.index(type1)
-        index2 = self.types.index(type2)
+        assert index1<self.rank,'Supplied index out of range'
+        assert index2<self.rank,'Supplied index out of range'
         return self.data[:,index1,index2]
     
     def __truediv__(self,other):
