@@ -13,7 +13,7 @@ Dependencies
     - Numpy >= 1.8.0
     - Scipy
 
-Option 1: Conda 
+Option 1: Manual 
 ----------------
 Install the above depedencies manually or via pip.
 
