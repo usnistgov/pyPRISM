@@ -8,7 +8,6 @@ class FreelyJointedChain_TestCase(unittest.TestCase):
     def test_create(self):
         '''Can we create a FreelyJointedChain Omega?'''
         k = np.arange(0.75,3.5,0.05)
-        sigma = 1.0
         N = 100
         l = 4.0/3.0
         
@@ -16,7 +15,7 @@ class FreelyJointedChain_TestCase(unittest.TestCase):
         N = N
         O1 = (1 - E*E - 2*E/N + (2*E**(N+1))/N)/((1-E)**2.0)
         
-        G = FreelyJointedChain(sigma,N,l)
+        G = FreelyJointedChain(N,l)
         O2 = G.calculate(k)
         np.testing.assert_array_almost_equal(O1,O2)
         

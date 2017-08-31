@@ -3,6 +3,7 @@ from __future__ import division,print_function
 from typyPRISM.omega.FromFile import FromFile
 import unittest
 import numpy as np
+import os
 
 class FromFile_TestCase(unittest.TestCase):
     def test_create(self):

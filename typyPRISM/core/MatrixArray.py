@@ -1,9 +1,10 @@
 #!python
 from typyPRISM.core.Space import Space
+import string
 from itertools import product
 import numpy as np
 
-class MatrixArray:
+class MatrixArray(object):
     '''A container for creating and interacting with arrays of matrices
     
     The primary data structure of MatrixArray is simply a 3D Numpy array 
@@ -17,7 +18,16 @@ class MatrixArray:
     
         column_11 = numpy_array[:,1,1]
         column_12 = numpy_array[:,1,2]
-    
+
+    Access to the MatrixArray is either by supplied types or numerical indices.
+    If types are not supplied, captial letters starting from 'A' are used. 
+
+    .. python::
+
+        mArray = MatrixArray(length=1024,rank=2,types=['polymer','solvent'])
+        
+        mArray['polymer','solvent'] == mArray['solvent','polymer'] == mArray.get(0,1)
+
     
     Attributes
     ----------
@@ -43,7 +53,6 @@ class MatrixArray:
         spaced data. As we will be transferring arrays to and from these spaces,
         it's important for safety that we track this.
     '''
-    # __slots__ = ('rank','length','data','space')
     
     SpaceError = "Attempting MatrixArray math in non-matching spaces"
     
@@ -59,11 +68,13 @@ class MatrixArray:
             self.length = data.shape[0]
         
         if types is None:
-            self.types = list(range(self.rank))
+            self.types = list(string.ascii_uppercase[:rank])
         else:
             assert len(types)==self.rank
-            self.types
-        
+            self.types = types
+
+        self.typeMap = {t:i for i,t in enumerate(self.types)}
+
         if space is None:
             self.space = Space.Real
         else:
@@ -84,104 +95,121 @@ class MatrixArray:
         
         Assumes all matrices are symmetric and enforces symmetry by
         setting both off diagonal elements. 
+
+        The key parameter should be a tuple of string types which
         '''
-        index1,index2 = key
+        type1,type2 = key 
+
+        try:
+            index1 = self.typeMap[type1]
+        except KeyError:
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type1))
+
+        try:
+            index2 = self.typeMap[type2]
+        except KeyError:
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type2))
+
         self.data[:,index1,index2] = val
         if not (index1 == index2):
             self.data[:,index2,index1] = val
         
     def __getitem__(self,key):
         '''Column getter'''
-        index1,index2 = key
+        type1,type2 = key 
+
+        try:
+            index1 = self.typeMap[type1]
+        except KeyError:
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type1))
+
+        try:
+            index2 = self.typeMap[type2]
+        except KeyError:
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type2))
+
         return self.data[:,index1,index2]
     
-    def getByTypes(self,type1,type2):
-        '''Column getter via supplied types
-        
-        .. warning::
-        
-            This getter should not be used in performance critical code
-            as it has to look up the index of the semantic types.
-        
+    def get(self,index1,index2):
+        '''Column getter via indices
+
+        This method should be slightly more efficient than the standard
+        __getitem__. 
         '''
-        index1 = self.types.index(type1)
-        index2 = self.types.index(type2)
+        assert index1<self.rank,'Supplied index out of range'
+        assert index2<self.rank,'Supplied index out of range'
         return self.data[:,index1,index2]
     
+
     def __truediv__(self,other):
         '''Scalar or elementwise division'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data / other.data
         else:
             data = self.data / other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
-    
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
+
+    def __div__(self,other):
+        return self.__truediv__(other)
+
     def __itruediv__(self,other):
         '''Scalar or elementwise division'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data /= other.data
         else:
             self.data /= other
         return self
+
+    def __idiv__(self,other):
+        return self.__itruediv__(other)
     
-    # def __rmul__(self,other):
-    #     '''Scalar or elementwise multiplication'''
-    #     return self.__mul__(other)
-        
+    
     def __mul__(self,other):
         '''Scalar or elementwise multiplication'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data * other.data
         else:
             data = self.data * other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
     
     def __imul__(self,other):
         '''Scalar or elementwise multiplication'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data *= other.data
         else:
             self.data *= other
         return self
     
-    # def __radd__(self,other):
-    #     '''Scalar or elementwise addition'''
-    #     return self.__add__(other)
-            
     def __add__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data + other.data
         else:
             data = self.data + other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
     
     def __iadd__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data += other.data
         else:
             self.data += other
         return self
             
-    # def __rsub__(self,other):
-    #     '''Scalar or elementwise subtraction'''
-    #     return self.__sub__(other)
-    
     def __sub__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data - other.data
         else:
             data = self.data - other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
     
     def __isub__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data -= other.data
         else:
@@ -208,7 +236,7 @@ class MatrixArray:
             self.data = data
             return self
         else:
-            return MatrixArray(rank=self.rank,length=self.length,data=data,space=self.space)
+            return MatrixArray(rank=self.rank,length=self.length,data=data,space=self.space,types=self.types)
         
     def dot(self,other,inplace=False):
         ''' Matrix multiplication for each matrix in two MatrixArrays
@@ -229,7 +257,7 @@ class MatrixArray:
             return self
         else:
             data = np.einsum('lij,ljk->lik', self.data, other.data)
-            return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+            return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
         
     def __matmul__(self,other):
         assert self.space == other.space,MatrixArray.SpaceError

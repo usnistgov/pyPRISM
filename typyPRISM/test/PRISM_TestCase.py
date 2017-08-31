@@ -10,18 +10,18 @@ class PRISM_TestCase(unittest.TestCase):
         
         sys = typyPRISM.System(['A','B'])
         
-        sys.domain = typyPRISM.Domain(dr=0.1,length=512)
+        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
         
-        sys.density['A'] = 0.5
-        sys.density['B'] = 0.5
+        sys.density['A'] = 0.2
+        sys.density['B'] = 0.6
         
-        sys.closure.setUnset(typyPRISM.closure.PercusYevick())
+        sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
         
-        sys.potential.setUnset(typyPRISM.potential.HardSphere(sigma=1.0))
+        sys.potential[sys.types,sys.types] = typyPRISM.potential.HardSphere(sigma=1.0)
         
         sys.omega['A','A'] = typyPRISM.omega.SingleSite()
         sys.omega['A','B'] = typyPRISM.omega.NoIntra()
-        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10)
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
         
         PRISM = sys.createPRISM()
         
@@ -34,3 +34,6 @@ class PRISM_TestCase(unittest.TestCase):
         
         
         
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(PRISM_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)

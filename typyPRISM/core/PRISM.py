@@ -11,8 +11,7 @@ from scipy.optimize import root
 
 import numpy as np
 
-from IPython.core import debugger
-ist = debugger.set_trace
+from copy import deepcopy
 
 class PRISM:
     '''Primary container for a PRISM problem and solution
@@ -93,37 +92,31 @@ class PRISM:
         
         
     '''
-    def __init__(self,rank,domain,closure,omega,pairDensityMatrix,siteDensityMatrix,kT):
-        self.kT = kT
-        self.rank = rank
-        self.domain = domain
-        self.closure = closure
-        self.types = closure.types # hacky way to get the types with adding parameters...
+    def __init__(self,sys):
+        self.sys = deepcopy(sys)
         
-        # reshape to make Numpy broadcast correctly down the columns
-        self.long_r = domain.r.reshape((-1,1,1)) 
-        
-        
-        self.omega  = omega
-        self.x = np.zeros(rank*rank*domain.length)
-        self.y = np.zeros(rank*rank*domain.length)
+        #cost function input and output
+        self.x         = np.zeros(sys.rank*sys.rank*sys.domain.length)
+        self.y         = np.zeros(sys.rank*sys.rank*sys.domain.length)
+
+        # The omega objects must be converted to a MatrixArray of the actual correlation
+        # function values rather than a table of OmegaObjects.
+        applyFunk = lambda x: x.calculate(sys.domain.k)
+        self.omega  = self.sys.omega.apply(applyFunk,inplace=False).exportToMatrixArray(space=Space.Fourier)
+        self.omega *= sys.siteDensityMatrix #omega should always be scaled by site density 
         
         # Spaces are set based on when they are used in self.funk(...). In some cases,
         # this is redundant because these array's will be overwritten with copies and
         # then their space will be inferred from their parent MatrixArrays
-        self.directCorr = MatrixArray(length=domain.length,rank=rank,space=Space.Real)
-        self.pairCorr   = MatrixArray(length=domain.length,rank=rank,space=Space.Real)
-        self.totalCorr  = MatrixArray(length=domain.length,rank=rank,space=Space.Fourier)
-        self.GammaIn    = MatrixArray(length=domain.length,rank=rank,space=Space.Real)
-        self.GammaOut   = MatrixArray(length=domain.length,rank=rank,space=Space.Real)
-        self.OC         = MatrixArray(length=domain.length,rank=rank,space=Space.Fourier)
-        self.I          = IdentityMatrixArray(length=domain.length,rank=rank,space=Space.Fourier)
-        
-        self.pairDensityMatrix = pairDensityMatrix
-        self.siteDensityMatrix = siteDensityMatrix
+        self.directCorr = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
+        self.totalCorr  = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
+        self.GammaIn    = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
+        self.GammaOut   = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
+        self.OC         = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
+        self.I          = IdentityMatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
         
     def __repr__(self):
-        return '<PRISM length:{} rank:{}>'.format(domain.length,rank)
+        return '<PRISM length:{} rank:{}>'.format(self.sys.domain.length,self.sys.rank)
         
     def funk(self,x):
         '''Cost function 
@@ -150,37 +143,37 @@ class PRISM:
         
         '''
         self.x = x #store input
-        
+
         # The np.copy is important otherwise x saves state between calls to
         # this function.
-        self.GammaIn.data = np.copy(x.reshape((-1,self.rank,self.rank)))
-        self.GammaIn     /= self.long_r
+        self.GammaIn.data = np.copy(x.reshape((-1,self.sys.rank,self.sys.rank)))
+        self.GammaIn     /= self.sys.domain.long_r
         
         # directCorr is calculated directly in Real space but immediately 
         # inverted to Fourier space. We must reset this from the last call.
         self.directCorr.space = Space.Real 
-        for (i,j),(t1,t2),closure in self.closure.iterpairs():
+        for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,AtomicClosure):
-                self.directCorr[i,j] = closure.calculate(self.GammaIn[i,j])
+                self.directCorr[t1,t2] = closure.calculate(self.GammaIn[t1,t2])
             elif isinstance(closure,MolecularClosure):
                 raise NotImplementedError()
             else:
                 raise ValueError('Closure type not recognized')
             
-        self.domain.MatrixArray_to_fourier(self.directCorr)
+        self.sys.domain.MatrixArray_to_fourier(self.directCorr)
         
-        self.OC = self.omega @ self.directCorr
+        self.OC = self.omega.dot(self.directCorr)
         self.IOC = self.I - self.OC
         self.IOC.invert(inplace=True)
         
-        self.totalCorr  = self.IOC @ self.OC @ self.omega
-        self.totalCorr /= self.pairDensityMatrix
+        self.totalCorr  = self.IOC.dot(self.OC).dot(self.omega)
+        self.totalCorr /= self.sys.pairDensityMatrix
         
         self.GammaOut  = self.totalCorr - self.directCorr
         
-        self.domain.MatrixArray_to_real(self.GammaOut)
+        self.sys.domain.MatrixArray_to_real(self.GammaOut)
         
-        self.y = self.long_r*(self.GammaOut.data - self.GammaIn.data)
+        self.y = self.sys.domain.long_r*(self.GammaOut.data - self.GammaIn.data)
         
         return self.y.reshape((-1,))
     
@@ -209,7 +202,7 @@ class PRISM:
             If True, output detailed information to the user
         '''
         if guess is None:
-            guess = np.zeros(self.rank*self.rank*self.domain.length)
+            guess = np.zeros(self.sys.rank*self.sys.rank*self.sys.domain.length)
             
         result = root(self.funk,guess,method=method,options={'disp':disp})
         

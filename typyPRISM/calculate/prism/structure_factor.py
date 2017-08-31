@@ -21,12 +21,12 @@ def structure_factor(PRISM):
     '''
     
     if PRISM.totalCorr.space == Space.Real:
-        PRISM.domain.MatrixArray_to_fourier(PRISM.totalCorr)
+        PRISM.sys.domain.MatrixArray_to_fourier(PRISM.totalCorr)
         
     if PRISM.omega.space == Space.Real:
-        PRISM.domain.MatrixArray_to_fourier(PRISM.omega)
+        PRISM.sys.domain.MatrixArray_to_fourier(PRISM.omega)
     
-    structureFactor = (PRISM.totalCorr*PRISM.pairDensityMatrix + PRISM.omega)/PRISM.siteDensityMatrix
+    structureFactor = (PRISM.totalCorr*PRISM.sys.pairDensityMatrix + PRISM.omega)/PRISM.sys.siteDensityMatrix
     # structureFactor = PRISM.totalCorr + PRISM.omega
     
     return structureFactor

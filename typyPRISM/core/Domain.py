@@ -4,7 +4,7 @@ from typyPRISM.core.Space import Space
 import numpy as np
 from scipy.fftpack import dst
 
-class Domain:
+class Domain(object):
     '''Define and transform between Real and Fourier space
     
     Domain describes the discretization of Real and Fourier space
@@ -21,6 +21,10 @@ class Domain:
     
     r,k: float ndarray
         Numpy arrays of grid locations in Real and Fourier space
+
+    long_r: float ndarray
+        Numpy array identical in content to r except reshaped so that it 
+        broadcasts correctly when multiplying MatrixArrays
     
     DST_II_coeffs,DST_III_coeffs: float
         Coefficients needed for Discrete Sine Transforms. Note that these
@@ -51,6 +55,7 @@ class Domain:
         self.k = np.arange(self.dk,self.dk*(self._length+1),self.dk)
         self.DST_II_coeffs = 2.0*np.pi *self.r*self._dr 
         self.DST_III_coeffs = self.k * self.dk/(4.0*np.pi*np.pi)
+        self.long_r = self.r.reshape((-1,1,1))
     
     @property
     def dr(self):
@@ -129,7 +134,7 @@ class Domain:
             raise ValueError('MatrixArray is marked as already in Fourier space')
             
         for (i,j),(t1,t2),column in marray.itercolumn():
-            marray[i,j] = self.to_fourier(column)
+            marray[t1,t2] = self.to_fourier(column)
         
         marray.space = Space.Fourier
             
@@ -139,7 +144,7 @@ class Domain:
             raise ValueError('MatrixArray is marked as already in Real space')
             
         for (i,j),(t1,t2),column in marray.itercolumn():
-            marray[i,j] = self.to_real(column)
+            marray[t1,t2] = self.to_real(column)
             
         marray.space = Space.Real
             

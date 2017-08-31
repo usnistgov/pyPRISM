@@ -4,45 +4,36 @@ A python tool for doing liquid-state theory (PRISM) calculations.
 
 This codebase is in very early stage development. 
 
+Environment  Setup
+==================
+
 Dependencies
 ------------
-    Python 3.5+  (@ operator used)
-    
-    Numpy >=1.8.0
-    
-    Scipy
-    
-Setup
-=====
-This document explains how to get your computer set up for the
-tutorial, including how to install the software libraries.
+    - Python 2.5+ and 3.x  compatible 
+    - Numpy >= 1.8.0
+    - Scipy
 
-Step 1: Clone this repo
------------------------
+Option 1: Conda 
+----------------
+Install the above depedencies manually or via pip.
 
-- Any Linux, Mac OS X, or Windows computer with a web browser should work.  We recommend Chrome, but typically also test Firefox and Safari.
-- Clone this repository, e.g. using ```git clone https://github.com/martintb/pe_optimization_tutorial.git```
-- Open a terminal window inside the repository.
-
-
-Step 2: Create a conda environment from ``environment.yml``
------------------------------------------------------------
-
-The easiest way to get an environment set up for the tutorial is
-installing it using the ``environment.yml`` we have provided. If you
+Option 2: Conda 
+----------------
+The easiest way to get an environment set up installing it using the 
+``environment2.yml``  or ``environment3.yml`` we have provided. If you
 don't already have it, install [conda](https://www.continuum.io/downloads),
-and then create the ``peopt`` environment by executing::
+and then create the ``typyPRISM2``  or ``typyPRISM3`` environment by executing::
 ```
    > conda env create -f environment.yml
 ```
 When installation is complete you must activate the environment. If you
 are on Windows:
 ```
-   > activate typyPRISM
+   > activate typyPRISM3 #or typyPRISM2
 ```
 If you are using OSX/Linux:
 ```
-   $ source activate typyPRISM
+   $ source activate typyPRISM3 #or typyPRISM2
 ```
 
 Later, when you are ready to exit the environment after the tutorial, you can type:
@@ -52,5 +43,14 @@ Later, when you are ready to exit the environment after the tutorial, you can ty
 If for some reason you want to remove the environment entirely, you can do so by writing:
 
 ```
-   > conda env remove --name typyPRISM
+   > conda env remove --name typyPRISM3 # or typyPRISM2
+```
+
+Installation 
+============
+
+After the depdendencies are satisfied and/or the conda environment is created and activated,
+typyPRISM can be installed by running:
+```
+    > python setup.py install
 ```

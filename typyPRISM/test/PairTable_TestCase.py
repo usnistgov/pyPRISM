@@ -1,6 +1,7 @@
 import unittest
 from typyPRISM.core.PairTable import PairTable
 from typyPRISM.core.MatrixArray import MatrixArray
+from typyPRISM.core.Space import Space
 import numpy as np
 
 class PairTable_TestCase(unittest.TestCase):
@@ -135,12 +136,12 @@ class PairTable_TestCase(unittest.TestCase):
         values3 = np.ones(length)*2.1234
         
         MA1 = MatrixArray(length=length,rank=rank,space=Space.Fourier)
-        MA1[0,0] = values2
-        MA1[0,1] = values1
-        MA1[0,2] = values1
-        MA1[1,1] = values3
-        MA1[1,2] = values3
-        MA1[2,2] = values3
+        MA1['A','A'] = values2
+        MA1['A','B'] = values1
+        MA1['A','C'] = values1
+        MA1['B','B'] = values3
+        MA1['B','C'] = values3
+        MA1['C','C'] = values3
         
         ntypes = len(types)
         PT = PairTable(types,'density')
@@ -152,6 +153,7 @@ class PairTable_TestCase(unittest.TestCase):
         np.testing.assert_array_almost_equal(MA1.data,MA2.data)
         self.assertEqual(MA1.space,MA2.space)
         
-        
-        
-        
+if __name__ == '__main__':
+    import unittest 
+    suite = unittest.TestLoader().loadTestsFromTestCase(PairTable_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)

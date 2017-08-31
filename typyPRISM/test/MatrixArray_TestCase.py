@@ -16,8 +16,8 @@ class MatrixArray_TestCase(unittest.TestCase):
         
         #  Test assignment (especially off diagonal)
         array = np.zeros((length,rank,rank))
-        MA[1,1] = np.ones(length)
-        MA[1,2] = np.ones(length)*3.0
+        MA['B','B'] = np.ones(length)
+        MA['B','C'] = np.ones(length)*3.0
         array[:,1,1] = np.ones(length)
         array[:,1,2] = np.ones(length)*3.0
         array[:,2,1] = np.ones(length)*3.0
@@ -30,10 +30,10 @@ class MatrixArray_TestCase(unittest.TestCase):
         rank = 3
         (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
         
-        MA2[0,2] = np.ones(length)*2.0
-        MA2[0,1] = np.ones(length)*3.0
-        MA2[1,2] = np.ones(length)*5.0
-        MA2[0,0] += 1.0
+        MA2['A','C'] = np.ones(length)*2.0
+        MA2['A','B'] = np.ones(length)*3.0
+        MA2['B','C'] = np.ones(length)*5.0
+        MA2['A','A'] += 1.0
         
         array2[:,0,2] = array2[:,2,0] = np.ones(length)*2.0
         array2[:,0,1] = array2[:,1,0] = np.ones(length)*3.0
@@ -61,15 +61,15 @@ class MatrixArray_TestCase(unittest.TestCase):
     def set_up_test_arrays(self,length=100,rank=3):
         ''' Helper for set up arrays to test math'''
         MA1 = MatrixArray(length=length,rank=rank)
-        MA1[0,0] = np.ones(length)*2.0
-        MA1[1,1] = np.ones(length)
-        MA1[2,2] = np.ones(length)*3.0
-        MA1[1,2] = np.ones(length)*3.0
+        MA1['A','A'] = np.ones(length)*2.0
+        MA1['B','B'] = np.ones(length)
+        MA1['C','C'] = np.ones(length)*3.0
+        MA1['B','C'] = np.ones(length)*3.0
         
         MA2 = MatrixArray(length=length,rank=rank)
-        MA2[0,0] = np.arange(length)
-        MA2[1,1] = np.ones(length)*2.0
-        MA2[2,2] = np.ones(length)*-3.0
+        MA2['A','A'] = np.arange(length)
+        MA2['B','B'] = np.ones(length)*2.0
+        MA2['C','C'] = np.ones(length)*-3.0
         
         array1 = np.zeros((length,rank,rank))
         array1[:,0,0] = np.ones(length)*2.0
@@ -185,8 +185,7 @@ class MatrixArray_TestCase(unittest.TestCase):
         rank = 3
         (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
         
-        # MA3 = MA1.dot(MA2,inplace=False)
-        MA3 = MA1 @ MA2
+        MA3 = MA1.dot(MA2,inplace=False)
         
         array3 = np.empty_like(array1)
         for i in range(length):
@@ -207,8 +206,9 @@ class MatrixArray_TestCase(unittest.TestCase):
         
         ncols = 0
         for (i,j),(t1,t2),col in MA1.itercolumn():
-            with self.subTest(i=i,j=j):
-                np.testing.assert_array_almost_equal(col,array1[:,i,j])
+            # with self.subTest(i=i,j=j):
+            #     np.testing.assert_array_almost_equal(col,array1[:,i,j])
+            np.testing.assert_array_almost_equal(col,array1[:,i,j])
             ncols+=1
         self.assertEqual(ncols,rank*(rank+1)//2)
                 
@@ -220,7 +220,7 @@ class MatrixArray_TestCase(unittest.TestCase):
         
         ncols = 0
         for (i,j),(t1,t2),col in MA1.itercolumn():
-            MA1[i,j] = np.ones(length)*i + j/2.0
+            MA1[t1,t2] = np.ones(length)*i + j/2.0
             array1[:,i,j] = np.ones(length)*i + j/2.0
             array1[:,j,i] = np.ones(length)*i + j/2.0
             ncols += 1 
@@ -228,8 +228,8 @@ class MatrixArray_TestCase(unittest.TestCase):
         np.testing.assert_array_almost_equal(MA1.data,array1)
         self.assertEqual(ncols,rank*(rank+1)//2)
             
-    def test_getbytypes(self):
-        ''' Can we access the data by semantic types?'''
+    def test_get(self):
+        ''' Can we access the data indices?'''
         length = 100
         rank = 3
         types = ['A','B','C']
@@ -237,17 +237,17 @@ class MatrixArray_TestCase(unittest.TestCase):
         
         MA1.types = types
         
-        np.testing.assert_array_almost_equal(MA1.getByTypes('A','A'),MA1[0,0])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('A','B'),MA1[0,1])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('A','C'),MA1[0,2])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('B','A'),MA1[1,0])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('B','B'),MA1[1,1])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('B','C'),MA1[1,2])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('C','A'),MA1[2,0])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('C','B'),MA1[2,1])
-        np.testing.assert_array_almost_equal(MA1.getByTypes('C','C'),MA1[2,2])
+        np.testing.assert_array_almost_equal(MA1['A','A'],MA1.get(0,0))
+        np.testing.assert_array_almost_equal(MA1['A','B'],MA1.get(0,1))
+        np.testing.assert_array_almost_equal(MA1['A','C'],MA1.get(0,2))
+        np.testing.assert_array_almost_equal(MA1['B','A'],MA1.get(1,0))
+        np.testing.assert_array_almost_equal(MA1['B','B'],MA1.get(1,1))
+        np.testing.assert_array_almost_equal(MA1['B','C'],MA1.get(1,2))
+        np.testing.assert_array_almost_equal(MA1['C','A'],MA1.get(2,0))
+        np.testing.assert_array_almost_equal(MA1['C','B'],MA1.get(2,1))
+        np.testing.assert_array_almost_equal(MA1['C','C'],MA1.get(2,2))
         
             
-        
-        
-    
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(MatrixArray_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)

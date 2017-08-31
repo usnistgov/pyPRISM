@@ -26,7 +26,7 @@ def pair_correlation(PRISM):
     '''
     
     if PRISM.totalCorr.space == Space.Fourier:
-        PRISM.domain.MatrixArray_to_real(PRISM.totalCorr)
+        PRISM.sys.domain.MatrixArray_to_real(PRISM.totalCorr)
     
     PRISM.pairCorr = PRISM.totalCorr + 1.0
     
