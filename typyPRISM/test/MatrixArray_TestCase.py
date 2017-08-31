@@ -185,8 +185,7 @@ class MatrixArray_TestCase(unittest.TestCase):
         rank = 3
         (MA1,MA2),(array1,array2) = self.set_up_test_arrays(length,rank)
         
-        # MA3 = MA1.dot(MA2,inplace=False)
-        MA3 = MA1 @ MA2
+        MA3 = MA1.dot(MA2,inplace=False)
         
         array3 = np.empty_like(array1)
         for i in range(length):
@@ -207,8 +206,9 @@ class MatrixArray_TestCase(unittest.TestCase):
         
         ncols = 0
         for (i,j),(t1,t2),col in MA1.itercolumn():
-            with self.subTest(i=i,j=j):
-                np.testing.assert_array_almost_equal(col,array1[:,i,j])
+            # with self.subTest(i=i,j=j):
+            #     np.testing.assert_array_almost_equal(col,array1[:,i,j])
+            np.testing.assert_array_almost_equal(col,array1[:,i,j])
             ncols+=1
         self.assertEqual(ncols,rank*(rank+1)//2)
                 

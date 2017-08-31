@@ -29,7 +29,7 @@ class HardCoreLennardJones(LennardJones):
     
     '''
     def __init__(self,epsilon,sigma,high_value=1e6):
-        super().__init__(epsilon=epsilon,sigma=sigma,rcut=None,shift=False)
+        super(HardCoreLennardJones,self).__init__(epsilon=epsilon,sigma=sigma,rcut=None,shift=False)
         self.high_value = high_value
         
     def __repr__(self):

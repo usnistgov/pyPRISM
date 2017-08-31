@@ -1,4 +1,4 @@
-name: typyPRISM
+name: typyPRISM3
 channels:
   - conda-forge 
   - defaults

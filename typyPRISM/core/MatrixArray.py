@@ -4,7 +4,7 @@ import string
 from itertools import product
 import numpy as np
 
-class MatrixArray:
+class MatrixArray(object):
     '''A container for creating and interacting with arrays of matrices
     
     The primary data structure of MatrixArray is simply a 3D Numpy array 
@@ -129,6 +129,7 @@ class MatrixArray:
         assert index2<self.rank,'Supplied index out of range'
         return self.data[:,index1,index2]
     
+
     def __truediv__(self,other):
         '''Scalar or elementwise division'''
         if type(other) is MatrixArray:
@@ -137,7 +138,10 @@ class MatrixArray:
         else:
             data = self.data / other
         return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
-    
+
+    def __div__(self,other):
+        return self.__truediv__(other)
+
     def __itruediv__(self,other):
         '''Scalar or elementwise division'''
         if type(other) is MatrixArray:
@@ -146,11 +150,11 @@ class MatrixArray:
         else:
             self.data /= other
         return self
+
+    def __idiv__(self,other):
+        return self.__itruediv__(other)
     
-    # def __rmul__(self,other):
-    #     '''Scalar or elementwise multiplication'''
-    #     return self.__mul__(other)
-        
+    
     def __mul__(self,other):
         '''Scalar or elementwise multiplication'''
         if type(other) is MatrixArray:
@@ -169,10 +173,6 @@ class MatrixArray:
             self.data *= other
         return self
     
-    # def __radd__(self,other):
-    #     '''Scalar or elementwise addition'''
-    #     return self.__add__(other)
-            
     def __add__(self,other):
         if type(other) is MatrixArray:
             assert self.space == other.space,MatrixArray.SpaceError
@@ -189,10 +189,6 @@ class MatrixArray:
             self.data += other
         return self
             
-    # def __rsub__(self,other):
-    #     '''Scalar or elementwise subtraction'''
-    #     return self.__sub__(other)
-    
     def __sub__(self,other):
         if type(other) is MatrixArray:
             assert self.space == other.space,MatrixArray.SpaceError

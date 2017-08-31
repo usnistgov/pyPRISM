@@ -1,7 +1,7 @@
 #!python
 from __future__ import division,print_function
 import numpy as np
-class Omega:
+class Omega(object):
     '''Baseclass for all *intra*-molecular correlation functions
     
     .. warning::

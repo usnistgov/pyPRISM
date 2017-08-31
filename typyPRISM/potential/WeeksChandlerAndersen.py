@@ -23,7 +23,7 @@ class WeeksChandlerAndersen(LennardJones):
     '''
     def __init__(self,epsilon,sigma):
         rcut = sigma * 2**(1.0/6.0)
-        super().__init__(epsilon,sigma,rcut=rcut,shift=True)
+        super(WeeksChandlerAndersen,self).__init__(epsilon,sigma,rcut=rcut,shift=True)
         
     def __repr__(self):
         return '<Potential: WeeksChandlerAndersen>'
