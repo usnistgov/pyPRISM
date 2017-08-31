@@ -99,11 +99,16 @@ class MatrixArray(object):
         The key parameter should be a tuple of string types which
         '''
         type1,type2 = key 
+
         try:
             index1 = self.typeMap[type1]
+        except KeyError:
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type1))
+
+        try:
             index2 = self.typeMap[type2]
         except KeyError:
-            raise ValueError('Either {} or {} is not a type in this MatrixArray with types {}'.format(type1,type2,self.types))
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type2))
 
         self.data[:,index1,index2] = val
         if not (index1 == index2):
@@ -112,11 +117,17 @@ class MatrixArray(object):
     def __getitem__(self,key):
         '''Column getter'''
         type1,type2 = key 
+
         try:
             index1 = self.typeMap[type1]
+        except KeyError:
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type1))
+
+        try:
             index2 = self.typeMap[type2]
         except KeyError:
-            raise ValueError('Either {} or {} is not a type in this MatrixArray with types {}'.format(type1,type2,self.types))
+            raise ValueError('This MatrixArray has types: {}. You requested type: \'{}\''.format(self.types,type2))
+
         return self.data[:,index1,index2]
     
     def get(self,index1,index2):
@@ -132,19 +143,19 @@ class MatrixArray(object):
 
     def __truediv__(self,other):
         '''Scalar or elementwise division'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data / other.data
         else:
             data = self.data / other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
 
     def __div__(self,other):
         return self.__truediv__(other)
 
     def __itruediv__(self,other):
         '''Scalar or elementwise division'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data /= other.data
         else:
@@ -157,16 +168,16 @@ class MatrixArray(object):
     
     def __mul__(self,other):
         '''Scalar or elementwise multiplication'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data * other.data
         else:
             data = self.data * other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
     
     def __imul__(self,other):
         '''Scalar or elementwise multiplication'''
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data *= other.data
         else:
@@ -174,15 +185,15 @@ class MatrixArray(object):
         return self
     
     def __add__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data + other.data
         else:
             data = self.data + other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
     
     def __iadd__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data += other.data
         else:
@@ -190,15 +201,15 @@ class MatrixArray(object):
         return self
             
     def __sub__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             data = self.data - other.data
         else:
             data = self.data - other
-        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+        return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
     
     def __isub__(self,other):
-        if type(other) is MatrixArray:
+        if isinstance(other,MatrixArray):
             assert self.space == other.space,MatrixArray.SpaceError
             self.data -= other.data
         else:
@@ -225,7 +236,7 @@ class MatrixArray(object):
             self.data = data
             return self
         else:
-            return MatrixArray(rank=self.rank,length=self.length,data=data,space=self.space)
+            return MatrixArray(rank=self.rank,length=self.length,data=data,space=self.space,types=self.types)
         
     def dot(self,other,inplace=False):
         ''' Matrix multiplication for each matrix in two MatrixArrays
@@ -246,7 +257,7 @@ class MatrixArray(object):
             return self
         else:
             data = np.einsum('lij,ljk->lik', self.data, other.data)
-            return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space)
+            return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
         
     def __matmul__(self,other):
         assert self.space == other.space,MatrixArray.SpaceError

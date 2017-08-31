@@ -101,7 +101,8 @@ class PRISM:
 
         # The omega objects must be converted to a MatrixArray of the actual correlation
         # function values rather than a table of OmegaObjects.
-        self.omega  = self.sys.omega.apply(lambda x: x.calculate(sys.domain.k),inplace=False).exportToMatrixArray(space=Space.Fourier)
+        applyFunk = lambda x: x.calculate(sys.domain.k)
+        self.omega  = self.sys.omega.apply(applyFunk,inplace=False).exportToMatrixArray(space=Space.Fourier)
         self.omega *= sys.siteDensityMatrix #omega should always be scaled by site density 
         
         # Spaces are set based on when they are used in self.funk(...). In some cases,

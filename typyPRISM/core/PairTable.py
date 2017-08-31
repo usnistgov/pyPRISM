@@ -125,7 +125,7 @@ class PairTable(Table):
         
         length = lengths[0]
         rank = len(self.types)
-        MA = MatrixArray(length=length,rank=rank,space=space)
+        MA = MatrixArray(length=length,rank=rank,space=space,types=self.types)
         
         for i,(t1,t2),val in self.iterpairs():
             MA[t1,t2] = val
