@@ -12,6 +12,7 @@ from scipy.optimize import root
 import numpy as np
 
 from copy import deepcopy
+import warnings
 
 class PRISM:
     '''Primary container for a PRISM problem and solution
@@ -176,7 +177,6 @@ class PRISM:
         self.y = self.sys.domain.long_r*(self.GammaOut.data - self.GammaIn.data)
         
         return self.y.reshape((-1,))
-    
     def solve(self,guess=None,method='krylov',disp=True):
         '''Attempt to numerically solve the PRISM equations
         
@@ -185,6 +185,11 @@ class PRISM:
         numerical solution process is successful, the attributes of this class
         will contain the solved values for a given input i.e. self.totalCorr will
         contain the numerically optimized (solved) total correlation functions.
+
+        This function also does basic checks to ensure that the results are 
+        physical. At this point, this consists of checking to make sure that
+        the pair correlation functions are not negative. If this isn't true
+        a warning is issued to the user. 
         
         Parameters
         ----------
@@ -205,6 +210,17 @@ class PRISM:
             guess = np.zeros(self.sys.rank*self.sys.rank*self.sys.domain.length)
             
         result = root(self.funk,guess,method=method,options={'disp':disp})
+
+        #
+        if self.totalCorr.space == Space.Fourier:
+            self.sys.domain.MatrixArray_to_real(self.totalCorr)
+
+        tol = 1e-5
+        warnstr = 'Pair correlations are negative (value = {:3.2e}) for {}-{} pair!'
+        for i,(t1,t2),H in self.totalCorr.itercolumn():
+            if np.any(H<-(1.0+tol)):
+                val = np.min(H)
+                warnings.warn(warnstr.format(val,t1,t2))
         
         return result
         
