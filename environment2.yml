@@ -12,7 +12,7 @@ dependencies:
   - matplotlib
   - bokeh
   - holoviews
-  - pandas #=0.19
+  - pandas 
   - pandas-datareader
   - snakeviz
   - memory_profiler
