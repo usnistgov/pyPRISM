@@ -12,8 +12,8 @@ class CalcPRISM_TestCase(unittest.TestCase):
         
         sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
         
-        sys.density['A'] = 0.2
-        sys.density['B'] = 0.6
+        sys.density['A'] = 0.1
+        sys.density['B'] = 0.75
         
         sys.closure.setUnset(typyPRISM.closure.PercusYevick())
         
@@ -21,7 +21,7 @@ class CalcPRISM_TestCase(unittest.TestCase):
         
         sys.omega['A','A'] = typyPRISM.omega.SingleSite()
         sys.omega['A','B'] = typyPRISM.omega.NoIntra()
-        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=2000)
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
         
         PRISM = sys.createPRISM()
         

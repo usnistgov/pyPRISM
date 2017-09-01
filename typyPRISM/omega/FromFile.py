@@ -31,7 +31,7 @@ class FromFile(Omega):
         
         if len(fileData.shape)>=2:
             assert fileData.shape[0] == k.shape[0],'Domain size of file differs from supplied domain!'
-            assert (fileData[:,0] == k).all(),'Domain size of file differs from supplied domain!'
+            assert np.allclose(fileData[:,0],k),'Domain of file differs from supplied domain!'
             self.value = fileData[:,1]
         else:
             self.value = fileData
