@@ -1,7 +1,7 @@
-![typyPRISM graphic](img/graphic.png)
-
-typyPRISM
-=========
+<p align="center">
+  <img src='./img/graphic.png' />
+  <h1>typyPRISM</h1>
+</p>
 Polymer reference interaction site model (PRISM) theory describes the correlations of liquid-like polymer systems including melts, blends, solutions, and composites. PRISM. *typyPRISM* is a Python-based, open-source framework for conducting PRISM theory calculations: typyPRISM aims to simplify PRISM-based studies by providing a simplified scripting interface for numerically solving the PRISM equations. Furthermore, typyPRISM provides data structures that simplify PRISM calculations which allow it to be extended for use in non-prediction tasks such as for coarse-graining of atomistic simulation force-fields or the modeling of experimental scattering data. The goal of providing this framework is to reduce the barrier to using PRISM theory for experts and non-experts alike and provide a platform for future PRISM and liquid-state theory innovations. 
 
 _This codebase is in very early stage development_
