@@ -139,6 +139,14 @@ class MatrixArray(object):
         assert index1<self.rank,'Supplied index out of range'
         assert index2<self.rank,'Supplied index out of range'
         return self.data[:,index1,index2]
+
+    def getMatrix(self,matrix_index):
+        '''Matrix getter via indices'''
+        return self.data[matrix_index,:,:]
+
+    def setMatrix(self,matrix_index,value):
+        '''Matrix setter via indices'''
+        self.data[matrix_index,:,:] = value
     
 
     def __truediv__(self,other):
