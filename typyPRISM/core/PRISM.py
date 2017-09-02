@@ -157,7 +157,7 @@ class PRISM:
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.GammaIn[t1,t2])
             elif isinstance(closure,MolecularClosure):
-                raise NotImplementedError()
+                self.directCorr[t1,t2] = closure.calculate(self.GammaIn[t1,t2],self.omega[t1,t1],self.omega[t2,t2])
             else:
                 raise ValueError('Closure type not recognized')
             
