@@ -29,6 +29,6 @@ def pmf(PRISM):
         rdf = -1.0 * PRISM.sys.kT * np.log(rdf.data)
     
     #length and rank will be inferred from data
-    pmf = MatrixArray(data=rdf,space=Space.Real,length=None,rank=None)
+    pmf = MatrixArray(data=rdf,space=Space.Real,length=None,rank=None,types=PRISM.sys.types)
     
     return pmf

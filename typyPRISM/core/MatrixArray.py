@@ -63,12 +63,14 @@ class MatrixArray(object):
             self.rank = rank
             self.length = length
         else:
+            assert len(data.shape)==3,'Data passed to MatrixArray must be 3-D'
+            assert data.shape[1]==data.shape[2],'Last two dimensions of MatrixArray data must be same size'
             self.data = data
             self.rank = data.shape[1]
             self.length = data.shape[0]
         
         if types is None:
-            self.types = list(string.ascii_uppercase[:rank])
+            self.types = list(string.ascii_uppercase[:self.rank])
         else:
             assert len(types)==self.rank
             self.types = types
