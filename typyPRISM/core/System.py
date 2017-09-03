@@ -7,6 +7,9 @@ from typyPRISM.core.PairTable import PairTable
 from typyPRISM.core.ValueTable import ValueTable
 from typyPRISM.core.Space import Space
 
+from typyPRISM.closure.AtomicClosure import AtomicClosure
+from typyPRISM.closure.MolecularClosure import MolecularClosure
+
 class System:
     '''Primary class used to spawn PRISM calculations
     
@@ -116,7 +119,10 @@ class System:
         
         # Need to set the potential for each closure object
         for (i,j),(t1,t2),U in self.potential.iterpairs():
-            self.closure[t1,t2].potential = U.calculate(self.domain.r) / self.kT
+            if isinstance(self.closure[t1,t2],AtomicClosure):
+                self.closure[t1,t2].potential = U.calculate(self.domain.r) / self.kT
+            elif isinstance(self.closure[t1,t2],MolecularClosure):
+                self.closure[t1,t2].potential = U.calculate_attractive(self.domain.r) / self.kT
 
         return PRISM(self)
         
