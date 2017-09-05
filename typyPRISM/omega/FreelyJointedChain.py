@@ -8,7 +8,7 @@ class FreelyJointedChain(Omega):
     
     Attributes
     ----------
-    N: float
+    length,N: float
         number of monomers/sites in gaussian chain
         
     l: float
@@ -20,8 +20,8 @@ class FreelyJointedChain(Omega):
          
          E = np.sin(k*l)/(k*l)
     '''
-    def __init__(self,N,l):
-        self.N = N
+    def __init__(self,length,l):
+        self.length = self.N = length
         self.l = l
         self.value = None
         

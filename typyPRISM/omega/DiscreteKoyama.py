@@ -62,9 +62,7 @@ class DiscreteKoyama(Omega):
     
     def koyama_kernel(self,k,cos1,cos2,n):
         '''
-        Apologies for the mess below, but this is essentially how the math is 
-        presented in the paper. Please see equation 18 of the above reference 
-        and if there is a better, cleaner way to do this, make it so
+        Please see equation 18 of the above reference for details on this calculation.
         '''
         l = self.l
         q = -cos1
@@ -88,7 +86,7 @@ class DiscreteKoyama(Omega):
         try:
             C = sqrt(0.5 * (5 - 3*r4/(r2*r2)))
             B = sqrt(C*r2)
-            Asq = r2*(1-C)/6
+            Asq = r2*(1-C)/6 #taking the square root results in many domain errors
         except ValueError as e:
             raise ValueError('Bad chain parameters. (Try reducing epsilon)')
             
