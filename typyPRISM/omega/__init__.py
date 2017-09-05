@@ -7,5 +7,6 @@ from typyPRISM.omega.NoIntra import InterMolecular
 from typyPRISM.omega.GaussianRing import GaussianRing
 from typyPRISM.omega.FromFile import FromFile
 from typyPRISM.omega.FromArray import FromArray
+from typyPRISM.omega.DiscreteKoyama import DiscreteKoyama
 
 
