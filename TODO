@@ -1,18 +1,50 @@
-domain upscaling tools
-sanity checks for physical parameters
-sanity checks to usage 
+
+New Closures
+- MS
+- Laria, Wu, Chandler (LWC)
+- RMPY
+- RMHNC
+- RMLWC
+
+New Potentials
+- Coulombic 
+- Colloid Lennard Jones 
+- Soft Potential
+- DPD Potential
+
+New Calculations
+- Spinodal Condition
+- bulk compressibility
+- Effective Potential?
+    - i.e. use closure to calculate potential from
+      C and h
+- cython debye calculator 
+
+
+General Features
+- Domain Upscaling utility
+- extrapolation utility
+    - this would be used for getting low K
+      values for chi, etc
+- Sanity Checks
+    - usage checks
+    - physical parameter checks
+
+Examples
+    - Overall Cleanup
+    - Omega example
+    - 
 
 Docs
     Overall philosophy
-    examples
-        - in docs and in files
     How to's...
         - How to add a closure?
         - How to add a potential?
-        - How to add a intraMolCorr?
+        - How to add a omega?
         - How to add something else?
-        - Create a pull issue on GitHub?
-        - Create a pull request 
+        - How do I contribute?
+            - Forking the repo?
+            - Creating a *good* pull request?
     FAQs
         - What do I do if the solver isn't converging?
             - Vary your domain spacing and domain size
