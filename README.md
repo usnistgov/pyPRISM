@@ -55,37 +55,32 @@ pcf = pair_correlation(PRISM)
 Installation
 ============
 
-Dependencies
-------------
-- Python 2.6+ or 3+
-- Numpy >= 1.8.0
-    - Need support for linear algebra on stacked arrays
-- Scipy
-- Cython (not currently but likely in future)
-
-Dependency Option 1: Anaconda 
-------------------------------
+Step 1a: Dependencies via Anaconda (Recommended)
+------------------------------------------------
 The easiest way to get an environment set up installing it using the 
 ``environment2.yml``  or ``environment3.yml`` we have provided for a python2 or
 python3 based environment. We recommend the python3 version. If you
-don't already have it, install [conda](https://www.continuum.io/downloads),
-and then create the ``typyPRISM3`` environment by executing::
+don't already have it, install [conda](https://www.continuum.io/downloads). Note that
+all of the below instructions can be executed via the anaconda-navigator GUI. To start,
+we'll make sure you have the latest version of conda.
+```
+    > conda deactivate
+    > conda update anaconda 
+```
+Now create the ``typyPRISM3`` environment by executing:
 ```
    > conda env create -f environment3.yml
 ```
-When installation is complete you must activate the environment. If you
-are on Windows:
+When installation is complete you must activate the environment. 
 ```
-   > activate typyPRISM3
-```
-If you are using OSX/Linux:
-```
-   $ source activate typyPRISM3
+   (Windows)   > activate typyPRISM3 
+   (OSX/Linux) $ source activate typyPRISM3 
 ```
 
 Later, when you are ready to exit the environment after the tutorial, you can type:
 ```
-   > deactivate
+   (Windows)   > deactivate 
+   (OSX/Linux) $ source deactivate
 ```
 
 If for some reason you want to remove the environment entirely, you can do so by writing:
@@ -93,17 +88,32 @@ If for some reason you want to remove the environment entirely, you can do so by
    > conda env remove --name typyPRISM3 
 ```
 Note that an environment which satisfies the above dependencies must be **active** every time
-you wish to use typyPRISM. If you open a new terminal, you will have to reactivate the conda
-environment before running a script or starting jupyter notebook.
+you wish to use typyPRISM via script or notebook. If you open a new terminal, you will have to 
+reactivate the conda environment before running a script or starting jupyter notebook.
 
-Dependency Option 2: Manual 
----------------------------
-Install the above depedencies manually or via pip.
+Step 1b: Depedencies via pip
+----------------------------
+The following are the minimum depedencies needed to use typyPRISM:
+- Python 2.6+ or 3+
+- Numpy >= 1.8.0
+    - Need support for linear algebra on stacked arrays
+- Scipy
+- Cython (not currently but likely in future)
 
-Install
---------
+These extra dependencies are needed to run the example notebooks:
+- jupyter
+- matplotlib
+- bokeh
+- holoviews
+
+Assuming pip is set up, each dependency should be installed via
+```
+    $ pip install numpy scipy cython jupyter matplotlib bokeh holoviews
+```
+Step 2: Install
+---------------
 After the depdendencies are satisfied and/or the conda environment is created and activated,
-typyPRISM can be installed by running:
+typyPRISM can be installed to the system by running:
 ```
     > python setup.py install
 ```
