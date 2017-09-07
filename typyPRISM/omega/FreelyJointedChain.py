@@ -3,6 +3,7 @@ from __future__ import division,print_function
 from typyPRISM.omega.Omega import Omega
 import numpy as np
 
+
 class FreelyJointedChain(Omega):
     '''Freely jointed chain intra-molecular correlation function
     
@@ -35,3 +36,6 @@ class FreelyJointedChain(Omega):
         return self.value
         
         
+class FJC(FreelyJointedChain):
+    '''Alias of FreelyJointedChain'''
+    pass
