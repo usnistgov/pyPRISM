@@ -3,12 +3,13 @@ from __future__ import division,print_function
 from typyPRISM.omega.Omega import Omega
 import numpy as np
 
+
 class FreelyJointedChain(Omega):
     '''Freely jointed chain intra-molecular correlation function
     
     Attributes
     ----------
-    N: float
+    length,N: float
         number of monomers/sites in gaussian chain
         
     l: float
@@ -20,8 +21,8 @@ class FreelyJointedChain(Omega):
          
          E = np.sin(k*l)/(k*l)
     '''
-    def __init__(self,N,l):
-        self.N = N
+    def __init__(self,length,l):
+        self.length = self.N = length
         self.l = l
         self.value = None
         
@@ -35,3 +36,6 @@ class FreelyJointedChain(Omega):
         return self.value
         
         
+class FJC(FreelyJointedChain):
+    '''Alias of FreelyJointedChain'''
+    pass

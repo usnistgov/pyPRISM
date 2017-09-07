@@ -20,7 +20,7 @@ class NoIntra(Omega):
         return self.value
 
 class InterMolecular(NoIntra):
-    '''alias of NoInta intra-molecular correlation function '''
+    '''alias of NoIntra intra-molecular correlation function '''
     def __repr__(self):
         return '<Omega: InterMolecular>'
     
