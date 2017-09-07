@@ -45,4 +45,24 @@ class CalcPRISM_TestCase(unittest.TestCase):
         PRISM.solve(disp=False)
         result = typyPRISM.calculate.prism.pmf(PRISM)
         
+    def test_chi(self):
+        '''Can we calculate chi's?'''
+        PRISM = self.setup()
+        PRISM.solve(disp=False)
+        result = typyPRISM.calculate.prism.chi(PRISM)
+
+    def test_second_virial(self):
+        '''Can we calculate B2's?'''
+        PRISM = self.setup()
+        PRISM.solve(disp=False)
+        result = typyPRISM.calculate.prism.second_virial(PRISM)
+
+    def test_solvation_potential(self):
+        '''Can we calculate psi?'''
+        PRISM = self.setup()
+        PRISM.solve(disp=False)
+        result = typyPRISM.calculate.prism.solvation_potential(PRISM)
         
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(CalcPRISM_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)
