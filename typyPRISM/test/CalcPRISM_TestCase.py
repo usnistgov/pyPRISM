@@ -45,4 +45,13 @@ class CalcPRISM_TestCase(unittest.TestCase):
         PRISM.solve(disp=False)
         result = typyPRISM.calculate.prism.pmf(PRISM)
         
+    def test_pmf(self):
+        '''Can we calculate spinodal conditions?'''
+        PRISM = self.setup()
+        PRISM.solve(disp=False)
+        result = typyPRISM.calculate.prism.spinodal_condition(PRISM)
         
+        
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(CalcPRISM_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)
