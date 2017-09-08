@@ -85,7 +85,23 @@ class MatrixArray(object):
     def __repr__(self):
         return '<MatrixArray rank:{:d} length:{:d}>'.format(self.rank,self.length)
     
+    def get_copy(self):
+        '''Return an independent copy of this MatrixArray'''
+        return MatrixArray(length=self.length,rank=self.rank,data=np.copy(self.data),space=self.space,types=self.types)
+    
     def itercurve(self):
+        '''Iterate over the curves in this MatrixArray
+
+        Yields:
+            (i,j): 2-tuple of integers
+                numerical index to the underlying data numpy array
+
+            (t1,t2): 2-tuple of string types
+                string index to the underlying data numpy array
+
+            curve: np.ndarray, size (self.length)
+                1-D array representing a curve withing the MatrixArray
+        '''
         for i,j in product(range(self.rank),range(self.rank)):
             if i<=j: #upper triangle condition
                 type1 = self.types[i]
