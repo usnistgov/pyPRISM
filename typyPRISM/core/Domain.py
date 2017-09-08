@@ -129,22 +129,22 @@ class Domain(object):
         return dst(self.DST_III_coeffs*array,type=3)/self.r
     
     def MatrixArray_to_fourier(self,marray):
-        ''' Transform all columns of a MatrixArray to Fourier space in-place'''
+        ''' Transform all curves of a MatrixArray to Fourier space in-place'''
         if marray.space == Space.Fourier:
             raise ValueError('MatrixArray is marked as already in Fourier space')
             
-        for (i,j),(t1,t2),column in marray.itercolumn():
-            marray[t1,t2] = self.to_fourier(column)
+        for (i,j),(t1,t2),curve in marray.itercurve():
+            marray[t1,t2] = self.to_fourier(curve)
         
         marray.space = Space.Fourier
             
     def MatrixArray_to_real(self,marray):
-        ''' Transform all columns of a MatrixArray to Real space in-place '''
+        ''' Transform all curves of a MatrixArray to Real space in-place '''
         if marray.space == Space.Real:
             raise ValueError('MatrixArray is marked as already in Real space')
             
-        for (i,j),(t1,t2),column in marray.itercolumn():
-            marray[t1,t2] = self.to_real(column)
+        for (i,j),(t1,t2),curve in marray.itercurve():
+            marray[t1,t2] = self.to_real(curve)
             
         marray.space = Space.Real
             
