@@ -9,8 +9,9 @@ import numpy as np
 def spinodal_condition(PRISM):
     '''Calculate the spinodal condition between pairs of components 
 
-    This calculation is only exactly correct for a two component system. It's 
-    basis is in the fact that the value 
+    This calculation is only exactly correct for a two component system. The
+    returned values are extrapolated to zero wavevector using a second order
+    polynomial fit to the first three values of the curve.
 
     .. note:
 
@@ -55,17 +56,18 @@ def spinodal_condition(PRISM):
                 rho_AB = PRISM.sys.siteDensityMatrix[i,j]
                 rho_BB = PRISM.sys.siteDensityMatrix[j,j]
 
-                value  = +1
-                value += -1*C_AA * rho_AA * omega_AA
-                value += -2*C_AB * rho_AB * omega_AB
-                value += -1*C_BB * rho_BB * omega_BB
-                value += +C_AB*C_AB * rho_AB*rho_AB * omega_AB*omega_AB
-                value += -C_AA*C_BB * rho_AB*rho_AB * omega_AB*omega_AB
-                value += -C_AB*C_AB * rho_AA*rho_BB * omega_AA*omega_BB
-                value += +C_AA*C_BB * rho_AA*rho_BB * omega_AA*omega_BB
+                curve  = +1
+                curve += -1*C_AA * rho_AA * omega_AA
+                curve += -2*C_AB * rho_AB * omega_AB
+                curve += -1*C_BB * rho_BB * omega_BB
+                curve += +C_AB*C_AB * rho_AB*rho_AB * omega_AB*omega_AB
+                curve += -C_AA*C_BB * rho_AB*rho_AB * omega_AB*omega_AB
+                curve += -C_AB*C_AB * rho_AA*rho_BB * omega_AA*omega_BB
+                curve += +C_AA*C_BB * rho_AA*rho_BB * omega_AA*omega_BB
 
+                fit = np.poly1d(np.polyfit(PRISM.sys.domain.k[:3],curve[:3],2))
                 
-                lam[t1,t2] = value
+                lam[t1,t2] = fit(0)
                   
         
     
