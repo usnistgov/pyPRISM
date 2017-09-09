@@ -15,3 +15,6 @@ from typyPRISM.omega.DiscreteKoyama import DiscreteKoyama
 from typyPRISM.omega.FreelyJointedChain import FreelyJointedChain
 from typyPRISM.omega.FreelyJointedChain import FJC
 
+from typyPRISM.omega.NonOverlappingFreelyJointedChain import NonOverlappingFreelyJointedChain
+from typyPRISM.omega.NonOverlappingFreelyJointedChain import NFJC
+
