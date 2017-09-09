@@ -46,4 +46,10 @@ class LennardJones(Potential):
             magnitude[r>self.rcut] = 0.0
                 
         return magnitude
+
+    def calculate_attractive(self,r):
+        magnitude = np.zeros_like(r)
+        mask = r>self.sigma
+        magnitude[mask] = self.calculate(r)[mask]
+        return magnitude
         

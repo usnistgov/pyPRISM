@@ -1,13 +1,24 @@
 #!python
 from __future__ import division,print_function
-from typyPRISM.potential.LennardJones import LennardJones
+from typyPRISM.potential.Potential import Potential
 import numpy as np
-class HardCoreLennardJones(LennardJones):
+class HardCoreLennardJones(Potential):
     '''12-6 Lennard-Jones potential with Hard Core
+
+    Unlike the classic LJ potential, the HCLJ potential has an infinitely
+    hard core and can handle negative and positive epsilons, corresponding
+    the attractive and repulsive interactions.
+
+    .. warning:: 
+
+        This potential uses a slightly different form than what is 
+        implemented for the LJ potential in order to match the PRISM
+        literature.  This means that the epsilon in the LJ and HCLJ
+        potentials will not correspond to the same interactions strengths..
     
     .. math::
     
-        U(r>sigma) = 4 * \epsilon * ((\sigma/r)^(12.0) - (\sigma/r)^(6.0))
+        U(r>sigma) = \epsilon * ((\sigma/r)^(12.0) - (\sigma/r)^(6.0))
         U(r<=sigma) = inf
     
     
@@ -29,8 +40,10 @@ class HardCoreLennardJones(LennardJones):
     
     '''
     def __init__(self,epsilon,sigma,high_value=1e6):
-        super(HardCoreLennardJones,self).__init__(epsilon=epsilon,sigma=sigma,rcut=None,shift=False)
+        self.epsilon = epsilon 
+        self.sigma = sigma
         self.high_value = high_value
+        self.funk  = lambda r: epsilon * ((sigma/r)**(12.0) - 2.0*(sigma/r)**(6.0))
         
     def __repr__(self):
         return '<Potential: HardCoreLennardJones>'

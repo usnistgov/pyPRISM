@@ -12,12 +12,12 @@ class MatrixArray(object):
     and the last two dimenions corresponding to the vertical and horizontal 
     index of each matrix element.
     
-    The terminology *column* is used to refer to the set of values from
+    The terminology *Curve* is used to refer to the set of values from
     all matrices in the array at a given matrix index pair. In Numpy slicing 
     parlance::
     
-        column_11 = numpy_array[:,1,1]
-        column_12 = numpy_array[:,1,2]
+        curve_11 = numpy_array[:,1,1]
+        curve_12 = numpy_array[:,1,2]
 
     Access to the MatrixArray is either by supplied types or numerical indices.
     If types are not supplied, captial letters starting from 'A' are used. 
@@ -41,7 +41,7 @@ class MatrixArray(object):
         
     types: list, *optional*
         List of semantic types that can be used to reference data via the 
-        getByTypes method. These types will be output by the itercolumn
+        getByTypes method. These types will be output by the itercurve
         method as well. If not supplied, integer types will be generated.
         
     data: float np.ndarray, size (length,rank,rank)
@@ -85,7 +85,23 @@ class MatrixArray(object):
     def __repr__(self):
         return '<MatrixArray rank:{:d} length:{:d}>'.format(self.rank,self.length)
     
-    def itercolumn(self):
+    def get_copy(self):
+        '''Return an independent copy of this MatrixArray'''
+        return MatrixArray(length=self.length,rank=self.rank,data=np.copy(self.data),space=self.space,types=self.types)
+    
+    def itercurve(self):
+        '''Iterate over the curves in this MatrixArray
+
+        Yields:
+            (i,j): 2-tuple of integers
+                numerical index to the underlying data numpy array
+
+            (t1,t2): 2-tuple of string types
+                string index to the underlying data numpy array
+
+            curve: np.ndarray, size (self.length)
+                1-D array representing a curve withing the MatrixArray
+        '''
         for i,j in product(range(self.rank),range(self.rank)):
             if i<=j: #upper triangle condition
                 type1 = self.types[i]
@@ -93,7 +109,7 @@ class MatrixArray(object):
                 yield (i,j),(type1,type2),self.data[:,i,j]
             
     def __setitem__(self,key,val):
-        '''Column setter 
+        '''Curve setter 
         
         Assumes all matrices are symmetric and enforces symmetry by
         setting both off diagonal elements. 
@@ -117,7 +133,7 @@ class MatrixArray(object):
             self.data[:,index2,index1] = val
         
     def __getitem__(self,key):
-        '''Column getter'''
+        '''Curve getter'''
         type1,type2 = key 
 
         try:
@@ -133,7 +149,7 @@ class MatrixArray(object):
         return self.data[:,index1,index2]
     
     def get(self,index1,index2):
-        '''Column getter via indices
+        '''Curve getter via indices
 
         This method should be slightly more efficient than the standard
         __getitem__. 

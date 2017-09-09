@@ -3,15 +3,10 @@ from __future__ import division,print_function
 from typyPRISM.omega.Omega import Omega
 import numpy as np
 from math import exp,sin,cos,sqrt
+from scipy.optimize import root
 
 class DiscreteKoyama(Omega):
     '''Semi-flexible Koyama-based intra-molecular correlation function
-
-    .. warning::
-        This function is very sensitive to the bending energy parameter
-        and will crash if the value is too low (must be>0) or too high.
-        The exact upper value also changes with changing chain length.
-        
     
     .. note::
         Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer
@@ -38,15 +33,23 @@ class DiscreteKoyama(Omega):
     cos0: float
         cosine of minimum angle due to 1-3 overlap
     '''
-    def __init__(self,epsilon,sigma,l,length):
-        self.epsilon = epsilon
+    def __init__(self,sigma,l,length,lp):
         self.sigma   = sigma
         self.length  = length
         self.l       = l
+        self.lp      = lp
         self.cos0    = 1 - sigma*sigma/(2.0 * l * l)
         self.value   = None
-        
-        self.lp = l/(1+self.cos_avg(epsilon))
+
+        self.cos1 = l/lp - 1
+        funk = lambda e: self.cos_avg(e) - self.cos1
+        result  = root(funk,1.0)
+
+        if result.success != True:
+            raise ValueError('DiscreteKoyama initialization failure. Could not solve for bending energy.')
+
+        self.epsilon = result.x
+        self.cos2 = self.cos_sq_avg(self.epsilon)
     def cos_avg(self,epsilon):
         '''First moment of bond angle distribution'''
         e = epsilon
@@ -60,13 +63,13 @@ class DiscreteKoyama(Omega):
         cos1 = self.cos_avg(epsilon)
         return (2/e)*cos1 + ( exp(e) - cos0*cos0*exp(-e*cos0) )/( exp(e) - exp(-e*cos0) )
     
-    def koyama_kernel(self,k,cos1,cos2,n):
+    def koyama_kernel(self,k,n):
         '''
         Please see equation 18 of the above reference for details on this calculation.
         '''
         l = self.l
-        q = -cos1
-        p = (3*cos2 - 1)/2
+        q = -self.cos1
+        p = (3*self.cos2 - 1)/2
         
         D  = n * n * ((1 + q)/(1 - q))**(2.0) 
         D -= n*(1 + (2*q/(1-q)**(3.0)) * (6 + 5*q + 3*q*q) - 4*p/(1-p)*((1 + q)/(1 - q))**(2.0))
@@ -80,7 +83,7 @@ class DiscreteKoyama(Omega):
         D -= p**(n) * (16*q*q/(1-q)**(3.0) * (1/(q-p)**(2.0))*(q+q*q-2*p))
         D *= 2/3
         
-        r2 = n*l*l*((1-cos1)/(1+cos1) + 2*cos1/n * (1-(-cos1)**(n))/(1 + cos1)**(2.0))
+        r2 = n*l*l*((1-self.cos1)/(1+self.cos1) + 2*self.cos1/n * (1-(-self.cos1)**(n))/(1 + self.cos1)**(2.0))
         r4 = r2*r2 + l*l*l*l*D
         
         try:
@@ -99,12 +102,10 @@ class DiscreteKoyama(Omega):
     def calculate(self,k):
         self.value = np.zeros_like(k)
         
-        cos1 = self.cos_avg(self.epsilon)
-        cos2 = self.cos_sq_avg(self.epsilon)
         for i in range(1,self.length-1):
             for j in range(i+1,self.length):
                 n = abs(i - j)
-                self.value += self.koyama_kernel(k=k,cos1=cos1,cos2=cos2,n=n)
+                self.value += self.koyama_kernel(k=k,n=n)
         self.value *= 2/self.length
         self.value += 1.0
         

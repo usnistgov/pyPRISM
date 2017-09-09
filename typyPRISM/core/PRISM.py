@@ -157,7 +157,7 @@ class PRISM:
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.GammaIn[t1,t2])
             elif isinstance(closure,MolecularClosure):
-                raise NotImplementedError()
+                self.directCorr[t1,t2] = closure.calculate(self.GammaIn[t1,t2],self.omega[t1,t1],self.omega[t2,t2])
             else:
                 raise ValueError('Closure type not recognized')
             
@@ -177,7 +177,7 @@ class PRISM:
         self.y = self.sys.domain.long_r*(self.GammaOut.data - self.GammaIn.data)
         
         return self.y.reshape((-1,))
-    def solve(self,guess=None,method='krylov',disp=True):
+    def solve(self,guess=None,method='krylov',options=None):
         '''Attempt to numerically solve the PRISM equations
         
         Using the supplied inputs (in the constructor), we attempt to numerically
@@ -202,14 +202,20 @@ class PRISM:
         method: string
             Set the type of optimization scheme to use. See documentation for 
             scipy.optimize.root for options.
+
+        options: dict
+            Dictionary of options specific to the chosen solver method. See `here`_.
+            .. _here: https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html
+
         
-        disp: bool
-            If True, output detailed information to the user
         '''
         if guess is None:
             guess = np.zeros(self.sys.rank*self.sys.rank*self.sys.domain.length)
             
-        result = root(self.funk,guess,method=method,options={'disp':disp})
+        if options is None:
+            options = {'disp':True}
+
+        result = root(self.funk,guess,method=method,options=options)
 
         #
         if self.totalCorr.space == Space.Fourier:
@@ -217,7 +223,7 @@ class PRISM:
 
         tol = 1e-5
         warnstr = 'Pair correlations are negative (value = {:3.2e}) for {}-{} pair!'
-        for i,(t1,t2),H in self.totalCorr.itercolumn():
+        for i,(t1,t2),H in self.totalCorr.itercurve():
             if np.any(H<-(1.0+tol)):
                 val = np.min(H)
                 warnings.warn(warnstr.format(val,t1,t2))

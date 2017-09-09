@@ -1,3 +1,20 @@
+# Description:
+#    Intra-molecular correlation function (form factor) for a wormlike
+#    chain caculated using a discrete Koyama approach. 
+#    
+#
+# Source:
+#   (Figure 2)
+#   Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer
+#   Local structure of semiflexible polymer melts
+#   Macromolecules, 1990, 23 (14), pp 3496-3505
+#
+#
+# Chain Length: 200
+# Omega Pair: Monomer-Monomer
+# 
+# k                      Monomer-Monomer Omega(k)
+# 
 0.019217081850533724, 0.05020455400283552
 0.045043213014743344, 0.6078222376529805
 0.0761565836298932, 1.0989410641437392

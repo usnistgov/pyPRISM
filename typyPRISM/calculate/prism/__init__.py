@@ -4,3 +4,4 @@ from typyPRISM.calculate.prism.structure_factor import structure_factor
 from typyPRISM.calculate.prism.second_virial import second_virial
 from typyPRISM.calculate.prism.pmf import pmf
 from typyPRISM.calculate.prism.chi import chi
+from typyPRISM.calculate.prism.spinodal_condition import spinodal_condition

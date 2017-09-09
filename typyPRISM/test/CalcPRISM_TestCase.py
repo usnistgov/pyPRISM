@@ -44,7 +44,7 @@ class CalcPRISM_TestCase(unittest.TestCase):
         PRISM = self.setup()
         PRISM.solve(disp=False)
         result = typyPRISM.calculate.prism.pmf(PRISM)
-        
+
     def test_chi(self):
         '''Can we calculate chi's?'''
         PRISM = self.setup()
@@ -62,6 +62,13 @@ class CalcPRISM_TestCase(unittest.TestCase):
         PRISM = self.setup()
         PRISM.solve(disp=False)
         result = typyPRISM.calculate.prism.solvation_potential(PRISM)
+
+    def test_spinodal(self):
+        '''Can we calculate spinodal conditions?'''
+        PRISM = self.setup()
+        PRISM.solve(disp=False)
+        result = typyPRISM.calculate.prism.spinodal_condition(PRISM)
+        
         
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(CalcPRISM_TestCase)
