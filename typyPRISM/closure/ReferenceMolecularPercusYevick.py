@@ -24,6 +24,8 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
     
     '''
     def __init__(self,C0):
+        raise NotImplementedError('Molecular closures are untested and not fully implemented.')
+
         self._potential = None
         self.value = None
         self.PY = PercusYevick()
