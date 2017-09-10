@@ -52,6 +52,21 @@ pcf = pair_correlation(PRISM)
     <img src='./img/plot.png' />
 </p>
 
+Documentation
+=============
+Please see the [wiki](https://github.com/usnistgov/typyPRISM/wiki) for user-documentation and
+frequently asked questions (FAQs). We intend to update this page as new challenges are identified
+in using typyPRISM. The wiki also contains a project roadmap and information about how to extend 
+typyPRISM and contribute these changes back to this primary repository. 
+
+Code documentation can be found [here](https://readthedocs.io/). The most up to date code documentation 
+can always be found by compiling from source. Assuming you have [Sphinx](http://www.sphinx-doc.org/en/stable/) 
+installed:
+```
+    > cd <typyPRISM base directory>/doc
+    > make
+```
+
 Installation
 ============
 
@@ -106,9 +121,15 @@ These extra dependencies are needed to run the example notebooks:
 - bokeh
 - holoviews
 
-Assuming pip is set up, each dependency should be installed via
+Assuming pip is set up, all dependencies can be installed at once via
 ```
-    $ pip install numpy scipy cython jupyter matplotlib bokeh holoviews
+    > pip install numpy scipy cython jupyter matplotlib bokeh holoviews
+```
+
+Alternatively, each package can be downloaded and installed manually via
+```
+    > cd <downloaded package directory>
+    > python setup.py install
 ```
 Step 2: Install
 ---------------
@@ -117,3 +138,13 @@ typyPRISM can be installed to the system by running:
 ```
     > python setup.py install
 ```
+Step 3: Usage
+---------------
+Once typyPRISM is installed or placed in your ``PYTHONPATH`` it can be imported and used in scripts
+as shown in the above example. To use the examples in source directory
+```
+    > cd <typyPRISM base directory>/examples
+    > jupyter notebook
+```
+This should spawn a jupyter notebook tab in your web browser of choice. If the tab doesn't spawn, check the
+terminal for a link that can be copied and pasted.
