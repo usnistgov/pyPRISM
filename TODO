@@ -22,6 +22,12 @@ New Calculations
 
 
 General Features
+- Density Class
+    - top level getitem is relayed to density ValueTable
+    - pairdensity + sitedensity valuetable
+    - pairdensity + sitedensity matrix
+    - total density
+    - volume fractions
 - Domain Upscaling utility
 - extrapolation utility
     - this would be used for getting low K
