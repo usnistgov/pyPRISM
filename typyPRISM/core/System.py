@@ -28,19 +28,19 @@ class System:
     rank: int
         number of site types
     
-    density: typyPRISM.core.ValueTable
+    density: typyPRISM.ValueTable
         Table of site *number* density values
         
-    potential: typyPRISM.core.PairTable
+    potential: typyPRISM.PairTable
         Table of pair potentials between all site pairs in real space
         
-    closure: typyPRISM.core.PairTable
+    closure: typyPRISM.PairTable
         Table of closures between all site pairs
         
-    omega: typyPRISM.core.PairTable
+    omega: typyPRISM.PairTable
         Table of omega correlation functions in k-space
     
-    domain: typyPRISM.core.Domain
+    domain: typyPRISM.Domain
         Domain object which specifies the Real and Fourier space 
         solution grid.
         
@@ -54,6 +54,11 @@ class System:
 
     pairDensityMatrix: np.ndarray, size (rank,rank)
         Pair site density for each pair.  pair_density = rho_i * rho_j
+
+    diameter: typyPRISM.ValueTable
+        Site diameters. Note that these are not passed to potentials and it
+        is up to the user to set sane \sigma values that match these 
+        diameters. 
     
     
     '''
@@ -63,6 +68,7 @@ class System:
         self.kT = kT
         
         self.domain    = None
+        self.diameter   = ValueTable(types,'diameter')
         self.density   = ValueTable(types,'density')
         self.potential = PairTable(types,'potential')
         self.closure   = PairTable(types,'closure')
@@ -73,7 +79,7 @@ class System:
     
     def check(self):
         '''Make sure all values in the system are specified'''
-        for table in [self.density,self.potential,self.closure,self.omega]:
+        for table in [self.density,self.potential,self.closure,self.omega,self.diameter]:
             table.check()
         
         if self.domain is None:

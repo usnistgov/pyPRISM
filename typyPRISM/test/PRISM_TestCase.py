@@ -14,6 +14,8 @@ class PRISM_TestCase(unittest.TestCase):
         
         sys.density['A'] = 0.2
         sys.density['B'] = 0.6
+
+        sys.diameter[sys.types] = 1.0
         
         sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
         
@@ -29,7 +31,7 @@ class PRISM_TestCase(unittest.TestCase):
     def test_solve(self):
         '''Can we solve the PRISM equations?'''
         PRISM = self.setup()
-        result = PRISM.solve(disp=False)
+        result = PRISM.solve(options={'disp':False})
         self.assertIsNot(result,None)
         
         

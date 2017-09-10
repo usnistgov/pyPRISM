@@ -22,6 +22,7 @@ class System_TestCase(unittest.TestCase):
         sys.potential.setUnset(1.0)
         sys.closure.setUnset(1.0)
         sys.omega.setUnset(1.0)
+        sys.diameter.setUnset(1.0)
         
         #test should fail if this raises
         try:
@@ -37,6 +38,8 @@ class System_TestCase(unittest.TestCase):
         
         sys.density['A'] = 0.45
         sys.density['B'] = 0.35
+
+        sys.diameter[sys.types] = 1.0
         
         sys.closure.setUnset(typyPRISM.closure.PercusYevick())
         
@@ -75,6 +78,6 @@ class System_TestCase(unittest.TestCase):
         np.testing.assert_array_almost_equal(pairDensityMatrix1,pairDensityMatrix2)
         
         
-        
-         
-        
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(System_TestCase)
+    unittest.TextTestRunner(verbosity=2).run(suite)
