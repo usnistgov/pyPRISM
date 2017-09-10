@@ -9,7 +9,7 @@ Polymer reference interaction site model (PRISM) theory describes the correlatio
 
 <p align="center"> <b>If you use typyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
-1. Martin, T.B.; Jones, R.L.; Snyder, C.R.; Jayaraman, A.; typyPRISM: A Computational Tool for Polymer Liquid State Theory Calculations (to be submitted)
+1. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.; typyPRISM: A Computational Tool for Polymer Liquid State Theory Calculations (to be submitted)
 
 2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi: http://dx.doi.org/10.1103/PhysRevLett.58.246
 
@@ -22,7 +22,6 @@ of the pair correlation functions from this calculation.
 
 ```python
 import typyPRISM
-from typyPRISM.calculate.prism.pair_correlation import pair_correlation
 
 sys = typyPRISM.System(['particle','polymer'],kT=1.0)
 sys.domain = typyPRISM.Domain(dr=0.01,length=4096)
@@ -31,7 +30,7 @@ sys.density['polymer']  = 0.75
 sys.density['particle'] = 6e-6
 
 sys.omega['polymer','polymer']   = typyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
-sys.omega['polymer','particle']  = typyPRISM.omega.NoIntra()
+sys.omega['polymer','particle']  = typyPRISM.omega.InterMolecular()
 sys.omega['particle','particle'] = typyPRISM.omega.SingleSite()
 
 sys.potential['polymer','polymer']   = typyPRISM.potential.HardSphere(sigma=1.0)
@@ -46,7 +45,7 @@ PRISM = sys.createPRISM()
 
 PRISM.solve()
 
-pcf = pair_correlation(PRISM)
+pcf = typyPRISM.calculate.prism.pair_correlation(PRISM)
 ```
 <p align="center">
     <img src='./img/plot.png' />
