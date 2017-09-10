@@ -170,7 +170,7 @@ class MatrixArray(object):
     def __truediv__(self,other):
         '''Scalar or elementwise division'''
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             data = self.data / other.data
         else:
             data = self.data / other
@@ -182,7 +182,7 @@ class MatrixArray(object):
     def __itruediv__(self,other):
         '''Scalar or elementwise division'''
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             self.data /= other.data
         else:
             self.data /= other
@@ -195,7 +195,7 @@ class MatrixArray(object):
     def __mul__(self,other):
         '''Scalar or elementwise multiplication'''
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             data = self.data * other.data
         else:
             data = self.data * other
@@ -204,7 +204,7 @@ class MatrixArray(object):
     def __imul__(self,other):
         '''Scalar or elementwise multiplication'''
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             self.data *= other.data
         else:
             self.data *= other
@@ -212,7 +212,7 @@ class MatrixArray(object):
     
     def __add__(self,other):
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             data = self.data + other.data
         else:
             data = self.data + other
@@ -220,7 +220,7 @@ class MatrixArray(object):
     
     def __iadd__(self,other):
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             self.data += other.data
         else:
             self.data += other
@@ -228,7 +228,7 @@ class MatrixArray(object):
             
     def __sub__(self,other):
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             data = self.data - other.data
         else:
             data = self.data - other
@@ -236,7 +236,7 @@ class MatrixArray(object):
     
     def __isub__(self,other):
         if isinstance(other,MatrixArray):
-            assert self.space == other.space,MatrixArray.SpaceError
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
             self.data -= other.data
         else:
             self.data -= other
@@ -286,11 +286,11 @@ class MatrixArray(object):
             return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
         
     def __matmul__(self,other):
-        assert self.space == other.space,MatrixArray.SpaceError
+        assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
         return self.dot(other,inplace=False)
         
     def __imatmul__(self,other):
-        assert self.space == other.space,MatrixArray.SpaceError
+        assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
         return self.dot(other,inplace=True)
         
         

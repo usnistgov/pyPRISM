@@ -3,6 +3,7 @@ from __future__ import division,print_function
 from typyPRISM.core.PairTable import PairTable
 from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.Space import Space
+from typyPRISM.calculate.prism.structure_factor import structure_factor
 import numpy as np
 
 def solvation_potential(PRISM,closure='HNC'):
@@ -36,7 +37,7 @@ def solvation_potential(PRISM,closure='HNC'):
     if PRISM.omega.space == Space.Real:
         PRISM.sys.domain.MatrixArray_to_fourier(PRISM.omega)
 
-    structureFactor = (PRISM.totalCorr*PRISM.sys.pairDensityMatrix + PRISM.omega)/PRISM.sys.siteDensityMatrix
+    structureFactor = structure_factor(PRISM)#(PRISM.totalCorr*PRISM.sys.pairDensityMatrix + PRISM.omega)/PRISM.sys.siteDensityMatrix
 
     if closure == 'HNC':
         psi = PRISM.directCorr.dot(structureFactor).dot(PRISM.directCorr) * -PRISM.sys.kT 

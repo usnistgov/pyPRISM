@@ -26,7 +26,7 @@ def structure_factor(PRISM):
     if PRISM.omega.space == Space.Real:
         PRISM.sys.domain.MatrixArray_to_fourier(PRISM.omega)
     
-    structureFactor = (PRISM.totalCorr*PRISM.sys.pairDensityMatrix + PRISM.omega)/PRISM.sys.siteDensityMatrix
+    structureFactor = (PRISM.totalCorr*PRISM.sys.density.pair + PRISM.omega)/PRISM.sys.density.site
     # structureFactor = PRISM.totalCorr + PRISM.omega
     
     return structureFactor

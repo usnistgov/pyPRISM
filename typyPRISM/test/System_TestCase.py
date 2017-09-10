@@ -18,7 +18,7 @@ class System_TestCase(unittest.TestCase):
         # These values make no sense but their sufficient
         # for this 'check'
         sys.domain = 'dummy'
-        sys.density.setUnset(1.0)
+        sys.density.density.setUnset(1.0)
         sys.potential.setUnset(1.0)
         sys.closure.setUnset(1.0)
         sys.omega.setUnset(1.0)
@@ -52,30 +52,6 @@ class System_TestCase(unittest.TestCase):
         PRISM = sys.createPRISM()
         
         self.assertIsInstance(PRISM,typyPRISM.core.PRISM.PRISM)
-        
-    def test_createDensityMatrices(self):
-        '''Can we construct the two necesssary density matrices?'''
-        sys = typyPRISM.System(['A','B'])
-        
-        sys.density['A'] = rhoA = 0.45
-        sys.density['B'] = rhoB = 0.35
-        
-        siteDensityMatrix1 = np.zeros((2,2))
-        siteDensityMatrix1[0,0] = rhoA
-        siteDensityMatrix1[0,1] = rhoA + rhoB
-        siteDensityMatrix1[1,0] = rhoA + rhoB
-        siteDensityMatrix1[1,1] = rhoB
-        
-        pairDensityMatrix1 = np.zeros((2,2))
-        pairDensityMatrix1[0,0] = rhoA * rhoA
-        pairDensityMatrix1[0,1] = rhoA * rhoB
-        pairDensityMatrix1[1,0] = rhoB * rhoA
-        pairDensityMatrix1[1,1] = rhoB * rhoB
-        
-        siteDensityMatrix2,pairDensityMatrix2 = sys.createDensityMatrices()
-        
-        np.testing.assert_array_almost_equal(siteDensityMatrix1,siteDensityMatrix2)
-        np.testing.assert_array_almost_equal(pairDensityMatrix1,pairDensityMatrix2)
         
         
 if __name__ == '__main__':

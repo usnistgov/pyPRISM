@@ -40,9 +40,6 @@ def chi(PRISM):
     if PRISM.directCorr.space == Space.Real:
         PRISM.domain.MatrixArray_to_fourier(PRISM.directCorr)
         
-    totalDensity = 0.
-    for i,t1 in enumerate(PRISM.sys.types):
-        totalDensity += PRISM.sys.siteDensityMatrix[i,i]
     
     chi = PairTable(name='chi',types=PRISM.sys.types)
     for i,t1 in enumerate(PRISM.sys.types):
@@ -63,6 +60,6 @@ def chi(PRISM):
 
                 R = v_A/v_B
                 
-                chi[t1,t2] = (R**(-0.5)*phi_A + R**(0.5)*phi_B)**(-1.0)*0.5*totalDensity*(R**(-1.0) * C_AA + R*C_BB - 2*C_AB)
+                chi[t1,t2] = (R**(-0.5)*phi_A + R**(0.5)*phi_B)**(-1.0)*0.5*PRISM.sys.density.total*(R**(-1.0) * C_AA + R*C_BB - 2*C_AB)
                 
     return chi

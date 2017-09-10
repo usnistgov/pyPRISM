@@ -6,6 +6,7 @@ from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.PairTable import PairTable
 from typyPRISM.core.ValueTable import ValueTable
 from typyPRISM.core.Space import Space
+from typyPRISM.core.Density import Density
 
 from typyPRISM.closure.AtomicClosure import AtomicClosure
 from typyPRISM.closure.MolecularClosure import MolecularClosure
@@ -28,8 +29,8 @@ class System:
     rank: int
         number of site types
     
-    density: typyPRISM.ValueTable
-        Table of site *number* density values
+    density: typyPRISM.Density
+        Container for all density values
         
     potential: typyPRISM.PairTable
         Table of pair potentials between all site pairs in real space
@@ -48,13 +49,6 @@ class System:
         Value of the thermal energy scale. Used to vary temperature and
         scale the potential energy functions.
 
-    siteDensityMatrix: np.ndarray, size (rank,rank)
-        Total site density for each pair. For i == j, the site_density =
-        rho_i, for i != j site_density = rho_i + rho_j
-
-    pairDensityMatrix: np.ndarray, size (rank,rank)
-        Pair site density for each pair.  pair_density = rho_i * rho_j
-
     diameter: typyPRISM.ValueTable
         Site diameters. Note that these are not passed to potentials and it
         is up to the user to set sane \sigma values that match these 
@@ -68,15 +62,12 @@ class System:
         self.kT = kT
         
         self.domain    = None
-        self.diameter   = ValueTable(types,'diameter')
-        self.density   = ValueTable(types,'density')
+        self.diameter  = ValueTable(types,'diameter')
+        self.density   = Density(types)
         self.potential = PairTable(types,'potential')
         self.closure   = PairTable(types,'closure')
         self.omega = PairTable(types,'omega')
 
-        self.siteDensityMatrix = None
-        self.sitePairMatrix = None
-    
     def check(self):
         '''Make sure all values in the system are specified'''
         for table in [self.density,self.potential,self.closure,self.omega,self.diameter]:
@@ -85,49 +76,16 @@ class System:
         if self.domain is None:
             raise ValueError(('System has no domain! '
                               'User must instatiate and assign a domain to the system!'))
-    def createDensityMatrices(self):
-        '''See method name
-        
-        .. math::
-        
-            \rho^{pair}_{i,j} = \rho_i * \rho_j
-            
-        
-            \rho^{site}_{i,j} = \rho_i + \rho_j, if i != j
-            
-            \rho^{site}_{i,j} = \rho_i         , if i = j
-        '''
-        siteDensityMatrix = np.zeros((self.rank,self.rank))
-        pairDensityMatrix = np.zeros((self.rank,self.rank))
-        for i,t1,rho1 in self.density:
-            for j,t2,rho2 in self.density:
-                if i>j:
-                    continue
-                    
-                if i==j:
-                    siteDensityMatrix[i,j] = rho1
-                    pairDensityMatrix[i,j] = rho1 * rho2
-                else:
-                    siteDensityMatrix[i,j] = rho1 + rho2
-                    siteDensityMatrix[j,i] = rho1 + rho2
-                    
-                    pairDensityMatrix[i,j] = rho1 * rho2
-                    pairDensityMatrix[j,i] = rho1 * rho2
-                    
-        return siteDensityMatrix,pairDensityMatrix
-            
     def createPRISM(self):
         '''Construct a fully specified PRISM object that can be solved'''
         self.check() #sanity check
-
-        #create density
-        self.siteDensityMatrix,self.pairDensityMatrix = self.createDensityMatrices()
         
         # Need to set the potential for each closure object
         for (i,j),(t1,t2),U in self.potential.iterpairs():
             if isinstance(self.closure[t1,t2],AtomicClosure):
                 self.closure[t1,t2].potential = U.calculate(self.domain.r) / self.kT
             elif isinstance(self.closure[t1,t2],MolecularClosure):
+                raise NotImplementedError('Molecular closures are not fully implemented in this release.')
                 self.closure[t1,t2].potential = U.calculate_attractive(self.domain.r) / self.kT
 
         return PRISM(self)

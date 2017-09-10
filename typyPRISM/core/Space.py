@@ -1,6 +1,7 @@
 #!python
-from enum import Enum
+from enum import Enum,auto
 
 class Space(Enum):
-    Real    = 1
-    Fourier = 2
+    Real       = auto()
+    Fourier    = auto()
+    NonSpatial = auto()

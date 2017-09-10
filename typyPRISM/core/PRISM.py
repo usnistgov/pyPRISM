@@ -104,7 +104,7 @@ class PRISM:
         # function values rather than a table of OmegaObjects.
         applyFunk = lambda x: x.calculate(sys.domain.k)
         self.omega  = self.sys.omega.apply(applyFunk,inplace=False).exportToMatrixArray(space=Space.Fourier)
-        self.omega *= sys.siteDensityMatrix #omega should always be scaled by site density 
+        self.omega *= sys.density.site #omega should always be scaled by site density 
         
         # Spaces are set based on when they are used in self.funk(...). In some cases,
         # this is redundant because these array's will be overwritten with copies and
@@ -169,7 +169,7 @@ class PRISM:
         self.IOC.invert(inplace=True)
         
         self.totalCorr  = self.IOC.dot(self.OC).dot(self.omega)
-        self.totalCorr /= self.sys.pairDensityMatrix
+        self.totalCorr /= self.sys.density.pair
         
         self.GammaOut  = self.totalCorr - self.directCorr
         

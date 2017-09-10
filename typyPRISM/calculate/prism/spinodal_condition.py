@@ -52,9 +52,9 @@ def spinodal_condition(PRISM):
                 C_AB = PRISM.directCorr[t1,t2]
                 C_BB = PRISM.directCorr[t2,t2]
 
-                rho_AA = PRISM.sys.siteDensityMatrix[i,i]
-                rho_AB = PRISM.sys.siteDensityMatrix[i,j]
-                rho_BB = PRISM.sys.siteDensityMatrix[j,j]
+                rho_AA = PRISM.sys.density.site[t1,t1]
+                rho_AB = PRISM.sys.density.site[t1,t2]
+                rho_BB = PRISM.sys.density.site[t2,t2]
 
                 curve  = +1
                 curve += -1*C_AA * rho_AA * omega_AA
