@@ -41,6 +41,9 @@ class DiscreteKoyama(Omega):
         self.cos0    = 1 - sigma*sigma/(2.0 * l * l)
         self.value   = None
 
+        if self.lp<4.0/3.0:
+            raise ValueError('DiscreteKoyama does not support persistence lengths < 4.0/3.0.')
+
         self.cos1 = l/lp - 1
         funk = lambda e: self.cos_avg(e) - self.cos1
         result  = root(funk,1.0)
