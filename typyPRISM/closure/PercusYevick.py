@@ -3,19 +3,38 @@ from __future__ import division,print_function
 from typyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 class PercusYevick(AtomicClosure):
-    '''Percus Yevick closure written in terms of a change of variables
+    '''Percus Yevick closure evaluated in terms of a change of variables
+
+    The Percus-Yevick (PY) is derived by expanding the exponential of the 
+    direct correlation function, c, in powers of density shift from a 
+    refence state. See Hansen and McDonald for a full derivation.
     
-    .. note::
-    
-        The change of variables is necessary in order to use potentials with
-        hard cores. Written in the standard form, this closure diverges with
-        divergent potentials, which makes it impossible to numerically solve. 
+    The change of variables is necessary in order to use potentials with
+    hard cores in the computational setting. Written in the standard form, 
+    this closure diverges with divergent potentials, which makes it impossible 
+    to numerically solve. 
+
+    This closure has been shown to be accurate for systems with hard cores 
+    (strongly repulsive at short distances) and when the potential is short
+    ranged. 
     
     .. math::
         
-        c_{i,j}(r) = (exp(-U_{i,j}(r)) - 1.0) * (1.0 + \gamma_{i,j}(r))
+        c(r) = (exp(-u(r)) - 1.0) * (1.0 + \gamma(r))
         
-        \gamma_{i,j}(r) =  h_{i,j}(r) - c_{i,j}(r)
+        \gamma(r) =  h(r) - c(r)
+
+        h: Total correlation function
+        c: Direct correlation function
+        u: Interaction potential
+        r: pair separation distance
+
+    .. references::
+
+        Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, 
+		Section 4; 4th Edition (2013), Elsevier
+
+
     
     '''
     def __init__(self):
