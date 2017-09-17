@@ -3,7 +3,7 @@ from __future__ import division,print_function
 from typyPRISM.core.PairTable import PairTable
 from typyPRISM.core.MatrixArray import MatrixArray
 from typyPRISM.core.Space import Space
-from typyPRISM.calculate.prism.structure_factor import structure_factor
+from typyPRISM.calculate.structure_factor import structure_factor
 import numpy as np
 
 def solvation_potential(PRISM,closure='HNC'):
