@@ -5,6 +5,21 @@ import numpy as np
 class PercusYevick(AtomicClosure):
     '''Percus Yevick closure evaluated in terms of a change of variables
 
+    .. math:: c(r) = (\exp(-u(r)) - 1.0) * (1.0 + \gamma(r))
+
+    .. math:: \gamma(r) =  h(r) - c(r)
+
+    Note
+    ----
+
+        :math:`h(r)`: Total correlation function
+    
+        :math:`c(r)`: Direct correlation function
+    
+        :math:`u(r)`: Interaction potential
+    
+        :math:`r`: pair separation distance
+
     The Percus-Yevick (PY) is derived by expanding the exponential of the 
     direct correlation function, c, in powers of density shift from a 
     refence state. See Hansen and McDonald for a full derivation.
@@ -18,21 +33,12 @@ class PercusYevick(AtomicClosure):
     (strongly repulsive at short distances) and when the potential is short
     ranged. 
     
-    .. math::
-        
-        c(r) = (exp(-u(r)) - 1.0) * (1.0 + \gamma(r))
-        
-        \gamma(r) =  h(r) - c(r)
 
-        h: Total correlation function
-        c: Direct correlation function
-        u: Interaction potential
-        r: pair separation distance
 
-    .. references::
-
-        Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, 
-		Section 4; 4th Edition (2013), Elsevier
+    References
+    ----------
+    Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
+    4th Edition (2013), Elsevier
 
 
     
@@ -45,6 +51,7 @@ class PercusYevick(AtomicClosure):
         return '<AtomicClosure: PercusYevick>'
     
     def calculate(self,gamma):
+        '''Calculate direct correlation function based on supplied :math:`\gamma`'''
         
         assert self.potential is not None,'Potential for this closure is not set!'
         

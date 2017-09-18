@@ -5,7 +5,29 @@ import numpy as np
 
 
 class FreelyJointedChain(Omega):
-    '''Freely jointed chain intra-molecular correlation function
+    r'''Freely jointed chain intra-molecular correlation function
+
+    .. math::
+    
+        \hat{\omega}(k) = \frac{1 - E^2 - \frac{2E}{N} + \frac{2E^{N+1}}{N}}{(1-E)^2}
+         
+         E = \sin(k*l)/(k*l)
+
+    Note
+    ----
+        :math:`\omega`: *Intra*-molecular correlation function
+
+        :math:`N`: number of repeat units in chain
+    
+        :math:`k`: wavenumber
+    
+        :math:`l`: bond-length
+
+
+    Reference
+    ---------
+    TBA
+
     
     Attributes
     ----------
@@ -15,11 +37,6 @@ class FreelyJointedChain(Omega):
     l: float
         bond length
     
-    .. math::
-    
-        \omega(k) = \frac{1 - E^2 - 2E/N + 2E^(N+1)/N}{(1-E)^2}
-         
-         E = np.sin(k*l)/(k*l)
     '''
     def __init__(self,length,l):
         self.length = self.N = length

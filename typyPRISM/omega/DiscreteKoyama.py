@@ -8,7 +8,8 @@ from scipy.optimize import root
 class DiscreteKoyama(Omega):
     '''Semi-flexible Koyama-based intra-molecular correlation function
     
-    .. note::
+    References
+    ----------
         Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer
         Local structure of semiflexible polymer melts
         Macromolecules, 1990, 23 (14), pp 3496–3505

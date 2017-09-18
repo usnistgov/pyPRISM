@@ -7,19 +7,44 @@ import warnings
 import numpy as np
 
 COMPONENT_WARNING = '''
-This calculate was derived for a two component system. It is often the case that
+This calculation was derived for a two component system. It is often the case that
 these calculations can be generalized for pairs of sites withing multicomponent 
 systems. We caution the user when interpreting the data from this calculation 
 for more than two components. 
 '''
 
 def chi(PRISM):
-    '''Calculate the wavenumber-dependent effective interaction parameter (chi)
+    r'''Calculate the effective interaction parameter, :math:`\chi`
     
     .. math::
         
-        \chi(k)  = 0.5 * \rho * (\hat{C}_{AA}(k) + \hat{C}_{BB}(k) - 2* + \hat{C}_{AB}(k))
+        \hat{\chi}_{\alpha,\beta}(k)  = \frac{0.5 \rho}{R \phi_{\alpha} + R^{-1} \phi_{\beta}} (\hat{C}_{\alpha,\alpha}(k)
+        + \hat{C}_{\beta,\beta}(k) - 2* + \hat{C}_{\alpha,\beta}(k))
+
+    .. math::
+
+        R = v_{\alpha}/v_{\beta}
+
+    Note
+    ----
+    :math:`\hat{\chi}_{\alpha,\beta}(k)` 
+        Direct correlation function between site types :math:`\alpha` and
+        :math:`\beta`
+
+    :math:`\rho` 
+        Total system density from the :ref:`typyPRISM.core.Density.Density` instance
+
+    :math:`\phi_{\alpha},\phi_{\beta}` 
+        Volume fraction of site types :math:`\alpha` and :math:`\beta`. 
+
+        .. math::
+
+            \phi_{\alpha} = \frac{\rho_{\alpha}}{\rho_{\alpha} + \rho_{\beta}}
+
+    :math:`v_{\alpha},v_{\beta}` 
+        Volume of site type :math:`\alpha` and :math:`\beta`
         
+
     Parameters
     ----------
     PRISM: typyPRISM.core.PRISM
@@ -29,6 +54,9 @@ def chi(PRISM):
     -------
     chi: typyPRISM.core.PairTable
         PairTable of all wavenumber dependent chi pairs indexed by tuple pairs
+
+    Example
+    -------
     
     '''
     

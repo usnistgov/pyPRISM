@@ -4,7 +4,7 @@ from typyPRISM.omega.Omega import Omega
 import numpy as np
 
 class Gaussian(Omega):
-    '''Gaussian intra-molecular correlation function
+    r'''Gaussian intra-molecular correlation function
     
     Attributes
     ----------

@@ -15,53 +15,48 @@ from copy import deepcopy
 import warnings
 
 class PRISM:
-    '''Primary container for a PRISM problem and solution
+    r'''Primary container for a PRISM problem and solution
     
-    Each typyPRISM.PRISM object serves as an encapsulation 
-    of a fully specified PRISM problem including all inputs
-    needed for the calculation and the functional which 
-    the will be numerically minimized. 
+    Each typyPRISM.PRISM object serves as an encapsulation of a fully specified
+    PRISM problem including all inputs needed for the calculation and the
+    functional which the will be numerically minimized. 
     
     Attributes
     ----------
     domain: typyPRISM.Domain
-        The Domain object fully specifies the real- and Fourier-
-        space solution grids.
+        The Domain object fully specifies the real- and Fourier- space solution
+        grids.
     
     directCorr: typyPRISM.MatrixArray
         The direct correlation function for all pairs of sites
         
     omega: typyPRISM.MatrixArray
-        The intra-molecular correlation function for all pairs 
-        of sites. This is often shown as $\Omega$ in the PRISM 
-        literature and is identical to what those in the scattering 
-        fields would call a "form factor".
+        The intra-molecular correlation function for all pairs of sites. This
+        is often shown as $\Omega$ in the PRISM literature and is identical to
+        what those in the scattering fields would call a "form factor".
     
     closure: typyPRISM.core.PairTable of typyPRISM.closure.Closure
-        Table of closure objects used to generate the direct 
-        correlation functions (directCorr)
+        Table of closure objects used to generate the direct correlation
+        functions (directCorr)
         
     pairCorr: typyPRISM.MatrixArray
-        The *inter*-molecular pair correlation functions for all pairs 
-        of sites. Also commonly refered to as the radial distribution 
-        functions.
+        The *inter*-molecular pair correlation functions for all pairs of
+        sites. Also commonly refered to as the radial distribution functions.
     
     totalCorr: typyPRISM.MatrixArray
-        The *inter*-molecular total correlation function is simply 
-        the pair correlation  function y-shifted by 1.0 i.e. 
-        totalCorr = pairCorr - 1.0
+        The *inter*-molecular total correlation function is simply the pair
+        correlation  function y-shifted by 1.0 i.e.  totalCorr = pairCorr - 1.0
         
     potential: typyPRISM.MatrixArray
         Interaction potentials for all pairs of sites
         
     GammaIn,GammaOut: typyPRISM.MatrixArray
-        Primary inputs and outputs of the PRISM functional. Gamma is
-        defined as "totalCorr - directCorr" (in Fourier space) and
-        results from a change of variables used to remove divergences
-        in the closure relations. 
+        Primary inputs and outputs of the PRISM functional. Gamma is defined as
+        "totalCorr - directCorr" (in Fourier space) and results from a change
+        of variables used to remove divergences in the closure relations. 
     
     OC,IOC,I,etc: typyPRISM.MatrixArray
-        Various MatrixArrays used as intermediates in the PRISM functional. 
+        Various MatrixArrays used as intermediates in the PRISM functional.
         These arrays are pre-allocated and stored for efficiency. 
     
     x,y: float np.ndarray
@@ -205,8 +200,8 @@ class PRISM:
             scipy.optimize.root for options.
 
         options: dict
-            Dictionary of options specific to the chosen solver method. See `here`_.
-            .. _here: https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html
+            Dictionary of options specific to the chosen solver method. See
+            `here <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`
 
         
         '''

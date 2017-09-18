@@ -22,7 +22,7 @@ class MatrixArray(object):
     Access to the MatrixArray is either by supplied types or numerical indices.
     If types are not supplied, captial letters starting from 'A' are used. 
 
-    .. python::
+    .. code-block:: python
 
         mArray = MatrixArray(length=1024,rank=2,types=['polymer','solvent'])
         
@@ -48,7 +48,7 @@ class MatrixArray(object):
         Interface for specifying the MatrixArray data directly. If not given,
         all matrices will be set to zero. 
     
-    space: typyPRISM.Space
+    space: typyPRISM.core.Space.Space
         Enumerated value tracking whether the array represents real or Fourier
         spaced data. As we will be transferring arrays to and from these spaces,
         it's important for safety that we track this.
@@ -56,7 +56,7 @@ class MatrixArray(object):
     
     SpaceError = "Attempting MatrixArray math in non-matching spaces"
     
-    def __init__(self,length,rank,data=None,space=None,types=None):
+    def __init__(self,length,rank,data=None,space=Space.Real,types=None):
                     
         if data is None:
             self.data = np.zeros((length,rank,rank))
@@ -76,12 +76,8 @@ class MatrixArray(object):
             self.types = types
 
         self.typeMap = {t:i for i,t in enumerate(self.types)}
+        self.space = space
 
-        if space is None:
-            self.space = Space.Real
-        else:
-            self.space = space
-            
     def __repr__(self):
         return '<MatrixArray rank:{:d} length:{:d}>'.format(self.rank,self.length)
     
