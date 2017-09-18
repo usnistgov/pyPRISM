@@ -36,6 +36,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
+    'sphinx.ext.inheritance_diagram',
     'sphinx.ext.viewcode']
 
 # Napoleon settings

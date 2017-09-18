@@ -5,33 +5,80 @@ import numpy as np
 from scipy.fftpack import dst
 
 class Domain(object):
-    '''Define and transform between Real and Fourier space
-    
-    Domain describes the discretization of Real and Fourier space
-    and also sets up the functions and coefficients for transforming
-    data between them.
-    
-    Attributes
-    ----------
-    length: int
-        Number of gridpoints in Real and Fourier space grid
-        
-    dr,dk: float
-        Grid spacing in Real and Fourier space
-    
-    r,k: float ndarray
-        Numpy arrays of grid locations in Real and Fourier space
+    r'''Define domain and transform between Real and Fourier space
 
-    long_r: float ndarray
-        Numpy array identical in content to r except reshaped so that it 
-        broadcasts correctly when multiplying MatrixArrays
+    **Mathematical Definition**
+        
+        The continuous, 1-D, radially symmetric Fourier transform is written
+        as follows:
+
+        .. math::
+
+            k \hat{f}(k) = 4 \pi \int r f(r) \sin(k r) dr
+
+        We define the following discretizations
+
+        .. math:: 
+
+            r = (i+1)\Delta r
+
+            k = (j+1)\Delta k
+
+            \Delta k = \frac{\pi}{\Delta r (N + 1)}
+
+        Substituting these into the continouous expression above yields
+
+        .. math::
+
+            \hat{F}(j) = 4 \pi \Delta r \sum_{i=0}^{N-1} F(i) \sin(\frac{\pi}{N+1} (i+1)(j+1))
+
+        with the following definitions:
+
+        .. math::
+
+            \hat{F}(j) = (j+1)\ \Delta k\ \hat{f}((j+1)\Delta k) = k \hat{f}(k)
+
+        .. math::
+
+            F(i) = (i+1)\ \Delta r\ f((i+1)\Delta r) = r f(r)
+
+        The above equations describe a Real to Real, type-II discrete sine
+        transform (DST). To tranform to and from Fourier space we will use the
+        type-II and type-III DST's respectively. With Scipy's interface to
+        fftpack, we'll need the following functional coeffcients as well
+
+        .. math::
+
+            \text{DST_II_coeffs} = 2 \pi r \Delta r
+
+        .. math::
+
+            \text{DST_III_coeffs} = \frac{k \Delta k}{4 \pi^2}
     
-    DST_II_coeffs,DST_III_coeffs: float
-        Coefficients needed for Discrete Sine Transforms. Note that these
-        values are specific to each implementation of the DST and were 
-        derived for (Scipy's interface to) FFTPACK. 
+    
+    **Description**
+
+        Domain describes the discretization of Real and Fourier space
+        and also sets up the functions and coefficients for transforming
+        data between them.
+    
     '''
     def __init__(self,length,dr=None,dk=None):
+        r'''Constructor
+
+        Arguments
+        ---------
+        length: int
+            Number of gridpoints in Real and Fourier space grid
+
+        dr: float
+            Grid spacing in Real space
+
+        Attributes
+        ----------
+        DST_II_coeffs: np.ndarray
+            .. math:: 
+        '''
         self._length = length
         
         if (dr is None) and (dk is None):
@@ -59,6 +106,7 @@ class Domain(object):
     
     @property
     def dr(self):
+        '''Real grid spacing'''
         return self._dr
     @dr.setter
     def dr(self,value):
@@ -68,6 +116,7 @@ class Domain(object):
     
     @property
     def dk(self):
+        '''Fourier grid spacing'''
         return self._dk
     @dk.setter
     def dk(self,value):
@@ -77,6 +126,7 @@ class Domain(object):
         
     @property
     def length(self):
+        '''Number of points in grid'''
         return self._length
     @length.setter
     def length(self,value):
@@ -89,13 +139,8 @@ class Domain(object):
     def to_fourier(self,array):
         ''' Discrete Sine Transform of a numpy array 
         
-        Peforms a Real-to-Real Discrete Sine Transform  of type II 
-        on a numpy array of non-complex values. For radial data that is 
-        symmetric in \phi and \theta, this is **a** correct transform
-        to go from Real-space to Fourier-space. 
-        
-        Parameters
-        ----------
+        Arguments
+        ---------
         array: float ndarray
             Real-space data to be transformed
             
@@ -103,6 +148,13 @@ class Domain(object):
         -------
         array: float ndarray
             data transformed to fourier space
+
+
+        Peforms a Real-to-Real Discrete Sine Transform  of type II 
+        on a numpy array of non-complex values. For radial data that is 
+        symmetric in \phi and \theta, this is **a** correct transform
+        to go from Real-space to Fourier-space. 
+        
         
         '''
         return dst(self.DST_II_coeffs*array,type=2)/self.k
@@ -110,13 +162,8 @@ class Domain(object):
     def to_real(self,array):
         ''' Discrete Sine Transform of a numpy array 
         
-        Peforms a Real-to-Real Discrete Sine Transform  of type III 
-        on a numpy array of non-complex values. For radial data that is 
-        symmetric in \phi and \theta, this is **a** correct transform
-        to go from Fourier-space to Real space.
-        
-        Parameters
-        ----------
+        Arguments
+        ---------
         array: float ndarray
             Fourier-space data to be transformed
             
@@ -124,12 +171,29 @@ class Domain(object):
         -------
         array: float ndarray
             data transformed to Real space
+
+
+        Peforms a Real-to-Real Discrete Sine Transform  of type III 
+        on a numpy array of non-complex values. For radial data that is 
+        symmetric in \phi and \theta, this is **a** correct transform
+        to go from Fourier-space to Real space.
         
         '''
         return dst(self.DST_III_coeffs*array,type=3)/self.r
     
     def MatrixArray_to_fourier(self,marray):
-        ''' Transform all curves of a MatrixArray to Fourier space in-place'''
+        ''' Transform all curves of a MatrixArray to Fourier space in-place
+
+        Arguments
+        ---------
+        marray: :class:`typyPRISM.core.MatrixArray.MatrixArray`
+            MatrixArray to be transformed
+
+        Raises
+        ------
+        ValueError:
+            If the supplied MatrixArray is already in Real-space
+        '''
         if marray.space == Space.Fourier:
             raise ValueError('MatrixArray is marked as already in Fourier space')
             
@@ -139,7 +203,18 @@ class Domain(object):
         marray.space = Space.Fourier
             
     def MatrixArray_to_real(self,marray):
-        ''' Transform all curves of a MatrixArray to Real space in-place '''
+        ''' Transform all curves of a MatrixArray to Real space in-place 
+
+        Arguments
+        ---------
+        marray: :class:`typyPRISM.core.MatrixArray.MatrixArray`
+            MatrixArray to be transformed
+
+        Raises
+        ------
+        ValueError:
+            If the supplied MatrixArray is already in Real-space
+        '''
         if marray.space == Space.Real:
             raise ValueError('MatrixArray is marked as already in Real space')
             

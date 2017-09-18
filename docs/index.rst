@@ -22,7 +22,7 @@ Contents
    api/typyPRISM
    install
    philosophy
-   matrix_array
+   data_structures
    examples 
    convergence
    faq

@@ -2,6 +2,7 @@
 from __future__ import division,print_function
 from typyPRISM.potential.Potential import Potential
 import numpy as np
+
 class Exponential(Potential):
     r'''Exponential attractive interactions
     

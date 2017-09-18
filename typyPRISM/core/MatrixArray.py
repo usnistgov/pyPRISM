@@ -7,21 +7,27 @@ import numpy as np
 class MatrixArray(object):
     '''A container for creating and interacting with arrays of matrices
     
-    The primary data structure of MatrixArray is simply a 3D Numpy array 
-    with the first dimension accessing each individual matrix in the array
-    and the last two dimenions corresponding to the vertical and horizontal 
-    index of each matrix element.
-    
-    The terminology *Curve* is used to refer to the set of values from
-    all matrices in the array at a given matrix index pair. In Numpy slicing 
-    parlance::
-    
-        curve_11 = numpy_array[:,1,1]
-        curve_12 = numpy_array[:,1,2]
+    **Description**
 
-    Access to the MatrixArray is either by supplied types or numerical indices.
-    If types are not supplied, captial letters starting from 'A' are used. 
+        The primary data structure of MatrixArray is simply a 3D Numpy array 
+        with the first dimension accessing each individual matrix in the array
+        and the last two dimenions corresponding to the vertical and horizontal 
+        index of each matrix element.
+        
+        The terminology *Curve* is used to refer to the set of values from
+        all matrices in the array at a given matrix index pair. In Numpy slicing 
+        parlance::
+        
+            curve_11 = numpy_array[:,1,1]
+            curve_12 = numpy_array[:,1,2]
 
+        Access to the MatrixArray is either by supplied types or numerical indices.
+        If types are not supplied, captial letters starting from 'A' are used. 
+
+        See :ref:`data_structures` for a full discussion of this class.
+
+    Example
+    -------
     .. code-block:: python
 
         mArray = MatrixArray(length=1024,rank=2,types=['polymer','solvent'])
@@ -29,34 +35,39 @@ class MatrixArray(object):
         mArray['polymer','solvent'] == mArray['solvent','polymer'] == mArray.get(0,1)
 
     
-    Attributes
-    ----------
-    rank: int
-        Number of rows/cols of each (square) matrix. For PRISM theory, this 
-        also equal to the number of site types.
-        
-    length: int
-        Number of matrices in array. For PRISM theory, this corresponds to
-        the number of grid points in real- and Fourier-space i.e. Domain.size.
-        
-    types: list, *optional*
-        List of semantic types that can be used to reference data via the 
-        getByTypes method. These types will be output by the itercurve
-        method as well. If not supplied, integer types will be generated.
-        
-    data: float np.ndarray, size (length,rank,rank)
-        Interface for specifying the MatrixArray data directly. If not given,
-        all matrices will be set to zero. 
-    
-    space: typyPRISM.core.Space.Space
-        Enumerated value tracking whether the array represents real or Fourier
-        spaced data. As we will be transferring arrays to and from these spaces,
-        it's important for safety that we track this.
     '''
     
     SpaceError = "Attempting MatrixArray math in non-matching spaces"
     
     def __init__(self,length,rank,data=None,space=Space.Real,types=None):
+        '''Constructor
+
+        Arguments
+        ----------
+        length: int
+            Number of matrices in array. For PRISM theory, this corresponds to
+            the number of grid points in real- and Fourier-space i.e.
+            Domain.size.
+
+        rank: int
+            Number of rows/cols of each (square) matrix. For PRISM theory, this
+            also equal to the number of site types.
+            
+        data: np.ndarray, size (length,rank,rank)
+            Interface for specifying the MatrixArray data directly. If not
+            given, all values in all matrices will be set to zero. 
+            
+        space: typyPRISM.core.Space.Space
+            Enumerated value tracking whether the array represents real or
+            Fourier spaced data. As we will be transferring arrays to and from
+            these spaces, it's important for safety that we track this.
+
+        types: list, *optional*
+            List of semantic types that are be used to reference data. These
+            types will be output by the itercurve method as well. If not
+            supplied, uppercase letters will be used.
+
+        '''
                     
         if data is None:
             self.data = np.zeros((length,rank,rank))
@@ -88,15 +99,16 @@ class MatrixArray(object):
     def itercurve(self):
         '''Iterate over the curves in this MatrixArray
 
-        Yields:
-            (i,j): 2-tuple of integers
-                numerical index to the underlying data numpy array
+        Yields
+        ------
+        (i,j): 2-tuple of integers
+            numerical index to the underlying data numpy array
 
-            (t1,t2): 2-tuple of string types
-                string index to the underlying data numpy array
+        (t1,t2): 2-tuple of string types
+            string index to the underlying data numpy array
 
-            curve: np.ndarray, size (self.length)
-                1-D array representing a curve withing the MatrixArray
+        curve: np.ndarray, size (self.length)
+            1-D array representing a curve withing the MatrixArray
         '''
         for i,j in product(range(self.rank),range(self.rank)):
             if i<=j: #upper triangle condition
@@ -106,11 +118,19 @@ class MatrixArray(object):
             
     def __setitem__(self,key,val):
         '''Curve setter 
-        
+
+        Arguments
+        ---------
+        key: tuple of types
+            Type pair used to identify curve pair
+
+        val: np.ndarray
+            Values of curve
+
+
         Assumes all matrices are symmetric and enforces symmetry by
         setting both off diagonal elements. 
 
-        The key parameter should be a tuple of string types which
         '''
         type1,type2 = key 
 
@@ -129,7 +149,17 @@ class MatrixArray(object):
             self.data[:,index2,index1] = val
         
     def __getitem__(self,key):
-        '''Curve getter'''
+        '''Curve getter
+
+        Arguments
+        ---------
+        key: tuple of types
+            Type pair used to identify curve pair
+
+        val: np.ndarray
+            Values of curve
+        '''
+
         type1,type2 = key 
 
         try:

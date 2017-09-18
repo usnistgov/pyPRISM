@@ -1,4 +1,0 @@
-.. _matrixarray:
-
-MatrixArray Overview
-====================

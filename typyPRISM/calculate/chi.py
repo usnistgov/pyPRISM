@@ -13,51 +13,125 @@ systems. We caution the user when interpreting the data from this calculation
 for more than two components. 
 '''
 
-def chi(PRISM):
+def chi(PRISM,extrapolate=True):
     r'''Calculate the effective interaction parameter, :math:`\chi`
-    
-    .. math::
-        
-        \hat{\chi}_{\alpha,\beta}(k)  = \frac{0.5 \rho}{R \phi_{\alpha} + R^{-1} \phi_{\beta}} (\hat{C}_{\alpha,\alpha}(k)
-        + \hat{C}_{\beta,\beta}(k) - 2* + \hat{C}_{\alpha,\beta}(k))
-
-    .. math::
-
-        R = v_{\alpha}/v_{\beta}
-
-    Note
-    ----
-    :math:`\hat{\chi}_{\alpha,\beta}(k)` 
-        Direct correlation function between site types :math:`\alpha` and
-        :math:`\beta`
-
-    :math:`\rho` 
-        Total system density from the :ref:`typyPRISM.core.Density.Density` instance
-
-    :math:`\phi_{\alpha},\phi_{\beta}` 
-        Volume fraction of site types :math:`\alpha` and :math:`\beta`. 
-
-        .. math::
-
-            \phi_{\alpha} = \frac{\rho_{\alpha}}{\rho_{\alpha} + \rho_{\beta}}
-
-    :math:`v_{\alpha},v_{\beta}` 
-        Volume of site type :math:`\alpha` and :math:`\beta`
-        
 
     Parameters
     ----------
     PRISM: typyPRISM.core.PRISM
         A **solved** PRISM object.
+
+    extrapolate: bool, *optional*
+        If True, only return the chi value extrapolated to :math:`k=0`
     
     Returns
     -------
     chi: typyPRISM.core.PairTable
-        PairTable of all wavenumber dependent chi pairs indexed by tuple pairs
+        PairTable of all :math:`\chi` vs :math:`k`  or :math:`\chi(k=0)` values
+    
+
+    **Mathematical Definition**
+
+    .. math::
+        
+        \hat{\chi}_{\alpha,\beta}(k)  = \frac{0.5 \rho}{R^{+0.5} \phi_{\alpha} + R^{-0.5} \phi_{\beta}} (R^{-1} \hat{C}_{\alpha,\alpha}(k)
+        + R \hat{C}_{\beta,\beta}(k) - 2 \hat{C}_{\alpha,\beta}(k))
+
+    .. math::
+
+        R = v_{\alpha}/v_{\beta}
+
+
+    **Variable Definitions**
+
+        - :math:`\hat{\chi}_{\alpha,\beta}(k)` 
+            Wavenumber dependent effective interaction parameter
+    
+        - :math:`\rho`
+            Total system density from the :class:`typyPRISM.core.Density.Density`
+            instance stored in the system object (which is stored in the PRISM
+            object)
+    
+        - :math:`\phi_{\alpha},\phi_{\beta}` 
+            Volume fraction of site types :math:`\alpha` and :math:`\beta`. 
+    
+            .. math::
+    
+                \phi_{\alpha} = \frac{\rho_{\alpha}}{\rho_{\alpha} + \rho_{\beta}}
+
+        - :math:`v_{\alpha},v_{\beta}` 
+            Volume of site type :math:`\alpha` and :math:`\beta`
+
+
+    **Description**
+
+        :math:`\hat{\chi}_{\alpha,\beta}(k)` describes the overall effective
+        interactions between sites :math:`\alpha` and :math:`\beta` as a single
+        number. While there are many different definitions of :math:\chi, this
+        is an effective version that takes into account both *entropic* and
+        *enthalpic* interactions. In this way, this :math:`\chi` is similar to a
+        second virial coefficient. In terms of value, :math:`\chi<0` indicates
+        effective attraction and :math:`\chi>0` effective repulsion. 
+
+        As most theories do not take into account the (potentially contentious)
+        wavenumber dependence of :math:`\chi`, the zero-wavenumber extrapolation
+        is often used when reporting PRISM-based :math:`\chi` values. For
+        convenience, the full wavenumber dependent curve can be requested, but
+        only the :math:`k=0` values are returned by default. 
+
+    .. warning::
+
+        The :math:`\chi` calculation is only value for multicomponent systems
+        i.e. systems with more than one defined type. This method will throw an
+        exception if passed a 1-component PRISM object. 
+
+    .. warning::
+
+        This calculation is only rigorously defined in the two-component case.
+        With that said, typyPRISM allows this method to be called for all
+        multicomponent systems in order to calculate partial,pairwise
+        :math:`\chi` values. We urge caution when using this method for
+        multicomponent systems as it is not clear if this approach is fully
+        rigorous.
+
+
 
     Example
     -------
-    
+    .. code-block:: python
+
+        import typyPRISM
+
+        sys = typyPRISM.System(['A','B'])
+
+        .
+        . # populate system variables
+        .
+        
+        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
+        
+        sys.density['A'] = 0.1
+        sys.density['B'] = 0.75
+
+        sys.diameter[sys.types] = 1.0
+        
+        sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
+
+        sys.potential[sys.types,sys.types] = typyPRISM.potential.HardSphere()
+        
+        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
+        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
+        
+        PRISM = sys.createPRISM()
+
+        PRISM.solve()
+
+        chi = typyPRISM.calculate.chi(PRISM)
+
+        chi_AB = rdf['A','B']
+        chi_AA = rdf['A','A'] #returns None
+
     '''
     
     assert PRISM.sys.rank>1,'The chi calculation is only valid for multicomponent systems'
@@ -70,6 +144,7 @@ def chi(PRISM):
         
     
     chi = PairTable(name='chi',types=PRISM.sys.types)
+    chi0 = PairTable(name='chi0',types=PRISM.sys.types)
     for i,t1 in enumerate(PRISM.sys.types):
         for j,t2 in enumerate(PRISM.sys.types):
             if i<j:
@@ -89,5 +164,13 @@ def chi(PRISM):
                 R = v_A/v_B
                 
                 chi[t1,t2] = (R**(-0.5)*phi_A + R**(0.5)*phi_B)**(-1.0)*0.5*PRISM.sys.density.total*(R**(-1.0) * C_AA + R*C_BB - 2*C_AB)
-                
-    return chi
+
+                x = PRISM.sys.domain.k[:3]
+                y = chi[t1,t2][:3]
+                fit = np.poly1d(np.polyfit(x,y,2))
+                chi0[t1,t2] = fit(0)
+
+    if extrapolate:
+        return chi0
+    else:
+        return chi

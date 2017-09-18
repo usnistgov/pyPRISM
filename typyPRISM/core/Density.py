@@ -9,6 +9,8 @@ import numpy as np
 class Density(object):
     r'''Container for pair and site densities
 
+    **Mathematical Definition**
+
     .. math::
         
         \rho^{pair}_{\alpha,\beta} = \rho_{\alpha} \rho_{\beta} 
@@ -22,39 +24,44 @@ class Density(object):
             \end{cases}
 
 
-    Note
-    ----
-    :math:`\rho_{\alpha}`
-        Number density of site :math:`\alpha`
+    **Variable Definitions**
 
-    :math:`\rho^{pair}_{\alpha,\beta}`
-        Total pair number density of pair :math:`\alpha,\beta`
+        :math:`\rho_{\alpha}`
+            Number density of site :math:`\alpha`
 
-    :math:`\rho^{site}_{\alpha,\beta}`
-        Total site number density of pair :math:`\alpha,\beta`
+        :math:`\rho^{pair}_{\alpha,\beta}`
+            Total pair number density of pair :math:`\alpha,\beta`
+
+        :math:`\rho^{site}_{\alpha,\beta}`
+            Total site number density of pair :math:`\alpha,\beta`
         
 
-    The typyPRISM.core.Density.Density class describes the makeup of the system 
-    in terms of both total site and pair densities. The container provides a 
-    simple interface for getting and setting (via square brackets [ ]) site
-    densities and also takes care of calculating the total site and total pair
-    number densities. The total site and pair number densities can be accessed
-    as MatrixArrays (typyPRISM.core.MatrixArray.MatrixArray) attributes. 
+    **Description**
+    
+        This class describes the makeup of the system in terms of both total
+        site and pair densities. The container provides a simple interface for
+        getting and setting (via square brackets [ ]) site densities and also
+        takes care of calculating the total site and total pair number
+        densities. The total site and pair number densities can be accessed as
+        MatrixArrays (typyPRISM.core.MatrixArray.MatrixArray) attributes. 
     
 
     Example
     -------
     .. code-block:: python
 
-        rho = typyPRISM.Density(['A','B'])
+        import typyPRISM
+
+        rho = typyPRISM.Density(['A','B','C'])
 
         rho['A'] = 0.25
         rho['B'] = 0.35
+        rho['C'] = 0.15
 
-        rho.pair['A','B'] #pair density rho_AB = 0.25*0.35
+        rho.pair['A','B'] #pair density rho_AB = 0.25 * 0.35
+        rho.site['A','B'] #site density rho_AB = 0.25 + 0.35
         rho.site['B','B'] #site density rho_BB = 0.35
-
-        rho.total # =0.25 + 0.35
+        rho.total         #total density rho   = 0.25 + 0.35 + 0.15
     
     '''
     def __init__(self,types):
@@ -67,16 +74,16 @@ class Density(object):
         
         Attributes
         ----------
-        density: typyPRISM.ValueTable
+        density: :class:`typyPRISM.core.ValueTable.ValueTable`
             Table of site number density values
 
         total: float
             Total number density 
 
-        site: typyPRISM.MatrixArray
+        site: :class:`typyPRISM.core.MatrixArray.MatrixArray`
             Total site density for each pair.
 
-        pair: typyPRISM.MatrixArray
+        pair: :class:`typyPRISM.core.MatrixArray.MatrixArray`
             Total pair site density for each pair.
         '''
         self.types = types 
