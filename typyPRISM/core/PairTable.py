@@ -7,43 +7,91 @@ import copy
 
 class PairTable(Table):
     '''Container for data that is keyed by pairs of types
-    
-    Since PRISM is a theory based in *pair*-correlation functions, it 
-    follows that many of the necessary parameters of the theory are specified
-    between the pairs of types. This goal of this container is to make setting,
-    getting, and checking these data easy.
-    
-    To start, setter/getter methods have been set up to set groups of types 
-    simultaneously. For example::
-        
-            PT = PairTable(['A','B','C','D'],'density',symmetric=True)
-            
-            # The following sets the 'A-C' and 'B-C' pairs to be 0.5. Also, since
-            # we set symmetric=True above, 'C-A' and 'C-B' is also set
-            PT[['A','B'],'['C']] = 0.5
-    
-    This allows for the rapid construction of datasets where many of the parameters
-    are repeated. 
-    
-    Parameters
-    ----------
-    types: list
-        Lists of the types that will be used to key the PairTable. The length of this
-        list should be equal to the rank of the PRISM problem to be solved i.e. 
-        len(types) == number of sites in system
-        
-    name: string
-        The name of the PairTable. This is simply used as a convencience for identifying
-        the table internally. 
-    
-    symmetric: bool
-        If True, the table will automatically set both off-diagonal values during
-        assignment e.g. PT['A','B'] = 5 will set 'A-B' and 'B-A'
-    
 
+    **Description**
+
+        Since PRISM is a theory based in *pair*-correlation functions, it
+        follows that many of the necessary parameters of the theory are
+        specified between the pairs of types. This goal of this container is to
+        make setting, getting, and checking these data easy.
+        
+        Setter/getter methods have been set up to set groups of types
+        simultaneously. This allows for the rapid construction of datasets
+        where many of the parameters are repeated. This class also
+        automatically assumes pair-reversibility and handles the setting of
+        unlike pairs automatically i.e. A-B and B-A are set at the same time.
+
+        Note that, unlike the :class:`typyPRISM.core.MatrixArray`, this
+        container is not meant to be uses for mathematics. The benefit of this
+        is that, for each type, it can contain any arbitrary number, str, or
+        Python object. 
+
+        See the example below and the :ref:`data_structures` page for more
+        information.
+
+    Example
+    -------
+    .. code-block:: python
+
+        import typyPRISM
+
+        PT = typyPRISM.ValueTable(['A','B','C'],name='potential')
+
+        # Set the 'A-A' pair
+        PT['A','A']            = 'Lennard-Jones'
+
+        # Set the 'B-A', 'A-B', 'B-B', 'B-C', and 'C-B' pairs
+        PT['B',['A','B','C'] ] = 'Weeks-Chandler-Andersen'
+
+        # Set the 'C-A', 'A-C', 'C-C' pairs
+        PT['C',['A','C'] ]     = 'Exponential'
+
+        for i,t,v in PT.iterpairs():
+            print('{}) {} for pair {}-{} is {}'.format(i,VT.name,t[0],t[1],v))
+
+        # The above loop prints the following:
+        #   (0, 0)) potential for pair A-A is Lennard-Jones
+        #   (0, 1)) potential for pair A-B is Weeks-Chandler-Andersen
+        #   (0, 2)) potential for pair A-C is Exponential
+        #   (1, 1)) potential for pair B-B is Weeks-Chandler-Andersen
+        #   (1, 2)) potential for pair B-C is Weeks-Chandler-Andersen
+        #   (2, 2)) potential for pair C-C is Exponential
+
+        for i,t,v in PT.iterpairs(full=True):
+            print('{}) {} for pair {}-{} is {}'.format(i,VT.name,t[0],t[1],v))
+
+        # The above loop prints the following:
+        #   (0, 0)) potential for pair A-A is Lennard-Jones
+        #   (0, 1)) potential for pair A-B is Weeks-Chandler-Andersen
+        #   (0, 2)) potential for pair A-C is Exponential
+        #   (1, 0)) potential for pair B-A is Weeks-Chandler-Andersen
+        #   (1, 1)) potential for pair B-B is Weeks-Chandler-Andersen
+        #   (1, 2)) potential for pair B-C is Weeks-Chandler-Andersen
+        #   (2, 0)) potential for pair C-A is Exponential
+        #   (2, 1)) potential for pair C-B is Weeks-Chandler-Andersen
+        #   (2, 2)) potential for pair C-C is Exponential
+
+    
     
     '''
     def __init__(self,types,name,symmetric=True):
+        r'''Constructor
+
+        Arguments
+        ----------
+        types: list
+            Lists of the types that will be used to key the PairTable. The length of this
+            list should be equal to the rank of the PRISM problem to be solved i.e. 
+            len(types) == number of sites in system
+            
+        name: string
+            The name of the PairTable. This is simply used as a convencience for identifying
+            the table internally. 
+        
+        symmetric: bool
+            If True, the table will automatically set both off-diagonal values during
+            assignment e.g. PT['A','B'] = 5 will set 'A-B' and 'B-A'
+        '''
         self.types = types
         self.symmetric = symmetric
         self.name = name
@@ -76,7 +124,13 @@ class PairTable(Table):
                     self.values[t2][t1] = value_copy
             
     def check(self):
-        '''Is everything in the table set?'''
+        '''Is everything in the table set?
+
+        Raises
+        ------
+        ValueError if all values are not set
+        
+        '''
         for i,t,val in self.iterpairs():
             if val is None:
                 raise ValueError('PairTable {} is not fully specified!'.format(self.name))
@@ -107,13 +161,29 @@ class PairTable(Table):
                 yield (i,j),(t1,t2),(val)
                 
     def setUnset(self,value):
-        '''Set all values that have not been specified to a value'''
+        '''Set all values that have not been specified to a value
+
+        Arguments
+        ---------
+        value: 
+            Any valid python object (number, list, array, etc) can be passed in
+            as a value for all unset fields. 
+        
+        '''
         for i,(t1,t2),v in self.iterpairs():
             if v is None:
                 self[t1,t2] = value
                 
     def exportToMatrixArray(self,space=Space.Real):
-        '''Convenience function for converting a table of arrays to a MatrixArray'''
+        '''Convenience function for converting a table of arrays to a MatrixArray
+
+        .. warning::
+
+            This only works if the PairTable contains numerical data that is
+            all of the same shape that can be cast into a np.ndarray like
+            object.
+        
+        '''
         lengths = []
         for i,t,val in self.iterpairs():
             if val is None:

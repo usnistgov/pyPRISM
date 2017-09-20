@@ -20,6 +20,6 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 buildapi:
-	sphinx-apidoc -fMeT ../typyPRISM -o api
+	sphinx-apidoc -fMeT ../typyPRISM -o api ../typyPRISM/test
 		@echo "Auto-generation of API documentation finished. " \
 		"The generated files are in 'api/'"

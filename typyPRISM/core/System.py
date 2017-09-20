@@ -53,6 +53,39 @@ class System:
         Site diameters. Note that these are not passed to potentials and it
         is up to the user to set sane \sigma values that match these 
         diameters. 
+
+    Example
+    -------
+    .. code-block:: python
+
+        import typyPRISM
+
+        sys = typyPRISM.System(['A','B'])
+        
+        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
+
+        # ** populate system variables **
+        
+        sys.density['A'] = 0.1
+        sys.density['B'] = 0.75
+
+        sys.diameter[sys.types] = 1.0
+        
+        sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
+
+        sys.potential[sys.types,sys.types] = typyPRISM.potential.HardSphere()
+        
+        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
+        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
+        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
+        
+        PRISM = sys.createPRISM()
+
+        PRISM.solve()
+
+        rdf = typyPRISM.calculate.pair_correlation(PRISM)
+
+        rdf_AB = rdf['A','B']
     
     
     '''

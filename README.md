@@ -54,97 +54,44 @@ pcf = pair_correlation(PRISM)
 
 Documentation
 =============
-Please see the [wiki](https://github.com/usnistgov/typyPRISM/wiki) for user-documentation and
-frequently asked questions (FAQs). We intend to update this page as new challenges are identified
-in using typyPRISM. The wiki also contains a project roadmap and information about how to extend 
-typyPRISM and contribute these changes back to this primary repository. 
+Code documentation can be found [here](https://readthedocs.io/). The most up to
+date code documentation can always be found by compiling from source. 
 
-Code documentation can be found [here](https://readthedocs.io/). The most up to date code documentation 
-can always be found by compiling from source. Assuming you have [Sphinx](http://www.sphinx-doc.org/en/stable/) 
-installed:
-```
-    > cd <typyPRISM base directory>/doc
-    > make
-```
-
-Installation
-============
-
-Step 1a: Dependencies via Anaconda (Recommended)
-------------------------------------------------
-The easiest way to get an environment set up installing it using the 
-``environment2.yml``  or ``environment3.yml`` we have provided for a python2 or
-python3 based environment. We recommend the python3 version. If you
-don't already have it, install [conda](https://www.continuum.io/downloads). Note that
-all of the below instructions can be executed via the anaconda-navigator GUI. To start,
-we'll make sure you have the latest version of conda.
-```
-    > conda deactivate
-    > conda update anaconda 
-```
-Now create the ``typyPRISM3`` environment by executing:
-```
-   > conda env create -f environment3.yml
-```
-When installation is complete you must activate the environment. 
-```
-   (Windows)   > activate typyPRISM3 
-   (OSX/Linux) $ source activate typyPRISM3 
-```
-
-Later, when you are ready to exit the environment after the tutorial, you can type:
-```
-   (Windows)   > deactivate 
-   (OSX/Linux) $ source deactivate
-```
-
-If for some reason you want to remove the environment entirely, you can do so by writing:
-```
-   > conda env remove --name typyPRISM3 
-```
-Note that an environment which satisfies the above dependencies must be **active** every time
-you wish to use typyPRISM via script or notebook. If you open a new terminal, you will have to 
-reactivate the conda environment before running a script or starting jupyter notebook.
-
-Step 1b: Depedencies via pip
-----------------------------
+Depedencies
+===========
 The following are the minimum depedencies needed to use typyPRISM:
-- Python 2.6+ or 3+
-- Numpy >= 1.8.0
-    - Need support for linear algebra on stacked arrays
-- Scipy
-- Cython (not currently but likely in future)
+    - Python 2.6+ or 3+
+    - Numpy >= 1.8.0
+    - Scipy
+    - Cython (not currently but likely in future)
 
-These extra dependencies are needed to run the example notebooks:
-- jupyter
-- matplotlib
-- bokeh
-- holoviews
+These dependencies are needed to run the example notebooks documentation
+    - jupyter
+    - matplotlib
+    - bokeh
+    - holoviews
 
-Assuming pip is set up, all dependencies can be installed at once via
-```
-    > pip install numpy scipy cython jupyter matplotlib bokeh holoviews
+These depedencies are needed to compile the documentation from source
+    - sphinx
+    - sphinx-autobuild
+    - sphinx_rtd_theme
+
+
+Quick Install
+-------------
+Install typyPRISM with all basic dependences via conda or pip. These commands
+should be platform agnostic and work for Unix, OSX, and Windows *if* you have
+Anaconda or pip correctly installed.  For full installation instructions please
+see the documentation. 
+
+``` bash
+    $ conda install typyPRISM
 ```
 
-Alternatively, each package can be downloaded and installed manually via
+or
+
+``` bash
+    $ pip install typyPRISM
 ```
-    > cd <downloaded package directory>
-    > python setup.py install
-```
-Step 2: Install
----------------
-After the depdendencies are satisfied and/or the conda environment is created and activated,
-typyPRISM can be installed to the system by running:
-```
-    > python setup.py install
-```
-Step 3: Usage
----------------
-Once typyPRISM is installed or placed in your ``PYTHONPATH`` it can be imported and used in scripts
-as shown in the above example. To use the examples in source directory
-```
-    > cd <typyPRISM base directory>/examples
-    > jupyter notebook
-```
-This should spawn a jupyter notebook tab in your web browser of choice. If the tab doesn't spawn, check the
-terminal for a link that can be copied and pasted.
+
+

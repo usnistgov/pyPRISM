@@ -43,7 +43,7 @@ class Density(object):
         getting and setting (via square brackets [ ]) site densities and also
         takes care of calculating the total site and total pair number
         densities. The total site and pair number densities can be accessed as
-        MatrixArrays (typyPRISM.core.MatrixArray.MatrixArray) attributes. 
+        MatrixArrays (:class:`typyPRISM.core.MatrixArray`) attributes. 
     
 
     Example
@@ -74,16 +74,16 @@ class Density(object):
         
         Attributes
         ----------
-        density: :class:`typyPRISM.core.ValueTable.ValueTable`
+        density: :class:`typyPRISM.core.ValueTable`
             Table of site number density values
 
         total: float
             Total number density 
 
-        site: :class:`typyPRISM.core.MatrixArray.MatrixArray`
+        site: :class:`typyPRISM.core.MatrixArray`
             Total site density for each pair.
 
-        pair: :class:`typyPRISM.core.MatrixArray.MatrixArray`
+        pair: :class:`typyPRISM.core.MatrixArray`
             Total pair site density for each pair.
         '''
         self.types = types 
@@ -95,7 +95,13 @@ class Density(object):
         self.site = MatrixArray(length=1,rank=len(types),types=types,space=Space.NonSpatial)
 
     def check(self):
-        '''Are all densities set?'''
+        '''Are all densities set?
+
+        Raises
+        ------
+        ValueError if densities are not all set. 
+        
+        '''
         self.density.check()
 
     def __repr__(self):

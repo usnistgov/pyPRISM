@@ -16,7 +16,6 @@ Subpackages
     typyPRISM.core
     typyPRISM.omega
     typyPRISM.potential
-    typyPRISM.test
 
 Submodules
 ----------

@@ -35,6 +35,7 @@ General Features
 - Sanity Checks
     - usage checks
     - physical parameter checks
+- Utility for saving and reading matrixarrays and tables from disk
 
 Examples
     - Overall Cleanup

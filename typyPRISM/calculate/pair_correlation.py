@@ -7,12 +7,12 @@ def pair_correlation(PRISM):
 
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM.PRISM
+    PRISM: typyPRISM.core.PRISM
         A **solved** PRISM object.
     
     Returns
     -------
-    pairCorr: typyPRISM.core.MatrixArray.MatrixArray
+    pairCorr: typyPRISM.core.MatrixArray
         The full MatrixArray of pair correlation functions.
     
 
@@ -59,20 +59,7 @@ def pair_correlation(PRISM):
 
         sys = typyPRISM.System(['A','B'])
         
-        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
-        
-        sys.density['A'] = 0.1
-        sys.density['B'] = 0.75
-
-        sys.diameter[sys.types] = 1.0
-        
-        sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
-
-        sys.potential[sys.types,sys.types] = typyPRISM.potential.HardSphere()
-        
-        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
-        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
-        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
+        # ** populate system variables **
         
         PRISM = sys.createPRISM()
 

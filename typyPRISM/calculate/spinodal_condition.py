@@ -6,27 +6,82 @@ from typyPRISM.core.Space import Space
 from typyPRISM.core.PairTable import PairTable
 import numpy as np
 
-def spinodal_condition(PRISM):
+def spinodal_condition(PRISM,extrapolate=True):
     '''Calculate the spinodal condition between pairs of components 
 
-    This calculation is only exactly correct for a two component system. The
-    returned values are extrapolated to zero wavevector using a second order
-    polynomial fit to the first three values of the curve.
-
-    .. note:
-
-        Schweizer, Curro, Thermodynamics of Polymer Blends,
-        J. Chem. Phys., 1989 91 (8) 5059
         
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM.PRISM
+    PRISM: typyPRISM.core.PRISM
         A **solved** PRISM object.
+
+    extrapolate: bool, *optional*
+        If True, only return the value extrapolated to :math:`k=0` rather than
+        reporting the value at the lowest-k
     
     Returns
     -------
-    lambda: typyPRISM.core.PairTable
-        Dictionary of all wavenumber dependent chi pairs indexed by tuple pairs
+    lambda: typyPRISM.core.MatrixArray
+        The full MatrixArray of structure factors
+
+        
+    **Mathematical Definition**
+
+
+    .. math::
+
+        \hat{s}_{\alpha,\beta}(k) = \rho^{site}_{\alpha,\beta} \hat{\omega}_{\alpha,\beta}(k) + \rho^{pair}_{\alpha,\beta} \hat{h}_{\alpha,\beta}(k)
+
+    
+    **Variable Definitions**
+
+        - :math:`\hat{\omega}_{\alpha,\beta}(k)`
+            Intra-molecular correlation function between sites :math:`\alpha`
+            and :math:`\beta` at a wavenumber :math:`k`
+
+        - :math:`\hat{h}_{\alpha,\beta}(k)`
+            Total correlation function between sites :math:`\alpha` and
+            :math:`\beta` at a wavenumber :math:`k`
+
+        - :math:`\rho^{site}_{\alpha,\beta}`, :math:`\rho^{pair}_{\alpha,\beta}`
+            Sitewise and pairwise densities for sites :math:`\alpha` and
+            :math:`\beta`. See :class:`typyPRISM.core.Density` for details. 
+
+    **Description**
+
+        To be added...
+
+
+    .. warning::
+
+        Passing an unsolved PRISM object to this function will still produce
+        output based on the default values of the attributes of the PRISM
+        object.
+
+    References
+    ----------
+    Schweizer, Curro, Thermodynamics of Polymer Blends,
+    J. Chem. Phys., 1989 91 (8) 5059
+    
+
+    Example
+    -------
+    .. code-block:: python
+
+        import typyPRISM
+
+        sys = typyPRISM.System(['A','B'])
+
+        # ** populate system variables **
+        
+        PRISM = sys.createPRISM()
+
+        PRISM.solve()
+
+        sk = typyPRISM.calculate.structure_factor(PRISM)
+
+        sk_BB = sk['B','B']
+    
     
     '''
     

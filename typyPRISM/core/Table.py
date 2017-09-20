@@ -1,8 +1,8 @@
 class Table:
     '''Baseclass used to define tables of parameters
     
-    This class should used/instatiated directly. It is intended
-    to be only inherited.
+    This class should not be used/instatiated directly. It is intended to be
+    only inherited.
     
     '''
     def listify(self,values):

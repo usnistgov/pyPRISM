@@ -22,7 +22,8 @@ def chi(PRISM,extrapolate=True):
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
-        If True, only return the chi value extrapolated to :math:`k=0`
+        If True, only return the chi value extrapolated to :math:`k=0` rather
+        than reporting the value at the lowest-k
     
     Returns
     -------
@@ -48,7 +49,7 @@ def chi(PRISM,extrapolate=True):
             Wavenumber dependent effective interaction parameter
     
         - :math:`\rho`
-            Total system density from the :class:`typyPRISM.core.Density.Density`
+            Total system density from the :class:`typyPRISM.core.Density`
             instance stored in the system object (which is stored in the PRISM
             object)
     
@@ -94,6 +95,11 @@ def chi(PRISM,extrapolate=True):
         multicomponent systems as it is not clear if this approach is fully
         rigorous.
 
+    .. warning::
+
+        Passing an unsolved PRISM object to this function will still produce
+        output based on the default values of the attributes of the PRISM
+        object.
 
 
     Example
@@ -104,24 +110,7 @@ def chi(PRISM,extrapolate=True):
 
         sys = typyPRISM.System(['A','B'])
 
-        .
-        . # populate system variables
-        .
-        
-        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
-        
-        sys.density['A'] = 0.1
-        sys.density['B'] = 0.75
-
-        sys.diameter[sys.types] = 1.0
-        
-        sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
-
-        sys.potential[sys.types,sys.types] = typyPRISM.potential.HardSphere()
-        
-        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
-        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
-        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
+        # ** populate system variables **
         
         PRISM = sys.createPRISM()
 

@@ -6,27 +6,74 @@ from typyPRISM.calculate.pair_correlation import pair_correlation
 import numpy as np
 
 def pmf(PRISM):
-    r'''Calculate the potentials of mean force from a PRISM object
+    r'''Calculate the potentials of mean force
 
-    A potential of mean force (PMF) between site types :math:`\alpha` and
-    :math:`\beta`, :math:`w_{\alpha,\beta}` represents the the ensemble averaged
-    free energy change needed to bring these two sites from infinite separation
-    to a distance :math:`r`. It can also be thought of as a potential that would
-    be needed to reproduce the underlying :math:`g_{\alpha,\beta}(r)`. 
-    
-    .. math::
-
-        w_{\alpha,\beta}(r) = -k_{B} T \log(h_{\alpha,\beta}(r)+1.0)
-        
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM.PRISM
+    PRISM: typyPRISM.core.PRISM
         A **solved** PRISM object.
     
     Returns
     -------
-    pmf: typyPRISM.core.MatrixArray.MatrixArray
+    pmf: typyPRISM.core.MatrixArray
         The full MatrixArray of potentials of mean force
+
+    
+    **Mathematical Definition**
+
+    .. math::
+
+        w_{\alpha,\beta}(r) = -k_{B} T \log(h_{\alpha,\beta}(r)+1.0)
+    
+    **Variable Definitions**
+
+        - :math:`w_{\alpha,\beta}(r)`
+            Potential of mean force between site types :math:`\alpha` and
+            :math:`\beta` at a distance :math:`r`
+
+        - :math:`g_{\alpha,\beta}(r)`
+            Pair correlation function between site types :math:`\alpha` and
+            :math:`\beta` at a distance :math:`r`
+
+        - :math:`h_{\alpha,\beta}(r)`
+            Total correlation function between site types :math:`\alpha` and
+            :math:`\beta` at a distance :math:`r`
+
+    **Description**
+
+        A potential of mean force (PMF) between site types :math:`\alpha` and
+        :math:`\beta`, :math:`w_{\alpha,\beta}` represents the the ensemble
+        averaged free energy change needed to bring these two sites from
+        infinite separation to a distance :math:`r`. It can also be thought of
+        as a potential that would be needed to reproduce the underlying
+        :math:`g_{\alpha,\beta}(r)`. 
+
+
+    .. warning::
+
+        Passing an unsolved PRISM object to this function will still produce
+        output based on the default values of the attributes of the PRISM
+        object.
+    
+
+    Example
+    -------
+    .. code-block:: python
+
+        import typyPRISM
+
+        sys = typyPRISM.System(['A','B'])
+
+        # ** populate system variables **
+        
+        PRISM = sys.createPRISM()
+
+        PRISM.solve()
+
+        pmf = typyPRISM.calculate.pmf(PRISM)
+
+        pmf_BB = pmf['B','B']
+    
     
     '''
     rdf = pair_correlation(PRISM)

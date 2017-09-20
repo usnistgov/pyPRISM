@@ -18,3 +18,7 @@ How to's...
      - IMPORTANT: If you add something awesome to typyPRISM, create a pull
        request and share this with the community! 
 
+.. _reports:
+
+Bug Reports or Feature Requests
+-------------------------------
