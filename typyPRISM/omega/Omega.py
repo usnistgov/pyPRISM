@@ -4,10 +4,10 @@ import numpy as np
 class Omega(object):
     '''Baseclass for all *intra*-molecular correlation functions
     
-    .. warning::
+    .. note::
     
-        Currently, this class doesn't do anything besides group all of these
-        correlation functions under a single inheritance heirarchy. This will 
-        likely change as needs arise.
+        Currently, this class doesn't do anything besides group all of the
+        *intra*-molecular correlation functions under a single inheritance
+        heirarchy. This will change as needs arise.
     '''
         
