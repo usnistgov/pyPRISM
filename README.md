@@ -60,38 +60,41 @@ date code documentation can always be found by compiling from source.
 Depedencies
 ===========
 The following are the minimum depedencies needed to use typyPRISM:
+
     - Python 2.6+ or 3+
     - Numpy >= 1.8.0
     - Scipy
     - Cython (not currently but likely in future)
 
 These dependencies are needed to run the example notebooks documentation
+    
     - jupyter
     - matplotlib
     - bokeh
     - holoviews
 
 These depedencies are needed to compile the documentation from source
+    
     - sphinx
     - sphinx-autobuild
     - sphinx_rtd_theme
 
 
 Quick Install
--------------
+=============
 Install typyPRISM with all basic dependences via conda or pip. These commands
 should be platform agnostic and work for Unix, OSX, and Windows *if* you have
 Anaconda or pip correctly installed.  For full installation instructions please
 see the documentation. 
 
 ``` bash
-    $ conda install typyPRISM
+$ conda install typyPRISM
 ```
 
 or
 
 ``` bash
-    $ pip install typyPRISM
+$ pip install typyPRISM
 ```
 
 
