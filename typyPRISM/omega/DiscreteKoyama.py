@@ -7,6 +7,15 @@ from scipy.optimize import root
 
 class DiscreteKoyama(Omega):
     '''Semi-flexible Koyama-based intra-molecular correlation function
+
+    **Mathematial Definition**
+
+
+    **Variable Definitions**
+
+
+    **Description**
+        
     
     References
     ----------
@@ -14,27 +23,24 @@ class DiscreteKoyama(Omega):
         Local structure of semiflexible polymer melts
         Macromolecules, 1990, 23 (14), pp 3496–3505
     
-    Attributes
-    ----------
-    sigma: float
-        contact distance between these sites (i.e. site diameter)
-
-    l: float
-        bond length
-        
-    length: float
-        number of monomers/sites in the chain
-
-    epsilon: float
-        bending energy parameter. Must be >0.
-        
-    lp: float
-        persistence length
-
-    cos0: float
-        cosine of minimum angle due to 1-3 overlap
     '''
     def __init__(self,sigma,l,length,lp):
+        r'''Constructor
+
+        Arguments
+        ---------
+        sigma: float
+            contact distance between these sites (i.e. site diameter)
+
+        l: float
+            bond length
+            
+        length: float
+            number of monomers/sites in the chain
+
+        lp: float
+            persistence length of chain
+        '''
         self.sigma   = sigma
         self.length  = length
         self.l       = l

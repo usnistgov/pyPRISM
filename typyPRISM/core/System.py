@@ -13,47 +13,16 @@ from typyPRISM.closure.MolecularClosure import MolecularClosure
 
 class System:
     '''Primary class used to spawn PRISM calculations
-    
-    .. warning::
-    
-        The *intra*-molecular correlation functions (omega attribute)
-        should be specified such that they are in Fourier space and such
-        that their k->0 values approach the total number of sites in a 
-        given molecule for the self (i==j) pairs.
-    
-    Attributes
-    ----------
-    types: list
-        list of site types
-        
-    rank: int
-        number of site types
-    
-    density: typyPRISM.Density
-        Container for all density values
-        
-    potential: typyPRISM.PairTable
-        Table of pair potentials between all site pairs in real space
-        
-    closure: typyPRISM.PairTable
-        Table of closures between all site pairs
-        
-    omega: typyPRISM.PairTable
-        Table of omega correlation functions in k-space
-    
-    domain: typyPRISM.Domain
-        Domain object which specifies the Real and Fourier space 
-        solution grid.
-        
-    kT: float
-        Value of the thermal energy scale. Used to vary temperature and
-        scale the potential energy functions.
 
-    diameter: typyPRISM.ValueTable
-        Site diameters. Note that these are not passed to potentials and it
-        is up to the user to set sane \sigma values that match these 
-        diameters. 
+    **Description**
 
+        The system object contains tables that fully describe a system to be
+        simulated. This includes the domain definition, all site densities,
+        site diameters, interaction potentials, intra-molecular correlation
+        functions (:math:`\hat{\omega}(k)`), and closures. This class also
+        contains a convenience function for spawning a PRISM object. 
+    
+    
     Example
     -------
     .. code-block:: python
@@ -64,8 +33,6 @@ class System:
         
         sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
 
-        # ** populate system variables **
-        
         sys.density['A'] = 0.1
         sys.density['B'] = 0.75
 
@@ -83,13 +50,54 @@ class System:
 
         PRISM.solve()
 
-        rdf = typyPRISM.calculate.pair_correlation(PRISM)
-
-        rdf_AB = rdf['A','B']
-    
-    
     '''
     def __init__(self,types,kT=1.0):
+        r'''
+        Arguments
+        ---------
+        types: list
+            Lists of the site types that define the system
+
+        kT: float
+            Thermal temperature where k is the Boltzmann constant and T
+            temperature. This is typicaly specified in reduced units where
+            :math:`k_{B}=1.0`.
+
+
+        Attributes
+        ----------
+        types: list
+            list of site types
+            
+        rank: int
+            number of site types
+        
+        density: typyPRISM.Density
+            Container for all density values
+            
+        potential: typyPRISM.PairTable
+            Table of pair potentials between all site pairs in real space
+            
+        closure: typyPRISM.PairTable
+            Table of closures between all site pairs
+            
+        omega: typyPRISM.PairTable
+            Table of omega correlation functions in k-space
+        
+        domain: typyPRISM.Domain
+            Domain object which specifies the Real and Fourier space 
+            solution grid.
+            
+        kT: float
+            Value of the thermal energy scale. Used to vary temperature and
+            scale the potential energy functions.
+
+        diameter: typyPRISM.ValueTable
+            Site diameters. Note that these are not passed to potentials and it
+            is up to the user to set sane \sigma values that match these 
+            diameters. 
+        '''
+
         self.types = types
         self.rank  = len(types)
         self.kT = kT
@@ -102,7 +110,13 @@ class System:
         self.omega = PairTable(types,'omega')
 
     def check(self):
-        '''Make sure all values in the system are specified'''
+        '''Is everything in the system specified?
+
+        Raises
+        ------
+        ValueError if all values are not set
+        
+        '''
         for table in [self.density,self.potential,self.closure,self.omega,self.diameter]:
             table.check()
         

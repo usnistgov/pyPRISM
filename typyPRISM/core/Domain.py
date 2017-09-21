@@ -71,13 +71,10 @@ class Domain(object):
         length: int
             Number of gridpoints in Real and Fourier space grid
 
-        dr: float
-            Grid spacing in Real space
+        dr,dk: float
+            Grid spacing in Real space or Fourier space. Only one can be
+            specified as it fixes the other.
 
-        Attributes
-        ----------
-        DST_II_coeffs: np.ndarray
-            .. math:: 
         '''
         self._length = length
         
