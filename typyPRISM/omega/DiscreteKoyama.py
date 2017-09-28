@@ -50,16 +50,21 @@ class DiscreteKoyama(Omega):
 
         if self.lp<4.0/3.0:
             raise ValueError('DiscreteKoyama does not support persistence lengths < 4.0/3.0.')
+        elif self.lp == 4.0/3.0:
+            self.epsilon = 0.0
+            self.cos1 = 0.5*( self.cos0 - 1.0)
+            self.cos2 = (self.cos0**(3.0) + 1)/(3*self.cos0 + 3)
+        else:
 
-        self.cos1 = l/lp - 1
-        funk = lambda e: self.cos_avg(e) - self.cos1
-        result  = root(funk,1.0)
+            self.cos1 = l/lp - 1
+            funk = lambda e: self.cos_avg(e) - self.cos1
+            result  = root(funk,1.0)
 
-        if result.success != True:
-            raise ValueError('DiscreteKoyama initialization failure. Could not solve for bending energy.')
+            if result.success != True:
+                raise ValueError('DiscreteKoyama initialization failure. Could not solve for bending energy.')
 
-        self.epsilon = result.x
-        self.cos2 = self.cos_sq_avg(self.epsilon)
+            self.epsilon = result.x
+            self.cos2 = self.cos_sq_avg(self.epsilon)
     def cos_avg(self,epsilon):
         '''First moment of bond angle distribution'''
         e = epsilon
@@ -117,6 +122,18 @@ class DiscreteKoyama(Omega):
                 n = abs(i - j)
                 self.value += self.koyama_kernel(k=k,n=n)
         self.value *= 2/self.length
+        self.value += 1.0
+        
+        return self.value
+
+    def calculate_outer(self,k):
+        self.value = np.zeros_like(k)
+        
+        for i in range(1,self.length-1):
+            for j in range(i+1,self.length):
+                n = abs(i - j)
+                self.value += self.koyama_kernel(k=k,n=n)
+        # self.value *= 2/self.length
         self.value += 1.0
         
         return self.value
