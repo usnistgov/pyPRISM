@@ -52,7 +52,7 @@ class DiscreteKoyama(Omega):
             raise ValueError('DiscreteKoyama does not support persistence lengths < 4.0/3.0.')
         elif self.lp == 4.0/3.0:
             self.epsilon = 0.0
-            self.cos1 = 0.5*( self.cos0 - 1.0)
+            self.cos1 = 0.5*(self.cos0-1.0)/(self.cos0 + 1.0)
             self.cos2 = (self.cos0**(3.0) + 1)/(3*self.cos0 + 3)
         else:
 
@@ -130,10 +130,10 @@ class DiscreteKoyama(Omega):
         self.value = np.zeros_like(k)
         
         for i in range(1,self.length-1):
-            for j in range(i+1,self.length):
+            for j in range(i+2,self.length):
                 n = abs(i - j)
                 self.value += self.koyama_kernel(k=k,n=n)
         # self.value *= 2/self.length
-        self.value += 1.0
+        # self.value += 1.0
         
         return self.value
