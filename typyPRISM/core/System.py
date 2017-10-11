@@ -127,13 +127,5 @@ class System:
         '''Construct a fully specified PRISM object that can be solved'''
         self.check() #sanity check
         
-        # Need to set the potential for each closure object
-        for (i,j),(t1,t2),U in self.potential.iterpairs():
-            if isinstance(self.closure[t1,t2],AtomicClosure):
-                self.closure[t1,t2].potential = U.calculate(self.domain.r) / self.kT
-            elif isinstance(self.closure[t1,t2],MolecularClosure):
-                raise NotImplementedError('Molecular closures are not fully implemented in this release.')
-                self.closure[t1,t2].potential = U.calculate_attractive(self.domain.r) / self.kT
-
         return PRISM(self)
         

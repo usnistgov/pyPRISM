@@ -29,13 +29,13 @@ def spinodal_condition(PRISM,extrapolate=True):
 
     .. math::
 
-        \hat{\Lambda}(k) =  1 & -\rho_{\alpha,\alpha} \hat{C}_{\alpha,\alpha}(k) \hat{\omega}_{\alpha,\alpha}(k) \\
-        &  -2\rho_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
-        &  -\rho_{\beta,\beta} \hat{C}_{\beta,\beta} \hat{\omega}_{\beta,\beta}(k) \\
-        &  +\rho_{\alpha,\beta} \rho_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
-        &  -\rho_{\alpha,\beta} \rho_{\alpha,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
-        &  -\rho_{\alpha,\alpha} \rho_{\beta,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
-        &  +\rho_{\alpha,\alpha} \rho_{\beta,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
+        \hat{\Lambda}(k) =  1 & -\rho^{site}_{\alpha,\alpha} \hat{C}_{\alpha,\alpha}(k) \hat{\omega}_{\alpha,\alpha}(k) \\
+        &  -2\rho^{site}_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
+        &  -\rho^{site}_{\beta,\beta} \hat{C}_{\beta,\beta} \hat{\omega}_{\beta,\beta}(k) \\
+        &  +\rho^{site}_{\alpha,\beta} \rho^{site}_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
+        &  -\rho^{site}_{\alpha,\beta} \rho^{site}_{\alpha,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
+        &  -\rho^{site}_{\alpha,\alpha} \rho^{site}_{\beta,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
+        &  +\rho^{site}_{\alpha,\alpha} \rho^{site}_{\beta,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
 
     **Variable Definitions**
 

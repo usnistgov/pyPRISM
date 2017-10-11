@@ -2,14 +2,19 @@
 from __future__ import division,print_function
 from typyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
-class PercusYevick(AtomicClosure):
-    r'''Percus Yevick closure evaluated in terms of a change of variables
+import warnings
+class MartynovSarkisov(AtomicClosure):
+    r'''MartynovSarkisov closure written in terms of a change of variables
+    
 
     **Mathematial Definition**
 
-        .. math:: c_{\alpha,\beta}(r) = (\exp(-u_{\alpha,\beta}(r)) - 1.0) (1.0 + \gamma_{\alpha,\beta}(r))
+        .. math::
 
-        .. math:: \gamma_{\alpha,\beta}(r) =  h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)
+            c_{i,j}(r) = (exp(\sqrt{\gamma_{i,j}(r) - U_{i,j}(r) - 0.5}) - 1.0 ) - 1.0 -  \gamma_{i,j}(r)
+            
+            \gamma_{i,j}(r) =  h_{i,j}(r) - c_{i,j}(r)
+
 
     **Variables Definitions**
 
@@ -28,23 +33,12 @@ class PercusYevick(AtomicClosure):
 
     **Description**
 
-        The Percus-Yevick (PY) is derived by expanding the exponential of the
-        direct correlation function, c, in powers of density shift from a
-        refence state. See Hansen and McDonald for a full derivation.
-        
-        The change of variables is necessary in order to use potentials with
-        hard cores in the computational setting. Written in the standard form,
-        this closure diverges with divergent potentials, which makes it
-        impossible to numerically solve. 
+        TBA
 
-        This closure has been shown to be accurate for systems with hard cores
-        (strongly repulsive at short distances) and when the potential is short
-        ranged. 
     
     References
     ----------
-        Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
-        4th Edition (2013), Elsevier
+        Martynov, G.A.; Sarkisov, G.N.; Mol. PHys. 49. 1495 (1983)
 
     Example
     -------
@@ -56,7 +50,7 @@ class PercusYevick(AtomicClosure):
         
         sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
         sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.HypernettedChain()
+        sys.closure['B','B'] = typyPRISM.closure.MartynovSarkisov()
 
         # ** finish populating system object **
 
@@ -77,44 +71,44 @@ class PercusYevick(AtomicClosure):
         '''
         self.potential = None
         self.value = None
-        self.sigma = None
-        self.apply_hard_core=apply_hard_core
+        self.apply_hard_core = apply_hard_core
+
+        if apply_hard_core == False:
+            warnings.warn(
+                    '''The MSA closure does not work for divergent potentials
+                    when the hard core condition is not manually applied. This
+                    will likely result in a cryptic crash of the simulation if
+                    attempted. Using MSA(apply_hard_core=True) will avoid this
+                    warning. This warning should be ignored in hard-core
+                    interactions are not being used.'''
+                    )
         
     def __repr__(self):
-        return '<AtomicClosure: PercusYevick>'
+        return '<AtomicClosure: MartynovSarkisov>'
     
-    def calculate(self,r,gamma):
-        '''Calculate direct correlation function based on supplied :math:`\gamma`
-
-        Arguments
-        ---------
-        r: np.ndarray
-            array of real-space values associated with :math:`\gamma`
-
-        gamma: np.ndarray
-            array of :math:`\gamma` values used to calculate the direct
-            correlation function
-        
-        '''
+    def calculate(self,gamma):
         
         assert self.potential is not None,'Potential for this closure is not set!'
         
         assert len(gamma) == len(self.potential),'Domain mismatch!'
         
+        
+        return self.value
+
         if self.apply_hard_core:
             # apply hard core condition 
             self.value = -1 - gamma
 
             # calculate closure outside hard core
             mask = r>self.sigma
-            self.value[mask] = (np.exp(-self.potential[mask])-1.0)*(1.0+gamma[mask])
+            jelf.value[mask] = np.exp(np.sqrt(gamma[mask] - self.potential[mask] - 0.5) - 1.0) - 1.0 - gamma[mask]
         else:
-            self.value = (np.exp(-self.potential)-1.0)*(1.0+gamma)
+            self.value = np.exp(np.sqrt(gamma - self.potential - 0.5) - 1.0) - 1.0 - gamma
 
         
         return self.value
         
         
-class PY(PercusYevick):
-    '''Alias of PercusYevick'''
+class MS(MartynovSarkisov):
+    '''Alias of MartynovSarkisov'''
     pass
