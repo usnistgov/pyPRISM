@@ -2,16 +2,20 @@
 from __future__ import division,print_function
 from typyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
-class HyperNettedChain(AtomicClosure):
-    r'''HyperNettedChain closure written in terms of a change of variables
+import warnings
+class MartynovSarkisov(AtomicClosure):
+    r'''MartynovSarkisov closure written in terms of a change of variables
+    
 
     **Mathematial Definition**
 
-        .. math:: c_{\alpha,\beta}(r) = exp(\gamma_{\alpha,\beta}(r)-U_{\alpha,\beta}(r)) - 1.0 -  \gamma_{\alpha,\beta}(r)
+        .. math::
 
-        .. math:: \gamma_{\alpha,\beta}(r) =  h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)
+            c_{i,j}(r) = (exp(\sqrt{\gamma_{i,j}(r) - U_{i,j}(r) - 0.5}) - 1.0 ) - 1.0 -  \gamma_{i,j}(r)
+            
+            \gamma_{i,j}(r) =  h_{i,j}(r) - c_{i,j}(r)
 
-    
+
     **Variables Definitions**
 
         - :math:`h_{\alpha,\beta}(r)` 
@@ -26,29 +30,15 @@ class HyperNettedChain(AtomicClosure):
             Interaction potential value at distance :math:`r` between sites
             :math:`\alpha` and :math:`\beta`.
     
+
     **Description**
 
-        The Hypernetted Chain Closure (HNC) is derived by expanding the the
-        direct correlation function, :math:`c(r)`, in powers of density shift
-        from a refence state. See Hansen and McDonald for a full derivation.
-        
-        The change of variables is necessary in order to use potentials with
-        hard cores in the computational setting. Written in the standard form,
-        this closure diverges with divergent potentials, which makes it
-        impossible to numerically solve. 
+        TBA
 
-        Compared to the PercusYevick closure, the HNC closure is a more
-        accurate approximation of the full expression for the direct
-        correlation function. Depsite this, it can produce inaccurate,
-        long-range fluctuations that make it difficult to employ in
-        phase-separating systems. The HNC closure performs well for systems
-        where there is a disparity in site diameters and is typically used for
-        the larger site. 
     
     References
     ----------
-        Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
-        4th Edition (2013), Elsevier
+        Martynov, G.A.; Sarkisov, G.N.; Mol. PHys. 49. 1495 (1983)
 
     Example
     -------
@@ -60,7 +50,7 @@ class HyperNettedChain(AtomicClosure):
         
         sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
         sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.HypernettedChain()
+        sys.closure['B','B'] = typyPRISM.closure.MartynovSarkisov()
 
         # ** finish populating system object **
 
@@ -81,32 +71,21 @@ class HyperNettedChain(AtomicClosure):
         '''
         self.potential = None
         self.value = None
-        self.sigma = None
         self.apply_hard_core = apply_hard_core
+
+        if apply_hard_core == False:
+            warnings.warn(
+                    '''The MSA closure does not work for divergent potentials
+                    when the hard core condition is not manually applied. This
+                    will likely result in a cryptic crash of the simulation if
+                    attempted. Using MSA(apply_hard_core=True) will avoid this
+                    warning. This warning should be ignored in hard-core
+                    interactions are not being used.'''
+                    )
         
     def __repr__(self):
-        return '<AtomicClosure: HyperNettedChain>'
+        return '<AtomicClosure: MartynovSarkisov>'
     
-    def calculate(self,gamma):
-        '''Calculate direct correlation function based on supplied :math:`\gamma`
-
-        Arguments
-        ---------
-        gamma: np.ndarray
-            array of :math:`\gamma` values used to calculate the direct
-            correlation function
-        
-        '''
-        
-        assert self.potential is not None,'Potential for this closure is not set!'
-        
-        assert len(gamma) == len(self.potential),'Domain mismatch!'
-        
-        
-        return self.value
-
-        
-        
     def calculate(self,r,gamma):
         '''Calculate direct correlation function based on supplied :math:`\gamma`
 
@@ -125,6 +104,7 @@ class HyperNettedChain(AtomicClosure):
         
         assert len(gamma) == len(self.potential),'Domain mismatch!'
         
+        
         if self.apply_hard_core:
             assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
 
@@ -133,14 +113,14 @@ class HyperNettedChain(AtomicClosure):
 
             # calculate closure outside hard core
             mask = r>self.sigma
-            self.value[mask] = np.exp(gamma[mask] - self.potential[mask]) - 1.0 - gamma[mask]
+            self.value[mask] = np.exp(np.sqrt(gamma[mask] - self.potential[mask] + 0.5) - 1.0) - 1.0 - gamma[mask]
         else:
-            self.value = np.exp(gamma - self.potential) - 1.0 - gamma
+            self.value = np.exp(np.sqrt(gamma - self.potential + 0.5) - 1.0) - 1.0 - gamma
 
         
         return self.value
         
         
-class HNC(HyperNettedChain):
-    '''Alias of HyperNettedChain'''
+class MS(MartynovSarkisov):
+    '''Alias of MartynovSarkisov'''
     pass
