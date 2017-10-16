@@ -102,6 +102,8 @@ class PercusYevick(AtomicClosure):
         assert len(gamma) == len(self.potential),'Domain mismatch!'
         
         if self.apply_hard_core:
+            assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
+
             # apply hard core condition 
             self.value = -1 - gamma
 

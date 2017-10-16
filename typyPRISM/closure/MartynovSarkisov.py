@@ -86,24 +86,36 @@ class MartynovSarkisov(AtomicClosure):
     def __repr__(self):
         return '<AtomicClosure: MartynovSarkisov>'
     
-    def calculate(self,gamma):
+    def calculate(self,r,gamma):
+        '''Calculate direct correlation function based on supplied :math:`\gamma`
+
+        Arguments
+        ---------
+        r: np.ndarray
+            array of real-space values associated with :math:`\gamma`
+
+        gamma: np.ndarray
+            array of :math:`\gamma` values used to calculate the direct
+            correlation function
+        
+        '''
         
         assert self.potential is not None,'Potential for this closure is not set!'
         
         assert len(gamma) == len(self.potential),'Domain mismatch!'
         
         
-        return self.value
-
         if self.apply_hard_core:
+            assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
+
             # apply hard core condition 
             self.value = -1 - gamma
 
             # calculate closure outside hard core
             mask = r>self.sigma
-            jelf.value[mask] = np.exp(np.sqrt(gamma[mask] - self.potential[mask] - 0.5) - 1.0) - 1.0 - gamma[mask]
+            self.value[mask] = np.exp(np.sqrt(gamma[mask] - self.potential[mask] + 0.5) - 1.0) - 1.0 - gamma[mask]
         else:
-            self.value = np.exp(np.sqrt(gamma - self.potential - 0.5) - 1.0) - 1.0 - gamma
+            self.value = np.exp(np.sqrt(gamma - self.potential + 0.5) - 1.0) - 1.0 - gamma
 
         
         return self.value
