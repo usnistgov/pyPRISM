@@ -1,4 +1,4 @@
-from setuptools import setup,Extension
+from setuptools import setup,Extension,find_packages
 
 import update_version
 
@@ -11,7 +11,7 @@ setup(
     author='Tyler B. Martin',
     author_email = 'tyler.martin@nist.gov',
     version=version,
-    packages=['typyPRISM'],
+    packages=find_packages(where='.'),
     license='LICENSE',
     long_description=open('README.md').read(),
 )
