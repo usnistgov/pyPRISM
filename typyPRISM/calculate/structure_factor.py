@@ -44,7 +44,14 @@ def structure_factor(PRISM,normalize=True):
 
     **Description**
 
-        To be added...
+        The structure factor (:math:`\hat{s}_{\alpha,\beta}(k)`) is a 
+        Fourier-space representation of the structural correlations between
+        sites :math:`\alpha` and :math:`\beta`. The :math:`\hat{s}_{\alpha,\beta}(k)`
+        can be related to the real-space pair correlation function through a 
+        Fourier transform. In the PRISM formalism, the 
+        :math:`\hat{s}_{\alpha,\beta}(k)` can be calculated as the sum of the 
+        Fourier-space intra-molecular and total correlation functions, as 
+        shown above. 
 
 
     .. warning::
@@ -56,6 +63,9 @@ def structure_factor(PRISM,normalize=True):
     
     References
     ----------
+    Chandler, D., Introduction to Modern Statistical Mechanics, 
+    Oxford U. Press, New York, 1987
+
     Schweizer, Curro, Thermodynamics of Polymer Blends,
     J. Chem. Phys., 1989 91 (8) 5059
 

@@ -55,7 +55,7 @@ def spinodal_condition(PRISM,extrapolate=True):
 
         The spinodal condition (:math:`\hat{\Lambda}_{\alpha,\beta}(k)`) can be
         used to identify liquid-liquid phase separation between species
-        :math:`\alpha` and :math:`\beta`when 
+        :math:`\alpha` and :math:`\beta` when 
         :math:`\hat{\Lambda}_{\alpha,\beta}(k\rightarrow 0)=0` (i.e. when the
         scattering intensity diverges as :math:`k\rightarrow 0`). 
 
