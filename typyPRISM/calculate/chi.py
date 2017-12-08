@@ -100,6 +100,11 @@ def chi(PRISM,extrapolate=True):
         Passing an unsolved PRISM object to this function will still produce
         output based on the default values of the attributes of the PRISM
         object.
+    
+    References
+    ----------
+    Schweizer, Curro, Thermodynamics of Polymer Blends,
+    J. Chem. Phys., 1989 91 (8) 5059
 
 
     Example

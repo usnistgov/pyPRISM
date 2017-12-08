@@ -53,6 +53,12 @@ def structure_factor(PRISM,normalize=True):
         output based on the default values of the attributes of the PRISM
         object.
     
+    
+    References
+    ----------
+    Schweizer, Curro, Thermodynamics of Polymer Blends,
+    J. Chem. Phys., 1989 91 (8) 5059
+
 
     Example
     -------

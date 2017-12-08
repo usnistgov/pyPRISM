@@ -58,8 +58,13 @@ def solvation_potential(PRISM,closure='HNC'):
 
     **Description**
 
-        To be added...
-
+        The solvation potential (:math:`\Delta \hat{\Psi}`) describes the 
+        effects of the surrounding medium on the intra-molecular 
+        pairwise interactions within a molecule of interest. The 
+        :math:`\Delta \hat{\Psi}` allows for the construction of a 
+        single-molecule simulation to sample chain configurations that take 
+        into account the molecule's surroundings. This calculation is used
+        extensively in the Self-Consistent PRISM formalism.   
 
     .. warning::
 
@@ -67,6 +72,14 @@ def solvation_potential(PRISM,closure='HNC'):
         output based on the default values of the attributes of the PRISM
         object.
     
+    References
+    ----------
+    Grayce, Schweizer, Solvation potentials for macromolecules,
+    J. Chem. Phys., 1994 100 (9) 6846
+    
+    Schweizer, Honnell, Curro, Reference interaction site model theory of
+    polymeric liquids: Self-consistent formulation and nonideality effects in
+    dense solutions and melts, J. Chem. Phys., 1992 96 (4) 3211 
 
     Example
     -------

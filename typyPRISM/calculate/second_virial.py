@@ -42,7 +42,13 @@ def second_virial(PRISM,extrapolate=True):
 
     **Description**
 
-        To be added...
+        The second virial coefficient (:math:`B_{2}^{\alpha,\beta}`) is a 
+        thermodynamic descriptor related to the pairwise interactions between 
+        components in a system. In general, :math:`B_{2}^{\alpha,\beta}>0`
+        signifies repulsive interactions between site types :math:`\alpha` and
+        :math:`\beta`, and :math:`B_{2}^{\alpha,\beta}<0` signifies attractive
+        interactions. For example, in a polymer-solvent system, one definition
+        of the theta condition is when :math:`B_{2}^{\alpha,\beta}=0`.
 
 
     .. warning::
@@ -66,9 +72,9 @@ def second_virial(PRISM,extrapolate=True):
 
         PRISM.solve()
 
-        pmf = typyPRISM.calculate.pmf(PRISM)
+        B2 = typyPRISM.calculate.second_virial(PRISM)
 
-        pmf_BB = pmf['B','B']
+        B2_BB = B2['B','B']
     
     '''
     

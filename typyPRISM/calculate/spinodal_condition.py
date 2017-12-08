@@ -29,7 +29,7 @@ def spinodal_condition(PRISM,extrapolate=True):
 
     .. math::
 
-        \hat{\Lambda}(k) =  1 & -\rho_{\alpha,\alpha} \hat{C}_{\alpha,\alpha}(k) \hat{\omega}_{\alpha,\alpha}(k) \\
+        \hat{\Lambda}_{\alpha,\beta}(k) =  1 & -\rho_{\alpha,\alpha} \hat{C}_{\alpha,\alpha}(k) \hat{\omega}_{\alpha,\alpha}(k) \\
         &  -2\rho_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
         &  -\rho_{\beta,\beta} \hat{C}_{\beta,\beta} \hat{\omega}_{\beta,\beta}(k) \\
         &  +\rho_{\alpha,\beta} \rho_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
@@ -47,13 +47,17 @@ def spinodal_condition(PRISM,extrapolate=True):
             Total correlation function between sites :math:`\alpha` and
             :math:`\beta` at a wavenumber :math:`k`
 
-        - :math:`\rho^{site}_{\alpha,\beta}`, :math:`\rho^{pair}_{\alpha,\beta}`
-            Sitewise and pairwise densities for sites :math:`\alpha` and
+        - :math:`\rho^{site}_{\alpha,\beta}` 
+            Sitewise density for sites :math:`\alpha` and
             :math:`\beta`. See :class:`typyPRISM.core.Density` for details. 
 
     **Description**
 
-        To be added...
+        The spinodal condition (:math:`\hat{\Lambda}_{\alpha,\beta}(k)`) can be
+        used to identify liquid-liquid phase separation between species
+        :math:`\alpha` and :math:`\beta`when 
+        :math:`\hat{\Lambda}_{\alpha,\beta}(k\rightarrow 0)=0` (i.e. when the
+        scattering intensity diverges as :math:`k\rightarrow 0`). 
 
 
     .. warning::
@@ -61,6 +65,7 @@ def spinodal_condition(PRISM,extrapolate=True):
         Passing an unsolved PRISM object to this function will still produce
         output based on the default values of the attributes of the PRISM
         object.
+
 
     References
     ----------
@@ -82,9 +87,9 @@ def spinodal_condition(PRISM,extrapolate=True):
 
         PRISM.solve()
 
-        sk = typyPRISM.calculate.structure_factor(PRISM)
+        spin = typyPRISM.calculate.spinodal_conditon(PRISM)
 
-        sk_BB = sk['B','B']
+        spin_AB = spin['A','B']
     
     
     '''
