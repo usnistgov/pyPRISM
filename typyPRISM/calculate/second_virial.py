@@ -85,10 +85,10 @@ def second_virial(PRISM,extrapolate=True):
     for i,t1 in enumerate(PRISM.sys.types):
         for j,t2 in enumerate(PRISM.sys.types):
             if extrapolate:
-                x = sys.domain.k[:3]
+                x = PRISM.sys.domain.k[:3]
                 y = - 0.5 * PRISM.totalCorr[t1,t2][:3]
     
-                fit = np.poly1d(np.polyfit(x,y))
+                fit = np.poly1d(np.polyfit(x,y,2))
 
                 B2[t1,t2] = fit(0)
             else:

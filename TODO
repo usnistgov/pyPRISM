@@ -6,6 +6,9 @@ New Closures
 - RMHNC
 - RMLWC
 
+New Omegas
+- RIS Om
+
 New Potentials
 - Coulombic 
 - Colloid Lennard Jones 
@@ -22,6 +25,7 @@ New Calculations
 
 
 General Features
+- units helper
 - Density Class
     - top level getitem is relayed to density ValueTable
     - pairdensity + sitedensity valuetable

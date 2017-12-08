@@ -14,6 +14,8 @@ Submodules
    typyPRISM.closure.AtomicClosure
    typyPRISM.closure.Closure
    typyPRISM.closure.HyperNettedChain
+   typyPRISM.closure.MartynovSarkisov
+   typyPRISM.closure.MeanSphericalApproximation
    typyPRISM.closure.MolecularClosure
    typyPRISM.closure.PercusYevick
    typyPRISM.closure.ReferenceMolecularPercusYevick

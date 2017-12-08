@@ -5,3 +5,4 @@ from typyPRISM.calculate.second_virial       import second_virial
 from typyPRISM.calculate.pmf                 import pmf
 from typyPRISM.calculate.chi                 import chi
 from typyPRISM.calculate.spinodal_condition  import spinodal_condition
+from typyPRISM.calculate.DK_density_correction import DK_density_correction

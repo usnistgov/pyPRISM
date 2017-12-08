@@ -69,9 +69,20 @@ class HyperNettedChain(AtomicClosure):
         PRISM.solve()
     
     '''
-    def __init__(self):
+    def __init__(self,apply_hard_core=False):
+        '''Contstructor
+
+        Parameters
+        ----------
+        apply_hard_core: bool
+            If True, the total correlation function will be assumed to be -1
+            inside the core (:math:`r_{i,j}<(d_i + d_j)/2.0`) and the closure
+            will not be applied in this region.
+        '''
         self.potential = None
         self.value = None
+        self.sigma = None
+        self.apply_hard_core = apply_hard_core
         
     def __repr__(self):
         return '<AtomicClosure: HyperNettedChain>'
@@ -91,8 +102,45 @@ class HyperNettedChain(AtomicClosure):
         
         assert len(gamma) == len(self.potential),'Domain mismatch!'
         
-        self.value = np.exp(gamma - self.potential) - 1.0 - gamma
+        
+        return self.value
+
+        
+        
+    def calculate(self,r,gamma):
+        '''Calculate direct correlation function based on supplied :math:`\gamma`
+
+        Arguments
+        ---------
+        r: np.ndarray
+            array of real-space values associated with :math:`\gamma`
+
+        gamma: np.ndarray
+            array of :math:`\gamma` values used to calculate the direct
+            correlation function
+        
+        '''
+        
+        assert self.potential is not None,'Potential for this closure is not set!'
+        
+        assert len(gamma) == len(self.potential),'Domain mismatch!'
+        
+        if self.apply_hard_core:
+            assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
+
+            # apply hard core condition 
+            self.value = -1 - gamma
+
+            # calculate closure outside hard core
+            mask = r>self.sigma
+            self.value[mask] = np.exp(gamma[mask] - self.potential[mask]) - 1.0 - gamma[mask]
+        else:
+            self.value = np.exp(gamma - self.potential) - 1.0 - gamma
+
         
         return self.value
         
         
+class HNC(HyperNettedChain):
+    '''Alias of HyperNettedChain'''
+    pass
