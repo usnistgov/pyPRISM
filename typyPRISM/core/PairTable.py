@@ -22,8 +22,8 @@ class PairTable(Table):
         unlike pairs automatically i.e. A-B and B-A are set at the same time.
 
         Note that, unlike the :class:`typyPRISM.core.MatrixArray`, this
-        container is not meant to be uses for mathematics. The benefit of this
-        is that, for each type, it can contain any arbitrary number, str, or
+        container is not meant to be used for mathematics. The benefit of this
+        is that, for each type, it can contain any arbitrary number, string, or
         Python object. 
 
         See the example below and the :ref:`data_structures` page for more

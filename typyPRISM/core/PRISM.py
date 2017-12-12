@@ -32,7 +32,7 @@ class PRISM:
         
     omega: typyPRISM.MatrixArray
         The intra-molecular correlation function for all pairs of sites. This
-        is often shown as $\Omega$ in the PRISM literature and is identical to
+        is often shown as :math:`\Omega` in the PRISM literature and is identical to
         what those in the scattering fields would call a "form factor".
     
     closure: typyPRISM.core.PairTable of typyPRISM.closure.Closure

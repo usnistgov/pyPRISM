@@ -67,10 +67,10 @@ class System:
         Attributes
         ----------
         types: list
-            list of site types
+            List of site types
             
         rank: int
-            number of site types
+            Number of site types
         
         density: typyPRISM.Density
             Container for all density values
