@@ -32,7 +32,11 @@ class FreelyJointedChain(Omega):
 
     **Description**
         
-        To be added...
+        The freely-jointed chain is an ideal polymer chain model
+        that assumes a constant bond length :math:`l` and no correlations
+        between the directions of different bond vectors 
+        (i.e. :math:`<cos(\theta_{ij})>=0`). In other words, monomer segments
+        are assumed to have no intra-molecular excluded volume.
 
 
     References
@@ -40,6 +44,8 @@ class FreelyJointedChain(Omega):
     Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -
     Intramolecular Structure, Local Order, and the Correlation Hole,
     Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027
+
+    Rubinstein, M; Colby, R.H; Polymer Physics. 2003. Oxford University Press.
 
     Example
     -------

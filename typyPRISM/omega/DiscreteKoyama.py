@@ -10,12 +10,22 @@ class DiscreteKoyama(Omega):
 
     **Mathematial Definition**
 
+        See reference cited below for the mathematical representation
+        of the discrete Koyama :math:`\hat{\omega}(k)`.
+
 
     **Variable Definitions**
 
 
     **Description**
         
+        The discrete Koyama :math:`\hat{\omega}(k)` was developed to
+        represent a wormlike chain with semiflexibility. This scheme
+        interpolates between the rigid-rod and the Gaussian chain limits
+        to represent a chain with a given persistence length. This 
+        form for :math:`\hat{\omega}(k)` has been shown to match the
+        structure of molecular dynamics simulations of Kremer-Grest 
+        style bead-spring polymer models. 
     
     References
     ----------

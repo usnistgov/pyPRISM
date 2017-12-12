@@ -14,18 +14,56 @@ so this omega may take minutes or longer to calculate
 even for modest chain lengths e.g. N=200.'''
 
 class NonOverlappingFreelyJointedChain(Omega):
-    '''Freely jointed chain with excluded volume intra-molecular correlation function
+    r'''Freely jointed chain with excluded volume intra-molecular correlation function
+
 
     .. warning:: 
-        This function is provided
+        The numerical integrations required for the NFJC omega
+        calculation are slow and scale poorly with chain length 
+        so this omega may take minutes or longer to calculate 
+        even for modest chain lengths e.g. N=200.
+
     
-    Attributes
-    ----------
-    length,N: float
-        number of monomers/sites in gaussian chain
+    **Mathematical Definition**
+
+        See reference cited below for the mathematical representation
+        of the non-overlapping freely jointed chain :math:`\hat{\omega}(k)`.
+
+    **Description**
         
-    l: float
-        bond length
+        The non-overlapping freely-jointed chain is an adjustment to the ideal
+        freely jointed chain model that includes the effects of the excluded
+        volume of monomer segments (i.e. bonds are not free to rotate over all
+        angles). This model assumes a constant bond length :math:`l`. 
+
+
+    References
+    ----------
+    Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -
+    Intramolecular Structure, Local Order, and the Correlation Hole,
+    Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027
+
+    Example
+    -------
+    .. code-block:: python
+
+        import typyPRISM
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        #calculate Fourier space domain and omega values
+        domain = typyPRISM.domain(dr=0.1,length=1000)
+        omega  = typyPRISM.omega.NonOverlappingFreelyJointedChain(l=1.0,length=100)
+        x = domain.k
+        y = omega.calculate(x)
+
+        #plot it!
+        plt.plot(x,y)
+        plt.gca().set_xscale("log", nonposx='clip')
+        plt.gca().set_yscale("log", nonposy='clip')
+
+        plt.show()
+
     
     '''
     def __init__(self,length,l):

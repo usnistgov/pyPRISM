@@ -4,15 +4,64 @@ from typyPRISM.omega.Omega import Omega
 import numpy as np
 
 class GaussianRing(Omega):
-    '''Gaussian ring polymer intra-molecular correlation function
+    r'''Gaussian ring polymer intra-molecular correlation function
     
-    Attributes
-    ----------
-    sigma: float
-        contact distance between these sites (i.e. site diameter)
+    
+    **Mathematical Definition**
+
+    .. math::
+    
+        \hat{\omega}(k) = 1+2N^{-1}\sum_{t=1}^{N-1}(N-t)exp(\frac{-k^2\sigma^2t(N-t)}{6N})
+         
+
+    **Variable Definitions**
+
+        - :math:`\hat{\omega}(k)` 
+            *intra*-molecular correlation function at wavenumber :math:`k`
+
+        - :math:`N`
+            number of monomers/sites in gaussian ring
+ 
+        - :math:`\sigma`
+            contact distance between sites (i.e. site diameter)
+
+
+    **Description**
         
-    length,N: float
-        number of monomers/sites in gaussian chain
+        The Gaussian ring is an ideal model for a cyclic chain
+        that assumes a random walk between successive monomer
+        segments along the chain, constrained such that ends join
+        together to form a ring with no intra-molecular excluded
+        volume.
+
+
+    References
+    ----------
+    Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -
+    Intramolecular Structure, Local Order, and the Correlation Hole,
+    Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027
+
+    Example
+    -------
+    .. code-block:: python
+
+        import typyPRISM
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        #calculate Fourier space domain and omega values
+        domain = typyPRISM.domain(dr=0.1,length=1000)
+        omega  = typyPRISM.omega.GaussianRing(l=1.0,length=100)
+        x = domain.k
+        y = omega.calculate(x)
+
+        #plot it!
+        plt.plot(x,y)
+        plt.gca().set_xscale("log", nonposx='clip')
+        plt.gca().set_yscale("log", nonposy='clip')
+
+        plt.show()
+
     
     '''
     def __init__(self,sigma,length):
