@@ -26,19 +26,31 @@ class MartynovSarkisov(AtomicClosure):
             Direct correlation function value at distance :math:`r` between
             sites :math:`\alpha` and :math:`\beta`.
     
-        - :math:`u_{\alpha,\beta}(r)`
+        - :math:`U_{\alpha,\beta}(r)`
             Interaction potential value at distance :math:`r` between sites
             :math:`\alpha` and :math:`\beta`.
     
 
     **Description**
-
-        TBA
+        
+        The Martynov-Sarkisov (MS) closure is described as a generalization of the
+        HyperNettedChain closure. See the references below for derivation and
+        usage examples.
+        
+        The change of variables is necessary in order to use potentials with
+        hard cores in the computational setting. Written in the standard form,
+        this closure diverges with divergent potentials, which makes it
+        impossible to numerically solve. 
+        
+        The MS closure has been shown to be very accurate for hard-sphere
+        spherical molecules and for high-density hard-core polymer systems.
 
     
     References
     ----------
-        Martynov, G.A.; Sarkisov, G.N.; Mol. PHys. 49. 1495 (1983)
+        Martynov, G.A.; Sarkisov, G.N.; Mol. Phys. 49. 1495 (1983)
+
+        Yethirak, A.; Schweizer, K.S.; J. Chem. Phys. 97. 1455 (1992)
 
     Example
     -------
@@ -75,10 +87,10 @@ class MartynovSarkisov(AtomicClosure):
 
         if apply_hard_core == False:
             warnings.warn(
-                    '''The MSA closure does not work for divergent potentials
+                    '''The MartynovSarkisov closure does not work for divergent potentials
                     when the hard core condition is not manually applied. This
                     will likely result in a cryptic crash of the simulation if
-                    attempted. Using MSA(apply_hard_core=True) will avoid this
+                    attempted. Using MartynovSarkisov(apply_hard_core=True) will avoid this
                     warning. This warning should be ignored in hard-core
                     interactions are not being used.'''
                     )

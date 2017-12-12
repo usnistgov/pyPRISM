@@ -23,7 +23,20 @@ class MeanSphericalApproximation(AtomicClosure):
     
 
     **Description**
-        TBA
+        
+        The Mean Spherical Approximation (MSA) closure assumes an interaction
+        potential that contains a hard-core interaction and a tail interaction.
+        See Hansen and McDonald for a derivation and discussion of this closure.
+        
+        The change of variables is necessary in order to use potentials with
+        hard cores in the computational setting. Written in the standard form,
+        this closure diverges with divergent potentials, which makes it
+        impossible to numerically solve. 
+        
+        The MSA does a good job of describing the properties of the square-well 
+        fluid, and allows for the analytical solution of the PRISM/RISM 
+        equations for some systems. The MSA closure reduces to the PercusYevick 
+        closure if the tail is ignored.
 
     
     References
