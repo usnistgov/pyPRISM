@@ -50,7 +50,7 @@ class MartynovSarkisov(AtomicClosure):
     ----------
         Martynov, G.A.; Sarkisov, G.N.; Mol. Phys. 49. 1495 (1983)
 
-        Yethirak, A.; Schweizer, K.S.; J. Chem. Phys. 97. 1455 (1992)
+        Yethiraj, A.; Schweizer, K.S.; J. Chem. Phys. 97. 1455 (1992)
 
     Example
     -------

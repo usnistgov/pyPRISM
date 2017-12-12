@@ -54,7 +54,7 @@ class MeanSphericalApproximation(AtomicClosure):
         
         sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
         sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.HypernettedChain()
+        sys.closure['B','B'] = typyPRISM.closure.MeanSphericalApproximation()
 
         # ** finish populating system object **
 
