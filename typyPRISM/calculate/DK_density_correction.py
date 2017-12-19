@@ -5,9 +5,23 @@ from math import exp,sin,cos,sqrt
 from scipy.optimize import root
 
 class DK_density_correction():
-    '''Calcluates density correction due to intra-molecular site overlaps
-    Currently only implemented for the Semi-flexible Koyama-based 
-    intra-molecular correlation function
+    '''Calcluates a correction to the system density due to 
+    intra-molecular site overlaps. 
+
+    .. warning::
+
+        This calculation is not fully implemented. It should throw an error if a
+        user attempts to use it.
+
+    Currently only implemented 
+    for the Semi-flexible Koyama-based intra-molecular correlation 
+    function.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
 
     **Mathematial Definition**
 
@@ -18,6 +32,8 @@ class DK_density_correction():
     **Description**
         
     
+
+
     References
     ----------
         Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer
@@ -42,6 +58,7 @@ class DK_density_correction():
         lp: float
             persistence length of chain
         '''
+        raise NotImplementedError('This calculation is untested and not fully implemented.')
         self.sigma   = sigma
         self.length  = length
         self.l       = l

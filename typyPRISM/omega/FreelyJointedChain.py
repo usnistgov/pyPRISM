@@ -51,13 +51,13 @@ class FreelyJointedChain(Omega):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
         import numpy as np
         import matplotlib.pyplot as plt
 
         #calculate Fourier space domain and omega values
-        domain = typyPRISM.domain(dr=0.1,length=1000)
-        omega  = typyPRISM.omega.FreelyJointedChain(l=1.0,length=100)
+        domain = pyPRISM.domain(dr=0.1,length=1000)
+        omega  = pyPRISM.omega.FreelyJointedChain(length=100,l=1.0)
         x = domain.k
         y = omega.calculate(x)
 
@@ -67,6 +67,11 @@ class FreelyJointedChain(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
+	
+	#Define a PRISM system and set omega(k) for type A
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.omega['A','A']  = pyPRISM.omega.FreelyJointedChain(length=100,l=1.0)
 
     
     '''
@@ -76,7 +81,7 @@ class FreelyJointedChain(Omega):
         Arguments
         ---------
         length: float
-            number of monomers/sites in gaussian chain
+            number of monomers/sites in Freely-jointed chain
             
         l: float
             bond length

@@ -11,7 +11,7 @@ class GaussianRing(Omega):
 
     .. math::
     
-        \hat{\omega}(k) = 1+2N^{-1}\sum_{t=1}^{N-1}(N-t)exp(\frac{-k^2\sigma^2t(N-t)}{6N})
+        \hat{\omega}(k) = 1+2N^{-1}\sum_{t=1}^{N-1}(N-t)\exp(\frac{-k^2\sigma^2t(N-t)}{6N})
          
 
     **Variable Definitions**
@@ -45,13 +45,13 @@ class GaussianRing(Omega):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
         import numpy as np
         import matplotlib.pyplot as plt
 
         #calculate Fourier space domain and omega values
-        domain = typyPRISM.domain(dr=0.1,length=1000)
-        omega  = typyPRISM.omega.GaussianRing(l=1.0,length=100)
+        domain = pyPRISM.domain(dr=0.1,length=1000)
+        omega  = pyPRISM.omega.GaussianRing(sigma=1.0,length=100)
         x = domain.k
         y = omega.calculate(x)
 
@@ -61,10 +61,25 @@ class GaussianRing(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
+	
+	#Define a PRISM system and set omega(k) for type A
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.omega['A','A']  = pyPRISM.omega.GaussianRing(sigma=1.0,length=100)
 
     
     '''
     def __init__(self,sigma,length):
+        r'''Constructor
+        
+        Arguments
+        ---------
+        sigma: float
+	    contact distance between sites (site diameter)        
+    
+        length: float
+            number of monomers/sites in gaussian ring
+        '''
         self.sigma = sigma
         self.length = length
         self.value = None
@@ -73,6 +88,14 @@ class GaussianRing(Omega):
         return '<Omega: GaussianRing>'
     
     def calculate(self,k):
+        '''Return value of :math:`\hat{\omega}` at supplied :math:`k`
+
+        Arguments
+        ---------
+        k: np.ndarray
+            array of wavenumber values to caluclate :math:`\omega` at
+        
+        '''
         self.value = np.zeros_like(k)
         ss = self.sigma * self.sigma
         kk = k*k

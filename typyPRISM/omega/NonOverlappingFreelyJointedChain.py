@@ -26,8 +26,37 @@ class NonOverlappingFreelyJointedChain(Omega):
     
     **Mathematical Definition**
 
-        See reference cited below for the mathematical representation
-        of the non-overlapping freely jointed chain :math:`\hat{\omega}(k)`.
+    .. math::
+    
+        \hat{\omega}(k) = \hat{\omega}_{id}(k)+\frac{2}{N}\sum_{\tau=2}^{N-1}(N-\tau)
+			[\hat{\omega}_{\tau}(k)-(\sin(k)/k)^{\tau}]
+    
+    .. math::
+    
+        \tau = |\alpha-\beta| 
+
+
+    **Variable Definitions**
+
+        - :math:`\hat{\omega}(k)` 
+            *intra*-molecular correlation function at wavenumber :math:`k`
+
+        - :math:`\hat{\omega}_{id}(k)` 
+            *intra*-molecular correlation function for the ideal freely-jointed 
+	    chain at wavenumber :math:`k`. Please see equation (15)
+	    of the reference cited below for the mathematical representation.
+        
+        - :math:`\hat{\omega}_{\tau}(k)` 
+            Please see equations (17,18,21) of the reference cited below 
+	    for the mathematical representation.
+	
+	- :math:`N`
+            number of repeat units in chain
+ 
+        - :math:`\tau`
+            number of monomers along chain separating sites :math:`\alpha` 
+	    and :math:`\beta`. 
+
 
     **Description**
         
@@ -47,13 +76,13 @@ class NonOverlappingFreelyJointedChain(Omega):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
         import numpy as np
         import matplotlib.pyplot as plt
 
         #calculate Fourier space domain and omega values
-        domain = typyPRISM.domain(dr=0.1,length=1000)
-        omega  = typyPRISM.omega.NonOverlappingFreelyJointedChain(l=1.0,length=100)
+        domain = pyPRISM.domain(dr=0.1,length=1000)
+        omega  = pyPRISM.omega.NonOverlappingFreelyJointedChain(length=100,l=1.0)
         x = domain.k
         y = omega.calculate(x)
 
@@ -63,11 +92,25 @@ class NonOverlappingFreelyJointedChain(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
+	
+	#Define a PRISM system and set omega(k) for type A
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.omega['A','A']  = pyPRISM.omega.NonOverlappingFreelyJointedChain(length=100,l=1.0)
 
     
     '''
     def __init__(self,length,l):
-
+        r'''Constructor
+        
+        Arguments
+        ---------
+        length: float
+            number of monomers/sites in non-overlapping freely-jointed chain
+            
+        l: float
+            bond length
+        '''
         self.length = self.N = length
         self.l = l
         self.FJC = FreelyJointedChain(length=length,l=l)
@@ -79,6 +122,14 @@ class NonOverlappingFreelyJointedChain(Omega):
         return '<Omega: NonOverlappingFreelyJointedChain>'
     
     def calculate(self,k):
+        '''Return value of :math:`\hat{\omega}` at supplied :math:`k`
+
+        Arguments
+        ---------
+        k: np.ndarray
+            array of wavenumber values to caluclate :math:`\omega` at
+        
+        '''
         integrate = np.trapz
         integrate = scipy.integrate.simps
         self.value = np.zeros_like(k)
@@ -107,26 +158,6 @@ class NonOverlappingFreelyJointedChain(Omega):
 
         return self.value
 
-    def calculate2(self,k):
-        self.value = np.zeros_like(k)
-
-        JFunk = lambda y,k,tau: (1/(np.pi*k))*((np.sin(k)/k)**(tau))*y*(np.sin(k-y)/(k-y) - np.sin(k+y)/(k+y))
-        J0Funk = lambda y,tau: 2/np.pi * (np.sin(y)/y)**(tau) * (np.sin(y)/y - np.cos(y))
-        Jvals = np.empty_like(k)
-        for tau in range(2,self.length):
-            print('tau=',tau)
-            J0Val = scipy.integrate.quad(J0Funk,0,np.inf,args=(tau),limit=int(1e4))[0]
-            B = (1-J0Val)**(-1.0)
-            for i,kval in enumerate(k):
-                Jvals[i] = scipy.integrate.quad(JFunk,0,np.inf,args=(kval,tau),limit=int(1e4))[0]
-            omega_t = B * ((np.sin(k)/k)**(tau) - Jvals)
-            self.value +=  (self.length - tau) * (omega_t - (np.sin(k)/k)**(tau))
-
-        self.value  *= 2.0/self.length 
-        self.value  += self.FJC.calculate(k)
-
-
-        return self.value
 class NFJC(NonOverlappingFreelyJointedChain):
     ''' Alias of NonOverlappingFreelyJointedChain '''
     pass

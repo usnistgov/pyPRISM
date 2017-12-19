@@ -19,14 +19,54 @@ class FromFile(Omega):
     fileName: str
         full path + name to column file
         
+    Example
+    -------
+    .. code-block:: python
+
+        import pyPRISM
+        import numpy as np
+
+        #Set type A omega(k) from a file
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        fileName = './test_example_filename.txt'
+	sys.omega['A','A']  = pyPRISM.omega.FromFile(fileName)
+        x = sys.domain.k
+        y = sys.omega['A','A'].calculate(x)
+
+        #plot it!
+        plt.plot(x,y)
+        plt.gca().set_xscale("log", nonposx='clip')
+        plt.gca().set_yscale("log", nonposy='clip')
+
+        plt.show()
+
+    
     '''
     def __init__(self,fileName):
+        r'''Constructor
+        
+        Arguments
+        ---------
+        fileName: str
+            path to textfile containing values of omega as
+	    a function of wavenumber, k.
+            
+        '''
         self.fileName = fileName
         
     def __repr__(self):
         return '<Omega: FromFile>'
     
     def calculate(self,k):
+        '''Return value of :math:`\hat{\omega}` at supplied :math:`k`
+
+        Arguments
+        ---------
+        k: np.ndarray
+            array of wavenumber values to caluclate :math:`\omega` at
+        
+        '''
         fileData = np.loadtxt(self.fileName)
         
         if len(fileData.shape)>=2:

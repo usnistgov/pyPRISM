@@ -15,7 +15,7 @@ class Gaussian(Omega):
 
     .. math::
          
-         E = exp(-k^2\sigma^2/6)
+         E = \exp(-k^2\sigma^2/6)
 
 
     **Variable Definitions**
@@ -50,13 +50,13 @@ class Gaussian(Omega):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
         import numpy as np
         import matplotlib.pyplot as plt
 
         #calculate Fourier space domain and omega values
-        domain = typyPRISM.domain(dr=0.1,length=1000)
-        omega  = typyPRISM.omega.Gaussian(l=1.0,length=100)
+        domain = pyPRISM.domain(dr=0.1,length=1000)
+        omega  = pyPRISM.omega.Gaussian(sigma=1.0,length=100)
         x = domain.k
         y = omega.calculate(x)
 
@@ -66,10 +66,25 @@ class Gaussian(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
+	
+	#Define a PRISM system and set omega(k) for type A
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.omega['A','A']  = pyPRISM.omega.Gaussian(sigma=1.0,length=100)
 
     
     '''
     def __init__(self,sigma,length):
+        r'''Constructor
+        
+        Arguments
+        ---------
+        sigma: float
+	    contact distance between sites (site diameter)        
+    
+        length: float
+            number of monomers/sites in gaussian chain
+        '''
         self.sigma = sigma
         self.length = length
         self.value = None
@@ -78,6 +93,14 @@ class Gaussian(Omega):
         return '<Omega: Gaussian>'
     
     def calculate(self,k):
+        '''Return value of :math:`\hat{\omega}` at supplied :math:`k`
+
+        Arguments
+        ---------
+        k: np.ndarray
+            array of wavenumber values to caluclate :math:`\omega` at
+        
+        '''
         E = np.exp(-k*k*self.sigma*self.sigma/6.0)
         N = self.length
         self.value = (1 - E*E - 2*E/N + (2*E**(N+1))/N)/((1-E)**2.0)

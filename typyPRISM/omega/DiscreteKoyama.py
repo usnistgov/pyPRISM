@@ -6,15 +6,41 @@ from math import exp,sin,cos,sqrt
 from scipy.optimize import root
 
 class DiscreteKoyama(Omega):
-    '''Semi-flexible Koyama-based intra-molecular correlation function
+    r'''Semi-flexible Koyama-based intra-molecular correlation function
 
     **Mathematial Definition**
 
-        See reference cited below for the mathematical representation
-        of the discrete Koyama :math:`\hat{\omega}(k)`.
+    .. math::
+    
+        \hat{\omega}(k) = \frac{\sin(Bk)}{Bk}\exp(-A^2k^2)
+
+    .. math::
+         
+         A^2 = \frac{<r_{\alpha,\beta}^2>(1-C)}{6} 
+	
+    .. math::
+         
+         B^2 =  C<r_{\alpha,\beta}^2> 
+    
+    .. math::
+         
+         C^2 =  \frac{1}{2}(5-3\frac{<r_{\alpha,\beta}^4>}{<r_{\alpha,\beta}^2>})
 
 
     **Variable Definitions**
+        
+	- :math:`\hat{\omega}(k)` 
+            *intra*-molecular correlation function at wavenumber :math:`k`
+
+        - :math:`<r_{\alpha,\beta}^2>`
+            second moment of the distance distribution between sites 
+	    :math:`\alpha` and :math:`\beta`. Please see equation (17)
+	    of the reference cited below for the mathematical representation.       
+ 
+	- :math:`<r_{\alpha,\beta}^4>`
+            fourth moment of the distance distribution between sites 
+	    :math:`\alpha` and :math:`\beta`. Please see equations (18-24)
+	    of the reference cited below for the mathematical representation.       
 
 
     **Description**
@@ -29,9 +55,35 @@ class DiscreteKoyama(Omega):
     
     References
     ----------
-        Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer
+        Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer.
         Local structure of semiflexible polymer melts
         Macromolecules, 1990, 23 (14), pp 3496–3505
+    
+    Example
+    -------
+    .. code-block:: python
+
+        import pyPRISM
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        #calculate Fourier space domain and omega values
+        domain = pyPRISM.domain(dr=0.1,length=1000)
+        omega  = pyPRISM.omega.DiscreteKoyama(sigma=1.0,l=1.0,length=100,lp=1.43)
+        x = domain.k
+        y = omega.calculate(x)
+        
+        #plot it!
+        plt.plot(x,y)
+        plt.gca().set_xscale("log", nonposx='clip')
+        plt.gca().set_yscale("log", nonposy='clip')
+
+        plt.show()
+	
+	#Define a PRISM system and set omega(k) for type A
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.omega['A','A']  = pyPRISM.omega.DiscreteKoyama(sigma=1.0,l=1.0,length=100,lp=1.43)
     
     '''
     def __init__(self,sigma,l,length,lp):
@@ -40,7 +92,7 @@ class DiscreteKoyama(Omega):
         Arguments
         ---------
         sigma: float
-            contact distance between these sites (i.e. site diameter)
+            contact distance between sites (i.e. site diameter)
 
         l: float
             bond length
@@ -125,6 +177,14 @@ class DiscreteKoyama(Omega):
         return '<Omega: Koyama>'
     
     def calculate(self,k):
+        '''Return value of :math:`\hat{\omega}` at supplied :math:`k`
+
+        Arguments
+        ---------
+        k: np.ndarray
+            array of wavenumber values to caluclate :math:`\omega` at
+        
+        '''
         self.value = np.zeros_like(k)
         
         for i in range(1,self.length-1):
@@ -136,14 +196,3 @@ class DiscreteKoyama(Omega):
         
         return self.value
 
-    def calculate_outer(self,k):
-        self.value = np.zeros_like(k)
-        
-        for i in range(1,self.length-1):
-            for j in range(i+2,self.length):
-                n = abs(i - j)
-                self.value += self.koyama_kernel(k=k,n=n)
-        # self.value *= 2/self.length
-        # self.value += 1.0
-        
-        return self.value
