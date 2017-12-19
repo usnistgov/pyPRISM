@@ -12,7 +12,7 @@ def spinodal_condition(PRISM,extrapolate=True):
         
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
@@ -49,7 +49,7 @@ def spinodal_condition(PRISM,extrapolate=True):
 
         - :math:`\rho^{site}_{\alpha,\beta}` 
             Sitewise density for sites :math:`\alpha` and
-            :math:`\beta`. See :class:`typyPRISM.core.Density` for details. 
+            :math:`\beta`. See :class:`pyPRISM.core.Density` for details. 
 
     **Description**
 
@@ -77,9 +77,9 @@ def spinodal_condition(PRISM,extrapolate=True):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
 
         # ** populate system variables **
         
@@ -87,7 +87,7 @@ def spinodal_condition(PRISM,extrapolate=True):
 
         PRISM.solve()
 
-        spin = typyPRISM.calculate.spinodal_conditon(PRISM)
+        spin = pyPRISM.calculate.spinodal_conditon(PRISM)
 
         spin_AB = spin['A','B']
     

@@ -8,7 +8,7 @@ def structure_factor(PRISM,normalize=True):
         
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
 
     normalize: bool
@@ -16,7 +16,7 @@ def structure_factor(PRISM,normalize=True):
     
     Returns
     -------
-    structureFactor: typyPRISM.core.MatrixArray
+    structureFactor: pyPRISM.core.MatrixArray
         The full MatrixArray of structure factors
 
         
@@ -40,7 +40,7 @@ def structure_factor(PRISM,normalize=True):
 
         - :math:`\rho^{site}_{\alpha,\beta}`, :math:`\rho^{pair}_{\alpha,\beta}`
             Sitewise and pairwise densities for sites :math:`\alpha` and
-            :math:`\beta`. See :class:`typyPRISM.core.Density` for details. 
+            :math:`\beta`. See :class:`pyPRISM.core.Density` for details. 
 
     **Description**
 
@@ -74,9 +74,9 @@ def structure_factor(PRISM,normalize=True):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
 
         # ** populate system variables **
         
@@ -84,7 +84,7 @@ def structure_factor(PRISM,normalize=True):
 
         PRISM.solve()
 
-        sk = typyPRISM.calculate.structure_factor(PRISM)
+        sk = pyPRISM.calculate.structure_factor(PRISM)
 
         sk_BB = sk['B','B']
     

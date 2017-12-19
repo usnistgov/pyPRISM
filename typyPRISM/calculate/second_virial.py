@@ -9,7 +9,7 @@ def second_virial(PRISM,extrapolate=True):
 
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
@@ -18,7 +18,7 @@ def second_virial(PRISM,extrapolate=True):
     
     Returns
     -------
-    B2: typyPRISM.core.PairTable
+    B2: pyPRISM.core.PairTable
         Pairtable of B2 values
 
 
@@ -26,7 +26,7 @@ def second_virial(PRISM,extrapolate=True):
 
     .. math::
 
-        B_{2}^{\alpha,\beta} = -0.5 h_{\alpha,\beta}(k=0)
+        B_{2}^{\alpha,\beta} = -0.5 \hat{h}_{\alpha,\beta}(k=0)
 
     
     **Variable Definitions**
@@ -35,9 +35,9 @@ def second_virial(PRISM,extrapolate=True):
             Second virial coefficient between site types :math:`\alpha` and
             :math:`\beta`
 
-        - :math:`h_{\alpha,\beta}(r)`
-            Total correlation function between site types :math:`\alpha` and
-            :math:`\beta` at a distance :math:`r`
+        - :math:`\hat{h}_{\alpha,\beta}(k)`
+            Fourier-space total correlation function between site types 
+	    :math:`\alpha` and :math:`\beta` at wavevector :math:`k`
 
 
     **Description**
@@ -64,7 +64,7 @@ def second_virial(PRISM,extrapolate=True):
 
         import typyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
 
         # ** populate system variables **
         
@@ -72,7 +72,7 @@ def second_virial(PRISM,extrapolate=True):
 
         PRISM.solve()
 
-        B2 = typyPRISM.calculate.second_virial(PRISM)
+        B2 = pyPRISM.calculate.second_virial(PRISM)
 
         B2_BB = B2['B','B']
     

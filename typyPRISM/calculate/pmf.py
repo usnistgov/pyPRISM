@@ -10,12 +10,12 @@ def pmf(PRISM):
 
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
     
     Returns
     -------
-    pmf: typyPRISM.core.MatrixArray
+    pmf: pyPRISM.core.MatrixArray
         The full MatrixArray of potentials of mean force
 
     
@@ -23,7 +23,7 @@ def pmf(PRISM):
 
     .. math::
 
-        w_{\alpha,\beta}(r) = -k_{B} T \log(h_{\alpha,\beta}(r)+1.0)
+        w_{\alpha,\beta}(r) = -k_{B} T \ln(h_{\alpha,\beta}(r)+1.0)
     
     **Variable Definitions**
 
@@ -60,9 +60,9 @@ def pmf(PRISM):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
 
         # ** populate system variables **
         
@@ -70,7 +70,7 @@ def pmf(PRISM):
 
         PRISM.solve()
 
-        pmf = typyPRISM.calculate.pmf(PRISM)
+        pmf = pyPRISM.calculate.pmf(PRISM)
 
         pmf_BB = pmf['B','B']
     

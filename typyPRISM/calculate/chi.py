@@ -18,7 +18,7 @@ def chi(PRISM,extrapolate=True):
 
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
@@ -27,7 +27,7 @@ def chi(PRISM,extrapolate=True):
     
     Returns
     -------
-    chi: typyPRISM.core.PairTable
+    chi: pyPRISM.core.PairTable
         PairTable of all :math:`\chi` vs :math:`k`  or :math:`\chi(k=0)` values
     
 
@@ -49,7 +49,7 @@ def chi(PRISM,extrapolate=True):
             Wavenumber dependent effective interaction parameter
     
         - :math:`\rho`
-            Total system density from the :class:`typyPRISM.core.Density`
+            Total system density from the :class:`pyPRISM.core.Density`
             instance stored in the system object (which is stored in the PRISM
             object)
     
@@ -89,7 +89,7 @@ def chi(PRISM,extrapolate=True):
     .. warning::
 
         This calculation is only rigorously defined in the two-component case.
-        With that said, typyPRISM allows this method to be called for all
+        With that said, pyPRISM allows this method to be called for all
         multicomponent systems in order to calculate partial,pairwise
         :math:`\chi` values. We urge caution when using this method for
         multicomponent systems as it is not clear if this approach is fully
@@ -111,9 +111,9 @@ def chi(PRISM,extrapolate=True):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
 
         # ** populate system variables **
         
@@ -121,7 +121,7 @@ def chi(PRISM,extrapolate=True):
 
         PRISM.solve()
 
-        chi = typyPRISM.calculate.chi(PRISM)
+        chi = pyPRISM.calculate.chi(PRISM)
 
         chi_AB = rdf['A','B']
         chi_AA = rdf['A','A'] #returns None

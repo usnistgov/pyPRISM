@@ -12,7 +12,7 @@ def solvation_potential(PRISM,closure='HNC'):
         
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
 
     closure: str ('PY' or 'HNC')
@@ -21,7 +21,7 @@ def solvation_potential(PRISM,closure='HNC'):
     
     Returns
     -------
-    psi: typyPRISM.core.MatrixArray
+    psi: pyPRISM.core.MatrixArray
         MatrixArray of the *Real-space* solvation potentials
 
 
@@ -29,7 +29,7 @@ def solvation_potential(PRISM,closure='HNC'):
 
     .. math::
 
-        \text{PY: } \Delta \hat{\Psi}^{PY}(k) = - k_B T \log(1 + \hat{C}(k)\hat{S}(k)\hat{C}(k))
+        \text{PY: } \Delta \hat{\Psi}^{PY}(k) = - k_B T \ln(1 + \hat{C}(k)\hat{S}(k)\hat{C}(k))
 
     .. math::
 
@@ -85,9 +85,9 @@ def solvation_potential(PRISM,closure='HNC'):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
 
         # ** populate system variables **
         
@@ -95,7 +95,7 @@ def solvation_potential(PRISM,closure='HNC'):
 
         PRISM.solve()
 
-        psi = typyPRISM.calculate.solvation_potential(PRISM)
+        psi = pyPRISM.calculate.solvation_potential(PRISM)
 
         psi_BB = psi['B','B']
     

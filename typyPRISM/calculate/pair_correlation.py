@@ -7,12 +7,12 @@ def pair_correlation(PRISM):
 
     Parameters
     ----------
-    PRISM: typyPRISM.core.PRISM
+    PRISM: pyPRISM.core.PRISM
         A **solved** PRISM object.
     
     Returns
     -------
-    pairCorr: typyPRISM.core.MatrixArray
+    pairCorr: pyPRISM.core.MatrixArray
         The full MatrixArray of pair correlation functions.
     
 
@@ -55,9 +55,9 @@ def pair_correlation(PRISM):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
         
         # ** populate system variables **
         
@@ -65,7 +65,7 @@ def pair_correlation(PRISM):
 
         PRISM.solve()
 
-        rdf = typyPRISM.calculate.pair_correlation(PRISM)
+        rdf = pyPRISM.calculate.pair_correlation(PRISM)
 
         rdf_AB = rdf['A','B']
     
