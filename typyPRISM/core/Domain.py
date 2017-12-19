@@ -183,7 +183,7 @@ class Domain(object):
 
         Arguments
         ---------
-        marray: :class:`typyPRISM.core.MatrixArray.MatrixArray`
+        marray: :class:`pyPRISM.core.MatrixArray.MatrixArray`
             MatrixArray to be transformed
 
         Raises
@@ -204,7 +204,7 @@ class Domain(object):
 
         Arguments
         ---------
-        marray: :class:`typyPRISM.core.MatrixArray.MatrixArray`
+        marray: :class:`pyPRISM.core.MatrixArray.MatrixArray`
             MatrixArray to be transformed
 
         Raises

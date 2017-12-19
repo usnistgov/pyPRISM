@@ -21,7 +21,7 @@ class PairTable(Table):
         automatically assumes pair-reversibility and handles the setting of
         unlike pairs automatically i.e. A-B and B-A are set at the same time.
 
-        Note that, unlike the :class:`typyPRISM.core.MatrixArray`, this
+        Note that, unlike the :class:`pyPRISM.core.MatrixArray`, this
         container is not meant to be used for mathematics. The benefit of this
         is that, for each type, it can contain any arbitrary number, string, or
         Python object. 
@@ -33,9 +33,9 @@ class PairTable(Table):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        PT = typyPRISM.ValueTable(['A','B','C'],name='potential')
+        PT = pyPRISM.ValueTable(['A','B','C'],name='potential')
 
         # Set the 'A-A' pair
         PT['A','A']            = 'Lennard-Jones'

@@ -8,7 +8,7 @@ class Space(Enum):
     transformed in-place between these spaces. This class is meant to help
     track this state by creating a standard numerical reference for each state
     that can be checked. This allows classes like
-    :class:`typyPRISM.core.MatrixArray` to do error checking when doing math
+    :class:`pyPRISM.core.MatrixArray` to do error checking when doing math
     between arrays to make sure we don't multiply two arrays that aren't in the
     same space.  This enumeration also defines a 'wildcard' state so that we
     can still do math with non-spatial data. 
@@ -17,11 +17,11 @@ class Space(Enum):
     -------
     .. code-block:: python
         
-        import typyPRISM
+        import pyPRISM
 
-        A = typyPRISM.MatrixArray(length=1000,rank=3,space=typyPRISM.Space.Real)
-        B = typyPRISM.MatrixArray(length=1000,rank=3,space=typyPRISM.Space.Real)
-        C = typyPRISM.MatrixArray(length=1000,rank=3,space=typyPRISM.Space.Fourier)
+        A = pyPRISM.MatrixArray(length=1000,rank=3,space=pyPRISM.Space.Real)
+        B = pyPRISM.MatrixArray(length=1000,rank=3,space=pyPRISM.Space.Real)
+        C = pyPRISM.MatrixArray(length=1000,rank=3,space=pyPRISM.Space.Fourier)
 
         A.space == B.Space # returns True
         A.space == C.Space # returns False

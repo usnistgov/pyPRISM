@@ -57,7 +57,7 @@ class MatrixArray(object):
             Interface for specifying the MatrixArray data directly. If not
             given, all values in all matrices will be set to zero. 
             
-        space: typyPRISM.core.Space.Space
+        space: pyPRISM.core.Space.Space
             Enumerated value tracking whether the array represents real or
             Fourier spaced data. As we will be transferring arrays to and from
             these spaces, it's important for safety that we track this.

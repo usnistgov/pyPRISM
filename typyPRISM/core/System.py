@@ -27,24 +27,24 @@ class System:
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
         
-        sys.domain = typyPRISM.Domain(dr=0.1,length=1024)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
 
         sys.density['A'] = 0.1
         sys.density['B'] = 0.75
 
         sys.diameter[sys.types] = 1.0
         
-        sys.closure[sys.types,sys.types] = typyPRISM.closure.PercusYevick()
+        sys.closure[sys.types,sys.types] = pyPRISM.closure.PercusYevick()
 
-        sys.potential[sys.types,sys.types] = typyPRISM.potential.HardSphere()
+        sys.potential[sys.types,sys.types] = pyPRISM.potential.HardSphere()
         
-        sys.omega['A','A'] = typyPRISM.omega.SingleSite()
-        sys.omega['A','B'] = typyPRISM.omega.NoIntra()
-        sys.omega['B','B'] = typyPRISM.omega.Gaussian(sigma=1.0,length=10000)
+        sys.omega['A','A'] = pyPRISM.omega.SingleSite()
+        sys.omega['A','B'] = pyPRISM.omega.NoIntra()
+        sys.omega['B','B'] = pyPRISM.omega.Gaussian(sigma=1.0,length=10000)
         
         PRISM = sys.createPRISM()
 
@@ -72,19 +72,19 @@ class System:
         rank: int
             Number of site types
         
-        density: typyPRISM.Density
+        density: pyPRISM.Density
             Container for all density values
             
-        potential: typyPRISM.PairTable
+        potential: pyPRISM.PairTable
             Table of pair potentials between all site pairs in real space
             
-        closure: typyPRISM.PairTable
+        closure: pyPRISM.PairTable
             Table of closures between all site pairs
             
-        omega: typyPRISM.PairTable
+        omega: pyPRISM.PairTable
             Table of omega correlation functions in k-space
         
-        domain: typyPRISM.Domain
+        domain: pyPRISM.Domain
             Domain object which specifies the Real and Fourier space 
             solution grid.
             
@@ -92,7 +92,7 @@ class System:
             Value of the thermal energy scale. Used to vary temperature and
             scale the potential energy functions.
 
-        diameter: typyPRISM.ValueTable
+        diameter: pyPRISM.ValueTable
             Site diameters. Note that these are not passed to potentials and it
             is up to the user to set sane \sigma values that match these 
             diameters. 

@@ -17,8 +17,8 @@ class ValueTable(Table):
         simultaneously. This allows for the rapid construction of datasets
         where many of the parameters are repeated. 
 
-        Note that, unlike the :class:`typyPRISM.core.MatrixArray`, this
-        container is not meant to be uses for mathematics. The benefit of this
+        Note that, unlike the :class:`pyPRISM.core.MatrixArray`, this
+        container is not meant to be used for mathematics. The benefit of this
         is that, for each type, it can contain any arbitrary number, str, or
         Python object. 
 
@@ -29,9 +29,9 @@ class ValueTable(Table):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        VT = typyPRISM.ValueTable(['A','B','C','D','E'],name='density')
+        VT = pyPRISM.ValueTable(['A','B','C','D','E'],name='density')
 
         # set the value for type A to be 0.25
         VT['A'] = 0.25
