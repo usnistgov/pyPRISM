@@ -22,7 +22,7 @@ class HyperNettedChain(AtomicClosure):
             Direct correlation function value at distance :math:`r` between
             sites :math:`\alpha` and :math:`\beta`.
     
-        - :math:`u_{\alpha,\beta}(r)`
+        - :math:`U_{\alpha,\beta}(r)`
             Interaction potential value at distance :math:`r` between sites
             :math:`\alpha` and :math:`\beta`.
     
@@ -54,13 +54,13 @@ class HyperNettedChain(AtomicClosure):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
         
-        sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
-        sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.HypernettedChain()
+        sys.closure['A','A'] = pyPRISM.closure.PercusYevick()
+        sys.closure['A','B'] = pyPRISM.closure.PercusYevick()
+        sys.closure['B','B'] = pyPRISM.closure.HypernettedChain()
 
         # ** finish populating system object **
 

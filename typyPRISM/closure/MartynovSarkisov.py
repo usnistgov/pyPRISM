@@ -11,9 +11,9 @@ class MartynovSarkisov(AtomicClosure):
 
         .. math::
 
-            c_{i,j}(r) = (exp(\sqrt{\gamma_{i,j}(r) - U_{i,j}(r) - 0.5}) - 1.0 ) - 1.0 -  \gamma_{i,j}(r)
+            c_{\alpha,\beta}(r) = (exp(\sqrt{\gamma_{\alpha,\beta}(r) - U_{\alpha,\beta}(r) - 0.5}) - 1.0 ) - 1.0 -  \gamma_{\alpha,\beta}(r)
             
-            \gamma_{i,j}(r) =  h_{i,j}(r) - c_{i,j}(r)
+            \gamma_{\alpha,\beta}(r) =  h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)
 
 
     **Variables Definitions**
@@ -56,13 +56,13 @@ class MartynovSarkisov(AtomicClosure):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
         
-        sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
-        sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.MartynovSarkisov()
+        sys.closure['A','A'] = pyPRISM.closure.PercusYevick()
+        sys.closure['A','B'] = pyPRISM.closure.PercusYevick()
+        sys.closure['B','B'] = pyPRISM.closure.MartynovSarkisov()
 
         # ** finish populating system object **
 

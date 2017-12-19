@@ -4,11 +4,11 @@ from typyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 import warnings 
 class MeanSphericalApproximation(AtomicClosure):
-    r'''Mean Spherical Approximation closure evaluated in terms of a change of variables
+    r'''Mean Spherical Approximation closure
 
     **Mathematial Definition**
 
-        .. math:: c_{\alpha,\beta}(r) = -u_{\alpha,\beta}(r)
+        .. math:: c_{\alpha,\beta}(r) = -U_{\alpha,\beta}(r)
 
 
     **Variables Definitions**
@@ -17,7 +17,7 @@ class MeanSphericalApproximation(AtomicClosure):
             Direct correlation function value at distance :math:`r` between
             sites :math:`\alpha` and :math:`\beta`.
     
-        - :math:`u_{\alpha,\beta}(r)`
+        - :math:`U_{\alpha,\beta}(r)`
             Interaction potential value at distance :math:`r` between sites
             :math:`\alpha` and :math:`\beta`.
     
@@ -27,11 +27,6 @@ class MeanSphericalApproximation(AtomicClosure):
         The Mean Spherical Approximation (MSA) closure assumes an interaction
         potential that contains a hard-core interaction and a tail interaction.
         See Hansen and McDonald for a derivation and discussion of this closure.
-        
-        The change of variables is necessary in order to use potentials with
-        hard cores in the computational setting. Written in the standard form,
-        this closure diverges with divergent potentials, which makes it
-        impossible to numerically solve. 
         
         The MSA does a good job of describing the properties of the square-well 
         fluid, and allows for the analytical solution of the PRISM/RISM 
@@ -48,13 +43,13 @@ class MeanSphericalApproximation(AtomicClosure):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
         
-        sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
-        sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.MeanSphericalApproximation()
+        sys.closure['A','A'] = pyPRISM.closure.PercusYevick()
+        sys.closure['A','B'] = pyPRISM.closure.PercusYevick()
+        sys.closure['B','B'] = pyPRISM.closure.MeanSphericalApproximation()
 
         # ** finish populating system object **
 

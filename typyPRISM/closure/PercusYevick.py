@@ -7,7 +7,7 @@ class PercusYevick(AtomicClosure):
 
     **Mathematial Definition**
 
-        .. math:: c_{\alpha,\beta}(r) = (\exp(-u_{\alpha,\beta}(r)) - 1.0) (1.0 + \gamma_{\alpha,\beta}(r))
+        .. math:: c_{\alpha,\beta}(r) = (\exp(-U_{\alpha,\beta}(r)) - 1.0) (1.0 + \gamma_{\alpha,\beta}(r))
 
         .. math:: \gamma_{\alpha,\beta}(r) =  h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)
 
@@ -21,7 +21,7 @@ class PercusYevick(AtomicClosure):
             Direct correlation function value at distance :math:`r` between
             sites :math:`\alpha` and :math:`\beta`.
     
-        - :math:`u_{\alpha,\beta}(r)`
+        - :math:`U_{\alpha,\beta}(r)`
             Interaction potential value at distance :math:`r` between sites
             :math:`\alpha` and :math:`\beta`.
     
@@ -29,7 +29,8 @@ class PercusYevick(AtomicClosure):
     **Description**
 
         The Percus-Yevick (PY) is derived by expanding the exponential of the
-        direct correlation function, c, in powers of density shift from a
+        direct correlation function, :math:`c_{\alpha,\beta}(r)`, in powers of 
+	density shift from a
         refence state. See Hansen and McDonald for a full derivation.
         
         The change of variables is necessary in order to use potentials with
@@ -50,13 +51,13 @@ class PercusYevick(AtomicClosure):
     -------
     .. code-block:: python
 
-        import typyPRISM
+        import pyPRISM
 
-        sys = typyPRISM.System(['A','B'])
+        sys = pyPRISM.System(['A','B'])
         
-        sys.closure['A','A'] = typyPRISM.closure.PercusYevick()
-        sys.closure['A','B'] = typyPRISM.closure.PercusYevick()
-        sys.closure['B','B'] = typyPRISM.closure.HypernettedChain()
+        sys.closure['A','A'] = pyPRISM.closure.PercusYevick()
+        sys.closure['A','B'] = pyPRISM.closure.PercusYevick()
+        sys.closure['B','B'] = pyPRISM.closure.HypernettedChain()
 
         # ** finish populating system object **
 
