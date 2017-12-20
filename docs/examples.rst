@@ -2,6 +2,12 @@
 
 Examples
 ========
-Below we provide a few short examples of typyPRISM usage. Please
-see the provided python scripts and jupyter notebooks for complete
-usage and discussion. 
+A detailed tutorial with examples on how to build and run 
+PRSIM calculations for a vareity of systems is hosted on 
+the companion `pyPRISM_tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_ 
+repository. This tutorial includes a general introduction
+to PRISM, Python, and the pyPRISM package, and contains annotated example
+scripts that were used to create all of the case-studies in the
+following paper:
+
+    1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman, A.; pyPRISM: A Computational Tool for Polymer Liquid State Theory Calculations (to be submitted)
