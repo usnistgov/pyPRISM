@@ -8,11 +8,11 @@ Setup
 
 **Requirements**
 
-    - typyPRISM 
+    - pyPRISM 
 
     - matplotlib
 
-See :ref:`quick_install` or the full install instructions to get typyPRISM and set up your environment. Note that you'll need `matplotlib <https://matplotlib.org>` for this example as well. After the environment is set up, the example below can be copied into a file (e.g. test.py) and run from the command line via
+See :ref:`quick_install` or the full install instructions to get pyPRISM and set up your environment. Note that you'll need `matplotlib <https://matplotlib.org>` for this example as well. After the environment is set up, the example below can be copied into a file (e.g. test.py) and run from the command line via
 
 .. code-block:: bash
     
@@ -22,52 +22,56 @@ Alternatively, the below code can be copied into your IDE (Spyder, PyCharm) or n
 
 Features Used
 -------------
-- :class:`typyPRISM.core.System`
-- :class:`typyPRISM.core.Domain`
-- :class:`typyPRISM.core.Density`
-- :class:`typyPRISM.core.PRISM`
-- :class:`typyPRISM.omega.FreelyJointedChain`
-- :class:`typyPRISM.omega.InterMolecular`
-- :class:`typyPRISM.omega.HardSphere`
-- :class:`typyPRISM.closure.PercusYevick`
-- :class:`typyPRISM.closure.HyperNettedChain`
-- :class:`typyPRISM.calculate.pair_correlation`
+- :class:`pyPRISM.core.System`
+- :class:`pyPRISM.core.Domain`
+- :class:`pyPRISM.core.Density`
+- :class:`pyPRISM.core.PRISM`
+- :class:`pyPRISM.omega.FreelyJointedChain`
+- :class:`pyPRISM.omega.InterMolecular`
+- :class:`pyPRISM.omega.HardSphere`
+- :class:`pyPRISM.closure.PercusYevick`
+- :class:`pyPRISM.closure.HyperNettedChain`
+- :class:`pyPRISM.calculate.pair_correlation`
 
 Annotated Example
 -----------------
 .. code-block:: python
 
-    import typyPRISM
+    import pyPRISM
     import matplotlib.pyplot as plt
     
     # The system holds all information needed to set up a PRISM problem. We
     # instantiate the system by specifying the site types and thermal energy
     # level (kT, coarse-grained temperature) of the system. 
-    sys = typyPRISM.System(['particle','polymer'],kT=1.0)
+    sys = pyPRISM.System(['particle','polymer'],kT=1.0)
 
     # We must discretize Real and Fourier space
-    sys.domain = typyPRISM.Domain(dr=0.01,length=4096)
+    sys.domain = pyPRISM.Domain(dr=0.01,length=4096)
         
     # The composition of the system is desribed via number densities
     sys.density['polymer']  = 0.75
     sys.density['particle'] = 6e-6
     
+    # The diameter of each site is specified (in reduced units)
+    sys.diameter['polymer']  = 1.0
+    sys.diameter['particle'] = 5.0
+    
     # The molecular structure is described via intra-molecular correlation
     # functions (i.e. omegas)
-    sys.omega['polymer','polymer']   = typyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
-    sys.omega['polymer','particle']  = typyPRISM.omega.InterMolecular()
-    sys.omega['particle','particle'] = typyPRISM.omega.SingleSite()
+    sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
+    sys.omega['polymer','particle']  = pyPRISM.omega.NoIntra()
+    sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
     
     # The site-site interactions are specified via classes which are lazily 
     # evaluated during the PRISM-object creation
-    sys.potential['polymer','polymer']   = typyPRISM.potential.HardSphere(sigma=1.0)
-    sys.potential['polymer','particle']  = typyPRISM.potential.Exponential(sigma=3.0,alpha=0.5,epsilon=1.0)
-    sys.potential['particle','particle'] = typyPRISM.potential.HardSphere(sigma=5.0)
+    sys.potential['polymer','polymer']   = pyPRISM.potential.HardSphere(sigma=1.0)
+    sys.potential['polymer','particle']  = pyPRISM.potential.Exponential(sigma=3.0,alpha=0.5,epsilon=1.0)
+    sys.potential['particle','particle'] = pyPRISM.potential.HardSphere(sigma=5.0)
     
     # Closure approximations are also specified via classes
-    sys.closure['polymer','polymer']   = typyPRISM.closure.PercusYevick()
-    sys.closure['polymer','particle']  = typyPRISM.closure.PercusYevick()
-    sys.closure['particle','particle'] = typyPRISM.closure.HyperNettedChain()
+    sys.closure['polymer','polymer']   = pyPRISM.closure.PercusYevick()
+    sys.closure['polymer','particle']  = pyPRISM.closure.PercusYevick()
+    sys.closure['particle','particle'] = pyPRISM.closure.HyperNettedChain()
     
     # The system class has a helper function to automatically transfer and set up
     # a PRISM object. The PRISM object holds all of the correlation function
@@ -79,7 +83,7 @@ Annotated Example
     PRISM.solve()
     
     # Calculate the pair-correlation functions.
-    rdf = typyPRISM.calculate.pair_correlation(PRISM)
+    rdf = pyPRISM.calculate.pair_correlation(PRISM)
 
     # Plot the results
     plt.plot(sys.domain.r,rdf['polymer','polymer'],color='red',lw=1.25)
@@ -90,7 +94,21 @@ Annotated Example
 
 Discussion
 ----------
-The above example 
+The above example sets up a PRISM object, runs a PRISM calculation, and plots
+the real-space pair correlation functions for a system of freely-jointed 
+polymer chains of length N=100 mixed with spherical hard nanoparticles of 
+diameter D=5d (i.e., 5 times the monomer site diameter, d). 
+
+In addition to the heterogeneity in size scales, this example 
+also demonstrates pyPRISM’s ability to handle heterogeneous interaction 
+potentials; in this system the hard sphere potential describes pairwise 
+interactions for all species, excepting particle-polymer interactions which 
+are modeled via an exponential attraction.
+
+All necessary inputs are specified (site types and system temperature, 
+domain size and discretization, site densities and diameters, 
+intra-molecular correlation functions, interaction potentials, and closures
+used for each pair of site types) and then the PRISM calculation is performed.
 
 **References**
 
