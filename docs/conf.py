@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# typyPRISM documentation build configuration file, created by
+# pyPRISM documentation build configuration file, created by
 # sphinx-quickstart on Sun Sep 17 12:32:11 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -65,7 +65,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'typyPRISM'
+project = 'pyPRISM'
 copyright = '2017, Tyler B. Martin'
 author = 'Tyler B. Martin'
 
@@ -134,7 +134,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'typyPRISMdoc'
+htmlhelp_basename = 'pyPRISMdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -161,7 +161,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'typyPRISM.tex', 'typyPRISM Documentation',
+    (master_doc, 'pyPRISM.tex', 'pyPRISM Documentation',
      'Tyler B. Martin', 'manual'),
 ]
 
@@ -171,7 +171,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'typyprism', 'typyPRISM Documentation',
+    (master_doc, 'pyprism', 'pyPRISM Documentation',
      [author], 1)
 ]
 
@@ -182,8 +182,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'typyPRISM', 'typyPRISM Documentation',
-     author, 'typyPRISM', 'One line description of project.',
+    (master_doc, 'pyPRISM', 'pyPRISM Documentation',
+     author, 'pyPRISM', 'One line description of project.',
      'Miscellaneous'),
 ]
 

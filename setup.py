@@ -6,7 +6,7 @@ long,short = update_version.get_git_version()
 version = short
 
 setup(
-    name='typyPRISM',
+    name='pyPRISM',
     description='A python tool for Polymer Reference Interactions Site Model (PRISM) calculations',
     author='Tyler B. Martin',
     author_email = 'tyler.martin@nist.gov',

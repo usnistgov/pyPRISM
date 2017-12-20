@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.core.PairTable module &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="pyPRISM.core package" href="pyPRISM.core.html"/>
+        <link rel="next" title="pyPRISM.core.Space module" href="pyPRISM.core.Space.html"/>
+        <link rel="prev" title="pyPRISM.core.PRISM module" href="pyPRISM.core.PRISM.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyPRISM.html">pyPRISM package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyPRISM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.calculate.html">pyPRISM.calculate package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.closure.html">pyPRISM.closure package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="pyPRISM.core.html">pyPRISM.core package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pyPRISM.core.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.omega.html">pyPRISM.omega package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.potential.html">pyPRISM.potential package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyPRISM.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.html">pyPRISM package</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.core.html">pyPRISM.core package</a> &raquo;</li>
+        
+      <li>pyPRISM.core.PairTable module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pyPRISM.core.PairTable.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyPRISM.core.PairTable">
+<span id="pyprism-core-pairtable-module"></span><h1>pyPRISM.core.PairTable module<a class="headerlink" href="#module-pyPRISM.core.PairTable" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyPRISM.core.PairTable.PairTable">
+<em class="property">class </em><code class="descclassname">pyPRISM.core.PairTable.</code><code class="descname">PairTable</code><span class="sig-paren">(</span><em>types</em>, <em>name</em>, <em>symmetric=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyPRISM.core.Table.html#pyPRISM.core.Table.Table" title="pyPRISM.core.Table.Table"><code class="xref py py-class docutils literal"><span class="pre">pyPRISM.core.Table.Table</span></code></a></p>
+<p>Container for data that is keyed by pairs of types</p>
+<p><strong>Description</strong></p>
+<blockquote>
+<div><p>Since PRISM is a theory based in <em>pair</em>-correlation functions, it
+follows that many of the necessary parameters of the theory are
+specified between the pairs of types. This goal of this container is to
+make setting, getting, and checking these data easy.</p>
+<p>Setter/getter methods have been set up to set groups of types
+simultaneously. This allows for the rapid construction of datasets
+where many of the parameters are repeated. This class also
+automatically assumes pair-reversibility and handles the setting of
+unlike pairs automatically i.e. A-B and B-A are set at the same time.</p>
+<p>Note that, unlike the <a class="reference internal" href="pyPRISM.core.MatrixArray.html#module-pyPRISM.core.MatrixArray" title="pyPRISM.core.MatrixArray"><code class="xref py py-class docutils literal"><span class="pre">pyPRISM.core.MatrixArray</span></code></a>, this
+container is not meant to be used for mathematics. The benefit of this
+is that, for each type, it can contain any arbitrary number, string, or
+Python object.</p>
+<p>See the example below and the <a class="reference internal" href="../data_structures.html#data-structures"><span class="std std-ref">Data Structures</span></a> page for more
+information.</p>
+</div></blockquote>
+<p class="rubric">Example</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyPRISM</span>
+
+<span class="n">PT</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">ValueTable</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;potential&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set the &#39;A-A&#39; pair</span>
+<span class="n">PT</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>            <span class="o">=</span> <span class="s1">&#39;Lennard-Jones&#39;</span>
+
+<span class="c1"># Set the &#39;B-A&#39;, &#39;A-B&#39;, &#39;B-B&#39;, &#39;B-C&#39;, and &#39;C-B&#39; pairs</span>
+<span class="n">PT</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Weeks-Chandler-Andersen&#39;</span>
+
+<span class="c1"># Set the &#39;C-A&#39;, &#39;A-C&#39;, &#39;C-C&#39; pairs</span>
+<span class="n">PT</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">,[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="p">]</span>     <span class="o">=</span> <span class="s1">&#39;Exponential&#39;</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">PT</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}) {} for pair {}-{} is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">VT</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">v</span><span class="p">))</span>
+
+<span class="c1"># The above loop prints the following:</span>
+<span class="c1">#   (0, 0)) potential for pair A-A is Lennard-Jones</span>
+<span class="c1">#   (0, 1)) potential for pair A-B is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (0, 2)) potential for pair A-C is Exponential</span>
+<span class="c1">#   (1, 1)) potential for pair B-B is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (1, 2)) potential for pair B-C is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (2, 2)) potential for pair C-C is Exponential</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">PT</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}) {} for pair {}-{} is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">VT</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">v</span><span class="p">))</span>
+
+<span class="c1"># The above loop prints the following:</span>
+<span class="c1">#   (0, 0)) potential for pair A-A is Lennard-Jones</span>
+<span class="c1">#   (0, 1)) potential for pair A-B is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (0, 2)) potential for pair A-C is Exponential</span>
+<span class="c1">#   (1, 0)) potential for pair B-A is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (1, 1)) potential for pair B-B is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (1, 2)) potential for pair B-C is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (2, 0)) potential for pair C-A is Exponential</span>
+<span class="c1">#   (2, 1)) potential for pair C-B is Weeks-Chandler-Andersen</span>
+<span class="c1">#   (2, 2)) potential for pair C-C is Exponential</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyPRISM.core.PairTable.PairTable.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>types</em>, <em>name</em>, <em>symmetric=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>types</strong> (<em>list</em>) – Lists of the types that will be used to key the PairTable. The length of this
+list should be equal to the rank of the PRISM problem to be solved i.e.
+len(types) == number of sites in system</li>
+<li><strong>name</strong> (<em>string</em>) – The name of the PairTable. This is simply used as a convencience for identifying
+the table internally.</li>
+<li><strong>symmetric</strong> (<em>bool</em>) – If True, the table will automatically set both off-diagonal values during
+assignment e.g. PT[‘A’,’B’] = 5 will set ‘A-B’ and ‘B-A’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PairTable.PairTable.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>funk</em>, <em>inplace=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a function to all elements in the table in place</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>funk</strong> (<em>any object with __call__ method</em>) – function to be called on all table elements</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PairTable.PairTable.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is everything in the table set?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">ValueError if all values are not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PairTable.PairTable.exportToMatrixArray">
+<code class="descname">exportToMatrixArray</code><span class="sig-paren">(</span><em>space=&lt;Space.Real: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable.exportToMatrixArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable.exportToMatrixArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function for converting a table of arrays to a MatrixArray</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This only works if the PairTable contains numerical data that is
+all of the same shape that can be cast into a np.ndarray like
+object.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PairTable.PairTable.iterpairs">
+<code class="descname">iterpairs</code><span class="sig-paren">(</span><em>full=False</em>, <em>diagonal=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable.iterpairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable.iterpairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function for looping over table pairs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>full</strong> (<em>bool</em>) – If True, all i,j pairs (upper and lower diagonal) will be looped over</li>
+<li><strong>diagonal</strong> (<em>bool</em>) – If True, the i==j (on-diagonal) pairs will be considered when looping</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PairTable.PairTable.setUnset">
+<code class="descname">setUnset</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PairTable.html#PairTable.setUnset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PairTable.PairTable.setUnset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set all values that have not been specified to a value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – Any valid python object (number, list, array, etc) can be passed in
+as a value for all unset fields.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyPRISM.core.Space.html" class="btn btn-neutral float-right" title="pyPRISM.core.Space module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyPRISM.core.PRISM.html" class="btn btn-neutral" title="pyPRISM.core.PRISM module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.omega.NonOverlappingFreelyJointedChain &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.omega.NonOverlappingFreelyJointedChain</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.omega.NonOverlappingFreelyJointedChain</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span><span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.omega.Omega</span> <span class="k">import</span> <span class="n">Omega</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.omega.FreelyJointedChain</span> <span class="k">import</span> <span class="n">FreelyJointedChain</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.integrate</span> 
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">NFJC_WARNING</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">The numerical integrations required for the NFJC omega</span>
+<span class="s1">calculation are slow and scale poorly with chain length </span>
+<span class="s1">so this omega may take minutes or longer to calculate </span>
+<span class="s1">even for modest chain lengths e.g. N=200.&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="NonOverlappingFreelyJointedChain"><a class="viewcode-back" href="../../../api/pyPRISM.omega.NonOverlappingFreelyJointedChain.html#pyPRISM.omega.NonOverlappingFreelyJointedChain.NonOverlappingFreelyJointedChain">[docs]</a><span class="k">class</span> <span class="nc">NonOverlappingFreelyJointedChain</span><span class="p">(</span><span class="n">Omega</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Freely jointed chain with excluded volume intra-molecular correlation function</span>
+
+
+<span class="sd">    .. warning:: </span>
+<span class="sd">        The numerical integrations required for the NFJC omega</span>
+<span class="sd">        calculation are slow and scale poorly with chain length </span>
+<span class="sd">        so this omega may take minutes or longer to calculate </span>
+<span class="sd">        even for modest chain lengths e.g. N=200.</span>
+
+<span class="sd">    </span>
+<span class="sd">    **Mathematical Definition**</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        \hat{\omega}(k) = \hat{\omega}_{id}(k)+\frac{2}{N}\sum_{\tau=2}^{N-1}(N-\tau)</span>
+<span class="sd">			[\hat{\omega}_{\tau}(k)-(\sin(k)/k)^{\tau}]</span>
+<span class="sd">    </span>
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        \tau = |\alpha-\beta| </span>
+
+
+<span class="sd">    **Variable Definitions**</span>
+
+<span class="sd">        - :math:`\hat{\omega}(k)` </span>
+<span class="sd">            *intra*-molecular correlation function at wavenumber :math:`k`</span>
+
+<span class="sd">        - :math:`\hat{\omega}_{id}(k)` </span>
+<span class="sd">            *intra*-molecular correlation function for the ideal freely-jointed </span>
+<span class="sd">	    chain at wavenumber :math:`k`. Please see equation (15)</span>
+<span class="sd">	    of the reference cited below for the mathematical representation.</span>
+<span class="sd">        </span>
+<span class="sd">        - :math:`\hat{\omega}_{\tau}(k)` </span>
+<span class="sd">            Please see equations (17,18,21) of the reference cited below </span>
+<span class="sd">	    for the mathematical representation.</span>
+<span class="sd">	</span>
+<span class="sd">	- :math:`N`</span>
+<span class="sd">            number of repeat units in chain</span>
+<span class="sd"> </span>
+<span class="sd">        - :math:`\tau`</span>
+<span class="sd">            number of monomers along chain separating sites :math:`\alpha` </span>
+<span class="sd">	    and :math:`\beta`. </span>
+
+
+<span class="sd">    **Description**</span>
+<span class="sd">        </span>
+<span class="sd">        The non-overlapping freely-jointed chain is an adjustment to the ideal</span>
+<span class="sd">        freely jointed chain model that includes the effects of the excluded</span>
+<span class="sd">        volume of monomer segments (i.e. bonds are not free to rotate over all</span>
+<span class="sd">        angles). This model assumes a constant bond length :math:`l`. </span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -</span>
+<span class="sd">    Intramolecular Structure, Local Order, and the Correlation Hole,</span>
+<span class="sd">    Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import pyPRISM</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import matplotlib.pyplot as plt</span>
+
+<span class="sd">        #calculate Fourier space domain and omega values</span>
+<span class="sd">        domain = pyPRISM.domain(dr=0.1,length=1000)</span>
+<span class="sd">        omega  = pyPRISM.omega.NonOverlappingFreelyJointedChain(length=100,l=1.0)</span>
+<span class="sd">        x = domain.k</span>
+<span class="sd">        y = omega.calculate(x)</span>
+
+<span class="sd">        #plot it!</span>
+<span class="sd">        plt.plot(x,y)</span>
+<span class="sd">        plt.gca().set_xscale(&quot;log&quot;, nonposx=&#39;clip&#39;)</span>
+<span class="sd">        plt.gca().set_yscale(&quot;log&quot;, nonposy=&#39;clip&#39;)</span>
+
+<span class="sd">        plt.show()</span>
+<span class="sd">	</span>
+<span class="sd">	#Define a PRISM system and set omega(k) for type A</span>
+<span class="sd">	sys = pyPRISM.System([&#39;A&#39;,&#39;B&#39;],kT=1.0)</span>
+<span class="sd">	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)</span>
+<span class="sd">        sys.omega[&#39;A&#39;,&#39;A&#39;]  = pyPRISM.omega.NonOverlappingFreelyJointedChain(length=100,l=1.0)</span>
+
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="NonOverlappingFreelyJointedChain.__init__"><a class="viewcode-back" href="../../../api/pyPRISM.omega.NonOverlappingFreelyJointedChain.html#pyPRISM.omega.NonOverlappingFreelyJointedChain.NonOverlappingFreelyJointedChain.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Constructor</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        length: float</span>
+<span class="sd">            number of monomers/sites in non-overlapping freely-jointed chain</span>
+<span class="sd">            </span>
+<span class="sd">        l: float</span>
+<span class="sd">            bond length</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FJC</span> <span class="o">=</span> <span class="n">FreelyJointedChain</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span><span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">NFJC_WARNING</span><span class="p">)</span></div>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Omega: NonOverlappingFreelyJointedChain&gt;&#39;</span>
+    
+<div class="viewcode-block" id="NonOverlappingFreelyJointedChain.calculate"><a class="viewcode-back" href="../../../api/pyPRISM.omega.NonOverlappingFreelyJointedChain.html#pyPRISM.omega.NonOverlappingFreelyJointedChain.NonOverlappingFreelyJointedChain.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Return value of :math:`\hat{\omega}` at supplied :math:`k`</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        k: np.ndarray</span>
+<span class="sd">            array of wavenumber values to caluclate :math:`\omega` at</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">integrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span>
+        <span class="n">integrate</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">simps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+        <span class="n">B</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="n">dx</span><span class="p">)</span>
+        <span class="n">K</span><span class="p">,</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">indexing</span><span class="o">=</span><span class="s1">&#39;ij&#39;</span><span class="p">)</span>
+        <span class="c1"># Precaculate factors for efficiency </span>
+        <span class="n">ZBase</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">K</span><span class="p">))</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="n">X</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">K</span><span class="o">+</span><span class="n">X</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">K</span><span class="o">+</span><span class="n">X</span><span class="p">))</span>
+        <span class="n">sinxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span>
+        <span class="n">sinXX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">/</span><span class="n">X</span>
+        <span class="n">sinkk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="n">k</span>
+        <span class="n">J0Base</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span>
+            <span class="n">J0val</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">integrate</span><span class="p">((</span><span class="n">sinxx</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span><span class="o">*</span><span class="n">J0Base</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">J0val</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">Z</span> <span class="o">=</span> <span class="n">ZBase</span> <span class="o">*</span> <span class="p">(</span><span class="n">sinXX</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span> 
+            <span class="n">Jvals</span> <span class="o">=</span> <span class="n">integrate</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">omega_t</span> <span class="o">=</span> <span class="n">B</span> <span class="o">*</span> <span class="p">((</span><span class="n">sinkk</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span> <span class="o">-</span> <span class="n">Jvals</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span>  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="n">tau</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">omega_t</span> <span class="o">-</span> <span class="p">(</span><span class="n">sinkk</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">tau</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span>  <span class="o">*=</span> <span class="mf">2.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span>  <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FJC</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+
+<div class="viewcode-block" id="NFJC"><a class="viewcode-back" href="../../../api/pyPRISM.omega.NonOverlappingFreelyJointedChain.html#pyPRISM.omega.NonOverlappingFreelyJointedChain.NFJC">[docs]</a><span class="k">class</span> <span class="nc">NFJC</span><span class="p">(</span><span class="n">NonOverlappingFreelyJointedChain</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Alias of NonOverlappingFreelyJointedChain &#39;&#39;&#39;</span>
+    <span class="k">pass</span></div>
+        
+        
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.omega.DiscreteKoyama &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.omega.DiscreteKoyama</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.omega.DiscreteKoyama</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span><span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.omega.Omega</span> <span class="k">import</span> <span class="n">Omega</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">exp</span><span class="p">,</span><span class="n">sin</span><span class="p">,</span><span class="n">cos</span><span class="p">,</span><span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">root</span>
+
+<div class="viewcode-block" id="DiscreteKoyama"><a class="viewcode-back" href="../../../api/pyPRISM.omega.DiscreteKoyama.html#pyPRISM.omega.DiscreteKoyama.DiscreteKoyama">[docs]</a><span class="k">class</span> <span class="nc">DiscreteKoyama</span><span class="p">(</span><span class="n">Omega</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Semi-flexible Koyama-based intra-molecular correlation function</span>
+
+<span class="sd">    **Mathematial Definition**</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        \hat{\omega}(k) = \frac{\sin(Bk)}{Bk}\exp(-A^2k^2)</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">         </span>
+<span class="sd">         A^2 = \frac{&lt;r_{\alpha,\beta}^2&gt;(1-C)}{6} </span>
+<span class="sd">	</span>
+<span class="sd">    .. math::</span>
+<span class="sd">         </span>
+<span class="sd">         B^2 =  C&lt;r_{\alpha,\beta}^2&gt; </span>
+<span class="sd">    </span>
+<span class="sd">    .. math::</span>
+<span class="sd">         </span>
+<span class="sd">         C^2 =  \frac{1}{2}(5-3\frac{&lt;r_{\alpha,\beta}^4&gt;}{&lt;r_{\alpha,\beta}^2&gt;})</span>
+
+
+<span class="sd">    **Variable Definitions**</span>
+<span class="sd">        </span>
+<span class="sd">	- :math:`\hat{\omega}(k)` </span>
+<span class="sd">            *intra*-molecular correlation function at wavenumber :math:`k`</span>
+
+<span class="sd">        - :math:`&lt;r_{\alpha,\beta}^2&gt;`</span>
+<span class="sd">            second moment of the distance distribution between sites </span>
+<span class="sd">	    :math:`\alpha` and :math:`\beta`. Please see equation (17)</span>
+<span class="sd">	    of the reference cited below for the mathematical representation.       </span>
+<span class="sd"> </span>
+<span class="sd">	- :math:`&lt;r_{\alpha,\beta}^4&gt;`</span>
+<span class="sd">            fourth moment of the distance distribution between sites </span>
+<span class="sd">	    :math:`\alpha` and :math:`\beta`. Please see equations (18-24)</span>
+<span class="sd">	    of the reference cited below for the mathematical representation.       </span>
+
+
+<span class="sd">    **Description**</span>
+<span class="sd">        </span>
+<span class="sd">        The discrete Koyama :math:`\hat{\omega}(k)` was developed to</span>
+<span class="sd">        represent a wormlike chain with semiflexibility. This scheme</span>
+<span class="sd">        interpolates between the rigid-rod and the Gaussian chain limits</span>
+<span class="sd">        to represent a chain with a given persistence length. This </span>
+<span class="sd">        form for :math:`\hat{\omega}(k)` has been shown to match the</span>
+<span class="sd">        structure of molecular dynamics simulations of Kremer-Grest </span>
+<span class="sd">        style bead-spring polymer models. </span>
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">        Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer.</span>
+<span class="sd">        Local structure of semiflexible polymer melts</span>
+<span class="sd">        Macromolecules, 1990, 23 (14), pp 3496–3505</span>
+<span class="sd">    </span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import pyPRISM</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import matplotlib.pyplot as plt</span>
+
+<span class="sd">        #calculate Fourier space domain and omega values</span>
+<span class="sd">        domain = pyPRISM.domain(dr=0.1,length=1000)</span>
+<span class="sd">        omega  = pyPRISM.omega.DiscreteKoyama(sigma=1.0,l=1.0,length=100,lp=1.43)</span>
+<span class="sd">        x = domain.k</span>
+<span class="sd">        y = omega.calculate(x)</span>
+<span class="sd">        </span>
+<span class="sd">        #plot it!</span>
+<span class="sd">        plt.plot(x,y)</span>
+<span class="sd">        plt.gca().set_xscale(&quot;log&quot;, nonposx=&#39;clip&#39;)</span>
+<span class="sd">        plt.gca().set_yscale(&quot;log&quot;, nonposy=&#39;clip&#39;)</span>
+
+<span class="sd">        plt.show()</span>
+<span class="sd">	</span>
+<span class="sd">	#Define a PRISM system and set omega(k) for type A</span>
+<span class="sd">	sys = pyPRISM.System([&#39;A&#39;,&#39;B&#39;],kT=1.0)</span>
+<span class="sd">	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)</span>
+<span class="sd">        sys.omega[&#39;A&#39;,&#39;A&#39;]  = pyPRISM.omega.DiscreteKoyama(sigma=1.0,l=1.0,length=100,lp=1.43)</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="DiscreteKoyama.__init__"><a class="viewcode-back" href="../../../api/pyPRISM.omega.DiscreteKoyama.html#pyPRISM.omega.DiscreteKoyama.DiscreteKoyama.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">lp</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Constructor</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        sigma: float</span>
+<span class="sd">            contact distance between sites (i.e. site diameter)</span>
+
+<span class="sd">        l: float</span>
+<span class="sd">            bond length</span>
+<span class="sd">            </span>
+<span class="sd">        length: float</span>
+<span class="sd">            number of monomers/sites in the chain</span>
+
+<span class="sd">        lp: float</span>
+<span class="sd">            persistence length of chain</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span>   <span class="o">=</span> <span class="n">sigma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span>  <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l</span>       <span class="o">=</span> <span class="n">l</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lp</span>      <span class="o">=</span> <span class="n">lp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cos0</span>    <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sigma</span><span class="o">*</span><span class="n">sigma</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">l</span> <span class="o">*</span> <span class="n">l</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span>   <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lp</span><span class="o">&lt;</span><span class="mf">4.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;DiscreteKoyama does not support persistence lengths &lt; 4.0/3.0.&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">lp</span> <span class="o">==</span> <span class="mf">4.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cos1</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cos0</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cos0</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cos2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cos0</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cos0</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">cos1</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="n">lp</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">funk</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos_avg</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos1</span>
+            <span class="n">result</span>  <span class="o">=</span> <span class="n">root</span><span class="p">(</span><span class="n">funk</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span> <span class="o">!=</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;DiscreteKoyama initialization failure. Could not solve for bending energy.&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cos2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos_sq_avg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span></div>
+<div class="viewcode-block" id="DiscreteKoyama.cos_avg"><a class="viewcode-back" href="../../../api/pyPRISM.omega.DiscreteKoyama.html#pyPRISM.omega.DiscreteKoyama.DiscreteKoyama.cos_avg">[docs]</a>    <span class="k">def</span> <span class="nf">cos_avg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epsilon</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;First moment of bond angle distribution&#39;&#39;&#39;</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="n">cos0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos0</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">e</span>  <span class="o">-</span> <span class="p">(</span> <span class="n">exp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos0</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="o">*</span><span class="n">cos0</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="n">exp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="o">*</span><span class="n">cos0</span><span class="p">)</span> <span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DiscreteKoyama.cos_sq_avg"><a class="viewcode-back" href="../../../api/pyPRISM.omega.DiscreteKoyama.html#pyPRISM.omega.DiscreteKoyama.DiscreteKoyama.cos_sq_avg">[docs]</a>    <span class="k">def</span> <span class="nf">cos_sq_avg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epsilon</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Second moment of bond angle distribution&#39;&#39;&#39;</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="n">cos0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos0</span>
+        <span class="n">cos1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos_avg</span><span class="p">(</span><span class="n">epsilon</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">e</span><span class="p">)</span><span class="o">*</span><span class="n">cos1</span> <span class="o">+</span> <span class="p">(</span> <span class="n">exp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="n">cos0</span><span class="o">*</span><span class="n">cos0</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="o">*</span><span class="n">cos0</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="n">exp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="o">*</span><span class="n">cos0</span><span class="p">)</span> <span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DiscreteKoyama.koyama_kernel"><a class="viewcode-back" href="../../../api/pyPRISM.omega.DiscreteKoyama.html#pyPRISM.omega.DiscreteKoyama.DiscreteKoyama.koyama_kernel">[docs]</a>    <span class="k">def</span> <span class="nf">koyama_kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Please see equation 18 of the above reference for details on this calculation.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cos1</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cos2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        
+        <span class="n">D</span>  <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> 
+        <span class="n">D</span> <span class="o">-=</span> <span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">q</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">p</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">D</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">11</span><span class="o">*</span><span class="n">q</span> <span class="o">+</span> <span class="mi">12</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">D</span> <span class="o">-=</span> <span class="mi">4</span><span class="o">*</span><span class="n">p</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">D</span> <span class="o">-=</span> <span class="n">q</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">q</span><span class="p">))</span>
+        <span class="n">D</span> <span class="o">-=</span> <span class="n">q</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">q</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">))</span>
+        <span class="n">D</span> <span class="o">-=</span> <span class="n">q</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="o">/</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">p</span><span class="o">-</span><span class="n">p</span><span class="p">))</span>
+        <span class="n">D</span> <span class="o">-=</span> <span class="mi">6</span><span class="o">*</span><span class="n">q</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
+        <span class="n">D</span> <span class="o">+=</span> <span class="n">p</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">))</span><span class="o">**</span><span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">))</span> <span class="p">))</span>
+        <span class="n">D</span> <span class="o">-=</span> <span class="n">p</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="p">))</span>
+        <span class="n">D</span> <span class="o">*=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+        
+        <span class="n">r2</span> <span class="o">=</span> <span class="n">n</span><span class="o">*</span><span class="n">l</span><span class="o">*</span><span class="n">l</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cos1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cos1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cos1</span><span class="o">/</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cos1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">r4</span> <span class="o">=</span> <span class="n">r2</span><span class="o">*</span><span class="n">r2</span> <span class="o">+</span> <span class="n">l</span><span class="o">*</span><span class="n">l</span><span class="o">*</span><span class="n">l</span><span class="o">*</span><span class="n">l</span><span class="o">*</span><span class="n">D</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">r4</span><span class="o">/</span><span class="p">(</span><span class="n">r2</span><span class="o">*</span><span class="n">r2</span><span class="p">)))</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">r2</span><span class="p">)</span>
+            <span class="n">Asq</span> <span class="o">=</span> <span class="n">r2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">C</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span> <span class="c1">#taking the square root results in many domain errors</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Bad chain parameters. (Try reducing epsilon)&#39;</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">B</span><span class="o">*</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">B</span><span class="o">*</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Asq</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">k</span><span class="p">)</span></div>
+
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Omega: Koyama&gt;&#39;</span>
+    
+<div class="viewcode-block" id="DiscreteKoyama.calculate"><a class="viewcode-back" href="../../../api/pyPRISM.omega.DiscreteKoyama.html#pyPRISM.omega.DiscreteKoyama.DiscreteKoyama.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Return value of :math:`\hat{\omega}` at supplied :math:`k`</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        k: np.ndarray</span>
+<span class="sd">            array of wavenumber values to caluclate :math:`\omega` at</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">koyama_kernel</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*=</span> <span class="mi">2</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mf">1.0</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

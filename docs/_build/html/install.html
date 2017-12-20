@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation Instructions &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Object-Oriented Philosophy" href="philosophy.html"/>
+        <link rel="prev" title="Quickstart Guide" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quick-install">Quick Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manual-install">Manual Install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1a-dependencies-via-anaconda-recommended">Step 1a: Dependencies via Anaconda (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-1b-manual-depedencies">Step 1b: Manual Depedencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-install">Step 2: Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#non-install">Non-Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#codebase-usage">Codebase Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation Instructions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation-instructions">
+<span id="install"></span><h1><a class="toc-backref" href="#id2">Installation Instructions</a><a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#installation-instructions" id="id2">Installation Instructions</a><ul>
+<li><a class="reference internal" href="#quick-install" id="id3">Quick Install</a></li>
+<li><a class="reference internal" href="#manual-install" id="id4">Manual Install</a></li>
+<li><a class="reference internal" href="#non-install" id="id5">Non-Install</a></li>
+<li><a class="reference internal" href="#codebase-usage" id="id6">Codebase Usage</a></li>
+<li><a class="reference internal" href="#verification" id="id7">Verification</a></li>
+<li><a class="reference internal" href="#documentation" id="id8">Documentation</a></li>
+<li><a class="reference internal" href="#troubleshooting" id="id9">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="quick-install">
+<span id="id1"></span><h2><a class="toc-backref" href="#id3">Quick Install</a><a class="headerlink" href="#quick-install" title="Permalink to this headline">¶</a></h2>
+<p>Install pyPRISM with all basic dependences via conda or pip. These commands
+should be platform agnostic and work for Unix, OSX, and Windows <em>if</em> you have
+Anaconda or pip correctly installed.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ conda install pyPRISM
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install pyPRISM
+</pre></div>
+</div>
+</div>
+<div class="section" id="manual-install">
+<h2><a class="toc-backref" href="#id4">Manual Install</a><a class="headerlink" href="#manual-install" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-1a-dependencies-via-anaconda-recommended">
+<h3>Step 1a: Dependencies via Anaconda (Recommended)<a class="headerlink" href="#step-1a-dependencies-via-anaconda-recommended" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to get an environment set up installing it using the
+<code class="docutils literal"><span class="pre">environment2.yml</span></code>  or <code class="docutils literal"><span class="pre">environment3.yml</span></code> we have provided for a python2 or
+python3 based environment. We recommend the python3 version. If you don’t
+already have it, install <a class="reference external" href="https://www.continuum.io/downloads">conda</a>. Note that
+all of the below instructions can be executed via the anaconda-navigator GUI. To
+start, we’ll make sure you have the latest version of conda.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&gt; conda deactivate
+
+&gt; conda update anaconda
+</pre></div>
+</div>
+<p>Now create the <code class="docutils literal"><span class="pre">pyPRISM3</span></code> environment by executing:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&gt; conda env create -f environment3.yml
+</pre></div>
+</div>
+<p>When installation is complete you must activate the environment.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>Windows<span class="o">)</span>   &gt; activate pyPRISM3
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>OSX/Linux<span class="o">)</span> $ <span class="nb">source</span> activate pyPRISM3
+</pre></div>
+</div>
+<p>Later, when you are ready to exit the environment after the tutorial, you can
+type:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>Windows<span class="o">)</span>   &gt; deactivate
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>OSX/Linux<span class="o">)</span> $ <span class="nb">source</span> deactivate
+</pre></div>
+</div>
+<p>If for some reason you want to remove the environment entirely, you can do so by
+writing:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&gt; conda env remove --name pyPRISM3
+</pre></div>
+</div>
+<p>Note that an environment which satisfies the above dependencies must be
+<strong>active</strong> every time you wish to use pyPRISM via script or notebook. If you
+open a new terminal, you will have to reactivate the conda environment before
+running a script or starting jupyter notebook.</p>
+</div>
+<div class="section" id="step-1b-manual-depedencies">
+<h3>Step 1b: Manual Depedencies<a class="headerlink" href="#step-1b-manual-depedencies" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>The following are the minimum depedencies needed to use pyPRISM:</dt>
+<dd><ul class="first last simple">
+<li>Python 2.6+ or 3+</li>
+<li>Numpy &gt;= 1.8.0</li>
+<li>Scipy</li>
+<li>Cython (not currently but likely in future)</li>
+</ul>
+</dd>
+<dt>These dependencies are needed to run the example notebooks documentation</dt>
+<dd><ul class="first last simple">
+<li>jupyter</li>
+<li>matplotlib</li>
+<li>bokeh</li>
+<li>holoviews</li>
+</ul>
+</dd>
+<dt>These depedencies are needed to compile the documentation from source</dt>
+<dd><ul class="first last simple">
+<li>sphinx</li>
+<li>sphinx-autobuild</li>
+<li>sphinx_rtd_theme</li>
+</ul>
+</dd>
+</dl>
+<p>Assuming pip is set up, all dependencies can be installed at once via</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install numpy scipy cython jupyter matplotlib bokeh holoviews sphinx sphinx-autobuild sphinx_rtd_theme
+</pre></div>
+</div>
+<p>Alternatively, each package can be downloaded and installed manually via</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;downloaded package directory&gt;
+
+$ python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2-install">
+<h3>Step 2: Install<a class="headerlink" href="#step-2-install" title="Permalink to this headline">¶</a></h3>
+<p>After the depdendencies are satisfied and/or the conda environment is created
+and activated, pyPRISM can be installed to the system by running:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;pyPRISM base directory&gt;
+
+$ python setup.py install
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="non-install">
+<h2><a class="toc-backref" href="#id5">Non-Install</a><a class="headerlink" href="#non-install" title="Permalink to this headline">¶</a></h2>
+<p>There are use-cases where it makes sense to not permanently install pyPRISM
+onto a workstation or computing cluster. To aid in this process the <code class="docutils literal"><span class="pre">ENV.sh</span></code>
+script was created. Assuming that you have already satisfied the above listed
+dependencies, you can add pyPRISM to your current environment via</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> ENV.sh
+</pre></div>
+</div>
+<p>Note that this method is only currently supported for Unix and OSX platforms.</p>
+</div>
+<div class="section" id="codebase-usage">
+<h2><a class="toc-backref" href="#id6">Codebase Usage</a><a class="headerlink" href="#codebase-usage" title="Permalink to this headline">¶</a></h2>
+<p>Once pyPRISM is installed or placed in your <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> it can be imported
+and used in scripts. To use the examples in the associated pyPRISM tutorial
+directory (downloaded separately at the
+<a class="reference external" href="https://github.com/usnistgov/pyPRISM_tutorial">pyPRISM_tutorial</a> repository)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;pyPRISM tutorial directory&gt;
+
+$ jupyter notebook
+</pre></div>
+</div>
+<p>This should spawn a jupyter notebook tab in your web browser of choice. If the
+tab doesn’t spawn, check the terminal for a link that can be copied and pasted.</p>
+</div>
+<div class="section" id="verification">
+<h2><a class="toc-backref" href="#id7">Verification</a><a class="headerlink" href="#verification" title="Permalink to this headline">¶</a></h2>
+<p>In order to verify your installation and to help ensure that bugs haven’t been introduced, it is useful to run the test suite that is packaged in pyPRISM. If everything is installed correctly, the test suite should run and successfully complete all tests.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;pyPRISM base directory&gt;/pyPRISM/test
+
+$ python test.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2><a class="toc-backref" href="#id8">Documentation</a><a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>To build the documentation you’ll need to satisfy the above dependency list.
+Afterwards you can build the documentation via</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;pyPRISM base directory&gt;/docs
+
+$ make clean
+
+$ make html
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2><a class="toc-backref" href="#id9">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">ModuleNotFoundError or ImportError</p>
+<blockquote>
+<div><p>This means that the current distribution of python cannot find the
+pyPRISM package. If you run the command below in a terminal, the
+pyPRISM package <em>must</em> be found in one of the listed directories.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s2">&quot;from __future__ import print_function; import sys;print(sys.path)&quot;</span>
+</pre></div>
+</div>
+<p>If pyPRISM is not listed, there are several reasons why this might have
+occured:</p>
+<ul class="simple">
+<li>You are not using the same version of python that you installed pyPRISM
+to. This occurs often when using anaconda because often there is often a
+“system” python and an “anaconda” python.</li>
+<li>You have not activated the conda environment to which you installed
+pyPRISM</li>
+</ul>
+<p>If you cannot seem to install pyPRISM or add pyPRISM to your
+environment manually, you can alternatively hack it into your current
+session as follows. Note that this process will have to be repeated each
+time you start a new Python or IPython session.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;/path/to/pyPRISM/directory/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the directory in the above command should be the one that
+contains <cite>setup.py</cite>. This directory can be located anywhere on your
+machine.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Bash Terminal vs. Windows Terminal vs. Python Terminal vs. IPython Terminal</p>
+<blockquote>
+<div><p>There are strong differences between these terminals and what you can do
+with them. You can identify which environment you are in by looking at the
+terminal itself:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>Bash<span class="o">)</span>          $
+<span class="o">(</span>Windows<span class="o">)</span>       &gt;
+<span class="o">(</span>Python<span class="o">)</span>        &gt;&gt;&gt;
+<span class="o">(</span>IPython<span class="o">)</span>       In <span class="o">[</span><span class="m">1</span><span class="o">]</span>:
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">Bash</span></code> and <code class="docutils literal"><span class="pre">Windows</span></code> terminals should be used for installing python
+packages, managing environments, and running python scripts (e.g.  <code class="code docutils literal"><span class="pre">$</span>
+<span class="pre">python</span> <span class="pre">run.py</span></code>). The <code class="docutils literal"><span class="pre">Python</span></code> and <code class="docutils literal"><span class="pre">IPython</span></code> terminals are for
+interactively running and working with Python code and each line of an
+example can be copied and run in these terminals. In general, the
+<code class="docutils literal"><span class="pre">IPython</span></code> terminal is a superior tool to the standard <code class="docutils literal"><span class="pre">Python</span></code> one and
+offers features such as syntax highlighting and code completion.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Other Internal Error</p>
+<blockquote>
+<div><p>Please file a bug report on GitHub. Please see <a class="reference internal" href="contributing.html#reports"><span class="std std-ref">Bug Reports or Feature Requests</span></a> for
+instructions on how to do this.</p>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="philosophy.html" class="btn btn-neutral float-right" title="Object-Oriented Philosophy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Quickstart Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

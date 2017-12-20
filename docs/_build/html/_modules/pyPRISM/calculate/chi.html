@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.calculate.chi &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.calculate.chi</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.calculate.chi</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span><span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.PairTable</span> <span class="k">import</span> <span class="n">PairTable</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.MatrixArray</span> <span class="k">import</span> <span class="n">MatrixArray</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.Space</span> <span class="k">import</span> <span class="n">Space</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">COMPONENT_WARNING</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">This calculation was derived for a two component system. It is often the case that</span>
+<span class="s1">these calculations can be generalized for pairs of sites withing multicomponent </span>
+<span class="s1">systems. We caution the user when interpreting the data from this calculation </span>
+<span class="s1">for more than two components. </span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="chi"><a class="viewcode-back" href="../../../api/pyPRISM.calculate.chi.html#pyPRISM.calculate.chi.chi">[docs]</a><span class="k">def</span> <span class="nf">chi</span><span class="p">(</span><span class="n">PRISM</span><span class="p">,</span><span class="n">extrapolate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Calculate the effective interaction parameter, :math:`\chi`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    PRISM: pyPRISM.core.PRISM</span>
+<span class="sd">        A **solved** PRISM object.</span>
+
+<span class="sd">    extrapolate: bool, *optional*</span>
+<span class="sd">        If True, only return the chi value extrapolated to :math:`k=0` rather</span>
+<span class="sd">        than reporting the value at the lowest-k</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    chi: pyPRISM.core.PairTable</span>
+<span class="sd">        PairTable of all :math:`\chi` vs :math:`k`  or :math:`\chi(k=0)` values</span>
+<span class="sd">    </span>
+
+<span class="sd">    **Mathematical Definition**</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        </span>
+<span class="sd">        \hat{\chi}_{\alpha,\beta}(k)  = \frac{0.5 \rho}{R^{+0.5} \phi_{\alpha} + R^{-0.5} \phi_{\beta}} (R^{-1} \hat{C}_{\alpha,\alpha}(k)</span>
+<span class="sd">        + R \hat{C}_{\beta,\beta}(k) - 2 \hat{C}_{\alpha,\beta}(k))</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        R = v_{\alpha}/v_{\beta}</span>
+
+
+<span class="sd">    **Variable Definitions**</span>
+
+<span class="sd">        - :math:`\hat{\chi}_{\alpha,\beta}(k)` </span>
+<span class="sd">            Wavenumber dependent effective interaction parameter</span>
+<span class="sd">    </span>
+<span class="sd">        - :math:`\rho`</span>
+<span class="sd">            Total system density from the :class:`pyPRISM.core.Density`</span>
+<span class="sd">            instance stored in the system object (which is stored in the PRISM</span>
+<span class="sd">            object)</span>
+<span class="sd">    </span>
+<span class="sd">        - :math:`\phi_{\alpha},\phi_{\beta}` </span>
+<span class="sd">            Volume fraction of site types :math:`\alpha` and :math:`\beta`. </span>
+<span class="sd">    </span>
+<span class="sd">            .. math::</span>
+<span class="sd">    </span>
+<span class="sd">                \phi_{\alpha} = \frac{\rho_{\alpha}}{\rho_{\alpha} + \rho_{\beta}}</span>
+
+<span class="sd">        - :math:`v_{\alpha},v_{\beta}` </span>
+<span class="sd">            Volume of site type :math:`\alpha` and :math:`\beta`</span>
+
+
+<span class="sd">    **Description**</span>
+
+<span class="sd">        :math:`\hat{\chi}_{\alpha,\beta}(k)` describes the overall effective</span>
+<span class="sd">        interactions between sites :math:`\alpha` and :math:`\beta` as a single</span>
+<span class="sd">        number. While there are many different definitions of :math:\chi, this</span>
+<span class="sd">        is an effective version that takes into account both *entropic* and</span>
+<span class="sd">        *enthalpic* interactions. In this way, this :math:`\chi` is similar to a</span>
+<span class="sd">        second virial coefficient. In terms of value, :math:`\chi&lt;0` indicates</span>
+<span class="sd">        effective attraction and :math:`\chi&gt;0` effective repulsion. </span>
+
+<span class="sd">        As most theories do not take into account the (potentially contentious)</span>
+<span class="sd">        wavenumber dependence of :math:`\chi`, the zero-wavenumber extrapolation</span>
+<span class="sd">        is often used when reporting PRISM-based :math:`\chi` values. For</span>
+<span class="sd">        convenience, the full wavenumber dependent curve can be requested, but</span>
+<span class="sd">        only the :math:`k=0` values are returned by default. </span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        The :math:`\chi` calculation is only value for multicomponent systems</span>
+<span class="sd">        i.e. systems with more than one defined type. This method will throw an</span>
+<span class="sd">        exception if passed a 1-component PRISM object. </span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        This calculation is only rigorously defined in the two-component case.</span>
+<span class="sd">        With that said, pyPRISM allows this method to be called for all</span>
+<span class="sd">        multicomponent systems in order to calculate partial,pairwise</span>
+<span class="sd">        :math:`\chi` values. We urge caution when using this method for</span>
+<span class="sd">        multicomponent systems as it is not clear if this approach is fully</span>
+<span class="sd">        rigorous.</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        Passing an unsolved PRISM object to this function will still produce</span>
+<span class="sd">        output based on the default values of the attributes of the PRISM</span>
+<span class="sd">        object.</span>
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Schweizer, Curro, Thermodynamics of Polymer Blends,</span>
+<span class="sd">    J. Chem. Phys., 1989 91 (8) 5059</span>
+
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import pyPRISM</span>
+
+<span class="sd">        sys = pyPRISM.System([&#39;A&#39;,&#39;B&#39;])</span>
+
+<span class="sd">        # ** populate system variables **</span>
+<span class="sd">        </span>
+<span class="sd">        PRISM = sys.createPRISM()</span>
+
+<span class="sd">        PRISM.solve()</span>
+
+<span class="sd">        chi = pyPRISM.calculate.chi(PRISM)</span>
+
+<span class="sd">        chi_AB = rdf[&#39;A&#39;,&#39;B&#39;]</span>
+<span class="sd">        chi_AA = rdf[&#39;A&#39;,&#39;A&#39;] #returns None</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="k">assert</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">rank</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;The chi calculation is only valid for multicomponent systems&#39;</span>
+
+    <span class="k">if</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">rank</span><span class="o">!=</span><span class="mi">2</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">COMPONENT_WARNING</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="o">.</span><span class="n">space</span> <span class="o">==</span> <span class="n">Space</span><span class="o">.</span><span class="n">Real</span><span class="p">:</span>
+        <span class="n">PRISM</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">MatrixArray_to_fourier</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">)</span>
+        
+    
+    <span class="n">chi</span> <span class="o">=</span> <span class="n">PairTable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;chi&#39;</span><span class="p">,</span><span class="n">types</span><span class="o">=</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">)</span>
+    <span class="n">chi0</span> <span class="o">=</span> <span class="n">PairTable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;chi0&#39;</span><span class="p">,</span><span class="n">types</span><span class="o">=</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">t2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="p">:</span>
+                <span class="n">C_AA</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t1</span><span class="p">]</span>
+                <span class="n">C_AB</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span>
+                <span class="n">C_BB</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">[</span><span class="n">t2</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span>
+
+                <span class="n">v_A</span> <span class="o">=</span> <span class="mf">4.0</span><span class="o">/</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">diameter</span><span class="p">[</span><span class="n">t1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+                <span class="n">v_B</span> <span class="o">=</span> <span class="mf">4.0</span><span class="o">/</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">diameter</span><span class="p">[</span><span class="n">t2</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+
+                <span class="n">rho_A</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="n">t1</span><span class="p">]</span>
+                <span class="n">rho_B</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="n">t2</span><span class="p">]</span>
+
+                <span class="n">phi_A</span> <span class="o">=</span> <span class="n">rho_A</span><span class="o">/</span><span class="p">(</span><span class="n">rho_A</span> <span class="o">+</span> <span class="n">rho_B</span><span class="p">)</span>
+                <span class="n">phi_B</span> <span class="o">=</span> <span class="n">rho_B</span><span class="o">/</span><span class="p">(</span><span class="n">rho_A</span> <span class="o">+</span> <span class="n">rho_B</span><span class="p">)</span>
+
+                <span class="n">R</span> <span class="o">=</span> <span class="n">v_A</span><span class="o">/</span><span class="n">v_B</span>
+                
+                <span class="n">chi</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">phi_A</span> <span class="o">+</span> <span class="n">R</span><span class="o">**</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">phi_B</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">density</span><span class="o">.</span><span class="n">total</span><span class="o">*</span><span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">C_AA</span> <span class="o">+</span> <span class="n">R</span><span class="o">*</span><span class="n">C_BB</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">C_AB</span><span class="p">)</span>
+
+                <span class="n">x</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">k</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">chi</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">][:</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+                <span class="n">chi0</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">extrapolate</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">chi0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">chi</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

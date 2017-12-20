@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.potential.LennardJones module &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="pyPRISM.potential package" href="pyPRISM.potential.html"/>
+        <link rel="next" title="pyPRISM.potential.Potential module" href="pyPRISM.potential.Potential.html"/>
+        <link rel="prev" title="pyPRISM.potential.HardSphere module" href="pyPRISM.potential.HardSphere.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyPRISM.html">pyPRISM package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyPRISM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.calculate.html">pyPRISM.calculate package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.closure.html">pyPRISM.closure package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.core.html">pyPRISM.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.omega.html">pyPRISM.omega package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="pyPRISM.potential.html">pyPRISM.potential package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pyPRISM.potential.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyPRISM.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.html">pyPRISM package</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.potential.html">pyPRISM.potential package</a> &raquo;</li>
+        
+      <li>pyPRISM.potential.LennardJones module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pyPRISM.potential.LennardJones.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyPRISM.potential.LennardJones">
+<span id="pyprism-potential-lennardjones-module"></span><h1>pyPRISM.potential.LennardJones module<a class="headerlink" href="#module-pyPRISM.potential.LennardJones" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyPRISM.potential.LennardJones.LennardJones">
+<em class="property">class </em><code class="descclassname">pyPRISM.potential.LennardJones.</code><code class="descname">LennardJones</code><span class="sig-paren">(</span><em>epsilon</em>, <em>sigma</em>, <em>rcut=None</em>, <em>shift=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/potential/LennardJones.html#LennardJones"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.potential.LennardJones.LennardJones" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyPRISM.potential.Potential.html#pyPRISM.potential.Potential.Potential" title="pyPRISM.potential.Potential.Potential"><code class="xref py py-class docutils literal"><span class="pre">pyPRISM.potential.Potential.Potential</span></code></a></p>
+<p>12-6 Lennard-Jones potential</p>
+<p><strong>Mathematical Definition</strong></p>
+<div class="math">
+\[U_{\alpha,\beta}(r) = 4\epsilon_{\alpha,\beta}\big[\big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{12.0} - \big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{6.0}\big]\]</div>
+<p><strong>Variable Definitions</strong></p>
+<dl class="docutils">
+<dt><span class="math">\(\epsilon_{\alpha,\beta}\)</span></dt>
+<dd>Strength of attraction between sites
+<span class="math">\(\alpha\)</span> and <span class="math">\(\beta\)</span>.</dd>
+<dt><span class="math">\(\sigma_{\alpha,\beta}\)</span></dt>
+<dd>Length scale of interaction between sites
+<span class="math">\(\alpha\)</span> and <span class="math">\(\beta\)</span>.</dd>
+<dt><span class="math">\(r\)</span></dt>
+<dd>Distance between sites.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<blockquote>
+<div>The classic 12-6 LJ potential. To facilitate direct comparison with
+molecular simulation, the simulation may be cut and shifted to zero
+at a specified cutoff distance by setting the rcut and shift parameters.
+The full (non-truncated) LJ potential is accessed using rcut=None and
+shift=False.</div></blockquote>
+<p class="rubric">Example</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyPRISM</span>
+
+<span class="c1">#Define a PRISM system and set the A-B interaction potential</span>
+<span class="n">sys</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">System</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span><span class="n">kT</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">Domain</span><span class="p">(</span><span class="n">dr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">potential</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">potential</span><span class="o">.</span><span class="n">LennardJones</span><span class="p">(</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">rcut</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span><span class="n">shift</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyPRISM.potential.LennardJones.LennardJones.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>epsilon</em>, <em>sigma</em>, <em>rcut=None</em>, <em>shift=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/potential/LennardJones.html#LennardJones.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.potential.LennardJones.LennardJones.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>epsilon</strong> (<em>float</em>) – Depth of attractive well</li>
+<li><strong>sigma</strong> (<em>float</em>) – Contact distance (i.e. low distance where potential magnitude = 0)</li>
+<li><strong>rcut</strong> (float, <em>optional</em>) – Cutoff distance for potential. Useful for comparing directly to results
+from simulations where cutoffs are necessary.</li>
+<li><strong>shift</strong> (<em>bool</em><em>,</em><em>*optional*</em>) – Shift the potential by its value at the cutoff. Clearly this only makes
+sense if rcut is specified</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.potential.LennardJones.LennardJones.calculate">
+<code class="descname">calculate</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/potential/LennardJones.html#LennardJones.calculate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.potential.LennardJones.LennardJones.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate potential values</p>
+<dl class="attribute">
+<dt id="pyPRISM.potential.LennardJones.LennardJones.r">
+<code class="descname">r</code><a class="headerlink" href="#pyPRISM.potential.LennardJones.LennardJones.r" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float np.ndarray</em> – Array of pair distances at which to calculate potential values</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.potential.LennardJones.LennardJones.calculate_attractive">
+<code class="descname">calculate_attractive</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/potential/LennardJones.html#LennardJones.calculate_attractive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.potential.LennardJones.LennardJones.calculate_attractive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyPRISM.potential.Potential.html" class="btn btn-neutral float-right" title="pyPRISM.potential.Potential module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyPRISM.potential.HardSphere.html" class="btn btn-neutral" title="pyPRISM.potential.HardSphere module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

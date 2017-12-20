@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.calculate.solvation_potential &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.calculate.solvation_potential</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.calculate.solvation_potential</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span><span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.PairTable</span> <span class="k">import</span> <span class="n">PairTable</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.MatrixArray</span> <span class="k">import</span> <span class="n">MatrixArray</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.Space</span> <span class="k">import</span> <span class="n">Space</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.calculate.structure_factor</span> <span class="k">import</span> <span class="n">structure_factor</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="solvation_potential"><a class="viewcode-back" href="../../../api/pyPRISM.calculate.solvation_potential.html#pyPRISM.calculate.solvation_potential.solvation_potential">[docs]</a><span class="k">def</span> <span class="nf">solvation_potential</span><span class="p">(</span><span class="n">PRISM</span><span class="p">,</span><span class="n">closure</span><span class="o">=</span><span class="s1">&#39;HNC&#39;</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Calculate the pairwise decomposed medium-induced solvation potential</span>
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    PRISM: pyPRISM.core.PRISM</span>
+<span class="sd">        A **solved** PRISM object.</span>
+
+<span class="sd">    closure: str (&#39;PY&#39; or &#39;HNC&#39;)</span>
+<span class="sd">        closure used to derive the potential </span>
+
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    psi: pyPRISM.core.MatrixArray</span>
+<span class="sd">        MatrixArray of the *Real-space* solvation potentials</span>
+
+
+<span class="sd">    **Mathematical Definition**</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \text{PY: } \Delta \hat{\Psi}^{PY}(k) = - k_B T \ln(1 + \hat{C}(k)\hat{S}(k)\hat{C}(k))</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \text{HNC: } \Delta \hat{\Psi}^{HNC}(k) = - k_B T \hat{C}(k)\hat{S}(k)\hat{C}(k)</span>
+
+<span class="sd">    </span>
+<span class="sd">    **Variable Definitions**</span>
+
+<span class="sd">        - :math:`\Delta \hat{\Psi}^{PY}`, :math:`\Delta \hat{\Psi}^{HNC}`</span>
+<span class="sd">            Percus-Yevick and Hypernetted Chain derived pairwise decomposied</span>
+<span class="sd">            solvation potential MatrixArrays. This implies that the</span>
+<span class="sd">            multiplication in the above equation is actually *matrix*</span>
+<span class="sd">            multiplication and the individual solvation potentials are</span>
+<span class="sd">            extracted as curves of the MatrixArrays. Note that the solvation</span>
+<span class="sd">            potential MatrixArrays are inverted back to Real-space for use. </span>
+
+<span class="sd">        - :math:`\hat{C}(k)`</span>
+<span class="sd">            Direct correlation function MatrixArray at a wavenumber :math:`k`</span>
+
+<span class="sd">        - :math:`\hat{S}(k)`</span>
+<span class="sd">            Structure factor MatrixArray at a wavenumber :math:`k`</span>
+
+<span class="sd">        - :math:`k_B T`</span>
+<span class="sd">            Thermal temperature written as the product of the Boltzmann</span>
+<span class="sd">            constant and temperature.</span>
+
+<span class="sd">    **Description**</span>
+
+<span class="sd">        The solvation potential (:math:`\Delta \hat{\Psi}`) describes the </span>
+<span class="sd">        effects of the surrounding medium on the intra-molecular </span>
+<span class="sd">        pairwise interactions within a molecule of interest. The </span>
+<span class="sd">        :math:`\Delta \hat{\Psi}` allows for the construction of a </span>
+<span class="sd">        single-molecule simulation to sample chain configurations that take </span>
+<span class="sd">        into account the molecule&#39;s surroundings. This calculation is used</span>
+<span class="sd">        extensively in the Self-Consistent PRISM formalism.   </span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        Passing an unsolved PRISM object to this function will still produce</span>
+<span class="sd">        output based on the default values of the attributes of the PRISM</span>
+<span class="sd">        object.</span>
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Grayce, Schweizer, Solvation potentials for macromolecules,</span>
+<span class="sd">    J. Chem. Phys., 1994 100 (9) 6846</span>
+<span class="sd">    </span>
+<span class="sd">    Schweizer, Honnell, Curro, Reference interaction site model theory of</span>
+<span class="sd">    polymeric liquids: Self-consistent formulation and nonideality effects in</span>
+<span class="sd">    dense solutions and melts, J. Chem. Phys., 1992 96 (4) 3211 </span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import pyPRISM</span>
+
+<span class="sd">        sys = pyPRISM.System([&#39;A&#39;,&#39;B&#39;])</span>
+
+<span class="sd">        # ** populate system variables **</span>
+<span class="sd">        </span>
+<span class="sd">        PRISM = sys.createPRISM()</span>
+
+<span class="sd">        PRISM.solve()</span>
+
+<span class="sd">        psi = pyPRISM.calculate.solvation_potential(PRISM)</span>
+
+<span class="sd">        psi_BB = psi[&#39;B&#39;,&#39;B&#39;]</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="k">assert</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">rank</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;the psi calculation is only valid for multicomponent systems&#39;</span>
+    
+    <span class="k">if</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="o">.</span><span class="n">space</span> <span class="o">==</span> <span class="n">Space</span><span class="o">.</span><span class="n">Real</span><span class="p">:</span>
+        <span class="n">PRISM</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">MatrixArray_to_fourier</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">totalCorr</span><span class="o">.</span><span class="n">space</span> <span class="o">==</span> <span class="n">Space</span><span class="o">.</span><span class="n">Real</span><span class="p">:</span>
+        <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">MatrixArray_to_fourier</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">totalCorr</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">space</span> <span class="o">==</span> <span class="n">Space</span><span class="o">.</span><span class="n">Real</span><span class="p">:</span>
+        <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">MatrixArray_to_fourier</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">omega</span><span class="p">)</span>
+
+    <span class="n">structureFactor</span> <span class="o">=</span> <span class="n">structure_factor</span><span class="p">(</span><span class="n">PRISM</span><span class="p">)</span>
+    <span class="c1">#(PRISM.totalCorr*PRISM.sys.pairDensityMatrix + PRISM.omega)/PRISM.sys.siteDensityMatrix</span>
+
+    <span class="k">if</span> <span class="n">closure</span> <span class="o">==</span> <span class="s1">&#39;HNC&#39;</span><span class="p">:</span>
+        <span class="n">psi</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">structureFactor</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">kT</span> 
+    <span class="k">elif</span> <span class="n">closure</span> <span class="o">==</span> <span class="s1">&#39;PY&#39;</span><span class="p">:</span>
+        <span class="n">psi</span> <span class="o">=</span> <span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">structureFactor</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">PRISM</span><span class="o">.</span><span class="n">directCorr</span><span class="p">)</span>
+        <span class="n">psi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">psi</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">kT</span>
+
+    <span class="n">PRISM</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">MatrixArray_to_real</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">psi</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

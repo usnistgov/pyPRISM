@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.closure.ReferenceMolecularPercusYevick &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.closure.ReferenceMolecularPercusYevick</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.closure.ReferenceMolecularPercusYevick</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span><span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.closure.MolecularClosure</span> <span class="k">import</span> <span class="n">MolecularClosure</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.closure.PercusYevick</span> <span class="k">import</span> <span class="n">PercusYevick</span>
+
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">fftconvolve</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="ReferenceMolecularPercusYevick"><a class="viewcode-back" href="../../../api/pyPRISM.closure.ReferenceMolecularPercusYevick.html#pyPRISM.closure.ReferenceMolecularPercusYevick.ReferenceMolecularPercusYevick">[docs]</a><span class="k">class</span> <span class="nc">ReferenceMolecularPercusYevick</span><span class="p">(</span><span class="n">MolecularClosure</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Reference Molecular Percus Yevick (R-MPY) closure</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        This closure is not fully implemented. It should throw an error if a</span>
+<span class="sd">        user attempts to use it.</span>
+<span class="sd">    </span>
+
+<span class="sd">    **Mathematial Definition**</span>
+
+<span class="sd">        .. math:: </span>
+<span class="sd">            c_{\alpha,\beta}(r) = &amp; \omega_{\alpha,\alpha}(r)*c^0_{\alpha,\beta}(r)*\omega_{\beta,\beta}(r) + \\</span>
+<span class="sd">            &amp; \omega_{\alpha,\alpha}(r)*[(\exp(-u_{\alpha,\beta}(r)) - 1.0) (1.0 + \gamma_{\alpha,\beta}(r))]*\omega_{\beta,\beta}(r) \\</span>
+<span class="sd">            \gamma_{\alpha,\beta}(r) = &amp; h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)</span>
+
+<span class="sd">    </span>
+<span class="sd">    **Variables Definitions**</span>
+
+<span class="sd">        - :math:`A*B`</span>
+<span class="sd">            Convolution integral between A and B</span>
+
+<span class="sd">        - :math:`h_{\alpha,\beta}(r)` </span>
+<span class="sd">            Total correlation function value at distance :math:`r` between</span>
+<span class="sd">            sites :math:`\alpha` and :math:`\beta`.</span>
+<span class="sd">    </span>
+<span class="sd">        - :math:`c_{\alpha,\beta}(r)`</span>
+<span class="sd">            Direct correlation function value at distance :math:`r` between</span>
+<span class="sd">            sites :math:`\alpha` and :math:`\beta`.</span>
+
+<span class="sd">        - :math:`c^0_{\alpha,\beta}(r)`</span>
+<span class="sd">            Referene of Direct correlation function value at distance :math:`r`</span>
+<span class="sd">            between sites :math:`\alpha` and :math:`\beta`.</span>
+<span class="sd">    </span>
+<span class="sd">        - :math:`\omega_{\alpha,\beta}(r)`</span>
+<span class="sd">            *Intra*-molecular correlation function value at distance :math:`r`</span>
+<span class="sd">            between sites :math:`\alpha` and :math:`\beta`.</span>
+<span class="sd">    </span>
+<span class="sd">        - :math:`u_{\alpha,\beta}(r)`</span>
+<span class="sd">            Non-hardcore portion of Interaction potential value at distance</span>
+<span class="sd">            :math:`r` between sites :math:`\alpha` and :math:`\beta`.</span>
+<span class="sd">    </span>
+<span class="sd">    **Description**</span>
+
+<span class="sd">        TBA</span>
+
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">        Schweizer, K.S.; Yethiraj, Arun; Polymer reference interaction site</span>
+<span class="sd">        model theory: New molecular closure for phase separating fluids and</span>
+<span class="sd">        alloys, The Journal of Chemical Physics 98, 9053 (1993); doi:</span>
+<span class="sd">        10.1063/1.464465</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">C0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Molecular closures are untested and not fully implemented.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_potential</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PY</span> <span class="o">=</span> <span class="n">PercusYevick</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C0</span> <span class="o">=</span> <span class="n">C0</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;MolecularClosure: ReferenceMolecularPercusYevick&gt;&#39;</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">potential</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_potential</span>
+
+    <span class="nd">@potential</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">potential</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_potential</span> <span class="o">=</span>  <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PY</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="n">value</span>
+    
+<div class="viewcode-block" id="ReferenceMolecularPercusYevick.calculate"><a class="viewcode-back" href="../../../api/pyPRISM.closure.ReferenceMolecularPercusYevick.html#pyPRISM.closure.ReferenceMolecularPercusYevick.ReferenceMolecularPercusYevick.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">gamma</span><span class="p">,</span><span class="n">omega1</span><span class="p">,</span><span class="n">omega2</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Calculate direct correlation function</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        gamma: np.ndarray</span>
+<span class="sd">            array of :math:`\gamma` values used to calculate the direct</span>
+<span class="sd">            correlation function</span>
+
+<span class="sd">        omega1,omega2: np.ndarray</span>
+<span class="sd">            array of :math:`\omega_{\alpha,\alpha}` or</span>
+<span class="sd">            :math:`\omega_{\beta,\beta}` values used to calculate the direct</span>
+<span class="sd">            correlation function</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span><span class="s1">&#39;Potential for this closure is not set!&#39;</span>
+        
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">potential</span><span class="p">),</span><span class="s1">&#39;Domain mismatch!&#39;</span>
+
+        
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">C0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">PY</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">fftconvolve</span><span class="p">(</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">omega1</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span><span class="n">omega2</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

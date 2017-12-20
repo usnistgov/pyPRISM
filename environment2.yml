@@ -1,4 +1,4 @@
-name: typyPRISM2
+name: pyPRISM2
 channels:
   - conda-forge 
   - defaults

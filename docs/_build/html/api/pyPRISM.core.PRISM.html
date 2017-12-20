@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.core.PRISM module &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="pyPRISM.core package" href="pyPRISM.core.html"/>
+        <link rel="next" title="pyPRISM.core.PairTable module" href="pyPRISM.core.PairTable.html"/>
+        <link rel="prev" title="pyPRISM.core.MatrixArray module" href="pyPRISM.core.MatrixArray.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyPRISM.html">pyPRISM package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyPRISM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.calculate.html">pyPRISM.calculate package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.closure.html">pyPRISM.closure package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="pyPRISM.core.html">pyPRISM.core package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pyPRISM.core.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.omega.html">pyPRISM.omega package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.potential.html">pyPRISM.potential package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyPRISM.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.html">pyPRISM package</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.core.html">pyPRISM.core package</a> &raquo;</li>
+        
+      <li>pyPRISM.core.PRISM module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pyPRISM.core.PRISM.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyPRISM.core.PRISM">
+<span id="pyprism-core-prism-module"></span><h1>pyPRISM.core.PRISM module<a class="headerlink" href="#module-pyPRISM.core.PRISM" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyPRISM.core.PRISM.PRISM">
+<em class="property">class </em><code class="descclassname">pyPRISM.core.PRISM.</code><code class="descname">PRISM</code><span class="sig-paren">(</span><em>sys</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PRISM.html#PRISM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Primary container for a PRISM problem and solution</p>
+<p>Each pyPRISM.PRISM object serves as an encapsulation of a fully specified
+PRISM problem including all inputs needed for the calculation and the
+functional which the will be numerically minimized.</p>
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.domain">
+<code class="descname">domain</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.domain" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.Domain</em> – The Domain object fully specifies the real- and Fourier- space solution
+grids.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.directCorr">
+<code class="descname">directCorr</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.directCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – The direct correlation function for all pairs of sites</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.omega">
+<code class="descname">omega</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.omega" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – The intra-molecular correlation function for all pairs of sites. This
+is often shown as <span class="math">\(\Omega\)</span> in the PRISM literature and is identical to
+what those in the scattering fields would call a “form factor”.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.closure">
+<code class="descname">closure</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.closure" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.core.PairTable of pyPRISM.closure.Closure</em> – Table of closure objects used to generate the direct correlation
+functions (directCorr)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.pairCorr">
+<code class="descname">pairCorr</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.pairCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – The <em>inter</em>-molecular pair correlation functions for all pairs of
+sites. Also commonly refered to as the radial distribution functions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.totalCorr">
+<code class="descname">totalCorr</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.totalCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – The <em>inter</em>-molecular total correlation function is simply the pair
+correlation  function y-shifted by 1.0 i.e.  totalCorr = pairCorr - 1.0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.potential">
+<code class="descname">potential</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.potential" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – Interaction potentials for all pairs of sites</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">GammaIn,GammaOut</code></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – Primary inputs and outputs of the PRISM functional. Gamma is defined as
+“totalCorr - directCorr” (in Fourier space) and results from a change
+of variables used to remove divergences in the closure relations.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">OC,IOC,I,etc</code></dt>
+<dd><p><em>pyPRISM.MatrixArray</em> – Various MatrixArrays used as intermediates in the PRISM functional.
+These arrays are pre-allocated and stored for efficiency.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">x,y</code></dt>
+<dd><p><em>float np.ndarray</em> – Current inputs and outputs of the cost function</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.pairDensityMatrix">
+<code class="descname">pairDensityMatrix</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.pairDensityMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float np.ndarray</em> – rank by rank array of pair densities between sites</p>
+<div class="math">
+\[\rho^{pair}_{i,j} = \rho_i * \rho_j\]</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.PRISM.PRISM.siteDensityMatrix">
+<code class="descname">siteDensityMatrix</code><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.siteDensityMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float np.ndarray</em> – rank by rank array of site densities</p>
+<div class="math">
+\[ \begin{align}\begin{aligned}\rho^{site}_{i,j} = \rho_i + \rho_j, if i \neq j\\\rho^{site}_{i,j} = \rho_i         , if i = j\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">funk:</code></dt>
+<dd><p>Primary cost function used to define the criteria of a “converged”
+PRISM solution. The numerical solver will be given this function
+and will attempt to find the inputs (self.x) that make the outputs
+(self.y) as close to zero as possible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PRISM.PRISM.funk">
+<code class="descname">funk</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PRISM.html#PRISM.funk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.funk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cost function</p>
+<p>There are likely several cost functions that could be imagined using
+the PRISM equations. In this case we formulate a self-consistent
+formulation where we expect the input of the PRISM equations to be
+identical to the output.</p>
+<div class="math">
+\[ \begin{align}\begin{aligned}input --&gt; r \gamma_{in}(r)\\C(k) = function(\gamma)\\H(k) = [I - C \dot O ]^(-1) \dot O \dot C \dot O\\\gamma_{out} = h(r) - c(r)\\output/cost --&gt; r (gamma_{out} - gamma_{in})\end{aligned}\end{align} \]</div>
+<p>The goal of the solve method is to numerically optimize the input (<span class="math">\(r \gamma_{in}\)</span>)
+so that the output (<span class="math">\(r(\gamma_{in}-\gamma_{out})\)</span>) is minimized to zero.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.PRISM.PRISM.solve">
+<code class="descname">solve</code><span class="sig-paren">(</span><em>guess=None</em>, <em>method='krylov'</em>, <em>options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/PRISM.html#PRISM.solve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.PRISM.PRISM.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to numerically solve the PRISM equations</p>
+<p>Using the supplied inputs (in the constructor), we attempt to numerically
+solve the PRISM equations using the scheme layed out in ‘FUNK’. If the
+numerical solution process is successful, the attributes of this class
+will contain the solved values for a given input i.e. self.totalCorr will
+contain the numerically optimized (solved) total correlation functions.</p>
+<p>This function also does basic checks to ensure that the results are
+physical. At this point, this consists of checking to make sure that
+the pair correlation functions are not negative. If this isn’t true
+a warning is issued to the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>guess</strong> (<em>np.ndarray</em><em>, </em><em>size</em><em> (</em><em>rank*rank*length</em><em>)</em>) – The initial guess of <span class="math">\(\gamma\)</span> to the numerical solution process.
+The numpy array should be of size rank*rank*length corresponding to
+the a full flattened MatrixArray. If not specified, an initial guess
+of all zeros is used.</li>
+<li><strong>method</strong> (<em>string</em>) – Set the type of optimization scheme to use. See documentation for
+scipy.optimize.root for options.</li>
+<li><strong>options</strong> (<em>dict</em>) – Dictionary of options specific to the chosen solver method. See
+<cite>here &lt;https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html&gt;</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyPRISM.core.PairTable.html" class="btn btn-neutral float-right" title="pyPRISM.core.PairTable module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyPRISM.core.MatrixArray.html" class="btn btn-neutral" title="pyPRISM.core.MatrixArray module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.core.PairTable &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.core.PairTable</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.core.PairTable</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyPRISM.core.Table</span> <span class="k">import</span> <span class="n">Table</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.MatrixArray</span> <span class="k">import</span> <span class="n">MatrixArray</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.core.Space</span> <span class="k">import</span> <span class="n">Space</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<div class="viewcode-block" id="PairTable"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable">[docs]</a><span class="k">class</span> <span class="nc">PairTable</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Container for data that is keyed by pairs of types</span>
+
+<span class="sd">    **Description**</span>
+
+<span class="sd">        Since PRISM is a theory based in *pair*-correlation functions, it</span>
+<span class="sd">        follows that many of the necessary parameters of the theory are</span>
+<span class="sd">        specified between the pairs of types. This goal of this container is to</span>
+<span class="sd">        make setting, getting, and checking these data easy.</span>
+<span class="sd">        </span>
+<span class="sd">        Setter/getter methods have been set up to set groups of types</span>
+<span class="sd">        simultaneously. This allows for the rapid construction of datasets</span>
+<span class="sd">        where many of the parameters are repeated. This class also</span>
+<span class="sd">        automatically assumes pair-reversibility and handles the setting of</span>
+<span class="sd">        unlike pairs automatically i.e. A-B and B-A are set at the same time.</span>
+
+<span class="sd">        Note that, unlike the :class:`pyPRISM.core.MatrixArray`, this</span>
+<span class="sd">        container is not meant to be used for mathematics. The benefit of this</span>
+<span class="sd">        is that, for each type, it can contain any arbitrary number, string, or</span>
+<span class="sd">        Python object. </span>
+
+<span class="sd">        See the example below and the :ref:`data_structures` page for more</span>
+<span class="sd">        information.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import pyPRISM</span>
+
+<span class="sd">        PT = pyPRISM.ValueTable([&#39;A&#39;,&#39;B&#39;,&#39;C&#39;],name=&#39;potential&#39;)</span>
+
+<span class="sd">        # Set the &#39;A-A&#39; pair</span>
+<span class="sd">        PT[&#39;A&#39;,&#39;A&#39;]            = &#39;Lennard-Jones&#39;</span>
+
+<span class="sd">        # Set the &#39;B-A&#39;, &#39;A-B&#39;, &#39;B-B&#39;, &#39;B-C&#39;, and &#39;C-B&#39; pairs</span>
+<span class="sd">        PT[&#39;B&#39;,[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;] ] = &#39;Weeks-Chandler-Andersen&#39;</span>
+
+<span class="sd">        # Set the &#39;C-A&#39;, &#39;A-C&#39;, &#39;C-C&#39; pairs</span>
+<span class="sd">        PT[&#39;C&#39;,[&#39;A&#39;,&#39;C&#39;] ]     = &#39;Exponential&#39;</span>
+
+<span class="sd">        for i,t,v in PT.iterpairs():</span>
+<span class="sd">            print(&#39;{}) {} for pair {}-{} is {}&#39;.format(i,VT.name,t[0],t[1],v))</span>
+
+<span class="sd">        # The above loop prints the following:</span>
+<span class="sd">        #   (0, 0)) potential for pair A-A is Lennard-Jones</span>
+<span class="sd">        #   (0, 1)) potential for pair A-B is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (0, 2)) potential for pair A-C is Exponential</span>
+<span class="sd">        #   (1, 1)) potential for pair B-B is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (1, 2)) potential for pair B-C is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (2, 2)) potential for pair C-C is Exponential</span>
+
+<span class="sd">        for i,t,v in PT.iterpairs(full=True):</span>
+<span class="sd">            print(&#39;{}) {} for pair {}-{} is {}&#39;.format(i,VT.name,t[0],t[1],v))</span>
+
+<span class="sd">        # The above loop prints the following:</span>
+<span class="sd">        #   (0, 0)) potential for pair A-A is Lennard-Jones</span>
+<span class="sd">        #   (0, 1)) potential for pair A-B is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (0, 2)) potential for pair A-C is Exponential</span>
+<span class="sd">        #   (1, 0)) potential for pair B-A is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (1, 1)) potential for pair B-B is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (1, 2)) potential for pair B-C is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (2, 0)) potential for pair C-A is Exponential</span>
+<span class="sd">        #   (2, 1)) potential for pair C-B is Weeks-Chandler-Andersen</span>
+<span class="sd">        #   (2, 2)) potential for pair C-C is Exponential</span>
+
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="PairTable.__init__"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">types</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Constructor</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        types: list</span>
+<span class="sd">            Lists of the types that will be used to key the PairTable. The length of this</span>
+<span class="sd">            list should be equal to the rank of the PRISM problem to be solved i.e. </span>
+<span class="sd">            len(types) == number of sites in system</span>
+<span class="sd">            </span>
+<span class="sd">        name: string</span>
+<span class="sd">            The name of the PairTable. This is simply used as a convencience for identifying</span>
+<span class="sd">            the table internally. </span>
+<span class="sd">        </span>
+<span class="sd">        symmetric: bool</span>
+<span class="sd">            If True, the table will automatically set both off-diagonal values during</span>
+<span class="sd">            assignment e.g. PT[&#39;A&#39;,&#39;B&#39;] = 5 will set &#39;A-B&#39; and &#39;B-A&#39;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="n">types</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symmetric</span> <span class="o">=</span> <span class="n">symmetric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="n">t1</span><span class="p">:{</span><span class="n">t2</span><span class="p">:</span><span class="kc">None</span> <span class="k">for</span> <span class="n">t2</span> <span class="ow">in</span> <span class="n">types</span><span class="p">}</span> <span class="k">for</span> <span class="n">t1</span> <span class="ow">in</span> <span class="n">types</span><span class="p">}</span></div>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;PairTable: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">t1</span><span class="p">),(</span><span class="n">j</span><span class="p">,</span><span class="n">t2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">),</span><span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">)):</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span><span class="n">t2</span><span class="p">]</span>
+            
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">index</span><span class="p">):</span>
+        <span class="n">t1</span><span class="p">,</span><span class="n">t2</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span><span class="n">t2</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">index</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="n">types1</span><span class="p">,</span><span class="n">types2</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="k">for</span> <span class="n">t1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">types1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">t2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">types2</span><span class="p">):</span>
+                
+                <span class="c1"># If we don&#39;t copy the value, later modifications to this element</span>
+                <span class="c1"># can affect all other set items. While this could be used intentionally,</span>
+                <span class="c1"># it negates a primary use case of setting a global &quot;default&quot; value across</span>
+                <span class="c1"># the table and then only modifying specific elements afterwards</span>
+                <span class="n">value_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> 
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span><span class="n">t2</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_copy</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">symmetric</span> <span class="ow">and</span> <span class="n">t1</span><span class="o">!=</span><span class="n">t2</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">t2</span><span class="p">][</span><span class="n">t1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_copy</span>
+            
+<div class="viewcode-block" id="PairTable.check"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Is everything in the table set?</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError if all values are not set</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;PairTable </span><span class="si">{}</span><span class="s1"> is not fully specified!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span></div>
+            
+            
+<div class="viewcode-block" id="PairTable.iterpairs"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable.iterpairs">[docs]</a>    <span class="k">def</span> <span class="nf">iterpairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">full</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">diagonal</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Convenience function for looping over table pairs.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        full: bool</span>
+<span class="sd">            If True, all i,j pairs (upper and lower diagonal) will be looped over</span>
+<span class="sd">            </span>
+<span class="sd">        diagonal: bool</span>
+<span class="sd">            If True, the i==j (on-diagonal) pairs will be considered when looping</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">if</span> <span class="n">full</span><span class="p">:</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">diagonal</span><span class="p">:</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">j</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">j</span>
+            
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">),</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">test</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">),(</span><span class="n">val</span><span class="p">)</span></div>
+                
+<div class="viewcode-block" id="PairTable.setUnset"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable.setUnset">[docs]</a>    <span class="k">def</span> <span class="nf">setUnset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Set all values that have not been specified to a value</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        value: </span>
+<span class="sd">            Any valid python object (number, list, array, etc) can be passed in</span>
+<span class="sd">            as a value for all unset fields. </span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">),</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+                
+<div class="viewcode-block" id="PairTable.exportToMatrixArray"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable.exportToMatrixArray">[docs]</a>    <span class="k">def</span> <span class="nf">exportToMatrixArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">space</span><span class="o">=</span><span class="n">Space</span><span class="o">.</span><span class="n">Real</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Convenience function for converting a table of arrays to a MatrixArray</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            This only works if the PairTable contains numerical data that is</span>
+<span class="sd">            all of the same shape that can be cast into a np.ndarray like</span>
+<span class="sd">            object.</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">lengths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can</span><span class="se">\&#39;</span><span class="s1">t export not-fully specified Table </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">lengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lengths</span><span class="p">))</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Arrays in Table are not all the same length. Aborting export.&#39;</span><span class="p">)</span>
+        
+        <span class="n">length</span> <span class="o">=</span> <span class="n">lengths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">)</span>
+        <span class="n">MA</span> <span class="o">=</span> <span class="n">MatrixArray</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span><span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span><span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span><span class="n">types</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">),</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">():</span>
+            <span class="n">MA</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">MA</span></div>
+    
+<div class="viewcode-block" id="PairTable.apply"><a class="viewcode-back" href="../../../api/pyPRISM.core.PairTable.html#pyPRISM.core.PairTable.PairTable.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">funk</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Apply a function to all elements in the table in place</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        funk: any object with __call__ method</span>
+<span class="sd">            function to be called on all table elements</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="n">PairTable</span><span class="p">(</span><span class="n">types</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">symmetric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">symmetric</span><span class="p">)</span>
+            
+        <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">),</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterpairs</span><span class="p">():</span>
+            <span class="n">table</span><span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">]</span> <span class="o">=</span> <span class="n">funk</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">table</span></div></div>
+        
+
+        
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

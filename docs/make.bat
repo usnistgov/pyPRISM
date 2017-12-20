@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=typyPRISM
+set SPHINXPROJ=pyPRISM
 
 if "%1" == "" goto help
 

@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = typyPRISM
+SPHINXPROJ    = pyPRISM
 SOURCEDIR     = .
 BUILDDIR      = _build
 
@@ -25,6 +25,6 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 buildapi:
-	sphinx-apidoc -fMeT ../typyPRISM -o api ../typyPRISM/test
+	sphinx-apidoc -fMeT ../pyPRISM -o api ../pyPRISM/test
 		@echo "Auto-generation of API documentation finished. " \
 		"The generated files are in 'api/'"

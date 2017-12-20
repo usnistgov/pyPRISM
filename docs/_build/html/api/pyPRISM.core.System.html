@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.core.System module &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="pyPRISM.core package" href="pyPRISM.core.html"/>
+        <link rel="next" title="pyPRISM.core.Table module" href="pyPRISM.core.Table.html"/>
+        <link rel="prev" title="pyPRISM.core.Space module" href="pyPRISM.core.Space.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyPRISM.html">pyPRISM package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyPRISM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.calculate.html">pyPRISM.calculate package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.closure.html">pyPRISM.closure package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="pyPRISM.core.html">pyPRISM.core package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pyPRISM.core.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.omega.html">pyPRISM.omega package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.potential.html">pyPRISM.potential package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyPRISM.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.html">pyPRISM package</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.core.html">pyPRISM.core package</a> &raquo;</li>
+        
+      <li>pyPRISM.core.System module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pyPRISM.core.System.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyPRISM.core.System">
+<span id="pyprism-core-system-module"></span><h1>pyPRISM.core.System module<a class="headerlink" href="#module-pyPRISM.core.System" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyPRISM.core.System.System">
+<em class="property">class </em><code class="descclassname">pyPRISM.core.System.</code><code class="descname">System</code><span class="sig-paren">(</span><em>types</em>, <em>kT=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/System.html#System"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.System.System" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Primary class used to spawn PRISM calculations</p>
+<p><strong>Description</strong></p>
+<blockquote>
+<div>The system object contains tables that fully describe a system to be
+simulated. This includes the domain definition, all site densities,
+site diameters, interaction potentials, intra-molecular correlation
+functions (<span class="math">\(\hat{\omega}(k)\)</span>), and closures. This class also
+contains a convenience function for spawning a PRISM object.</div></blockquote>
+<p class="rubric">Example</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyPRISM</span>
+
+<span class="n">sys</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">System</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">])</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">Domain</span><span class="p">(</span><span class="n">dr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.75</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">diameter</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">closure</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">closure</span><span class="o">.</span><span class="n">PercusYevick</span><span class="p">()</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">potential</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">types</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">potential</span><span class="o">.</span><span class="n">HardSphere</span><span class="p">()</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">omega</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">SingleSite</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">omega</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">NoIntra</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">omega</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyPRISM</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">Gaussian</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+
+<span class="n">PRISM</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">createPRISM</span><span class="p">()</span>
+
+<span class="n">PRISM</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyPRISM.core.System.System.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>types</em>, <em>kT=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/System.html#System.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.System.System.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>types</strong> (<em>list</em>) – Lists of the site types that define the system</li>
+<li><strong>kT</strong> (<em>float</em>) – Thermal temperature where k is the Boltzmann constant and T
+temperature. This is typicaly specified in reduced units where
+<span class="math">\(k_{B}=1.0\)</span>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.types">
+<code class="descname">types</code><a class="headerlink" href="#pyPRISM.core.System.System.types" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list</em> – List of site types</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.rank">
+<code class="descname">rank</code><a class="headerlink" href="#pyPRISM.core.System.System.rank" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> – Number of site types</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.density">
+<code class="descname">density</code><a class="headerlink" href="#pyPRISM.core.System.System.density" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.Density</em> – Container for all density values</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.potential">
+<code class="descname">potential</code><a class="headerlink" href="#pyPRISM.core.System.System.potential" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.PairTable</em> – Table of pair potentials between all site pairs in real space</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.closure">
+<code class="descname">closure</code><a class="headerlink" href="#pyPRISM.core.System.System.closure" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.PairTable</em> – Table of closures between all site pairs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.omega">
+<code class="descname">omega</code><a class="headerlink" href="#pyPRISM.core.System.System.omega" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.PairTable</em> – Table of omega correlation functions in k-space</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.domain">
+<code class="descname">domain</code><a class="headerlink" href="#pyPRISM.core.System.System.domain" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.Domain</em> – Domain object which specifies the Real and Fourier space
+solution grid.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.kT">
+<code class="descname">kT</code><a class="headerlink" href="#pyPRISM.core.System.System.kT" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – Value of the thermal energy scale. Used to vary temperature and
+scale the potential energy functions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyPRISM.core.System.System.diameter">
+<code class="descname">diameter</code><a class="headerlink" href="#pyPRISM.core.System.System.diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyPRISM.ValueTable</em> – Site diameters. Note that these are not passed to potentials and it
+is up to the user to set sane sigma values that match these
+diameters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.System.System.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/System.html#System.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.System.System.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is everything in the system specified?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">ValueError if all values are not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.System.System.createPRISM">
+<code class="descname">createPRISM</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/System.html#System.createPRISM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.System.System.createPRISM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a fully specified PRISM object that can be solved</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyPRISM.core.Table.html" class="btn btn-neutral float-right" title="pyPRISM.core.Table module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyPRISM.core.Space.html" class="btn btn-neutral" title="pyPRISM.core.Space module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

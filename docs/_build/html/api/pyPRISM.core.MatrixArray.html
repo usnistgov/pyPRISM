@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.core.MatrixArray module &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="pyPRISM.core package" href="pyPRISM.core.html"/>
+        <link rel="next" title="pyPRISM.core.PRISM module" href="pyPRISM.core.PRISM.html"/>
+        <link rel="prev" title="pyPRISM.core.IdentityMatrixArray module" href="pyPRISM.core.IdentityMatrixArray.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyPRISM.html">pyPRISM package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyPRISM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.calculate.html">pyPRISM.calculate package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.closure.html">pyPRISM.closure package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="pyPRISM.core.html">pyPRISM.core package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pyPRISM.core.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.omega.html">pyPRISM.omega package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyPRISM.potential.html">pyPRISM.potential package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyPRISM.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.html">pyPRISM package</a> &raquo;</li>
+        
+          <li><a href="pyPRISM.core.html">pyPRISM.core package</a> &raquo;</li>
+        
+      <li>pyPRISM.core.MatrixArray module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pyPRISM.core.MatrixArray.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyPRISM.core.MatrixArray">
+<span id="pyprism-core-matrixarray-module"></span><h1>pyPRISM.core.MatrixArray module<a class="headerlink" href="#module-pyPRISM.core.MatrixArray" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray">
+<em class="property">class </em><code class="descclassname">pyPRISM.core.MatrixArray.</code><code class="descname">MatrixArray</code><span class="sig-paren">(</span><em>length</em>, <em>rank</em>, <em>data=None</em>, <em>space=&lt;Space.Real: 1&gt;</em>, <em>types=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A container for creating and interacting with arrays of matrices</p>
+<p><strong>Description</strong></p>
+<blockquote>
+<div><p>The primary data structure of MatrixArray is simply a 3D Numpy array
+with the first dimension accessing each individual matrix in the array
+and the last two dimenions corresponding to the vertical and horizontal
+index of each matrix element.</p>
+<p>The terminology <em>Curve</em> is used to refer to the set of values from
+all matrices in the array at a given matrix index pair. In Numpy slicing
+parlance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curve_11</span> <span class="o">=</span> <span class="n">numpy_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">curve_12</span> <span class="o">=</span> <span class="n">numpy_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Access to the MatrixArray is either by supplied types or numerical indices.
+If types are not supplied, captial letters starting from ‘A’ are used.</p>
+<p>See <a class="reference internal" href="../data_structures.html#data-structures"><span class="std std-ref">Data Structures</span></a> for a full discussion of this class.</p>
+</div></blockquote>
+<p class="rubric">Example</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mArray</span> <span class="o">=</span> <span class="n">MatrixArray</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span><span class="n">rank</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;polymer&#39;</span><span class="p">,</span><span class="s1">&#39;solvent&#39;</span><span class="p">])</span>
+
+<span class="n">mArray</span><span class="p">[</span><span class="s1">&#39;polymer&#39;</span><span class="p">,</span><span class="s1">&#39;solvent&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">mArray</span><span class="p">[</span><span class="s1">&#39;solvent&#39;</span><span class="p">,</span><span class="s1">&#39;polymer&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">mArray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.SpaceError">
+<code class="descname">SpaceError</code><em class="property"> = 'Attempting MatrixArray math in non-matching spaces'</em><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.SpaceError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Curve getter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> (<em>tuple of types</em>) – Type pair used to identify curve pair</li>
+<li><strong>val</strong> (<em>np.ndarray</em>) – Values of curve</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__imul__">
+<code class="descname">__imul__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__imul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__imul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar or elementwise multiplication</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>length</em>, <em>rank</em>, <em>data=None</em>, <em>space=&lt;Space.Real: 1&gt;</em>, <em>types=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> (<em>int</em>) – Number of matrices in array. For PRISM theory, this corresponds to
+the number of grid points in real- and Fourier-space i.e.
+Domain.size.</li>
+<li><strong>rank</strong> (<em>int</em>) – Number of rows/cols of each (square) matrix. For PRISM theory, this
+also equal to the number of site types.</li>
+<li><strong>data</strong> (<em>np.ndarray</em><em>, </em><em>size</em><em> (</em><a class="reference internal" href="pyPRISM.core.Domain.html#pyPRISM.core.Domain.Domain.length" title="pyPRISM.core.Domain.Domain.length"><em>length</em></a><em>,</em><a class="reference internal" href="pyPRISM.core.System.html#pyPRISM.core.System.System.rank" title="pyPRISM.core.System.System.rank"><em>rank</em></a><em>,</em><a class="reference internal" href="pyPRISM.core.System.html#pyPRISM.core.System.System.rank" title="pyPRISM.core.System.System.rank"><em>rank</em></a><em>)</em>) – Interface for specifying the MatrixArray data directly. If not
+given, all values in all matrices will be set to zero.</li>
+<li><strong>space</strong> (<a class="reference internal" href="pyPRISM.core.Space.html#pyPRISM.core.Space.Space" title="pyPRISM.core.Space.Space"><em>pyPRISM.core.Space.Space</em></a>) – Enumerated value tracking whether the array represents real or
+Fourier spaced data. As we will be transferring arrays to and from
+these spaces, it’s important for safety that we track this.</li>
+<li><strong>types</strong> (list, <em>optional</em>) – List of semantic types that are be used to reference data. These
+types will be output by the itercurve method as well. If not
+supplied, uppercase letters will be used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__itruediv__">
+<code class="descname">__itruediv__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__itruediv__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__itruediv__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar or elementwise division</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__mul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar or elementwise multiplication</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Curve setter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> (<em>tuple of types</em>) – Type pair used to identify curve pair</li>
+<li><strong>val</strong> (<em>np.ndarray</em>) – Values of curve</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Assumes all matrices are symmetric and enforces symmetry by
+setting both off diagonal elements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.__truediv__">
+<code class="descname">__truediv__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.__truediv__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.__truediv__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar or elementwise division</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.dot">
+<code class="descname">dot</code><span class="sig-paren">(</span><em>other</em>, <em>inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix multiplication for each matrix in two MatrixArrays</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>other</strong> (<em>object</em><em>, </em><a class="reference internal" href="#module-pyPRISM.core.MatrixArray" title="pyPRISM.core.MatrixArray"><em>MatrixArray</em></a>) – Must be an object of MatrixArray type of the same length
+and dimension</li>
+<li><strong>inplace</strong> (<em>bool</em>) – If False, a new MatrixArray is returned, otherwise just
+update the internal data.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>index1</em>, <em>index2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Curve getter via indices</p>
+<p>This method should be slightly more efficient than the standard
+__getitem__.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.getMatrix">
+<code class="descname">getMatrix</code><span class="sig-paren">(</span><em>matrix_index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.getMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.getMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix getter via indices</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.get_copy">
+<code class="descname">get_copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.get_copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.get_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an independent copy of this MatrixArray</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.invert">
+<code class="descname">invert</code><span class="sig-paren">(</span><em>inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.invert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform matrix inversion on all matrices in the MatrixArray</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inplace</strong> (<em>bool</em>) – If False, a new MatrixArray is returned, otherwise just
+update the internal data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.itercurve">
+<code class="descname">itercurve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.itercurve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.itercurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over the curves in this MatrixArray</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Yields:</th><td class="field-body"><ul class="first last simple">
+<li><strong>(i,j)</strong> (<em>2-tuple of integers</em>) – numerical index to the underlying data numpy array</li>
+<li><strong>(t1,t2)</strong> (<em>2-tuple of string types</em>) – string index to the underlying data numpy array</li>
+<li><strong>curve</strong> (<em>np.ndarray, size (self.length)</em>) – 1-D array representing a curve withing the MatrixArray</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyPRISM.core.MatrixArray.MatrixArray.setMatrix">
+<code class="descname">setMatrix</code><span class="sig-paren">(</span><em>matrix_index</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyPRISM/core/MatrixArray.html#MatrixArray.setMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyPRISM.core.MatrixArray.MatrixArray.setMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix setter via indices</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyPRISM.core.PRISM.html" class="btn btn-neutral float-right" title="pyPRISM.core.PRISM module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyPRISM.core.IdentityMatrixArray.html" class="btn btn-neutral" title="pyPRISM.core.IdentityMatrixArray module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

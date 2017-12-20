@@ -6,7 +6,7 @@ default_short_version = 'v0.1'
 def get_python_version():
   print('==> Attempting to get version from module...',)
   try:
-    from typyPRISM import Version
+    from pyPRISM import Version
   except ImportError:
     print('Failed!')
     version = default_version
@@ -36,7 +36,7 @@ def get_git_version():
   return version,short_version
 
 
-def write(version,short_version,file='typyPRISM/Version.py'):
+def write(version,short_version,file='pyPRISM/Version.py'):
   with open(file,'w') as f:
     f.write('version = \'{}\'\n'.format(version))
     f.write('short_version = \'{}\'\n'.format(short_version))

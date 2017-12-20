@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPRISM.omega.FreelyJointedChain &mdash; pyPRISM 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyPRISM 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyPRISM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pyPRISM.html">pyPRISM package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../philosophy.html">Object-Oriented Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convergence.html">Convergence Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyPRISM</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyPRISM.omega.FreelyJointedChain</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyPRISM.omega.FreelyJointedChain</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span><span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pyPRISM.omega.Omega</span> <span class="k">import</span> <span class="n">Omega</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="FreelyJointedChain"><a class="viewcode-back" href="../../../api/pyPRISM.omega.FreelyJointedChain.html#pyPRISM.omega.FreelyJointedChain.FreelyJointedChain">[docs]</a><span class="k">class</span> <span class="nc">FreelyJointedChain</span><span class="p">(</span><span class="n">Omega</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Freely jointed chain intra-molecular correlation function</span>
+
+<span class="sd">    **Mathematical Definition**</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        \hat{\omega}(k) = \frac{1 - E^2 - \frac{2E}{N} + \frac{2E^{N+1}}{N}}{(1-E)^2}</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">         </span>
+<span class="sd">         E = \frac{\sin(k l)}{k l}</span>
+
+
+<span class="sd">    **Variable Definitions**</span>
+
+<span class="sd">        - :math:`\hat{\omega}(k)` </span>
+<span class="sd">            *intra*-molecular correlation function at wavenumber :math:`k`</span>
+
+<span class="sd">        - :math:`N`</span>
+<span class="sd">            number of repeat units in chain</span>
+<span class="sd"> </span>
+<span class="sd">        - :math:`l`</span>
+<span class="sd">            bond-length</span>
+
+
+<span class="sd">    **Description**</span>
+<span class="sd">        </span>
+<span class="sd">        The freely-jointed chain is an ideal polymer chain model</span>
+<span class="sd">        that assumes a constant bond length :math:`l` and no correlations</span>
+<span class="sd">        between the directions of different bond vectors </span>
+<span class="sd">        (i.e. :math:`&lt;cos(\theta_{ij})&gt;=0`). In other words, monomer segments</span>
+<span class="sd">        are assumed to have no intra-molecular excluded volume.</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -</span>
+<span class="sd">    Intramolecular Structure, Local Order, and the Correlation Hole,</span>
+<span class="sd">    Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027</span>
+
+<span class="sd">    Rubinstein, M; Colby, R.H; Polymer Physics. 2003. Oxford University Press.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import pyPRISM</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import matplotlib.pyplot as plt</span>
+
+<span class="sd">        #calculate Fourier space domain and omega values</span>
+<span class="sd">        domain = pyPRISM.domain(dr=0.1,length=1000)</span>
+<span class="sd">        omega  = pyPRISM.omega.FreelyJointedChain(length=100,l=1.0)</span>
+<span class="sd">        x = domain.k</span>
+<span class="sd">        y = omega.calculate(x)</span>
+
+<span class="sd">        #plot it!</span>
+<span class="sd">        plt.plot(x,y)</span>
+<span class="sd">        plt.gca().set_xscale(&quot;log&quot;, nonposx=&#39;clip&#39;)</span>
+<span class="sd">        plt.gca().set_yscale(&quot;log&quot;, nonposy=&#39;clip&#39;)</span>
+
+<span class="sd">        plt.show()</span>
+<span class="sd">	</span>
+<span class="sd">	#Define a PRISM system and set omega(k) for type A</span>
+<span class="sd">	sys = pyPRISM.System([&#39;A&#39;,&#39;B&#39;],kT=1.0)</span>
+<span class="sd">	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)</span>
+<span class="sd">        sys.omega[&#39;A&#39;,&#39;A&#39;]  = pyPRISM.omega.FreelyJointedChain(length=100,l=1.0)</span>
+
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="FreelyJointedChain.__init__"><a class="viewcode-back" href="../../../api/pyPRISM.omega.FreelyJointedChain.html#pyPRISM.omega.FreelyJointedChain.FreelyJointedChain.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Constructor</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        length: float</span>
+<span class="sd">            number of monomers/sites in Freely-jointed chain</span>
+<span class="sd">            </span>
+<span class="sd">        l: float</span>
+<span class="sd">            bond length</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span></div>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Omega: FreelyJointedChain&gt;&#39;</span>
+    
+<div class="viewcode-block" id="FreelyJointedChain.calculate"><a class="viewcode-back" href="../../../api/pyPRISM.omega.FreelyJointedChain.html#pyPRISM.omega.FreelyJointedChain.FreelyJointedChain.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Return value of :math:`\hat{\omega}` at supplied :math:`k`</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        k: np.ndarray</span>
+<span class="sd">            array of wavenumber values to caluclate :math:`\omega` at</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">*</span><span class="n">E</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">E</span><span class="o">/</span><span class="n">N</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">E</span><span class="o">**</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">E</span><span class="p">)</span><span class="o">**</span><span class="mf">2.0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+        
+        
+<div class="viewcode-block" id="FJC"><a class="viewcode-back" href="../../../api/pyPRISM.omega.FreelyJointedChain.html#pyPRISM.omega.FreelyJointedChain.FJC">[docs]</a><span class="k">class</span> <span class="nc">FJC</span><span class="p">(</span><span class="n">FreelyJointedChain</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Alias of FreelyJointedChain&#39;&#39;&#39;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Tyler B. Martin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
