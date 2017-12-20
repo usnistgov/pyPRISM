@@ -6,31 +6,57 @@ import numpy as np
 class Exponential(Potential):
     r'''Exponential attractive interactions
     
+    
+    **Mathematical Definition**
+    
     .. math::
     
-        U(r \geq \sigma) - \varepsilon \exp(- \frac{r-\sigma}{\alpha})
+        U_{\alpha,\beta}(r \geq \sigma_{\alpha,\beta}) - \epsilon_{\alpha,\beta} \exp(- \frac{r-\sigma_{\alpha,\beta}}{\alpha})
 
     .. math::
 
-        U(r \lt \sigma) = \text{high_value}
+        U_{\alpha,\beta}(r \lt \sigma_{\alpha,\beta}) = \infty
 
-    Note
-    ----
+    
+    **Variable Definitions**
+    
     :math:`\alpha`
-        width of exponential attraction
+        Width of exponential attraction
 
-    :math:`\sigma`
-        contact distance of interactions
+    :math:`\sigma_{\alpha,\beta}`
+        Contact distance of interactions between sites 
+	:math:`\alpha` and :math:`\beta`.
 
-    :math:`\varepsilon`
-        interaction strength
 
-    high_value
-        Value to use as overlap potential value. A stand in for :math:`\infty`
+    :math:`\epsilon_{\alpha,\beta}`
+        Interaction strength between sites 
+	:math:`\alpha` and :math:`\beta`.
+    
+
+    **Description**
+
+    	This potential models an exponential-like attraction between sites with
+	a specified site size and contact distance. For example, in the below
+	reference, this potential is used to model the attraction between a 
+	nanoparticle and monomers of a polymer chain. 
+
 
     References
     ----------
     Hooper, Schweizer, Macromolecules, 2006, 39 (15), pp 5133
+    
+
+    Example
+    -------
+    .. code-block:: python
+
+        import pyPRISM
+	
+        #Define a PRISM system and set the A-B interaction potential
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.potential['A','B'] = pyPRISM.potential.Exponential(epsilon=1.0,sigma=8.0,alpha=0.5,high_value=10**6)
+
     
     '''
     def __init__(self,epsilon,sigma,alpha,high_value=1e6):

@@ -3,43 +3,76 @@ from __future__ import division,print_function
 from typyPRISM.potential.Potential import Potential
 import numpy as np
 class HardCoreLennardJones(Potential):
-    '''12-6 Lennard-Jones potential with Hard Core
-
-    Unlike the classic LJ potential, the HCLJ potential has an infinitely
-    hard core and can handle negative and positive epsilons, corresponding
-    the attractive and repulsive interactions.
+    r'''12-6 Lennard-Jones potential with Hard Core
 
     .. warning:: 
 
         This potential uses a slightly different form than what is 
-        implemented for the LJ potential in order to match the PRISM
+        implemented for the classic LJ potential in order to match the PRISM
         literature.  This means that the epsilon in the LJ and HCLJ
-        potentials will not correspond to the same interactions strengths..
+        potentials will not correspond to the same interaction strengths.
+    
+
+    **Mathematical Definition**
     
     .. math::
     
-        U(r>sigma) = \epsilon * ((\sigma/r)^(12.0) - (\sigma/r)^(6.0))
-        U(r<=sigma) = inf
+        U_{\alpha,\beta}(r>\sigma_{\alpha,\beta}) = \epsilon_{\alpha,\beta}\big[\big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{12.0} - \big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{6.0}\big]
+    
+    .. math::
+    
+        U_{\alpha,\beta}(r\leq\sigma_{\alpha,\beta}) = \infty
     
     
-    Parameters
-    ----------
-    epsilon: float
-        Depth of attractive well
-        
-    sigma: float
-        Contact distance (i.e. low distance where potential magnitude = 0)
+    **Variable Definitions**
     
-    rcut: float, *optional*
-        Cutoff distance for potential. Useful for comparing directly to results
-        from simulations where cutoffs are necessary. 
+    :math:`\epsilon_{\alpha,\beta}`
+        Strength of interaction (attraction or repulsion) between sites 
+	:math:`\alpha` and :math:`\beta`.
+
+    :math:`\sigma_{\alpha,\beta}`
+        Length scale of interaction between sites 
+	:math:`\alpha` and :math:`\beta`.
+
+    :math:`r`
+        Distance between sites. 
     
-    shift: bool,*optional*
-        Shift the potential by its value at the cutoff. Clearly this only makes 
-        sense if rcut is specified
+   
+    **Description**
+
+    	Unlike the classic LJ potential, the HCLJ potential has an infinitely
+    	hard core and can handle negative and positive epsilons, corresponding
+    	to attractive and repulsive interactions.
+    
+    
+    Example
+    -------
+    .. code-block:: python
+
+        import pyPRISM
+	
+        #Define a PRISM system and set the A-B interaction potential
+	sys = pyPRISM.System(['A','B'],kT=1.0)
+	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.potential['A','B'] = pyPRISM.potential.HardCoreLennardJones(epsilon=1.0,sigma=1.0,high_value=10**6)
+
     
     '''
     def __init__(self,epsilon,sigma,high_value=1e6):
+        r''' Constructor
+        
+        Arguments
+        ---------
+        epsilon: float
+            Depth of attractive well
+            
+        sigma: float
+            Contact distance (i.e. low distance where potential magnitude = 0)
+            
+        high_value: float, *optional*
+            value of potential when overlapping
+        
+        '''
         self.epsilon = epsilon 
         self.sigma = sigma
         self.high_value = high_value
@@ -49,6 +82,13 @@ class HardCoreLennardJones(Potential):
         return '<Potential: HardCoreLennardJones>'
         
     def calculate(self,r):
+        r'''Calculate potential values
+
+        Attributes
+        ----------
+        r: float np.ndarray
+            Array of pair distances at which to calculate potential values
+        '''
         magnitude = self.funk(r)
         magnitude[r<=self.sigma] = self.high_value
                 
