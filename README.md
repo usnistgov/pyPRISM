@@ -30,6 +30,9 @@ sys.domain = pyPRISM.Domain(dr=0.01,length=4096)
 sys.density['polymer']  = 0.75
 sys.density['particle'] = 6e-6
 
+sys.diameter['polymer']  = 1.0
+sys.diameter['particle'] = 5.0
+
 sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
 sys.omega['polymer','particle']  = pyPRISM.omega.NoIntra()
 sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
