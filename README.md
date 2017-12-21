@@ -22,7 +22,7 @@ of the pair correlation functions from this calculation.
 
 ```python
 import pyPRISM
-from pyPRISM.calculate.prism.pair_correlation import pair_correlation
+from pyPRISM.calculate.pair_correlation import pair_correlation
 
 sys = pyPRISM.System(['particle','polymer'],kT=1.0)
 sys.domain = pyPRISM.Domain(dr=0.01,length=4096)
@@ -33,7 +33,7 @@ sys.density['particle'] = 6e-6
 sys.diameter['polymer']  = 1.0
 sys.diameter['particle'] = 5.0
 
-sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
+sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(length=100,l=4.0/3.0)
 sys.omega['polymer','particle']  = pyPRISM.omega.NoIntra()
 sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
 
