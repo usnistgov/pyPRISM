@@ -22,9 +22,6 @@ Contents
    api/pyPRISM
    quickstart
    install
-   philosophy
-   data_structures
    examples 
    convergence
    faq
-   contributing 

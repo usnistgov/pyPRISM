@@ -7,4 +7,4 @@ except ImportError:
                    converter utility to be used. The UnitConverter class will not be\
                    available for use.')
 else:
-    from UnitConverter import UnitConverter
+    from pyPRISM.util.UnitConverter import UnitConverter

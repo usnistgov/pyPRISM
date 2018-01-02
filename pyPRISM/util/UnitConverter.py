@@ -8,22 +8,9 @@ class UnitConverter(object):
 
         pyPRISM operates in a system of reduced units commonly called 'Lennard
         Jones units'. In this unit system, all measures are reported relative
-        to characteristic values: length = :math:`d_c, mass = :math:`m_c`, and
-        `energy = :math:`e_c. These characeristic values are chosen for a given
-        system to simplify the description of the system. For example, for
-        mixture of :math:`d_{1}=2.0` nm and :math:`d_{2}=10` nm diameter
-        nanoparticles a user might want to set :math:`d_c = 5 nm` so that the
-        diameters can be reported to pyPRISM as :math:`d^{*}_{1} = 1 d_c` and
-        :math:`d^{*}_{2} = 5 d_c`. To convert from reduced temperature reported
-        in units of thermal energy, :math:`T^{*}`, one must use the relation
-        :math:`T^{*} = k_{B}T/e_{c}`
-        
-        
-        While understanding these relationships is important, it can be tediuos
-        for those outside of the simulation and theory fields to work in these
-        unit systems. `UnitConverter` class is designed to allow for easy
-        translation between reduced and real unit systems. See the examples
-        below.
+        to characteristic values: length = :math:`d_c`, mass = :math:`m_c`, and
+        `energy = :math:`e_c`. See the pyPRISM_tutorial for a more detailed
+        discussion of these units.
 
     .. note::
 
@@ -85,21 +72,25 @@ class UnitConverter(object):
 
         '''
 
-        self.ureg = pint.UnitRegistry()
+        self.pint = pint.UnitRegistry()
 
         dString = 'dchar = {} {} = dc'.format(dc,dc_unit)
         mString = 'mchar = {} {} = mc'.format(mc,mc_unit)
         eString = 'echar = {} {} = ec'.format(ec,ec_unit)
-        print('--> Defining reduced unit {}'.format(dString))
-        print('--> Defining reduced unit {}'.format(mString))
-        print('--> Defining reduced unit {}'.format(eString))
-        self.ureg.define(dString)
-        self.ureg.define(mString)
-        self.ureg.define(eString)
+        # print('--> Defining reduced unit {}'.format(dString))
+        # print('--> Defining reduced unit {}'.format(mString))
+        # print('--> Defining reduced unit {}'.format(eString))
+        self.pint.define(dString)
+        self.pint.define(mString)
+        self.pint.define(eString)
 
-        self.d = self.dc = self.ureg.Quantity(1,'dc')
-        self.m = self.mc = self.ureg.Quantity(1,'mc')
-        self.e = self.ec = self.ureg.Quantity(1,'ec')
+        self.d = self.dc = self.pint.Quantity(1,'dc')
+        self.m = self.mc = self.pint.Quantity(1,'mc')
+        self.e = self.ec = self.pint.Quantity(1,'ec')
+
+    def __repr__(self):
+        return '<UnitConverter  dc:{} | mc:{} | ec:{}>'.format(self.dc.to_base_units(),self.mc.to_base_units(),self.ec.to_base_units())
+
     def toKelvin(self,temperature):
         r'''Convert thermal energy to temperature units in Kelvin
 
@@ -115,13 +106,13 @@ class UnitConverter(object):
             attribute (temperature.magnitude) to obtain the numerical value of
             the temperature as a floating point value.
         '''
-        new_value = (temperature*self.e)/self.ureg('boltzmann_constant')
+        new_value = (temperature*self.e)/self.pint('boltzmann_constant')
 
         # need to handle both the molar and non-molar characteristic energy
         try:
             return new_value.to('K')
         except pint.errors.DimensionalityError:
-            new_value /= self.ureg('N_A')
+            new_value /= self.pint('N_A')
             return new_value.to('K')
     def toCelcius(self,temperature):
         r'''Convert thermal energy to temperature units in Celcius
@@ -187,7 +178,7 @@ class UnitConverter(object):
             magnitude attribute (concentration.magnitude) to obtain the
             numerical value of the contration as a floating point value.
         '''
-        new_value = density/(self.d**3.0)/self.ureg('N_A')
+        new_value = density/(self.d**3.0)/self.pint('N_A')
         return new_value.to('mol/L')
     def toVolumeFraction(self,density,diameter):
         r'''Convert reduced number density to volume fraction
@@ -207,8 +198,8 @@ class UnitConverter(object):
             (vol_fraction.magnitude) to obtain the numerical value of the
             volume fraction as a floating point value.
         '''
-        new_value = density*4.0/3.0 * self.ureg('pi') * (diameter/2.0)**(3.0)
-        return new_value*ureg('unitless')
+        new_value = density*4.0/3.0 * self.pint('pi') * (diameter/2.0)**(3.0)
+        return new_value*self.pint('unitless')
 
 
 

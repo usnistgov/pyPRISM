@@ -12,7 +12,7 @@ from pyPRISM import closure
 from pyPRISM import potential
 from pyPRISM import omega
 
-# from pyPRISM import util
+from pyPRISM import util
 
 
 

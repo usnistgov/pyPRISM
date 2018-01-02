@@ -9,7 +9,9 @@ Polymer reference interaction site model (PRISM) theory describes the correlatio
 
 <p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
-1. Martin, T.B.; Jones, R.L.; Snyder, C.R.; Jayaraman, A.; pyPRISM: A Computational Tool for Polymer Liquid State Theory Calculations (to be submitted)
+1. Martin, T.B.; Garter, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
+pyPRISM: A Computational Tool for Liquid State Theory Calculations of
+Macromolecular Materials (to be submitted)
 
 2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi: http://dx.doi.org/10.1103/PhysRevLett.58.246
 
