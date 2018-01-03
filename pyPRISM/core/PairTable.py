@@ -26,8 +26,7 @@ class PairTable(Table):
         is that, for each type, it can contain any arbitrary number, string, or
         Python object. 
 
-        See the example below and the :ref:`data_structures` page for more
-        information.
+        See the example below and the pyPRISM tutorial for more information.
 
     Example
     -------

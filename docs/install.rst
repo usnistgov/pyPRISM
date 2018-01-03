@@ -32,7 +32,7 @@ Manual Install
 Step 1a: Dependencies via Anaconda (Recommended)
 ------------------------------------------------
 The easiest way to get an environment set up installing it using the
-``environment2.yml``  or ``environment3.yml`` we have provided for a python2 or
+``env/py2.yml``  or ``env/py3.yml`` we have provided for a python2 or
 python3 based environment. We recommend the python3 version. If you don't
 already have it, install `conda <https://www.continuum.io/downloads>`_. Note that
 all of the below instructions can be executed via the anaconda-navigator GUI. To
@@ -239,7 +239,7 @@ Troubleshooting
 
 #. Other Internal Error
 
-    Please file a bug report on GitHub. Please see :ref:`reports` for
+    Please file a bug report on GitHub. Please see :ref:`contribute` for
     instructions on how to do this. 
 
 

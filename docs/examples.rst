@@ -10,4 +10,4 @@ to PRISM, Python, and the pyPRISM package, and contains annotated example
 scripts that were used to create all of the case-studies in the
 following paper:
 
-    1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman, A.; pyPRISM: A Computational Tool for Polymer Liquid State Theory Calculations (to be submitted)
+    1. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.; pyPRISM: A Computational Tool for Liquid State Theory Calculations of Macromolecular Materials. (to be submitted)

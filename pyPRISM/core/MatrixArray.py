@@ -24,7 +24,7 @@ class MatrixArray(object):
         Access to the MatrixArray is either by supplied types or numerical indices.
         If types are not supplied, captial letters starting from 'A' are used. 
 
-        See :ref:`data_structures` for a full discussion of this class.
+        See the example below and the pyPRISM tutorial for more information. 
 
     Example
     -------

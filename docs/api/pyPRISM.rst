@@ -16,6 +16,7 @@ Subpackages
     pyPRISM.core
     pyPRISM.omega
     pyPRISM.potential
+    pyPRISM.util
 
 Submodules
 ----------
