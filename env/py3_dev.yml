@@ -1,14 +1,13 @@
-name: pyPRISM2
+name: pyPRISM_py3_dev
 channels:
   - conda-forge 
   - defaults
 dependencies:
-  - python =2
+  - python =3
   - numpy
   - scipy
   - cython 
   - jupyter
-  - jupyter_contrib_nbextensions
   - matplotlib
   - bokeh
   - holoviews
@@ -20,3 +19,5 @@ dependencies:
   - sphinx
   - sphinx-autobuild
   - sphinx_rtd_theme
+  - graphviz
+  - pint
