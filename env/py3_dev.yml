@@ -4,7 +4,7 @@ channels:
   - defaults
 dependencies:
   - python =3
-  - numpy
+  - numpy >= 1.8.0
   - scipy
   - cython 
   - jupyter
