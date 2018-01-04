@@ -81,6 +81,23 @@ pcf = typyPRISM.calculate.prism.pair_correlation(PRISM)
     <img src='./img/plot.png' />
 </p>
 
+Tutorial
+========
+A companion [tutorial](https://github.com/usnistgov/pyPRISM_tutorial) to the
+documentation can be found on GitHub.  This tutorial can be used interactively
+in a live [Jupyter notebook](https://jupyter.org) or rendered as a [static
+webpage](https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb>)
+using the nbviewer feature on the Jupyter website. The benefit of using a live
+Jupyter notebook is that users are able to edit and run real pyPRISM code while
+the static website provides a rapid and setup-free way to survey the codebase. 
+
+The tutorial not only teaches users how to use pyPRISM, but also covers the
+basics PRISM theory, provide a basic introduction to Python, Jupyter, and some
+related theoretical concepts. These non-codebase related topics are not covered
+in detail in the documentation. The tutorial also goes over several case
+studies from the literature and how pyPRISM can be used to reproduce data from
+these studies. 
+
 Documentation
 =============
 Code documentation can be found [here](https://pyPRISM.readthedocs.io/). The most up to
