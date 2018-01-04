@@ -13,7 +13,7 @@ Polymer reference interaction site model (PRISM) theory describes the correlatio
 
 <p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
-1. Martin, T.B.; Garter, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
+1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
 pyPRISM: A Computational Tool for Liquid State Theory Calculations of
 Macromolecular Materials (to be submitted)
 
@@ -108,11 +108,21 @@ $ pip install pyPRISM
 
 Contact Us
 ============
-- Dr. Tyler Martin, NIST, [GitHub](https://github.com/martintb),
-                          [Webpage](https://www.nist.gov/people/tyler-martin)
-- Mr. Thomas Gartner, University of Delaware, [GitHub](https://github.com/tgartner)
-- Dr. Ron Jones, NIST, [Webpage](https://www.nist.gov/people/ronald-l-jones)
-- Dr. Chad Snyder, NIST,[Webpage](https://www.nist.gov/people/chad-r-snyder)
-- Prof. Arthi Jayaraman, University of Delaware, [Webpage](https://udel.edu/~arthij)
+- Dr. Tyler Martin, NIST, 
+    [GitHub](https://github.com/martintb),
+    [Webpage](https://www.nist.gov/people/tyler-martin),
+    [Scholar](https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en)
+- Mr. Thomas Gartner, University of Delaware, 
+    [GitHub](https://github.com/tgartner),
+    [Scholar](https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en)
+- Dr. Ron Jones, NIST, 
+    [Webpage](https://www.nist.gov/people/ronald-l-jones),
+    [Scholar](https://scholar.google.com/citations?user=TKAtIUIAAAAJ&hl=en)
+- Dr. Chad Snyder, NIST,
+    [Webpage](https://www.nist.gov/people/chad-r-snyder),
+    [Scholar](https://scholar.google.com/citations?user=MMV7Bf8AAAAJ&hl=en)
+- Prof. Arthi Jayaraman, University of Delaware, 
+    [Webpage](https://udel.edu/~arthij),
+    [Scholar](https://scholar.google.com/citations?user=FST4YmwAAAAJ)
 
 
