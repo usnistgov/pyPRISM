@@ -1,8 +1,12 @@
 <p align="center">
-    <img src='./img/graphic.png' />
+    <img src='./img/TOC.png' width='500px'/>
 </p>
 <h1 align="center">pyPRISM</h1>
-<p align="center"> <img src='http://pyprism.readthedocs.io/en/latest/?badge=latest' /> </p>
+
+<p align="center"> 
+<a href='http://pyprism.readthedocs.io/en/latest/?badge=latest'>
+    <img src='https://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
+</a></p>
 <p>
 Polymer reference interaction site model (PRISM) theory describes the
 correlations of liquid-like polymer systems including melts, blends, solutions,
@@ -124,11 +128,21 @@ $ pip install pyPRISM
 
 Contact Us
 ============
-- Dr. Tyler Martin, NIST, [GitHub](https://github.com/martintb),
-                          [Webpage](https://www.nist.gov/people/tyler-martin)
-- Mr. Thomas Gartner, University of Delaware, [GitHub](https://github.com/tgartner)
-- Dr. Ron Jones, NIST, [Webpage](https://www.nist.gov/people/ronald-l-jones)
-- Dr. Chad Snyder, NIST,[Webpage](https://www.nist.gov/people/chad-r-snyder)
-- Prof. Arthi Jayaraman, University of Delaware, [Webpage](https://udel.edu/~arthij)
+- Dr. Tyler Martin, NIST, 
+    [GitHub](https://github.com/martintb),
+    [Webpage](https://www.nist.gov/people/tyler-martin),
+    [Scholar](https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en)
+- Mr. Thomas Gartner, University of Delaware, 
+    [GitHub](https://github.com/tgartner),
+    [Scholar](https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en)
+- Dr. Ron Jones, NIST, 
+    [Webpage](https://www.nist.gov/people/ronald-l-jones),
+    [Scholar](https://scholar.google.com/citations?user=TKAtIUIAAAAJ&hl=en)
+- Dr. Chad Snyder, NIST,
+    [Webpage](https://www.nist.gov/people/chad-r-snyder),
+    [Scholar](https://scholar.google.com/citations?user=MMV7Bf8AAAAJ&hl=en)
+- Prof. Arthi Jayaraman, University of Delaware, 
+    [Webpage](https://udel.edu/~arthij),
+    [Scholar](https://scholar.google.com/citations?user=FST4YmwAAAAJ)
 
 
