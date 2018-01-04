@@ -86,7 +86,7 @@ Tutorial
 A companion [tutorial](https://github.com/usnistgov/pyPRISM_tutorial) to the
 documentation can be found on GitHub.  This tutorial can be used interactively
 in a live [Jupyter notebook](https://jupyter.org) or rendered as a [static
-webpage](https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb>)
+webpage](https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb)
 using the nbviewer feature on the Jupyter website. The benefit of using a live
 Jupyter notebook is that users are able to edit and run real pyPRISM code while
 the static website provides a rapid and setup-free way to survey the codebase. 
