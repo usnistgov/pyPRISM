@@ -23,11 +23,12 @@ class FromArray(Omega):
 
         import pyPRISM
         import numpy as np
+        import matplotlib.pyplot as plt
 
         #Set all omega(k) = 1 for type A
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
-	omega = np.ones(sys.domain.k.shape[0])
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        omega = np.ones(sys.domain.k.shape[0])
         sys.omega['A','A']  = pyPRISM.omega.FromArray(omega)
         x = sys.domain.k
         y = sys.omega['A','A'].calculate(x)

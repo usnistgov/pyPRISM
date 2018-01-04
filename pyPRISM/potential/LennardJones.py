@@ -16,12 +16,11 @@ class LennardJones(Potential):
     **Variable Definitions**
     
     :math:`\epsilon_{\alpha,\beta}`
-        Strength of attraction between sites 
-	:math:`\alpha` and :math:`\beta`.
+        Strength of attraction between sites :math:`\alpha` and :math:`\beta`.
 
     :math:`\sigma_{\alpha,\beta}`
-        Length scale of interaction between sites 
-	:math:`\alpha` and :math:`\beta`.
+        Length scale of interaction between sites :math:`\alpha` and
+        :math:`\beta`.
 
     :math:`r`
         Distance between sites. 
@@ -41,10 +40,10 @@ class LennardJones(Potential):
     .. code-block:: python
 
         import pyPRISM
-	
+
         #Define a PRISM system and set the A-B interaction potential
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.potential['A','B'] = pyPRISM.potential.LennardJones(epsilon=1.0,sigma=1.0,rcut=2.5,shift=True)
 
     
@@ -96,6 +95,8 @@ class LennardJones(Potential):
         return magnitude
 
     def calculate_attractive(self,r):
+        r'''Calculate the attractive tail of the Lennard Jones potential
+        '''
         magnitude = np.zeros_like(r)
         mask = r>self.sigma
         magnitude[mask] = self.calculate(r)[mask]

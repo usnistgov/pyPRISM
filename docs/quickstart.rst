@@ -12,7 +12,7 @@ Setup
 
     - matplotlib
 
-See :ref:`quick_install` or the full install instructions to get pyPRISM and set up your environment. Note that you'll need `matplotlib <https://matplotlib.org>` for this example as well. After the environment is set up, the example below can be copied into a file (e.g. test.py) and run from the command line via
+See :ref:`quick_install` or the full install instructions to get pyPRISM and set up your environment. Note that you'll need `matplotlib <https://matplotlib.org>`_ for this example as well. After the environment is set up, the example below can be copied into a file (e.g. test.py) and run from the command line via
 
 .. code-block:: bash
     
@@ -91,6 +91,10 @@ Annotated Example
     plt.plot(sys.domain.r,rdf['particle','particle'],color='blue',lw=1.25)
     plt.show()
 
+.. image:: ../img/plot.png
+    :align: center
+    :width: 300px
+
 
 Discussion
 ----------
@@ -109,8 +113,26 @@ All necessary inputs are specified (site types and system temperature,
 domain size and discretization, site densities and diameters, 
 intra-molecular correlation functions, interaction potentials, and closures
 used for each pair of site types) and then the PRISM calculation is performed.
+See Reference [1] for a full discussion of this system.
 
-**References**
 
-    1. Hooper, J.B.; Schweizer, K.S.; Contact Aggregation, Bridging, and Steric Stabilization in Dense Polymer Particle Mixtures, Macromolecules 2005, 38, 8858-8869
+More Examples
+-------------
+A detailed tutorial with examples on how to build and run 
+PRISM calculations for a variety of systems is hosted on the companion
+`pyPRISM_tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_ repository.
+The tutorial includes a general introduction to Python, PRISM, and the pyPRISM
+package. It also contains annotated example scripts that were used to create
+all of the case-studies Reference [2].
+
+References
+----------
+
+1. Hooper, J.B.; Schweizer, K.S.; Contact Aggregation, Bridging, and Steric
+   Stabilization in Dense Polymer Particle Mixtures, Macromolecules 2005, 38,
+   8858-8869
+
+2. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
+   pyPRISM: A Computational Tool for Liquid State Theory Calculations of
+   Macromolecular Materials. (to be submitted)
 

@@ -44,21 +44,21 @@ start, we'll make sure you have the latest version of conda.
 
     > conda update anaconda 
 
-Now create the ``pyPRISM3`` environment by executing:
+Now create the ``pyPRISM_py3`` environment by executing the following. Note that these commands assume your terminal is located in the base directory of the pyPRISM repository.:
 
 .. code-block:: bash
 
-   > conda env create -f environment3.yml
+   > conda env create -f env/py3.yml
 
 When installation is complete you must activate the environment. 
 
 .. code-block:: bash
 
-   (Windows)   > activate pyPRISM3 
+   (Windows)   > activate pyPRISM_py3
 
 .. code-block:: bash
 
-   (OSX/Linux) $ source activate pyPRISM3 
+   (OSX/Linux) $ source activate pyPRISM_py3
 
 Later, when you are ready to exit the environment after the tutorial, you can
 type:
@@ -76,7 +76,7 @@ writing:
 
 .. code-block:: bash
 
-   > conda env remove --name pyPRISM3 
+   > conda env remove --name pyPRISM_py3
 
 Note that an environment which satisfies the above dependencies must be
 **active** every time you wish to use pyPRISM via script or notebook. If you
@@ -86,12 +86,12 @@ running a script or starting jupyter notebook.
 Step 1b: Manual Depedencies
 ---------------------------
 The following are the minimum depedencies needed to use pyPRISM:
-    - Python 2.6+ or 3+
+    - Python 2.6+ or 3.5+
     - Numpy >= 1.8.0
     - Scipy
     - Cython (not currently but likely in future)
 
-These dependencies are needed to run the example notebooks documentation
+These dependencies are needed to run the tutorials
     - jupyter
     - matplotlib
     - bokeh
@@ -119,7 +119,7 @@ Alternatively, each package can be downloaded and installed manually via
 Step 2: Install
 ---------------
 After the depdendencies are satisfied and/or the conda environment is created
-and activated, pyPRISM can be installed to the system by running:
+**and activated**, pyPRISM can be installed to the system by running:
 
 .. code-block:: bash
 
@@ -130,13 +130,13 @@ and activated, pyPRISM can be installed to the system by running:
 Non-Install
 ===========
 There are use-cases where it makes sense to not permanently install pyPRISM
-onto a workstation or computing cluster. To aid in this process the ``ENV.sh``
+onto a workstation or computing cluster. To aid in this process the ``env/add_pyPRISM.sh``
 script was created. Assuming that you have already satisfied the above listed
 dependencies, you can add pyPRISM to your current environment via 
 
 .. code-block:: bash
 
-    $ source ENV.sh
+    $ source env/add_pyPRISM.sh
 
 Note that this method is only currently supported for Unix and OSX platforms. 
 
@@ -183,7 +183,7 @@ Troubleshooting
 ===============
 #. ModuleNotFoundError or ImportError
 
-    This means that the current distribution of python cannot find the
+    This means that your current distribution of python cannot find the
     pyPRISM package. If you run the command below in a terminal, the
     pyPRISM package *must* be found in one of the listed directories.
 
@@ -192,10 +192,10 @@ Troubleshooting
         python -c "from __future__ import print_function; import sys;print(sys.path)"
 
     If pyPRISM is not listed, there are several reasons why this might have
-    occured:
+    occurred:
 
     - You are not using the same version of python that you installed pyPRISM
-      to. This occurs often when using anaconda because often there is often a
+      to. This occurs often when using anaconda because there is often a
       "system" python and an "anaconda" python.
 
     - You have not activated the conda environment to which you installed

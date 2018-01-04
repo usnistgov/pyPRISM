@@ -59,7 +59,7 @@ pcf = pair_correlation(PRISM)
 
 Documentation
 =============
-Code documentation can be found [here](https://readthedocs.io/). The most up to
+Code documentation can be found [here](https://pyPRISM.readthedocs.io/). The most up to
 date code documentation can always be found by compiling from source. 
 
 Depedencies
@@ -71,7 +71,7 @@ The following are the minimum depedencies needed to use pyPRISM:
     - Scipy
     - Cython (not currently but likely in future)
 
-These dependencies are needed to run the example notebooks documentation
+These dependencies are needed to run the tutorial notebooks 
     
     - jupyter
     - matplotlib
@@ -87,7 +87,7 @@ These depedencies are needed to compile the documentation from source
 
 Quick Install
 =============
-Install pyPRISM with all basic dependences via conda or pip. These commands
+The commands below shoul install pyPRISM with all basic dependences via conda or pip. These commands
 should be platform agnostic and work for Unix, OSX, and Windows *if* you have
 Anaconda or pip correctly installed.  For full installation instructions please
 see the documentation. 
@@ -101,5 +101,14 @@ or
 ``` bash
 $ pip install pyPRISM
 ```
+
+Contact Us
+============
+- Dr. Tyler Martin, NIST, [GitHub](https://github.com/martintb),
+                          [Webpage](https://www.nist.gov/people/tyler-martin)
+- Mr. Thomas Gartner, University of Delaware, [GitHub](https://github.com/tgartner)
+- Dr. Ron Jones, NIST, [Webpage](https://www.nist.gov/people/ronald-l-jones)
+- Dr. Chad Snyder, NIST,[Webpage](https://www.nist.gov/people/chad-r-snyder)
+- Prof. Arthi Jayaraman, University of Delaware, [Webpage](https://udel.edu/~arthij)
 
 

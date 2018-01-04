@@ -126,24 +126,15 @@ class PRISM:
         return '<PRISM length:{} rank:{}>'.format(self.sys.domain.length,self.sys.rank)
         
     def funk(self,x):
-        '''Cost function 
+        r'''Cost function 
         
         There are likely several cost functions that could be imagined using
         the PRISM equations. In this case we formulate a self-consistent 
         formulation where we expect the input of the PRISM equations to be
         identical to the output. 
-        
-        .. math::
-        
-            input --> r \gamma_{in}(r)
-            
-            C(k) = function(\gamma)
-            
-            H(k) = [I - C \dot O ]^(-1) \dot O \dot C \dot O
-            
-            \gamma_{out} = h(r) - c(r)
-            
-            output/cost --> r (gamma_{out} - gamma_{in})
+
+        .. image:: ../../img/solve.png
+            :width: 300px
         
         The goal of the solve method is to numerically optimize the input (:math:`r \gamma_{in}`) 
         so that the output (:math:`r(\gamma_{in}-\gamma_{out})`) is minimized to zero.
@@ -188,7 +179,7 @@ class PRISM:
         '''Attempt to numerically solve the PRISM equations
         
         Using the supplied inputs (in the constructor), we attempt to numerically
-        solve the PRISM equations using the scheme layed out in 'FUNK'. If the 
+        solve the PRISM equations using the scheme layed out in :func:`funk`. If the 
         numerical solution process is successful, the attributes of this class
         will contain the solved values for a given input i.e. self.totalCorr will
         contain the numerically optimized (solved) total correlation functions.
@@ -207,12 +198,15 @@ class PRISM:
             of all zeros is used. 
             
         method: string
-            Set the type of optimization scheme to use. See documentation for 
-            scipy.optimize.root for options.
+            Set the type of optimization scheme to use. See 
+            `here
+            <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`_
+            for options
 
         options: dict
             Dictionary of options specific to the chosen solver method. See
-            `here <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`
+            `here <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`_
+            for options
 
         
         '''

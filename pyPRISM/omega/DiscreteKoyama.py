@@ -55,9 +55,9 @@ class DiscreteKoyama(Omega):
     
     References
     ----------
-        Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer.
-        Local structure of semiflexible polymer melts
-        Macromolecules, 1990, 23 (14), pp 3496–3505
+    1. Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer.
+       Local structure of semiflexible polymer melts
+       Macromolecules, 1990, 23 (14), pp 3496–3505
     
     Example
     -------
@@ -140,9 +140,18 @@ class DiscreteKoyama(Omega):
         cos1 = self.cos_avg(epsilon)
         return (2/e)*cos1 + ( exp(e) - cos0*cos0*exp(-e*cos0) )/( exp(e) - exp(-e*cos0) )
     
-    def koyama_kernel(self,k,n):
-        '''
-        Please see equation 18 of the above reference for details on this calculation.
+    def kernel_base(self,n):
+        ''' Calculates the second and fourth moments of the site separate distance distributions
+
+        .. note::
+
+            See Equation 18 in Reference 1 for more details.
+
+        Arguments
+        ---------
+        n: int
+            Integer separation distance along chain.
+
         '''
         l = self.l
         q = -self.cos1
@@ -162,7 +171,26 @@ class DiscreteKoyama(Omega):
         
         r2 = n*l*l*((1-self.cos1)/(1+self.cos1) + 2*self.cos1/n * (1-(-self.cos1)**(n))/(1 + self.cos1)**(2.0))
         r4 = r2*r2 + l*l*l*l*D
+
+        return r2,r4
         
+
+    def koyama_kernel_fourier(self,k,n):
+        '''Kernel for calculating omega in Fourier-Space
+
+        .. note::
+
+            See Equation 16 in Reference 1 for more details.
+
+        Arguments
+        ---------
+        k: np.ndarray, float
+            array of wavenumber values to caluclate :math:`\omega` at
+
+        n: int
+            Integer separation distance along chain.
+        '''
+        r2,r4 = self.kernel_base(n)
         try:
             C = sqrt(0.5 * (5 - 3*r4/(r2*r2)))
             B = sqrt(C*r2)
@@ -172,7 +200,76 @@ class DiscreteKoyama(Omega):
             
         return np.sin(B*k)/(B*k) * np.exp(-Asq*k*k)
 
-    
+    def koyama_kernel_real(self,r,n):
+        '''Kernel for calculating omega in Real-Space
+
+        .. note::
+
+            See Equation 12 in Reference 1 for more details.
+
+        Arguments
+        ---------
+        r: np.ndarray, float
+            array of real-space positions to caluclate :math:`\omega` at
+
+        n: int
+            Integer separation distance along chain.
+        '''
+        r2,r4 = self.kernel_base(n)
+        
+        try:
+            C = sqrt(0.5 * (5 - 3*r4/(r2*r2)))
+            B = sqrt(C*r2)
+            Asq = r2*(1-C)/6 #taking the square root results in many domain errors
+        except ValueError as e:
+            raise ValueError('Bad chain parameters. (Try reducing epsilon)')
+
+        omega_ag = (1.0/(8*np.pi**(3.0/2.0)*np.sqrt(Asq)*B*r))*(np.exp(-(r-B)**2.0/(4.0*Asq))-np.exp(-(r+B)**2.0/(4.0*Asq)))
+        
+        return omega_ag
+
+    def density_correction_kernel(self,r):
+        '''Correction for density due to non-physical overlaps
+
+        .. note::
+
+            See Equation 28 in Reference 1 for more details.
+
+        Arguments
+        ---------
+        r: np.ndarray, float
+            array of real-space positions to caluclate :math:`\omega` at
+        '''
+        
+        factor1 = np.pi*self.sigma**(3.0)*(1-3.0*r/(2.0*self.sigma)+r**(3.0)/(2.0*self.sigma**3.0))/6.0
+        factor2 = np.zeros_like(r) 
+        for i in range(1,self.length-1):
+            for j in range(i+2,self.length+1):
+                n = abs(i - j)
+                factor2 += self.koyama_kernel_real(r=r,n=n)
+        factor3 = 4.0*np.pi*r**2.0
+
+        return factor1*factor2*factor3
+
+    def density_correction(self,npts=1000):
+        '''Correction for density due to non-physical overlaps
+
+        .. note::
+
+            See Equation 28 in Reference 1 for more details.
+
+        Arguments
+        ---------
+        npts: int
+            number of points to use in numerical integral 
+        '''
+        
+        r = np.linspace(0.0001,self.sigma,npts)
+        integral = np.trapz(self.density_correction_kernel(r),r)
+        delta_N = integral/(self.length*np.pi*self.sigma**3.0/6.0)
+
+        return delta_N
+
     def __repr__(self):
         return '<Omega: Koyama>'
     
@@ -181,7 +278,7 @@ class DiscreteKoyama(Omega):
 
         Arguments
         ---------
-        k: np.ndarray
+        k: np.ndarray, float
             array of wavenumber values to caluclate :math:`\omega` at
         
         '''
@@ -195,4 +292,5 @@ class DiscreteKoyama(Omega):
         self.value += 1.0
         
         return self.value
+
 

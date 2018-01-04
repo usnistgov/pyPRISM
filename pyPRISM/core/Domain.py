@@ -49,11 +49,11 @@ class Domain(object):
 
         .. math::
 
-            \text{DST_II_coeffs} = 2 \pi r \Delta r
+            C^{DSTII} = 2 \pi r \Delta r
 
         .. math::
 
-            \text{DST_III_coeffs} = \frac{k \Delta k}{4 \pi^2}
+            C^{DSTIII} = \frac{k \Delta k}{4 \pi^2}
     
     
     **Description**

@@ -11,7 +11,6 @@ Submodules
 
 .. toctree::
 
-   pyPRISM.calculate.DK_density_correction
    pyPRISM.calculate.chi
    pyPRISM.calculate.pair_correlation
    pyPRISM.calculate.pmf

@@ -25,12 +25,13 @@ class FromFile(Omega):
 
         import pyPRISM
         import numpy as np
+        import matplotlib.pyplot as plt
 
         #Set type A omega(k) from a file
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         fileName = './test_example_filename.txt'
-	sys.omega['A','A']  = pyPRISM.omega.FromFile(fileName)
+        sys.omega['A','A']  = pyPRISM.omega.FromFile(fileName)
         x = sys.domain.k
         y = sys.omega['A','A'].calculate(x)
 

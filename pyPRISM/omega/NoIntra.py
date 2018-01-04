@@ -17,12 +17,13 @@ class NoIntra(Omega):
 
         import pyPRISM
         import numpy as np
+        import matplotlib.pyplot as plt
 
         #Set omega(k) for types A,B to have no intra-molecular
-	#correlations (sites A and B are never on the same molecule)
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
-	sys.omega['A','B']  = pyPRISM.omega.NoIntra()
+        #correlations (sites A and B are never on the same molecule)
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.omega['A','B']  = pyPRISM.omega.NoIntra()
         x = sys.domain.k
         y = sys.omega['A','B'].calculate(x)
 

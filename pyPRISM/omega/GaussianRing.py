@@ -28,11 +28,11 @@ class GaussianRing(Omega):
 
     **Description**
         
-        The Gaussian ring is an ideal model for a cyclic chain
-        that assumes a random walk between successive monomer
-        segments along the chain, constrained such that ends join
-        together to form a ring with no intra-molecular excluded
-        volume.
+    The Gaussian ring is an ideal model for a cyclic chain
+    that assumes a random walk between successive monomer
+    segments along the chain, constrained such that ends join
+    together to form a ring with no intra-molecular excluded
+    volume.
 
 
     References
@@ -61,10 +61,10 @@ class GaussianRing(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
-	
-	#Define a PRISM system and set omega(k) for type A
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+
+        #Define a PRISM system and set omega(k) for type A
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.omega['A','A']  = pyPRISM.omega.GaussianRing(sigma=1.0,length=100)
 
     
@@ -75,7 +75,7 @@ class GaussianRing(Omega):
         Arguments
         ---------
         sigma: float
-	    contact distance between sites (site diameter)        
+            contact distance between sites (site diameter)        
     
         length: float
             number of monomers/sites in gaussian ring

@@ -15,7 +15,7 @@ class Exponential(Potential):
 
     .. math::
 
-        U_{\alpha,\beta}(r \lt \sigma_{\alpha,\beta}) = \infty
+        U_{\alpha,\beta}(r < \sigma_{\alpha,\beta}) = \infty
 
     
     **Variable Definitions**

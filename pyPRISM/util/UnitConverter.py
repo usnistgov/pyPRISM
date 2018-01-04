@@ -9,7 +9,11 @@ class UnitConverter(object):
         pyPRISM operates in a system of reduced units commonly called 'Lennard
         Jones units'. In this unit system, all measures are reported relative
         to characteristic values: length = :math:`d_c`, mass = :math:`m_c`, and
-        `energy = :math:`e_c`. See the pyPRISM_tutorial for a more detailed
+        energy = :math:`e_c`. This class is designed to make some common
+        conversions between reduced and real units easier.
+        
+        See the Theory.General notebook of the `pyPRISM tutorial
+        <https://github.com/usnistgov/pyPRISM_tutorial>`_ for a more detailed
         discussion of these units.
 
     .. note::
@@ -19,11 +23,10 @@ class UnitConverter(object):
 
     .. warning::
 
-        This class uses the `Pint <pint.readthedocs.io>`_ package. While the
+        This class uses the `Pint <https://pint.readthedocs.io>`_ package. While the
         rest of pyPRISM will function without Pint, this class will not be
         available without this dependency installed in the current environment. 
 
-    
     
     Example
     -------

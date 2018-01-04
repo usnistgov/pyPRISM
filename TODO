@@ -9,6 +9,8 @@ New Closures
 New Omegas
 - RIS Om
 
+Better initial guess for solver
+
 New Potentials
 - Coulombic 
 - Colloid Lennard Jones 
@@ -25,13 +27,6 @@ New Calculations
 
 
 General Features
-- units helper
-- Density Class
-    - top level getitem is relayed to density ValueTable
-    - pairdensity + sitedensity valuetable
-    - pairdensity + sitedensity matrix
-    - total density
-    - volume fractions
 - Domain Upscaling utility
 - extrapolation utility
     - this would be used for getting low K
@@ -41,10 +36,6 @@ General Features
     - physical parameter checks
 - Utility for saving and reading matrixarrays and tables from disk
 
-Examples
-    - Overall Cleanup
-    - Omega example
-    - 
 
 Docs
     Overall philosophy
