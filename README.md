@@ -8,16 +8,35 @@
     <img src='https://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
 </a></p>
 <p>
-Polymer reference interaction site model (PRISM) theory describes the correlations of liquid-like polymer systems including melts, blends, solutions, and composites. Using PRISM theory, one can calculate thermodynamic (second virial coefficient,  interaction parameters, potential of mean force) and structural (pair correlation functions, structure factor) descriptors with either little to no use of mean-field assumptions. Unlike computationally expensive molecular dynamics or Monte Carlo simulations, PRISM theory can be numerically solved in seconds or minutes and doesn’t suffer from finite-size effects. Here, we present a Python-based, open-source framework for conducting PRISM theory calculations: pyPRISM aims to simplify PRISM-based studies by providing a simplified scripting interface for numerically solving the PRISM equations. pyPRISM also provides data structures that simplify PRISM calculations which allows it to be extended for use in non-prediction tasks such as for coarse-graining of atomistic simulation force-fields or the modeling of experimental scattering data. The goal of providing this framework is to reduce the barrier to accurately using PRISM theory for experts and non-experts alike and provide a platform for future PRISM and liquid-state theory innovations. 
+Polymer reference interaction site model (PRISM) theory describes the
+correlations of liquid-like polymer systems including melts, blends, solutions,
+and composites. Using PRISM theory, one can calculate thermodynamic (second
+virial coefficient,  interaction parameters, potential of mean force) and
+structural (pair correlation functions, structure factor) descriptors with
+either little to no use of mean-field assumptions. Unlike computationally
+expensive molecular dynamics or Monte Carlo simulations, PRISM theory can be
+numerically solved in seconds or minutes and doesn’t suffer from finite-size
+effects. Here, we present a Python-based, open-source framework for conducting
+PRISM theory calculations: pyPRISM aims to simplify PRISM-based studies by
+providing a simplified scripting interface for numerically solving the PRISM
+equations. pyPRISM also provides data structures that simplify PRISM
+calculations which allows it to be extended for use in non-prediction tasks
+such as for coarse-graining of atomistic simulation force-fields or the
+modeling of experimental scattering data. The goal of providing this framework
+is to reduce the barrier to accurately using PRISM theory for experts and
+non-experts alike and provide a platform for future PRISM and liquid-state
+theory innovations. 
 </p>
 
 <p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
 1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
-pyPRISM: A Computational Tool for Liquid State Theory Calculations of
-Macromolecular Materials (to be submitted)
+   pyPRISM: A Computational Tool for Liquid State Theory Calculations of
+   Macromolecular Materials (to be submitted)
 
-2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi: http://dx.doi.org/10.1103/PhysRevLett.58.246
+2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF
+   POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi:
+   http://dx.doi.org/10.1103/PhysRevLett.58.246
 
 
 Example
@@ -91,10 +110,10 @@ These depedencies are needed to compile the documentation from source
 
 Quick Install
 =============
-The commands below shoul install pyPRISM with all basic dependences via conda or pip. These commands
-should be platform agnostic and work for Unix, OSX, and Windows *if* you have
-Anaconda or pip correctly installed.  For full installation instructions please
-see the documentation. 
+The commands below shoul install pyPRISM with all basic dependences via conda
+or pip. These commands should be platform agnostic and work for Unix, OSX, and
+Windows *if* you have Anaconda or pip correctly installed.  For full
+installation instructions please see the documentation. 
 
 ``` bash
 $ conda install pyPRISM
