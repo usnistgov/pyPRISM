@@ -1,0 +1,5 @@
+#!/bin/bash 
+PYPRISMPATH=$(pwd -P)
+PYPRISMPATH=${PYPRISMPATH%/env}
+echo '--> Prepending the PYTHONPATH:' ${PYPRISMPATH}
+export PYTHONPATH=${PYPRISMPATH}:${PYTHONPATH}

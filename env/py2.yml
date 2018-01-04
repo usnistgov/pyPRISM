@@ -1,0 +1,14 @@
+name: pyPRISM_py2
+channels:
+  - conda-forge 
+  - defaults
+dependencies:
+  - python =2
+  - numpy
+  - scipy
+  - jupyter
+  - matplotlib
+  - bokeh
+  - holoviews
+  - pandas 
+  - pint

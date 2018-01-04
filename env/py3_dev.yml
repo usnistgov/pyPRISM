@@ -1,0 +1,23 @@
+name: pyPRISM_py3_dev
+channels:
+  - conda-forge 
+  - defaults
+dependencies:
+  - python =3
+  - numpy
+  - scipy
+  - cython 
+  - jupyter
+  - matplotlib
+  - bokeh
+  - holoviews
+  - pandas 
+  - pandas-datareader
+  - snakeviz
+  - memory_profiler
+  - line_profiler
+  - sphinx
+  - sphinx-autobuild
+  - sphinx_rtd_theme
+  - graphviz
+  - pint

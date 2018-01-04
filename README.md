@@ -1,45 +1,71 @@
 <p align="center">
     <img src='./img/graphic.png' />
 </p>
-<h1 align="center">typyPRISM</h1>
-<p align="center"> <i>This codebase is in early stage development</i></p>
+<h1 align="center">pyPRISM</h1>
+<p align="center"> <img src='http://pyprism.readthedocs.io/en/latest/?badge=latest' /> </p>
 <p>
-Polymer reference interaction site model (PRISM) theory describes the correlations of liquid-like polymer systems including melts, blends, solutions, and composites. Using PRISM theory, one can calculate thermodynamic (second virial coefficient,  interaction parameters, potential of mean force) and structural (pair correlation functions, structure factor) descriptors with either little to no use of mean-field assumptions. Unlike computationally expensive molecular dynamics or Monte Carlo simulations, PRISM theory can be numerically solved in seconds or minutes and doesn’t suffer from finite-size effects. Here, we present a Python-based, open-source framework for conducting PRISM theory calculations: typyPRISM aims to simplify PRISM-based studies by providing a simplified scripting interface for numerically solving the PRISM equations. typyPRISM also provides data structures that simplify PRISM calculations which allows it to be extended for use in non-prediction tasks such as for coarse-graining of atomistic simulation force-fields or the modeling of experimental scattering data. The goal of providing this framework is to reduce the barrier to accurately using PRISM theory for experts and non-experts alike and provide a platform for future PRISM and liquid-state theory innovations. 
+Polymer reference interaction site model (PRISM) theory describes the
+correlations of liquid-like polymer systems including melts, blends, solutions,
+and composites. Using PRISM theory, one can calculate thermodynamic (second
+virial coefficient,  interaction parameters, potential of mean force) and
+structural (pair correlation functions, structure factor) descriptors with
+either little to no use of mean-field assumptions. Unlike computationally
+expensive molecular dynamics or Monte Carlo simulations, PRISM theory can be
+numerically solved in seconds or minutes and doesn’t suffer from finite-size
+effects. Here, we present a Python-based, open-source framework for conducting
+PRISM theory calculations: pyPRISM aims to simplify PRISM-based studies by
+providing a simplified scripting interface for numerically solving the PRISM
+equations. pyPRISM also provides data structures that simplify PRISM
+calculations which allows it to be extended for use in non-prediction tasks
+such as for coarse-graining of atomistic simulation force-fields or the
+modeling of experimental scattering data. The goal of providing this framework
+is to reduce the barrier to accurately using PRISM theory for experts and
+non-experts alike and provide a platform for future PRISM and liquid-state
+theory innovations. 
 </p>
 
-<p align="center"> <b>If you use typyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
+<p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
-1. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.; typyPRISM: A Computational Tool for Polymer Liquid State Theory Calculations (to be submitted)
+1. Martin, T.B.; Garter, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
+   pyPRISM: A Computational Tool for Liquid State Theory Calculations of
+   Macromolecular Materials (to be submitted)
 
-2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi: http://dx.doi.org/10.1103/PhysRevLett.58.246
+2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF
+   POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi:
+   http://dx.doi.org/10.1103/PhysRevLett.58.246
 
 
 Example
 =======
-Below is an example python script where we use typyPRISM to calculate the pair correlation functions for a
-nanocomposite (polymer + particle) with attractive polymer-particle interactions. Below the script is a plot
-of the pair correlation functions from this calculation.
+Below is an example python script where we use pyPRISM to calculate the pair
+correlation functions for a nanocomposite (polymer + particle) with attractive
+polymer-particle interactions. Below the script is a plot of the pair
+correlation functions from this calculation.
 
 ```python
-import typyPRISM
+import pyPRISM
+from pyPRISM.calculate.pair_correlation import pair_correlation
 
-sys = typyPRISM.System(['particle','polymer'],kT=1.0)
-sys.domain = typyPRISM.Domain(dr=0.01,length=4096)
+sys = pyPRISM.System(['particle','polymer'],kT=1.0)
+sys.domain = pyPRISM.Domain(dr=0.01,length=4096)
     
 sys.density['polymer']  = 0.75
 sys.density['particle'] = 6e-6
 
-sys.omega['polymer','polymer']   = typyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
-sys.omega['polymer','particle']  = typyPRISM.omega.InterMolecular()
-sys.omega['particle','particle'] = typyPRISM.omega.SingleSite()
+sys.diameter['polymer']  = 1.0
+sys.diameter['particle'] = 5.0
 
-sys.potential['polymer','polymer']   = typyPRISM.potential.HardSphere(sigma=1.0)
-sys.potential['polymer','particle']  = typyPRISM.potential.Exponential(sigma=3.0,alpha=0.5,epsilon=1.0)
-sys.potential['particle','particle'] = typyPRISM.potential.HardSphere(sigma=5.0)
+sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(length=100,l=4.0/3.0)
+sys.omega['polymer','particle']  = pyPRISM.omega.NoIntra()
+sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
 
-sys.closure['polymer','polymer']   = typyPRISM.closure.PercusYevick()
-sys.closure['polymer','particle']  = typyPRISM.closure.PercusYevick()
-sys.closure['particle','particle'] = typyPRISM.closure.HyperNettedChain()
+sys.potential['polymer','polymer']   = pyPRISM.potential.HardSphere(sigma=1.0)
+sys.potential['polymer','particle']  = pyPRISM.potential.Exponential(sigma=3.0,alpha=0.5,epsilon=1.0)
+sys.potential['particle','particle'] = pyPRISM.potential.HardSphere(sigma=5.0)
+
+sys.closure['polymer','polymer']   = pyPRISM.closure.PercusYevick()
+sys.closure['polymer','particle']  = pyPRISM.closure.PercusYevick()
+sys.closure['particle','particle'] = pyPRISM.closure.HyperNettedChain()
 
 PRISM = sys.createPRISM()
 
@@ -51,58 +77,58 @@ pcf = typyPRISM.calculate.prism.pair_correlation(PRISM)
     <img src='./img/plot.png' />
 </p>
 
-Installation
+Documentation
+=============
+Code documentation can be found [here](https://pyPRISM.readthedocs.io/). The most up to
+date code documentation can always be found by compiling from source. 
+
+Depedencies
+===========
+The following are the minimum depedencies needed to use pyPRISM:
+
+    - Python 2.6+ or 3+
+    - Numpy >= 1.8.0
+    - Scipy
+    - Cython (not currently but likely in future)
+
+These dependencies are needed to run the tutorial notebooks 
+    
+    - jupyter
+    - matplotlib
+    - bokeh
+    - holoviews
+
+These depedencies are needed to compile the documentation from source
+    
+    - sphinx
+    - sphinx-autobuild
+    - sphinx_rtd_theme
+
+
+Quick Install
+=============
+The commands below shoul install pyPRISM with all basic dependences via conda or pip. These commands
+should be platform agnostic and work for Unix, OSX, and Windows *if* you have
+Anaconda or pip correctly installed.  For full installation instructions please
+see the documentation. 
+
+``` bash
+$ conda install pyPRISM
+```
+
+or
+
+``` bash
+$ pip install pyPRISM
+```
+
+Contact Us
 ============
+- Dr. Tyler Martin, NIST, [GitHub](https://github.com/martintb),
+                          [Webpage](https://www.nist.gov/people/tyler-martin)
+- Mr. Thomas Gartner, University of Delaware, [GitHub](https://github.com/tgartner)
+- Dr. Ron Jones, NIST, [Webpage](https://www.nist.gov/people/ronald-l-jones)
+- Dr. Chad Snyder, NIST,[Webpage](https://www.nist.gov/people/chad-r-snyder)
+- Prof. Arthi Jayaraman, University of Delaware, [Webpage](https://udel.edu/~arthij)
 
-Dependencies
-------------
-- Python 2.6+ or 3+
-- Numpy >= 1.8.0
-    - Need support for linear algebra on stacked arrays
-- Scipy
-- Cython (not currently but likely in future)
 
-Dependency Option 1: Anaconda 
-------------------------------
-The easiest way to get an environment set up installing it using the 
-``environment2.yml``  or ``environment3.yml`` we have provided for a python2 or
-python3 based environment. We recommend the python3 version. If you
-don't already have it, install [conda](https://www.continuum.io/downloads),
-and then create the ``typyPRISM3`` environment by executing::
-```
-   > conda env create -f environment3.yml
-```
-When installation is complete you must activate the environment. If you
-are on Windows:
-```
-   > activate typyPRISM3
-```
-If you are using OSX/Linux:
-```
-   $ source activate typyPRISM3
-```
-
-Later, when you are ready to exit the environment after the tutorial, you can type:
-```
-   > deactivate
-```
-
-If for some reason you want to remove the environment entirely, you can do so by writing:
-```
-   > conda env remove --name typyPRISM3 
-```
-Note that an environment which satisfies the above dependencies must be **active** every time
-you wish to use typyPRISM. If you open a new terminal, you will have to reactivate the conda
-environment before running a script or starting jupyter notebook.
-
-Dependency Option 2: Manual 
----------------------------
-Install the above depedencies manually or via pip.
-
-Install
---------
-After the depdendencies are satisfied and/or the conda environment is created and activated,
-typyPRISM can be installed by running:
-```
-    > python setup.py install
-```
