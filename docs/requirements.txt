@@ -1,0 +1,6 @@
+numpy >= 1.8.0
+scipy
+sphinx
+sphinx-autobuild
+sphinx_rtd_theme
+pint

@@ -30,7 +30,7 @@ theory innovations.
 
 <p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
-1. Martin, T.B.; Garter, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
+1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
    pyPRISM: A Computational Tool for Liquid State Theory Calculations of
    Macromolecular Materials (to be submitted)
 
@@ -111,10 +111,10 @@ These depedencies are needed to compile the documentation from source
 
 Quick Install
 =============
-The commands below shoul install pyPRISM with all basic dependences via conda or pip. These commands
-should be platform agnostic and work for Unix, OSX, and Windows *if* you have
-Anaconda or pip correctly installed.  For full installation instructions please
-see the documentation. 
+The commands below shoul install pyPRISM with all basic dependences via conda
+or pip. These commands should be platform agnostic and work for Unix, OSX, and
+Windows *if* you have Anaconda or pip correctly installed.  For full
+installation instructions please see the documentation. 
 
 ``` bash
 $ conda install pyPRISM
