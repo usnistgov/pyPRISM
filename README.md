@@ -167,7 +167,7 @@ Legal
 
 NIST Disclaimer
 ---------------
-Any identification of commercial or open-source software in these notebooks is
+Any identification of commercial or open-source software in this document is
 done so purely in order to specify the methodology adequately. Such
 identification is not intended to imply recommendation or endorsement by the
 National Institute of Standards and Technology, nor is it intended to imply
