@@ -49,10 +49,10 @@ webpage
 <https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb>`_
 using the nbviewer feature on the Jupyter website. The benefit of using a live
 Jupyter notebook is that users are able to edit and run real pyPRISM code while
-the static website provide a rapid and setup-free way to survey the codebase. 
+the static website provides a rapid and setup-free way to survey the codebase. 
 
 The tutorial not only teaches users how to use pyPRISM, but also covers the
-basics PRISM theory, provide a basic introduction to Python, Jupyter, and some
+basics PRISM theory, provides a basic introduction to Python, Jupyter, and some
 related theoretical concepts. These non-codebase related topics are not covered
 in detail in this documentation. The tutorial also goes over several case
 studies from the literature and how pyPRISM can be used to reproduce data from
@@ -69,3 +69,39 @@ Contents
    faq
    convergence
    contribute
+
+Legal
+=====
+
+NIST Disclaimer
+---------------
+Any identification of commercial or open-source software in this document is
+done so purely in order to specify the methodology adequately. Such
+identification is not intended to imply recommendation or endorsement by the
+National Institute of Standards and Technology, nor is it intended to imply
+that the softwares identified are necessarily the best available for the
+purpose.
+
+NIST License
+------------
+This software was developed by employees of the National Institute of Standards
+and Technology (NIST), an agency of the Federal Government. Pursuant to title
+17 United States Code Section 105, works of NIST employees are not subject to
+copyright protection in the United States and are considered to be in the
+public domain. Permission to freely use, copy, modify, and distribute this
+software and its documentation without fee is hereby granted, provided that
+this notice and disclaimer of warranty appears in all copies.  
+
+THE SOFTWARE IS PROVIDED 'AS IS' WITHOUT ANY WARRANTY OF ANY KIND, EITHER
+EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY
+THAT THE SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND FREEDOM FROM
+INFRINGEMENT, AND ANY WARRANTY THAT THE DOCUMENTATION WILL CONFORM TO THE
+SOFTWARE, OR ANY WARRANTY THAT THE SOFTWARE WILL BE ERROR FREE. IN NO EVENT
+SHALL NIST BE LIABLE FOR ANY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DIRECT,
+INDIRECT, SPECIAL OR CONSEQUENTIAL DAMAGES, ARISING OUT OF, RESULTING FROM, OR
+IN ANY WAY CONNECTED WITH THIS SOFTWARE, WHETHER OR NOT BASED UPON WARRANTY,
+CONTRACT, TORT, OR OTHERWISE, WHETHER OR NOT INJURY WAS SUSTAINED BY PERSONS OR
+PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
+OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
+

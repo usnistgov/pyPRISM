@@ -34,7 +34,7 @@ class PairTable(Table):
 
         import pyPRISM
 
-        PT = pyPRISM.ValueTable(['A','B','C'],name='potential')
+        PT = pyPRISM.PairTable(['A','B','C'],name='potential')
 
         # Set the 'A-A' pair
         PT['A','A']            = 'Lennard-Jones'
