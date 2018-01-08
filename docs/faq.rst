@@ -3,6 +3,10 @@
 Frequently Asked Questions
 ===========================
 
+Why can't I import pyPRISM?
+---------------------------
+See :ref:`install#troubleshooting`
+
 Can pyPRISM be used outside of Jupyter? 
 ---------------------------------------
 Of course! pyPRISM is a Python module and can be used in any Python
