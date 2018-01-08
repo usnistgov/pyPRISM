@@ -304,6 +304,8 @@ class MatrixArray(object):
             update the internal data.
         
         '''
+        if isinstance(other,MatrixArray):
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
         if inplace:
             self.data = np.einsum('lij,ljk->lik', self.data, other.data)
             return self
