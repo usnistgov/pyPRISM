@@ -28,6 +28,9 @@ or
 
 Manual Install 
 ==============
+If the above commands do not work, then you can install pyPRISM "manually".
+Step 1a shows how to rapidly install all of the dependecies via `conda` while
+Step 1b lists the depedencies so you can download and install manually. 
 
 Step 1a: Dependencies via Anaconda (Recommended)
 ------------------------------------------------
