@@ -66,10 +66,10 @@ class Gaussian(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
-	
-	#Define a PRISM system and set omega(k) for type A
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+
+        #Define a PRISM system and set omega(k) for type A
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.omega['A','A']  = pyPRISM.omega.Gaussian(sigma=1.0,length=100)
 
     

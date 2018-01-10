@@ -1,7 +1,5 @@
 *pyc
 *so
-typySim/*/cy/*cpp
-typySim/*/cy/*c
-typySim/*/cy/*html
+*\.c
 *swp
 .ipynb_checkpoints
