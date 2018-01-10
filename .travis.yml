@@ -1,9 +1,15 @@
 language: python
+
 python:
   - "2.7"
   - "3.5"
+
+branches:
+    only:
+        - master
+        - dev
 install:
-  - pip install . 
   - pip install -r requirements.txt
-# command to run tests
+  - pip install . 
+
 script: python -m pytest tests --verbose
