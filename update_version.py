@@ -1,7 +1,7 @@
 import subprocess,shlex
 
-default_version = 'v1.0.0'
-default_short_version = 'v1.0.0'
+default_version = '1.0.0'
+default_short_version = '1.0.0'
 
 def get_python_version():
   print('==> Attempting to get version from module...',)

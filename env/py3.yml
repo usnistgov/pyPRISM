@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python =3
   - numpy >= 1.8.0
+  - cython
   - scipy
   - jupyter
   - matplotlib

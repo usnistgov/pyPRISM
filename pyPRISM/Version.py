@@ -11,5 +11,5 @@ version: str
 short_version: str
     short-form version of codebase
 '''
-version = 'v1.0.0'
-short_version = 'v1.0'
+version = '1.0.0'
+short_version = '1.0'

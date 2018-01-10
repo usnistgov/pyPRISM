@@ -1,3 +1,4 @@
 include *.md doc/Makefile doc/build/conf.py
 recursive-include doc *.rst
-include update_version.py *yml examples/*
+include update_version.py env/*yml env/*sh
+include requirements.txt
