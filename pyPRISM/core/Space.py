@@ -1,7 +1,13 @@
 #!python
-from enum import Enum
+try:
+    from enum import Enum
+except ImportError:
+    parent = object
+else:
+    parent = Enum
 
-class Space(Enum):
+
+class Space(parent):
     ''' An enumeration to track which space an object is in
 
     MatrixArrays can represent data in Real- or Fourier- space and they can be
