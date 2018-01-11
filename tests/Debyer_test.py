@@ -35,7 +35,7 @@ class Debyer_TestCase(unittest.TestCase):
                                  box,
                                  selfHist)
 
-        k, omega_control = np.loadtxt('./tests/data/omega.1rod.dat')
+        k, omega_control = np.loadtxt('./data/omega.1rod.dat')
         np.testing.assert_array_almost_equal(omega,omega_control,decimal=3)
     def test_non_self_omega(self):
         '''Can we calculate a non-self omega?'''
@@ -61,7 +61,7 @@ class Debyer_TestCase(unittest.TestCase):
                                  box,
                                  selfHist)
 
-        k, omega_control = np.loadtxt('./tests/data/omega.2rod.dat')
+        k, omega_control = np.loadtxt('./data/omega.2rod.dat')
         np.testing.assert_array_almost_equal(omega,omega_control)
 
         
