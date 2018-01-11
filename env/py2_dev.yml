@@ -1,0 +1,24 @@
+name: pyPRISM_py2_dev
+channels:
+  - conda-forge 
+  - defaults
+dependencies:
+  - python =2
+  - numpy >= 1.8.0
+  - scipy
+  - cython 
+  - jupyter
+  - matplotlib
+  - bokeh
+  - holoviews
+  - pandas 
+  - pandas-datareader
+  - snakeviz
+  - memory_profiler
+  - line_profiler
+  - sphinx
+  - sphinx-autobuild
+  - sphinx_rtd_theme
+  - graphviz
+  - pint
+  - pytest

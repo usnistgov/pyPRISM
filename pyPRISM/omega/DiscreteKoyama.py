@@ -57,8 +57,8 @@ class DiscreteKoyama(Omega):
     ----------
     1. Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer.
        Local structure of semiflexible polymer melts
-       Macromolecules, 1990, 23 (14), pp 3496–3505
-    
+       Macromolecules, 1990, 23 (14), pp 3496-3505
+
     Example
     -------
     .. code-block:: python
