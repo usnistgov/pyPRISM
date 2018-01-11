@@ -4,10 +4,33 @@
 <h1 align="center">pyPRISM</h1>
 
 <p align="center"> 
+
+<a href='https://travis-ci.com/usnistgov/pyPRISM'>
+    <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=master' alt='Master Build Status' />
+</a>
+
+<a href='https://travis-ci.com/usnistgov/pyPRISM'>
+    <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=dev' alt='Dev Build Status' />
+</a>
+
 <a href='http://pyprism.readthedocs.io/en/latest/?badge=latest'>
-    <img src='https://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
-</a></p>
-<p>
+    <img src='http://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
+</a>
+
+<a href='https://github.com/usnistgov/pyprism'>
+    <img src='https://img.shields.io/badge/Release_Version-1.0.0-blue.svg' alt='Release Version' />
+</a>
+
+<a href='https://github.com/usnistgov/pyprism_tutorial'>
+    <img src='https://img.shields.io/badge/Jupyter_Tutorial--orange.svg' alt='Jupyter Tutorial' />
+</a>
+
+<a href='https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb'>
+    <img src='https://img.shields.io/badge/Online_Tutorial--orange.svg' alt='Online Tutorial' />
+</a>
+
+</p>
+
 Polymer reference interaction site model (PRISM) theory describes the
 correlations of liquid-like polymer systems including melts, blends, solutions,
 and composites. Using PRISM theory, one can calculate thermodynamic (second
@@ -83,13 +106,16 @@ pcf = typyPRISM.calculate.prism.pair_correlation(PRISM)
 
 Tutorial
 ========
-A companion [tutorial](https://github.com/usnistgov/pyPRISM_tutorial) to the
-documentation can be found on GitHub.  This tutorial can be used interactively
-in a live [Jupyter notebook](https://jupyter.org) or rendered as a [static
-webpage](https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb)
-using the nbviewer feature on the Jupyter website. The benefit of using a live
-Jupyter notebook is that users are able to edit and run real pyPRISM code while
-the static website provides a rapid and setup-free way to survey the codebase. 
+
+- [Jupyter Notebooks](https://github.com/usnistgov/pyPRISM_tutorial) 
+- [Static Website](https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb)
+
+A companion tutorial to the documentation can be found on GitHub.  This
+tutorial can be used interactively in a live Jupyter notebook or rendered as a
+static webpage using the nbviewer feature on the Jupyter website. The benefit
+of using a live Jupyter notebook is that users are able to edit and run real
+pyPRISM code while the static website provides a rapid and setup-free way to
+survey the codebase.  
 
 The tutorial not only teaches users how to use pyPRISM, but also covers the
 basics PRISM theory, provide a basic introduction to Python, Jupyter, and some
@@ -107,10 +133,14 @@ Depedencies
 ===========
 The following are the minimum depedencies needed to use pyPRISM:
 
-    - Python 2.6+ or 3+
+    - Python 2.7 or 3.5
     - Numpy >= 1.8.0
     - Scipy
-    - Cython (not currently but likely in future)
+
+These dependencies a
+
+    - Cython (simulation trajectory analyses)
+    - Pint (unit conversion utility)
 
 These dependencies are needed to run the tutorial notebooks 
     
