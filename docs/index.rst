@@ -32,24 +32,25 @@ theory innovations.
 **If you use pyPRISM in your work, you *must* cite both of the following articles**
 
     1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman,
-           A.; pyPRISM: A Computational Tool for Liquid State Theory
-           Calculations of Macromolecular Materials (to be submitted)
+       A.; pyPRISM: A Computational Tool for Liquid State Theory
+       Calculations of Macromolecular Materials (submitted)
 
     2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure
-           of Polymer Melts, Physical Review Letters, 1987, 58 (3) p246-249
-           doi:10.1103/PhysRevLett.58.246
+       of Polymer Melts, Physical Review Letters, 1987, 58 (3) p246-249
+       doi:10.1103/PhysRevLett.58.246
 
 Tutorial
 --------
 
-A companion `tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_ to the
-documentation can be found on GitHub. This tutorial can be used interactively
-in a live `Jupyter notebook <https://jupyter.org>`_ or rendered as a `static
-webpage
-<https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb>`_
-using the nbviewer feature on the Jupyter website. The benefit of using a live
-Jupyter notebook is that users are able to edit and run real pyPRISM code while
-the static website provides a rapid and setup-free way to survey the codebase. 
+- `Jupyter Notebooks <https://github.com/usnistgov/pyPRISM_tutorial>`_
+- `Static Website <https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb>`_
+
+A companion tutorial  to the documentation can be found on GitHub. This
+tutorial can be used interactively in a live Jupyter notebook  or rendered as a
+static webpage using the nbviewer feature on the Jupyter website. The benefit
+of using a live Jupyter notebook is that users are able to edit and run real
+pyPRISM code while the static website provides a rapid and setup-free way to
+survey the codebase. 
 
 The tutorial not only teaches users how to use pyPRISM, but also covers the
 basics PRISM theory, provides a basic introduction to Python, Jupyter, and some
@@ -57,6 +58,25 @@ related theoretical concepts. These non-codebase related topics are not covered
 in detail in this documentation. The tutorial also goes over several case
 studies from the literature and how pyPRISM can be used to reproduce data from
 these studies. 
+
+Contact Us
+==========
+- Dr. Tyler Martin, NIST, 
+    `GitHub <https://github.com/martintb>`_,
+    `Webpage <https://www.nist.gov/people/tyler-martin>`_,
+    `Scholar <https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en>`_
+- Mr. Thomas Gartner, University of Delaware, 
+    `GitHub <https://github.com/tgartner>`_,
+    `Scholar <https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en>`_
+- Dr. Ron Jones, NIST, 
+    `Webpage <https://www.nist.gov/people/ronald-l-jones>`_,
+    `Scholar <https://scholar.google.com/citations?user=TKAtIUIAAAAJ&hl=en>`_
+- Dr. Chad Snyder, NIST,
+    `Webpage <https://www.nist.gov/people/chad-r-snyder>`_,
+    `Scholar <https://scholar.google.com/citations?user=MMV7Bf8AAAAJ&hl=en>`_
+- Prof. Arthi Jayaraman, University of Delaware, 
+    `Webpage <https://udel.edu/~arthij>`_,
+    `Scholar <https://scholar.google.com/citations?user=FST4YmwAAAAJ>`_
 
 Contents
 --------

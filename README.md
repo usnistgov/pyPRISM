@@ -31,43 +31,44 @@
 
 </p>
 
-Polymer reference interaction site model (PRISM) theory describes the
-correlations of liquid-like polymer systems including melts, blends, solutions,
-and composites. Using PRISM theory, one can calculate thermodynamic (second
-virial coefficient,  interaction parameters, potential of mean force) and
-structural (pair correlation functions, structure factor) descriptors with
-either little to no use of mean-field assumptions. Unlike computationally
-expensive molecular dynamics or Monte Carlo simulations, PRISM theory can be
-numerically solved in seconds or minutes and doesn’t suffer from finite-size
-effects. Here, we present a Python-based, open-source framework for conducting
-PRISM theory calculations: pyPRISM aims to simplify PRISM-based studies by
-providing a simplified scripting interface for numerically solving the PRISM
-equations. pyPRISM also provides data structures that simplify PRISM
-calculations which allows it to be extended for use in non-prediction tasks
-such as for coarse-graining of atomistic simulation force-fields or the
-modeling of experimental scattering data. The goal of providing this framework
-is to reduce the barrier to accurately using PRISM theory for experts and
-non-experts alike and provide a platform for future PRISM and liquid-state
-theory innovations. 
+<p>
+Polymer Reference Interaction Site Model (PRISM) theory describes the
+equilibrium spatial-correlations of liquid-like polymer systems including
+melts, blends, solutions, block copolymers, ionomers, liquid crystal forming
+polymers and nanocomposites. Using PRISM theory, one can calculate
+thermodynamic (second virial coefficients, Flory-Huggins χ interaction
+parameters, potentials of mean force) and structural (pair correlation
+functions, structure factors) information for these macromolecular materials.
+PyPRISM is a Python-based, open-source framework for conducting
+PRISM theory calculations. This framework aims to simplify PRISM-based studies
+by providing a user-friendly scripting interface for setting up and numerically
+solving the PRISM equations. pyPRISM also provides data structures, functions,
+and classes that streamline PRISM calculations, allowing pyPRISM to be extended
+for use in other tasks such as the coarse-graining of atomistic simulation
+force-fields or the modeling of experimental scattering data. The goal of
+providing this framework is to reduce the barrier to correctly and
+appropriately using PRISM theory and to provide a platform for rapid
+calculations of the structure and thermodynamics of polymeric fluids and
+nanocomposites. 
 </p>
 
 <p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
 
 1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
    pyPRISM: A Computational Tool for Liquid State Theory Calculations of
-   Macromolecular Materials (to be submitted)
+   Macromolecular Materials (submitted)
 
-2. Schweizer, K.S.; Curro, J.G.; INTEGRAL EQUATION THEORY OF THE STRUCTURE OF
-   POLYMER MELTS, Physical Review Letters, 1987, 58 (3) p246-249 doi:
+2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure of
+   Polymer Melts, Physical Review Letters, 1987, 58 (3) p246-249 doi:
    http://dx.doi.org/10.1103/PhysRevLett.58.246
 
 
 Example
 =======
 Below is an example python script where we use pyPRISM to calculate the pair
-correlation functions for a nanocomposite (polymer + particle) with attractive
-polymer-particle interactions. Below the script is a plot of the pair
-correlation functions from this calculation.
+correlation functions for a nanocomposite (polymer + particle) system with
+attractive polymer-particle interactions. Below the script is a plot of the
+pair correlation functions from this calculation.
 
 ```python
 import pyPRISM
@@ -83,7 +84,7 @@ sys.diameter['polymer']  = 1.0
 sys.diameter['particle'] = 5.0
 
 sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(length=100,l=4.0/3.0)
-sys.omega['polymer','particle']  = pyPRISM.omega.NoIntra()
+sys.omega['polymer','particle']  = pyPRISM.omega.InterMolecular()
 sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
 
 sys.potential['polymer','polymer']   = pyPRISM.potential.HardSphere(sigma=1.0)
@@ -98,7 +99,7 @@ PRISM = sys.createPRISM()
 
 PRISM.solve()
 
-pcf = typyPRISM.calculate.prism.pair_correlation(PRISM)
+pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 ```
 <p align="center">
     <img src='./img/plot.png' />
@@ -126,7 +127,10 @@ these studies.
 
 Documentation
 =============
-Code documentation can be found [here](https://pyPRISM.readthedocs.io/). The most up to
+
+- [ReadTheDocs.io](https://pyPRISM.readthedocs.io/).
+
+Code documentation is hosted on ReadTheDocs.io. The most up to
 date code documentation can always be found by compiling from source. 
 
 Depedencies
