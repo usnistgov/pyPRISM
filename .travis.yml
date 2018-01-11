@@ -14,4 +14,4 @@ install:
 
 script: 
     - cd tests
-    - pytest --verbose
+    - python -m pytest --verbose
