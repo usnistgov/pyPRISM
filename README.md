@@ -128,7 +128,7 @@ these studies.
 Documentation
 =============
 
-- [ReadTheDocs.io](https://pyPRISM.readthedocs.io/).
+- [ReadTheDocs.io](https://pyPRISM.readthedocs.io/)
 
 Code documentation is hosted on ReadTheDocs.io. The most up to
 date code documentation can always be found by compiling from source. 
