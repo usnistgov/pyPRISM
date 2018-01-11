@@ -135,13 +135,13 @@ date code documentation can always be found by compiling from source.
 
 Depedencies
 ===========
-The following are the minimum depedencies needed to use pyPRISM:
+The following are the minimum depedencies needed to use pyPRISM
 
     - Python 2.7 or 3.5
     - Numpy >= 1.8.0
     - Scipy
 
-These dependencies a
+These dependencies are required for *optional* features
 
     - Cython (simulation trajectory analyses)
     - Pint (unit conversion utility)
