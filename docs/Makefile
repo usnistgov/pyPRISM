@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -j 6
 SPHINXBUILD   = python -msphinx
 SPHINXPROJ    = pyPRISM
 SOURCEDIR     = .
@@ -24,7 +24,17 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-buildapi:
-	sphinx-apidoc -fMeT ../pyPRISM -o api ../pyPRISM/test
+newapi:
+	sphinx-apidoc -MeT ../pyPRISM -o api
 		@echo "Auto-generation of API documentation finished. " \
 		"The generated files are in 'api/'"
+
+allapi:
+	rm api/*
+	sphinx-apidoc -fMeT ../pyPRISM -o api
+		@echo "Auto-generation of API documentation finished. " \
+		"The generated files are in 'api/'"
+	sed -i -e '/Submodules/,+1d' api/*
+	sed -i -e '/Subpackages/,+1d' api/*
+	sed -i -e 's/pyPRISM\ package/pyPRISM\ API/' api/pyPRISM.rst
+	sed -i -e 's/\(\s*\)\(pyPRISM\.calculate\)/\1pyPRISM\.core\n\1\2/' api/pyPRISM.rst

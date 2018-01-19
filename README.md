@@ -36,20 +36,19 @@ Polymer Reference Interaction Site Model (PRISM) theory describes the
 equilibrium spatial-correlations of liquid-like polymer systems including
 melts, blends, solutions, block copolymers, ionomers, liquid crystal forming
 polymers and nanocomposites. Using PRISM theory, one can calculate
-thermodynamic (second virial coefficients, Flory-Huggins χ interaction
-parameters, potentials of mean force) and structural (pair correlation
+thermodynamic (e.g., second virial coefficients, Flory-Huggins interaction
+parameters, potentials of mean force) and structural (eg., pair correlation
 functions, structure factors) information for these macromolecular materials.
-PyPRISM is a Python-based, open-source framework for conducting
-PRISM theory calculations. This framework aims to simplify PRISM-based studies
-by providing a user-friendly scripting interface for setting up and numerically
-solving the PRISM equations. pyPRISM also provides data structures, functions,
-and classes that streamline PRISM calculations, allowing pyPRISM to be extended
-for use in other tasks such as the coarse-graining of atomistic simulation
-force-fields or the modeling of experimental scattering data. The goal of
-providing this framework is to reduce the barrier to correctly and
-appropriately using PRISM theory and to provide a platform for rapid
-calculations of the structure and thermodynamics of polymeric fluids and
-nanocomposites. 
+pyPRISM is a Python-based, open-source framework for conducting PRISM theory
+calculations. This framework aims to simplify PRISM-based studies by providing
+a user-friendly scripting interface for setting up and numerically solving the
+PRISM equations. pyPRISM also provides data structures, functions, and classes
+that streamline PRISM calculations, allowing pyPRISM to be extended for use in
+other tasks such as the coarse-graining of atomistic simulation force-fields or
+the modeling of experimental scattering data. The goal of this framework is to
+reduce the barrier to correctly and appropriately using PRISM theory and to
+provide a platform for rapid calculations of the structure and thermodynamics
+of polymeric fluids and nanocomposites. 
 </p>
 
 <p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
@@ -102,7 +101,7 @@ PRISM.solve()
 pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 ```
 <p align="center">
-    <img src='./img/plot.png' />
+    <img src='./img/nanocomposite_rdf.png' />
 </p>
 
 Tutorial

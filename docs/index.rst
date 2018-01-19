@@ -10,24 +10,23 @@
 pyPRISM
 =======
 
-Polymer reference interaction site model (PRISM) theory describes the
-correlations of liquid-like polymer systems including melts, blends, solutions,
-and composites. Using PRISM theory, one can calculate thermodynamic (second
-virial coefficient,  interaction parameters, potential of mean force) and
-structural (pair correlation functions, structure factor) descriptors with
-either little to no use of mean-field assumptions. Unlike computationally
-expensive molecular dynamics or Monte Carlo simulations, PRISM theory can be
-numerically solved in seconds or minutes and does not suffer from finite-size
-effects. Here, we present a Python-based, open-source framework for conducting
-PRISM theory calculations: pyPRISM aims to simplify PRISM-based studies by
-providing a simplified scripting interface for numerically solving the PRISM
-equations. pyPRISM also provides data structures that simplify PRISM
-calculations which allows it to be extended for use in non-prediction tasks
-such as for coarse-graining of atomistic simulation force-fields or the
-modeling of experimental scattering data. The goal of providing this framework
-is to reduce the barrier to accurately using PRISM theory for experts and
-non-experts alike and provide a platform for future PRISM and liquid-state
-theory innovations. 
+Polymer Reference Interaction Site Model (PRISM) theory describes the
+equilibrium spatial-correlations of liquid-like polymer systems including
+melts, blends, solutions, block copolymers, ionomers, liquid crystal forming
+polymers and nanocomposites. Using PRISM theory, one can calculate
+thermodynamic (e.g., second virial coefficients, Flory-Huggins :math:`\chi` interaction
+parameters, potentials of mean force) and structural (eg., pair correlation
+functions, structure factors) information for these macromolecular materials.
+pyPRISM is a Python-based, open-source framework for conducting PRISM theory
+calculations. This framework aims to simplify PRISM-based studies by providing
+a user-friendly scripting interface for setting up and numerically solving the
+PRISM equations. pyPRISM also provides data structures, functions, and classes
+that streamline PRISM calculations, allowing pyPRISM to be extended for use in
+other tasks such as the coarse-graining of atomistic simulation force-fields or
+the modeling of experimental scattering data. The goal of this framework is to
+reduce the barrier to correctly and appropriately using PRISM theory and to
+provide a platform for rapid calculations of the structure and thermodynamics
+of polymeric fluids and nanocomposites. 
 
 **If you use pyPRISM in your work, you *must* cite both of the following articles**
 
@@ -36,47 +35,9 @@ theory innovations.
        Calculations of Macromolecular Materials (submitted)
 
     2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure
-       of Polymer Melts, Physical Review Letters, 1987, 58 (3) p246-249
+       of Polymer Melts, Physical Review Letters, 1987, 58 (3) 246-249
        doi:10.1103/PhysRevLett.58.246
 
-Tutorial
---------
-
-- `Jupyter Notebooks <https://github.com/usnistgov/pyPRISM_tutorial>`_
-- `Static Website <https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb>`_
-
-A companion tutorial  to the documentation can be found on GitHub. This
-tutorial can be used interactively in a live Jupyter notebook  or rendered as a
-static webpage using the nbviewer feature on the Jupyter website. The benefit
-of using a live Jupyter notebook is that users are able to edit and run real
-pyPRISM code while the static website provides a rapid and setup-free way to
-survey the codebase. 
-
-The tutorial not only teaches users how to use pyPRISM, but also covers the
-basics PRISM theory, provides a basic introduction to Python, Jupyter, and some
-related theoretical concepts. These non-codebase related topics are not covered
-in detail in this documentation. The tutorial also goes over several case
-studies from the literature and how pyPRISM can be used to reproduce data from
-these studies. 
-
-Contact Us
-==========
-- Dr. Tyler Martin, NIST, 
-    `GitHub <https://github.com/martintb>`_,
-    `Webpage <https://www.nist.gov/people/tyler-martin>`_,
-    `Scholar <https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en>`_
-- Mr. Thomas Gartner, University of Delaware, 
-    `GitHub <https://github.com/tgartner>`_,
-    `Scholar <https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en>`_
-- Dr. Ron Jones, NIST, 
-    `Webpage <https://www.nist.gov/people/ronald-l-jones>`_,
-    `Scholar <https://scholar.google.com/citations?user=TKAtIUIAAAAJ&hl=en>`_
-- Dr. Chad Snyder, NIST,
-    `Webpage <https://www.nist.gov/people/chad-r-snyder>`_,
-    `Scholar <https://scholar.google.com/citations?user=MMV7Bf8AAAAJ&hl=en>`_
-- Prof. Arthi Jayaraman, University of Delaware, 
-    `Webpage <https://udel.edu/~arthij>`_,
-    `Scholar <https://scholar.google.com/citations?user=FST4YmwAAAAJ>`_
 
 Contents
 --------
@@ -84,11 +45,15 @@ Contents
    :maxdepth: 2
 
    api/pyPRISM
-   install
+   install/install
    quickstart
+   tutorial
    faq
    convergence
    contribute
+   contact
+   legal
+
 
 Legal
 =====

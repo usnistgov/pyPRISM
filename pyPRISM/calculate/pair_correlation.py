@@ -36,7 +36,7 @@ def pair_correlation(PRISM):
 
         The pair correlation function describes the spatial correlations
         between pairs of sites in Real-space. Also known as the *radial
-        distribution function* (rdf) or "g of r", the :math:`g(r)` function is
+        distribution function* (rdf), the :math:`g(r)` function is
         related to the underlying spatial probability distributions of a given
         system.
 
@@ -67,7 +67,9 @@ def pair_correlation(PRISM):
 
         rdf = pyPRISM.calculate.pair_correlation(PRISM)
 
+        rdf_AA = rdf['A','A']
         rdf_AB = rdf['A','B']
+        rdf_BB = rdf['B','B']
     
     '''
     

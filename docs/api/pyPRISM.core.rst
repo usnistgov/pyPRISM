@@ -6,8 +6,6 @@ pyPRISM\.core package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
 
 .. toctree::
 

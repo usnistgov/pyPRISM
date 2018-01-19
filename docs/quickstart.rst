@@ -1,4 +1,4 @@
-.. _quicstart:
+.. _quickstart:
 
 Quickstart Guide
 ================

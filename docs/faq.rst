@@ -3,9 +3,52 @@
 Frequently Asked Questions
 ===========================
 
+What systems can be studied with PRISM?
+---------------------------------------
+- polymer melts/blends
+- olefinic and non-olefinic polymers
+- linear/branched/dendritic/sidechain polymers
+- copolymer melts/blends
+- polymer solutions
+- nanoparticle solutions
+- polymer nanocomposites
+- liquid crystals (anistropic formalism)
+- micelle Solutions
+- polyelectrolytes
+- rod-like polymers
+- flexible polymers
+- ionomers
+- ionic liquids
+
+What thermodynamic and structural quantities can PRISM calculate?
+-----------------------------------------------------------------
+- Second virial coefficients, :math:`B_2`
+- Flory effective interaction parameters, :math:`\chi^{eff}`
+- Potentials of mean force
+- Pair correlation functions (i.e. radial distribution functions)
+- Partial structure factors
+- Spinodal transition temperatures
+- Equations of state
+- Isothermal compressibilities
+
+For what systems is PRISM theory not applicable for?
+----------------------------------------------------
+- macrophase-separated systems
+- non-isotropic phases
+- systems with strong nematic ordering (without anistropic formalism)
+- calculating dynamic properties (e.g., diffusion coefficients, rheological properties)
+
+What are the benefits of using PRISM over other simulation or theory methods?
+-----------------------------------------------------------------------------
+- is orders of magnitude faster
+- typically takes seconds to minutes to solve equations
+- does not have finite size effects
+- does not need to be equilibrated
+- is mostly free of incompressibility assumptions
+
 Why can't I import pyPRISM?
 ---------------------------
-See :ref:`install#troubleshooting`
+See :ref:`trouble`
 
 Can pyPRISM be used outside of Jupyter? 
 ---------------------------------------
