@@ -32,13 +32,13 @@
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.inheritance_diagram',
-    'sphinx.ext.viewcode',
-    'nbsphinx']
+              'sphinx.ext.napoleon',
+              'sphinx.ext.todo',
+              'sphinx.ext.coverage',
+              'sphinx.ext.mathjax',
+              'sphinx.ext.inheritance_diagram',
+              'sphinx.ext.viewcode',
+              'nbsphinx']
 
 # Napoleon settings
 napoleon_google_docstring = True
