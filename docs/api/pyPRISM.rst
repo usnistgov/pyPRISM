@@ -1,5 +1,5 @@
-pyPRISM API
-===============
+API
+===
 
 .. automodule:: pyPRISM
     :members:

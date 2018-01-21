@@ -9,15 +9,20 @@ class WeeksChandlerAndersen(LennardJones):
     **Mathematical Definition**
     
     .. math::
-    
-        U_{\alpha,\beta}(r) = 4\epsilon_{\alpha,\beta}\big[\big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{12.0} - \big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{6.0}\big] + \epsilon_{\alpha,\beta}, r<r_{cut}
-    .. math::
    
-	U_{\alpha,\beta}(r) = 0.0, r \geq r_{cut}
+	U_{\alpha,\beta}(r)  =
+            \begin{cases}
+                4\epsilon_{\alpha,\beta}\left[\left(\frac{\sigma_{\alpha,\beta}}{r}\right)^{12.0}
+                - \left(\frac{\sigma_{\alpha,\beta}}{r}\right)^{6.0}\right] +
+                \epsilon_{\alpha,\beta} & r<r_{cut}
+
+                0.0      &  r \geq r_{cut} 
+            \end{cases}
 
     .. math::
     
 	r_{cut} = 2^{1/6}\sigma_{\alpha,\beta}    
+
     
     **Variable Definitions**
     

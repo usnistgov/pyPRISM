@@ -16,7 +16,7 @@ def spinodal_condition(PRISM,extrapolate=True):
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
-        If True, only return the value extrapolated to :math:`k=0` rather than
+        If *True*, only return the value extrapolated to :math:`k=0` rather than
         reporting the value at the lowest-k
     
     Returns
@@ -43,8 +43,8 @@ def spinodal_condition(PRISM,extrapolate=True):
             Intra-molecular correlation function between sites :math:`\alpha`
             and :math:`\beta` at a wavenumber :math:`k`
 
-        - :math:`\hat{h}_{\alpha,\beta}(k)`
-            Total correlation function between sites :math:`\alpha` and
+        - :math:`\hat{c}_{\alpha,\beta}(k)`
+            Direct correlation function between sites :math:`\alpha` and
             :math:`\beta` at a wavenumber :math:`k`
 
         - :math:`\rho^{site}_{\alpha,\beta}` 
@@ -54,10 +54,9 @@ def spinodal_condition(PRISM,extrapolate=True):
     **Description**
 
         The spinodal condition (:math:`\hat{\Lambda}_{\alpha,\beta}(k)`) can be
-        used to identify liquid-liquid phase separation between species
-        :math:`\alpha` and :math:`\beta` when 
-        :math:`\hat{\Lambda}_{\alpha,\beta}(k\rightarrow 0)=0` (i.e. when the
-        scattering intensity diverges as :math:`k\rightarrow 0`). 
+        used to identify liquid-liquid macrophase separation between site types
+        :math:`\alpha` and :math:`\beta` when
+        :math:`\hat{\Lambda}_{\alpha,\beta}(k\rightarrow 0)=0`
 
 
     .. warning::
@@ -69,9 +68,9 @@ def spinodal_condition(PRISM,extrapolate=True):
 
     References
     ----------
-    Schweizer, Curro, Thermodynamics of Polymer Blends,
-    J. Chem. Phys., 1989 91 (8) 5059
-    
+    #. Schweizer, Curro, Integral equation theory of the structure and
+       thermodynamics of polymer blends, J. Chem. Phys., 1989 91 (8) 5059 [`link
+       <https://doi.org/10.1063/1.457598>`__]
 
     Example
     -------

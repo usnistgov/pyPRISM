@@ -40,11 +40,12 @@ class Gaussian(Omega):
 
     References
     ----------
-    Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -
-    Intramolecular Structure, Local Order, and the Correlation Hole,
-    Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027
+    #. Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts
+       - Intramolecular Structure, Local Order, and the Correlation Hole,
+       Macromolecules, 1988, 21 (10), pp 3070
+       [`link <https://doi.org/10.1021/ma00188a027>`__]
 
-    Rubinstein, M; Colby, R.H; Polymer Physics. 2003. Oxford University Press.
+    #. Rubinstein, M; Colby, R.H; Polymer Physics. 2003. Oxford University Press.
 
     Example
     -------
@@ -60,7 +61,7 @@ class Gaussian(Omega):
         x = domain.k
         y = omega.calculate(x)
 
-        #plot it!
+        #plot using matplotlib
         plt.plot(x,y)
         plt.gca().set_xscale("log", nonposx='clip')
         plt.gca().set_yscale("log", nonposy='clip')

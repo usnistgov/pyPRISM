@@ -22,7 +22,7 @@ def chi(PRISM,extrapolate=True):
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
-        If True, only return the chi value extrapolated to :math:`k=0` rather
+        If *True*, only return the chi value extrapolated to :math:`k=0` rather
         than returning :math:`\chi(k)`
     
     Returns

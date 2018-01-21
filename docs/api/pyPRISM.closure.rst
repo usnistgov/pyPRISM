@@ -16,5 +16,4 @@ pyPRISM\.closure package
    pyPRISM.closure.MeanSphericalApproximation
    pyPRISM.closure.MolecularClosure
    pyPRISM.closure.PercusYevick
-   pyPRISM.closure.ReferenceMolecularPercusYevick
 

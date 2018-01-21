@@ -23,3 +23,4 @@ dependencies:
   - graphviz
   - pint
   - pytest
+  - pandoc =1.19.2

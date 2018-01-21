@@ -7,7 +7,6 @@ class AtomicClosure:
     Note
     ----
     Currently, this class doesn't do anything besides group all of the
-    *atomic* closures under a single inheritance heirarchy. This will 
-    change as needs arise.
+    *atomic* closures under a single inheritance heirarchy. 
     '''
         

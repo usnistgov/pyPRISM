@@ -26,7 +26,8 @@ class PairTable(Table):
         is that, for each type, it can contain any arbitrary number, string, or
         Python object. 
 
-        See the example below and the pyPRISM tutorial for more information.
+        See the example below and the `pyPRISM Internals` section of the
+        :ref:`tutorial` for more information.
 
     Example
     -------
@@ -80,7 +81,7 @@ class PairTable(Table):
         ----------
         types: list
             Lists of the types that will be used to key the PairTable. The length of this
-            list should be equal to the rank of the PRISM problem to be solved i.e. 
+            list should be equal to the rank of the PRISM problem to be solved, i.e. 
             len(types) == number of sites in system
             
         name: string
@@ -88,7 +89,7 @@ class PairTable(Table):
             the table internally. 
         
         symmetric: bool
-            If True, the table will automatically set both off-diagonal values during
+            If *True*, the table will automatically set both off-diagonal values during
             assignment e.g. PT['A','B'] = 5 will set 'A-B' and 'B-A'
         '''
         self.types = types
@@ -141,10 +142,10 @@ class PairTable(Table):
         Parameters
         ----------
         full: bool
-            If True, all i,j pairs (upper and lower diagonal) will be looped over
+            If *True*, all i,j pairs (upper and lower diagonal) will be looped over
             
         diagonal: bool
-            If True, the i==j (on-diagonal) pairs will be considered when looping
+            If *True*, only the i==j (on-diagonal) pairs will be considered when looping
         
         '''
         
@@ -200,13 +201,16 @@ class PairTable(Table):
             MA[t1,t2] = val
         return MA
     
-    def apply(self,funk,inplace=True):
+    def apply(self,func,inplace=True):
         '''Apply a function to all elements in the table in place
         
         Parameters
         ----------
-        funk: any object with __call__ method
+        func: any object with __call__ method
             function to be called on all table elements
+
+        inplace: bool
+            If *True*, apply modifications to self. Otherwise, create a new PairTable.
         
         '''
         if inplace:
@@ -215,7 +219,7 @@ class PairTable(Table):
             table = PairTable(types=self.types,name=self.name,symmetric=self.symmetric)
             
         for i,(t1,t2),val in self.iterpairs():
-            table[t1,t2] = funk(val)
+            table[t1,t2] = func(val)
             
         return table
         

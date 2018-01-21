@@ -4,14 +4,16 @@ from pyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 import warnings
 class MartynovSarkisov(AtomicClosure):
-    r'''MartynovSarkisov closure written in terms of a change of variables
+    r'''MartynovSarkisov closure 
     
 
     **Mathematial Definition**
 
         .. math::
 
-            c_{\alpha,\beta}(r) = (exp(\sqrt{\gamma_{\alpha,\beta}(r) - U_{\alpha,\beta}(r) - 0.5}) - 1.0 ) - 1.0 -  \gamma_{\alpha,\beta}(r)
+            c_{\alpha,\beta}(r) = \left(\exp\left(\sqrt{\gamma_{\alpha,\beta}(r) - U_{\alpha,\beta}(r) - 0.5}\right) - 1.0 \right) - 1.0 -  \gamma_{\alpha,\beta}(r)
+
+        .. math::
             
             \gamma_{\alpha,\beta}(r) =  h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)
 
@@ -48,9 +50,11 @@ class MartynovSarkisov(AtomicClosure):
     
     References
     ----------
-        Martynov, G.A.; Sarkisov, G.N.; Mol. Phys. 49. 1495 (1983)
+    #. Martynov, G.A.; Sarkisov, G.N.; Mol. Phys. 49. 1495 (1983)
+       [`link <https://doi.org/10.1080/00268978300102111>`__]
 
-        Yethiraj, A.; Schweizer, K.S.; J. Chem. Phys. 97. 1455 (1992)
+    #. Yethiraj, A.; Schweizer, K.S.; J. Chem. Phys. 97. 1455 (1992)
+       [`link <https://doi.org/10.1063/1.464465>`__]
 
     Example
     -------
@@ -77,7 +81,7 @@ class MartynovSarkisov(AtomicClosure):
         Parameters
         ----------
         apply_hard_core: bool
-            If True, the total correlation function will be assumed to be -1
+            If *True*, the total correlation function will be assumed to be -1
             inside the core (:math:`r_{i,j}<(d_i + d_j)/2.0`) and the closure
             will not be applied in this region.
         '''
@@ -91,7 +95,7 @@ class MartynovSarkisov(AtomicClosure):
                     when the hard core condition is not manually applied. This
                     will likely result in a cryptic crash of the simulation if
                     attempted. Using MartynovSarkisov(apply_hard_core=True) will avoid this
-                    warning. This warning should be ignored in hard-core
+                    warning. This warning should be ignored if hard-core
                     interactions are not being used.'''
                     )
         

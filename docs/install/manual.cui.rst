@@ -1,13 +1,24 @@
 Manual Command-Line Install
 ===========================
-If the quick-install commands do not work, then you can install pyPRISM "manually".
-Step 1a shows how to rapidly install all of the dependecies via `conda` while
-Step 1b lists the depedencies so you can download and install manually. 
+If the quick-install commands do not work, then you can install pyPRISM
+"manually". After downloading the repository from `GitHub
+<https://github.com/usnistgov/pyprism/>`__, follow the steps below. 
+
+.. note::
+
+    Unless specified explicitly, the command below should work for Linux, OSX,
+    and Windows. 
+
+.. note::
+    
+    For windows users, please ensure you are using the Anaconda command prompt.
+    This can be found by opening the Start menu and searching for Anaconda. 
+
 
 Step 1: Dependencies via Anaconda
 ---------------------------------
-The easiest way to get an environment set up installing it using the
-``env/py2.yml``  or ``env/py3.yml`` we have provided for a python2 or
+The easiest way to get an environment set up is by using the ``env/py2.yml``
+or ``env/py3.yml`` we have provided for a python2 or
 python3 based environment. We recommend the python3 version. If you don't
 already have it, install `conda <https://www.continuum.io/downloads>`_. Note that
 all of the below instructions can be executed via the anaconda-navigator GUI. To
@@ -37,8 +48,7 @@ When installation is complete you must activate the environment.
 
    (OSX/Linux) $ source activate pyPRISM_py3
 
-Later, when you are ready to exit the environment after the tutorial, you can
-type:
+Later, when you are ready to exit the environment, you can type:
 
 .. code-block:: bash
 

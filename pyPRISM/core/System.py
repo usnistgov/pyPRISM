@@ -43,7 +43,7 @@ class System:
         sys.potential[sys.types,sys.types] = pyPRISM.potential.HardSphere()
         
         sys.omega['A','A'] = pyPRISM.omega.SingleSite()
-        sys.omega['A','B'] = pyPRISM.omega.NoIntra()
+        sys.omega['A','B'] = pyPRISM.omega.InterMolecular()
         sys.omega['B','B'] = pyPRISM.omega.Gaussian(sigma=1.0,length=10000)
         
         PRISM = sys.createPRISM()
@@ -59,9 +59,9 @@ class System:
             Lists of the site types that define the system
 
         kT: float
-            Thermal temperature where k is the Boltzmann constant and T
-            temperature. This is typicaly specified in reduced units where
-            :math:`k_{B}=1.0`.
+            Thermal temperature where :math:`k` is the Boltzmann constant and
+            :math:`T` temperature. This is typicaly specified in reduced units
+            where :math:`k_{B}=1.0`.
 
 
         Attributes
@@ -72,30 +72,34 @@ class System:
         rank: int
             Number of site types
         
-        density: pyPRISM.Density
+        density: :class:`pyPRISM.core.Density`
             Container for all density values
             
-        potential: pyPRISM.PairTable
+        potential: :class:`pyPRISM.core.PairTable`
             Table of pair potentials between all site pairs in real space
             
-        closure: pyPRISM.PairTable
+        closure: :class:`pyPRISM.core.PairTable`
             Table of closures between all site pairs
             
-        omega: pyPRISM.PairTable
-            Table of omega correlation functions in k-space
+        omega: :class:`pyPRISM.core.PairTable`
+            Table of omega correlation functions in Fourier-space
         
-        domain: pyPRISM.Domain
+        domain: :class:`pyPRISM.core.Domain`
             Domain object which specifies the Real and Fourier space 
             solution grid.
             
         kT: float
-            Value of the thermal energy scale. Used to vary temperature and
+            Value of the thermal energy level. Used to vary temperature and
             scale the potential energy functions.
 
-        diameter: pyPRISM.ValueTable
-            Site diameters. Note that these are not passed to potentials and it
-            is up to the user to set sane \sigma values that match these 
-            diameters. 
+        diameter: :class:`pyPRISM.core.ValueTable`
+            Site diameters. 
+
+            .. warning::
+            
+                These diameters are currently only passed to the closures. They
+                are not passed to potentials and it is up to the user to set
+                sane \sigma values that match these diameters. 
         '''
 
         self.types = types
@@ -124,7 +128,18 @@ class System:
             raise ValueError(('System has no domain! '
                               'User must instatiate and assign a domain to the system!'))
     def createPRISM(self):
-        '''Construct a fully specified PRISM object that can be solved'''
+        '''Construct a PRISM object
+
+        .. note::
+
+            This method calls :func:`~pyPRISM.core.System.System.check` before creating the PRISM object.
+
+        Returns
+        -------
+        PRISM: pyPRISM.core.PRISM
+            Fully specified PRISM object
+            
+        '''
         self.check() #sanity check
         
         return PRISM(self)

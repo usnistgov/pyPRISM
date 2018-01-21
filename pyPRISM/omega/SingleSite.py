@@ -17,15 +17,14 @@ class SingleSite(Omega):
         import pyPRISM
         import numpy as np
 
-        #Set omega(k) for type A to 1 (single spherical site per
-        #molecule
+        #set omega(k) for type A to 1 (single spherical site per molecule)
 	sys = pyPRISM.System(['A','B'],kT=1.0)
 	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
 	sys.omega['A','A']  = pyPRISM.omega.SingleSite()
         x = sys.domain.k
         y = sys.omega['A','A'].calculate(x)
 
-        #plot it!
+        #plot using matplotlib
         plt.plot(x,y)
         plt.gca().set_xscale("log", nonposx='clip')
         plt.gca().set_yscale("log", nonposy='clip')

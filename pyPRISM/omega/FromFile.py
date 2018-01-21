@@ -27,7 +27,7 @@ class FromFile(Omega):
         import numpy as np
         import matplotlib.pyplot as plt
 
-        #Set type A omega(k) from a file
+        #set type A omega(k) from a file
         sys = pyPRISM.System(['A','B'],kT=1.0)
         sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         fileName = './test_example_filename.txt'
@@ -35,7 +35,7 @@ class FromFile(Omega):
         x = sys.domain.k
         y = sys.omega['A','A'].calculate(x)
 
-        #plot it!
+        #plot using matplotlib
         plt.plot(x,y)
         plt.gca().set_xscale("log", nonposx='clip')
         plt.gca().set_yscale("log", nonposy='clip')

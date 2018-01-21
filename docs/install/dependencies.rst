@@ -19,6 +19,7 @@ These additional depedencies are needed to compile the documentation from source
     - sphinx
     - sphinx-autobuild
     - sphinx_rtd_theme
+    - pandoc <= 1.19.2
 
 All of these dependecies can be satisfied by creating a conda environment using
 the .yml files in source distribution. Note that we provide multiple

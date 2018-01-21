@@ -16,15 +16,15 @@ class DiscreteKoyama(Omega):
 
     .. math::
          
-         A^2 = \frac{<r_{\alpha,\beta}^2>(1-C)}{6} 
+         A^2 = \frac{\langle r_{\alpha,\beta}^2 \rangle (1-C)}{6} 
 	
     .. math::
          
-         B^2 =  C<r_{\alpha,\beta}^2> 
+         B^2 =  C \langle r_{\alpha,\beta}^2 \rangle  
     
     .. math::
          
-         C^2 =  \frac{1}{2}(5-3\frac{<r_{\alpha,\beta}^4>}{<r_{\alpha,\beta}^2>})
+         C^2 =  \frac{1}{2}\left(5-3\frac{ \langle r_{\alpha,\beta}^4 \rangle}{ \langle r_{\alpha,\beta}^2 \rangle}\right)
 
 
     **Variable Definitions**
@@ -32,12 +32,12 @@ class DiscreteKoyama(Omega):
 	- :math:`\hat{\omega}(k)` 
             *intra*-molecular correlation function at wavenumber :math:`k`
 
-        - :math:`<r_{\alpha,\beta}^2>`
+        - :math:`\langle r_{\alpha,\beta}^2 \rangle`
             second moment of the distance distribution between sites 
 	    :math:`\alpha` and :math:`\beta`. Please see equation (17)
 	    of the reference cited below for the mathematical representation.       
  
-	- :math:`<r_{\alpha,\beta}^4>`
+	- :math:`\langle r_{\alpha,\beta}^4 \rangle`
             fourth moment of the distance distribution between sites 
 	    :math:`\alpha` and :math:`\beta`. Please see equations (18-24)
 	    of the reference cited below for the mathematical representation.       
@@ -55,9 +55,10 @@ class DiscreteKoyama(Omega):
     
     References
     ----------
-    1. Kevin G. Honnell, John G. Curro, Kenneth S. Schweizer.
-       Local structure of semiflexible polymer melts
-       Macromolecules, 1990, 23 (14), pp 3496-3505
+    #. Honnell, K.G., J.G. Curro, and K.S. Schweizer, LOCAL-STRUCTURE OF
+       SEMIFLEXIBLE POLYMER MELTS. Macromolecules, 1990. 23(14): p. 3496-3505.
+       [`link <https://doi.org/10.1021/ma00216a018>`__]
+
 
     Example
     -------
@@ -73,14 +74,14 @@ class DiscreteKoyama(Omega):
         x = domain.k
         y = omega.calculate(x)
         
-        #plot it!
+        #plot the results using matplotlib
         plt.plot(x,y)
         plt.gca().set_xscale("log", nonposx='clip')
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
 	
-	#Define a PRISM system and set omega(k) for type A
+	#define a PRISM system and set omega(k) for type A
 	sys = pyPRISM.System(['A','B'],kT=1.0)
 	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.omega['A','A']  = pyPRISM.omega.DiscreteKoyama(sigma=1.0,l=1.0,length=100,lp=1.43)
@@ -145,7 +146,7 @@ class DiscreteKoyama(Omega):
 
         .. note::
 
-            See Equation 18 in Reference 1 for more details.
+            See Equation 18 in Reference [1] for more details.
 
         Arguments
         ---------
@@ -180,7 +181,7 @@ class DiscreteKoyama(Omega):
 
         .. note::
 
-            See Equation 16 in Reference 1 for more details.
+            See Equation 16 in Reference [1] for more details.
 
         Arguments
         ---------
@@ -205,7 +206,7 @@ class DiscreteKoyama(Omega):
 
         .. note::
 
-            See Equation 12 in Reference 1 for more details.
+            See Equation 12 in Reference [1] for more details.
 
         Arguments
         ---------
@@ -233,7 +234,7 @@ class DiscreteKoyama(Omega):
 
         .. note::
 
-            See Equation 28 in Reference 1 for more details.
+            See Equation 28 in Reference [1] for more details.
 
         Arguments
         ---------
@@ -256,7 +257,7 @@ class DiscreteKoyama(Omega):
 
         .. note::
 
-            See Equation 28 in Reference 1 for more details.
+            See Equation 28 in Reference [1] for more details.
 
         Arguments
         ---------

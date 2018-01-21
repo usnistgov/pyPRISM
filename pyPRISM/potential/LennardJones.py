@@ -10,7 +10,11 @@ class LennardJones(Potential):
     
     .. math::
     
-        U_{\alpha,\beta}(r) = 4\epsilon_{\alpha,\beta}\big[\big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{12.0} - \big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{6.0}\big]
+        U_{\alpha,\beta}(r) = 4\epsilon_{\alpha,\beta}\left[\left(\frac{\sigma_{\alpha,\beta}}{r}\right)^{12.0} - \left(\frac{\sigma_{\alpha,\beta}}{r}\right)^{6.0}\right]
+
+    .. math::
+    
+        U_{\alpha,\beta}^{shift}(r) = U_{\alpha,\beta}(r) - U_{\alpha,\beta}(r_{cut})
     
     
     **Variable Definitions**
@@ -25,14 +29,16 @@ class LennardJones(Potential):
     :math:`r`
         Distance between sites. 
     
+    :math:`r_{cut}`
+        Cuttoff distance between sites. 
    
     **Description**
 
-    	The classic 12-6 LJ potential. To facilitate direct comparison with
-    	molecular simulation, the simulation may be cut and shifted to zero 
-    	at a specified cutoff distance by setting the rcut and shift parameters.
-    	The full (non-truncated) LJ potential is accessed using rcut=None and 
-    	shift=False. 
+        The classic 12-6 LJ potential. To facilitate direct comparison with
+        molecular simulation, the simulation may be cut and shifted to zero at
+        a specified cutoff distance by setting the rcut and shift parameters.
+        The full (non-truncated) LJ potential is accessed using
+        :math:`r_{cut}=`*None* and :math:`shift`=*False*. 
     
     
     Example
@@ -57,15 +63,16 @@ class LennardJones(Potential):
             Depth of attractive well
             
         sigma: float
-            Contact distance (i.e. low distance where potential magnitude = 0)
+            Contact distance (i.e. U_{\alpha,\beta}(sigma) = 0)
             
         rcut: float, *optional*
             Cutoff distance for potential. Useful for comparing directly to results
             from simulations where cutoffs are necessary. 
     
         shift: bool,*optional*
-            Shift the potential by its value at the cutoff. Clearly this only makes 
-            sense if rcut is specified
+            If :math:`r_{cut}` is specified, shift the potential by its value
+            at the cutoff. If :math:`r_{cut}` is not specified, this parameter
+            is ignored.
     
         '''
         self.epsilon = epsilon
@@ -78,7 +85,7 @@ class LennardJones(Potential):
         return '<Potential: LennardJones>'
         
     def calculate(self,r):
-        r'''Calculate potential values
+        r'''Calculate value of potential
 
         Attributes
         ----------
@@ -95,7 +102,7 @@ class LennardJones(Potential):
         return magnitude
 
     def calculate_attractive(self,r):
-        r'''Calculate the attractive tail of the Lennard Jones potential
+        r'''Calculate the attractive tail of the Lennard Jones potential. Returns zero at :math:`r<\sigma`
         '''
         magnitude = np.zeros_like(r)
         mask = r>self.sigma

@@ -14,7 +14,7 @@ class Domain(object):
 
         .. math::
 
-            k \hat{f}(k) = 4 \pi \int r f(r) \sin(k r) dr
+            k\ \hat{f}(k) = 4 \pi \int r\ f(r) \sin(k\ r) dr
 
         We define the following discretizations
 
@@ -26,26 +26,26 @@ class Domain(object):
 
             \Delta k = \frac{\pi}{\Delta r (N + 1)}
 
-        Substituting these into the continouous expression above yields
+        to yield
 
         .. math::
 
-            \hat{F}(j) = 4 \pi \Delta r \sum_{i=0}^{N-1} F(i) \sin(\frac{\pi}{N+1} (i+1)(j+1))
+            \hat{F}_j = 4 \pi \Delta r \sum_{i=0}^{N-1} F_i \sin\left(\frac{\pi}{N+1} (i+1)(j+1)\right)
 
         with the following definitions:
 
         .. math::
 
-            \hat{F}(j) = (j+1)\ \Delta k\ \hat{f}((j+1)\Delta k) = k \hat{f}(k)
+            \hat{F}_j = (j+1)\ \Delta k\ \hat{f}((j+1)\Delta k) = k \hat{f}(k)
 
         .. math::
 
-            F(i) = (i+1)\ \Delta r\ f((i+1)\Delta r) = r f(r)
+            F_i = (i+1)\Delta r\ f((i+1)\Delta r) = r f(r)
 
         The above equations describe a Real to Real, type-II discrete sine
         transform (DST). To tranform to and from Fourier space we will use the
         type-II and type-III DST's respectively. With Scipy's interface to
-        fftpack, we'll need the following functional coeffcients as well
+        fftpack, the following functional coeffcients are
 
         .. math::
 
@@ -134,7 +134,7 @@ class Domain(object):
         return '<Domain length:{} dr/rmax:{:4.3f}/{:3.1f} dk/kmax:{:4.3f}/{:3.1f}>'.format(self.length,self.dr,self.r[-1],self.dk,self.k[-1])
     
     def to_fourier(self,array):
-        ''' Discrete Sine Transform of a numpy array 
+        r''' Discrete Sine Transform of a numpy array 
         
         Arguments
         ---------
@@ -149,7 +149,7 @@ class Domain(object):
 
         Peforms a Real-to-Real Discrete Sine Transform  of type II 
         on a numpy array of non-complex values. For radial data that is 
-        symmetric in \phi and \theta, this is **a** correct transform
+        symmetric in :math:`\phi` and :math`\theta`, this is a correct transform
         to go from Real-space to Fourier-space. 
         
         
@@ -169,11 +169,10 @@ class Domain(object):
         array: float ndarray
             data transformed to Real space
 
-
-        Peforms a Real-to-Real Discrete Sine Transform  of type III 
+        Peforms a Real-to-Real Discrete Sine Transform  of type III
         on a numpy array of non-complex values. For radial data that is 
-        symmetric in \phi and \theta, this is **a** correct transform
-        to go from Fourier-space to Real space.
+        symmetric in :math:`\phi` and :math`\theta`, this is a correct transform
+        to go from Real-space to Fourier-space. 
         
         '''
         return dst(self.DST_III_coeffs*array,type=3)/self.r
@@ -188,7 +187,7 @@ class Domain(object):
 
         Raises
         ------
-        ValueError:
+        *ValueError*:
             If the supplied MatrixArray is already in Real-space
         '''
         if marray.space == Space.Fourier:

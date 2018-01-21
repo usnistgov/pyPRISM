@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: ../img/TOC.png
+.. image:: ../img/TOC_600x.png
     :align: center
 
 
@@ -37,6 +37,7 @@ of polymeric fluids and nanocomposites.
     2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure
        of Polymer Melts, Physical Review Letters, 1987, 58 (3) 246-249
        doi:10.1103/PhysRevLett.58.246
+       [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
 
 
 Contents
@@ -47,7 +48,8 @@ Contents
    api/pyPRISM
    install/install
    quickstart
-   tutorial
+   tutorial/tutorial
+   scprism
    faq
    convergence
    contribute

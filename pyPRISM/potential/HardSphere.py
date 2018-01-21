@@ -14,7 +14,7 @@ class HardSphere(Potential):
     
     .. math::
     
-        U_{\alpha,\beta}(r\leq\sigma_{\alpha,\beta}) = \infty
+        U_{\alpha,\beta}(r\leq\sigma_{\alpha,\beta}) = C^{high}
     
     
     **Variable Definitions**
@@ -25,14 +25,16 @@ class HardSphere(Potential):
 
     :math:`r`
         Distance between sites. 
+
+    :math:`C^{high}`
+        High value used to approximate an infinite potential due to overlap
     
    
     **Description**
 
-    	This potential models the simiple hard-sphere fluid, in which 
-    	sites have no interactions outside their contact distance, and
-    	hard-core repulsion.
-    
+        This potential models the simiple hard-sphere fluid, in which sites
+        have hard-core repulsion and no interactions outside their contact
+        distance.
     
     Example
     -------
@@ -56,8 +58,7 @@ class HardSphere(Potential):
             Contact distance 
             
         high_value: float, *optional*
-            value of potential when overlapping
-        
+            High value used to approximate an infinite potential due to overlap
         '''
         self.sigma = sigma
         self.high_value = high_value
@@ -66,7 +67,7 @@ class HardSphere(Potential):
         return '<Potential: HardSphere>'
     
     def calculate(self,r):
-        r'''Calculate potential values
+        r'''Calculate value of potential
 
         Attributes
         ----------

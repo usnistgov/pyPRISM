@@ -40,17 +40,18 @@ def solvation_potential(PRISM,closure='HNC'):
 
         - :math:`\Delta \hat{\Psi}^{PY}`, :math:`\Delta \hat{\Psi}^{HNC}`
             Percus-Yevick and Hypernetted Chain derived pairwise decomposied
-            solvation potential MatrixArrays. This implies that the
-            multiplication in the above equation is actually *matrix*
-            multiplication and the individual solvation potentials are
-            extracted as curves of the MatrixArrays. Note that the solvation
-            potential MatrixArrays are inverted back to Real-space for use. 
+            solvation potentials, each described as a  :class:`.MatrixArray`.
+            This implies that the multiplication in the above equation is
+            actually *matrix* multiplication and the individual solvation
+            potentials are extracted as curves of the MatrixArrays. Note that
+            the solvation potential MatrixArrays are inverted back to
+            Real-space for use. 
 
         - :math:`\hat{C}(k)`
-            Direct correlation function MatrixArray at a wavenumber :math:`k`
+            Direct correlation function :class:`.MatrixArray` at a wavenumber :math:`k`
 
         - :math:`\hat{S}(k)`
-            Structure factor MatrixArray at a wavenumber :math:`k`
+            Structure factor :class:`.MatrixArray` at a wavenumber :math:`k`
 
         - :math:`k_B T`
             Thermal temperature written as the product of the Boltzmann
@@ -60,7 +61,7 @@ def solvation_potential(PRISM,closure='HNC'):
 
         The solvation potential (:math:`\Delta \hat{\Psi}`) mathematically
         describes how a given surrounding medium perturbs the site-site pairwise
-        interactions.
+        interactions of a molecule.
 
         This calculation is the foundation of the Self-Consistent PRISM
         formalism. See :ref:`SCPRISM` for more information.
@@ -73,12 +74,14 @@ def solvation_potential(PRISM,closure='HNC'):
     
     References
     ----------
-    Grayce, Schweizer, Solvation potentials for macromolecules,
-    J. Chem. Phys., 1994 100 (9) 6846
+
+    #. Grayce, Schweizer, Solvation potentials for macromolecules, J. Chem.
+       Phys., 1994 100 (9) 6846 [`link <https://doi.org/10.1063/1.467044>`__]
     
-    Schweizer, Honnell, Curro, Reference interaction site model theory of
-    polymeric liquids: Self-consistent formulation and nonideality effects in
-    dense solutions and melts, J. Chem. Phys., 1992 96 (4) 3211 
+    #. Schweizer, Honnell, Curro, Reference interaction site model theory of
+       polymeric liquids: Self-consistent formulation and nonideality effects in
+       dense solutions and melts, J. Chem. Phys., 1992 96 (4) 3211 [`link
+       <https://doi.org/10.1063/1.461965>`__]
 
     Example
     -------

@@ -26,7 +26,7 @@ class MeanSphericalApproximation(AtomicClosure):
         
         The Mean Spherical Approximation (MSA) closure assumes an interaction
         potential that contains a hard-core interaction and a tail interaction.
-        See Hansen and McDonald for a derivation and discussion of this closure.
+        See Reference [1] for a derivation and discussion of this closure.
         
         The MSA does a good job of describing the properties of the square-well 
         fluid, and allows for the analytical solution of the PRISM/RISM 
@@ -36,8 +36,9 @@ class MeanSphericalApproximation(AtomicClosure):
     
     References
     ----------
-        Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
-        4th Edition (2013), Elsevier
+    #. Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
+       4th Edition (2013), Elsevier [`link
+       <https://www.sciencedirect.com/science/book/9780123870322>`__]
 
     Example
     -------
@@ -64,7 +65,7 @@ class MeanSphericalApproximation(AtomicClosure):
         Parameters
         ----------
         apply_hard_core: bool
-            If True, the total correlation function will be assumed to be -1
+            If *True*, the total correlation function will be assumed to be -1
             inside the core (:math:`r_{i,j}<(d_i + d_j)/2.0`) and the closure
             will not be applied in this region.
         '''
@@ -79,7 +80,7 @@ class MeanSphericalApproximation(AtomicClosure):
                     when the hard core condition is not manually applied. This
                     will likely result in a cryptic crash of the simulation if
                     attempted. Using MSA(apply_hard_core=True) will avoid this
-                    warning. This warning should be ignored in hard-core
+                    warning. This warning should be ignored if hard-core
                     interactions are not being used.''')
 
         

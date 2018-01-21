@@ -3,7 +3,7 @@ from __future__ import division,print_function
 from pyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 class HyperNettedChain(AtomicClosure):
-    r'''HyperNettedChain closure written in terms of a change of variables
+    r'''HyperNettedChain closure 
 
     **Mathematial Definition**
 
@@ -30,7 +30,8 @@ class HyperNettedChain(AtomicClosure):
 
         The Hypernetted Chain Closure (HNC) is derived by expanding the the
         direct correlation function, :math:`c(r)`, in powers of density shift
-        from a refence state. See Hansen and McDonald for a full derivation.
+        from a refence state. See Reference [1] for a full derivation and
+        discussion of this closure.
         
         The change of variables is necessary in order to use potentials with
         hard cores in the computational setting. Written in the standard form,
@@ -47,8 +48,9 @@ class HyperNettedChain(AtomicClosure):
     
     References
     ----------
-        Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
-        4th Edition (2013), Elsevier
+    #. Hansen, J.P.; McDonald, I.R.; Theory of Simple Liquids; Chapter 4, Section 4; 
+       4th Edition (2013), Elsevier [`link
+       <https://www.sciencedirect.com/science/book/9780123870322>`__]
 
     Example
     -------
@@ -75,7 +77,7 @@ class HyperNettedChain(AtomicClosure):
         Parameters
         ----------
         apply_hard_core: bool
-            If True, the total correlation function will be assumed to be -1
+            If *True*, the total correlation function will be assumed to be -1
             inside the core (:math:`r_{i,j}<(d_i + d_j)/2.0`) and the closure
             will not be applied in this region.
         '''

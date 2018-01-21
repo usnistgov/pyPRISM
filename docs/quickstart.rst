@@ -12,13 +12,18 @@ Setup
 
     - matplotlib
 
-See :ref:`quick_install` or the full install instructions to get pyPRISM and set up your environment. Note that you'll need `matplotlib <https://matplotlib.org>`_ for this example as well. After the environment is set up, the example below can be copied into a file (e.g. test.py) and run from the command line via
+See :ref:`quick_install` or the full install instructions to get pyPRISM and
+set up your environment. Note that you'll need `matplotlib
+<https://matplotlib.org>`_ for this example as well. After the environment is
+set up, the example below can be copied into a file (e.g. test.py) and run from
+the command line via
 
 .. code-block:: bash
     
     $ python test.py
 
-Alternatively, the below code can be copied into your IDE (Spyder, PyCharm) or notebook provider (Jupyter) of choice. 
+Alternatively, the below code can be copied into your IDE (Spyder, PyCharm) or
+notebook provider (Jupyter) of choice. 
 
 Features Used
 -------------
@@ -91,7 +96,7 @@ Annotated Example
     plt.plot(sys.domain.r,rdf['particle','particle'],color='blue',lw=1.25)
     plt.show()
 
-.. image:: ../img/plot.png
+.. image:: ../img/nanocomposite_rdf.png
     :align: center
     :width: 300px
 
@@ -100,8 +105,8 @@ Discussion
 ----------
 The above example sets up a PRISM object, runs a PRISM calculation, and plots
 the real-space pair correlation functions for a system of freely-jointed 
-polymer chains of length N=100 mixed with spherical hard nanoparticles of 
-diameter D=5d (i.e., 5 times the monomer site diameter, d). 
+polymer chains of length :math:`N=100` mixed with spherical hard nanoparticles of 
+diameter :math:`D=5d` (i.e., 5 times the monomer site diameter, :math:`d`). 
 
 In addition to the heterogeneity in size scales, this example 
 also demonstrates pyPRISM’s ability to handle heterogeneous interaction 
@@ -119,20 +124,19 @@ See Reference [1] for a full discussion of this system.
 More Examples
 -------------
 A detailed tutorial with examples on how to build and run 
-PRISM calculations for a variety of systems is hosted on the companion
-`pyPRISM_tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_ repository.
+PRISM calculations for a variety of systems is shown in the :ref:`tutorial`.
 The tutorial includes a general introduction to Python, PRISM, and the pyPRISM
 package. It also contains annotated example scripts that were used to create
-all of the case-studies Reference [2].
+all of the case-studies in Reference [2].
 
 References
 ----------
 
-1. Hooper, J.B.; Schweizer, K.S.; Contact Aggregation, Bridging, and Steric
+#. Hooper, J.B.; Schweizer, K.S.; Contact Aggregation, Bridging, and Steric
    Stabilization in Dense Polymer Particle Mixtures, Macromolecules 2005, 38,
-   8858-8869
+   8858-8869 [`link <https://doi.org/10.1021/ma060577m>`__]
 
-2. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
+#. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
    pyPRISM: A Computational Tool for Liquid State Theory Calculations of
-   Macromolecular Materials. (to be submitted)
+   Macromolecular Materials. (submitted)
 

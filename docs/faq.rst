@@ -55,8 +55,7 @@ Can pyPRISM be used outside of Jupyter?
 Of course! pyPRISM is a Python module and can be used in any Python
 interface assuming that the dependencies are satisfied. The developers
 prefer Jupyter as a teaching environment, so the tutorial uses it. All of
-the code in the notebooks can be copied to the Python command line or a
-script and they should be able to run.
+the code in the notebooks can be copied to a Python command line script.
  
 Can pyPRISM handle anisotropic systems?
 ---------------------------------------
@@ -77,8 +76,8 @@ interface.
 
 What do I do if the solver isn't converging? 
 --------------------------------------------
-There are a variety of reasons why the solver might seem "stuck" i.e. the
-function norm isn't decreasing. See :ref:`convergence`
+There are a variety of reasons why the solver might seem "stuck", i.e. the
+function norm isn't decreasing. See :ref:`convergence`.
 
 What doesn't pyPRISM doesn't have the feature I need?
 -----------------------------------------------------
@@ -86,4 +85,9 @@ See :ref:`contribute`
 
 How to file a bug report, suggest a feature or ask a question about pyPRISM?
 ----------------------------------------------------------------------------
-GitHub uses an `Issue <https://github.com/usnistgov/pyPRISM/issues>`_ system to track communication between users and developers. The Issues tool has a flexible tagging feature which handles multiple types of posts including questions, feature requests, bug reports, and general discussion. Users should post to the issue system and the developers (or other users!) will respond as soon as they can.
+GitHub uses an `Issue <https://github.com/usnistgov/pyPRISM/issues>`_ system to
+track communication between users and developers. The Issues tool has a
+flexible tagging feature which handles multiple types of posts including
+questions, feature requests, bug reports, and general discussion. Users should
+post to the issue system and the developers (or other users!) will respond as
+soon as they can.

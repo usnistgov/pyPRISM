@@ -1,10 +1,16 @@
+.. _usage:
+
 Using pyPRISM
 =============
 
-Once pyPRISM is installed or placed in your ``PYTHONPATH`` it can be imported
-and used in scripts. To use the examples in the associated pyPRISM tutorial
-directory (downloaded separately at the
-`pyPRISM_tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_ repository)
+Before ``pyPRISM`` can be used two primary setup tasks must occur
+
+- All dependencies must be satistifed. See :ref:`dependencies`.
+- pyPRISM must be placed on your ``PYTHONPATH`` either manually or via installation
+
+Once these tasks are satisfied, ``pyPRISM`` can be imported and used in scripts
+or notebooks. The tutorial notebooks are in the *tutorial* directory in the
+codebase `repository <https://github.com/usnistgov/pyprism/>`__.
 
 .. code-block:: bash
 
@@ -14,3 +20,4 @@ directory (downloaded separately at the
 
 This should spawn a jupyter notebook tab in your web browser of choice. If the
 tab doesn't spawn, check the terminal for a link that can be copied and pasted.
+See :ref:`tutorial` for more information.
