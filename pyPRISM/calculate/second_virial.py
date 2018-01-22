@@ -13,7 +13,7 @@ def second_virial(PRISM,extrapolate=True):
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
-        If True, extrapolate :math:`h_{\alpha,\beta}` to :math:`k=0` rather
+        If *True*, extrapolate :math:`h_{\alpha,\beta}` to :math:`k=0` rather
         than reporting the value at the lowest-k
     
     Returns

@@ -6,8 +6,6 @@ pyPRISM\.closure package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
 
 .. toctree::
 
@@ -18,5 +16,4 @@ Submodules
    pyPRISM.closure.MeanSphericalApproximation
    pyPRISM.closure.MolecularClosure
    pyPRISM.closure.PercusYevick
-   pyPRISM.closure.ReferenceMolecularPercusYevick
 

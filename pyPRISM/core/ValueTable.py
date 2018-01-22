@@ -9,20 +9,21 @@ class ValueTable(Table):
 
         The goal of this class is to provide a simple inteface for setting and
         storing parameters that are accessed and identified by types. This is
-        typically site properties e.g., density, site diameter. By default the
-        value for all types is set to `None` and therefore we can check to see
+        typically site properties, e.g. density, site diameter. By default the
+        value for all types is set to `None` and therefore can be checked to see
         if the table has been fully specified. 
 
-        Setter/getter methods have been set up to set groups of types
+        Setter/getter methods have been create to set groups of types
         simultaneously. This allows for the rapid construction of datasets
-        where many of the parameters are repeated. 
+        where many of the parameters are repeTated. 
 
         Note that, unlike the :class:`pyPRISM.core.MatrixArray`, this
         container is not meant to be used for mathematics. The benefit of this
-        is that, for each type, it can contain any arbitrary number, str, or
+        is that, for each type, it can contain any arbitrary number, string, or
         Python object. 
 
-        See the example below and the pyPRISM tutorial for more information.
+        See the example below and the `pyPRISM Internals` section of the
+        :ref:`tutorial` for more information.
 
     Example
     -------
@@ -115,7 +116,7 @@ class ValueTable(Table):
 
         Raises
         ------
-        ValueError if all values are not set
+        *ValueError* if all values are not set
         
         '''
         for i,t,val in self:

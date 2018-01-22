@@ -6,8 +6,6 @@ pyPRISM\.omega package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
 
 .. toctree::
 

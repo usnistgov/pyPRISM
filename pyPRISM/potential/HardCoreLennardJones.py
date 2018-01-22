@@ -8,20 +8,19 @@ class HardCoreLennardJones(Potential):
     .. warning:: 
 
         This potential uses a slightly different form than what is 
-        implemented for the classic LJ potential in order to match the PRISM
-        literature.  This means that the epsilon in the LJ and HCLJ
-        potentials will not correspond to the same interaction strengths.
-    
+        implemented for the classic LJ potential. This means that the epsilon
+        in the LJ and HCLJ potentials will not correspond to the same
+        interaction strengths.
 
     **Mathematical Definition**
     
     .. math::
     
-        U_{\alpha,\beta}(r>\sigma_{\alpha,\beta}) = \epsilon_{\alpha,\beta}\big[\big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{12.0} - \big(\frac{\sigma_{\alpha,\beta}}{r}\big)^{6.0}\big]
+        U_{\alpha,\beta}(r>\sigma_{\alpha,\beta}) = \epsilon_{\alpha,\beta}\left[\left(\frac{\sigma_{\alpha,\beta}}{r}\right)^{12} - 2 \left(\frac{\sigma_{\alpha,\beta}}{r}\right)^{6}\right]
     
     .. math::
     
-        U_{\alpha,\beta}(r\leq\sigma_{\alpha,\beta}) = \infty
+        U_{\alpha,\beta}(r\leq\sigma_{\alpha,\beta}) = C^{high}
     
     
     **Variable Definitions**
@@ -36,6 +35,9 @@ class HardCoreLennardJones(Potential):
 
     :math:`r`
         Distance between sites. 
+
+    :math:`C^{high}`
+        High value used to approximate an infinite potential due to overlap
     
    
     **Description**
@@ -43,6 +45,13 @@ class HardCoreLennardJones(Potential):
     	Unlike the classic LJ potential, the HCLJ potential has an infinitely
     	hard core and can handle negative and positive epsilons, corresponding
     	to attractive and repulsive interactions.
+
+    References
+    ----------
+    #. Yethiraj, A. and K.S. Schweizer, INTEGRAL-EQUATION THEORY OF POLYMER
+       BLENDS - NUMERICAL INVESTIGATION OF MOLECULAR CLOSURE APPROXIMATIONS.
+       Journal of Chemical Physics, 1993. 98(11): p. 9080-9093.
+       [`link <https://doi.org/10.1063/1.464466>`__]
     
     
     Example
@@ -70,7 +79,7 @@ class HardCoreLennardJones(Potential):
             Contact distance (i.e. low distance where potential magnitude = 0)
             
         high_value: float, *optional*
-            value of potential when overlapping
+            High value used to approximate an infinite potential due to overlap
         
         '''
         self.epsilon = epsilon 
@@ -82,7 +91,7 @@ class HardCoreLennardJones(Potential):
         return '<Potential: HardCoreLennardJones>'
         
     def calculate(self,r):
-        r'''Calculate potential values
+        r'''Calculate value of potential
 
         Attributes
         ----------

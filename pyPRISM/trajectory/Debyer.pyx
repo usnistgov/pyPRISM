@@ -86,7 +86,7 @@ cdef class Debyer:
     site-types :math:`\alpha` and :math:`\beta`, the user should pass one
     trajectory of all sites of type :math:`\alpha` and the other where all
     sites are of type :math:`\beta`. To calculate a self
-    :math:`\hat{\omega}(k)` where :math:`\alpha == \beta` (selfOmega=True),
+    :math:`\hat{\omega}(k)` where :math:`\alpha == \beta` (selfOmega=*True*),
     both trajectories should be the same. Note that selfOmega should be
     correctly set in either case. 
 
@@ -284,7 +284,7 @@ cdef class Debyer:
             1-D array of box dimensions, :math:`l_{x}, l_{y}, l_{z}`
 
         selfOmega: bool
-            Set to True if :math:`\alpha == \beta` and False otherwise.
+            Set to *True* if :math:`\alpha == \beta` and False otherwise.
             
 
         Returns
@@ -374,10 +374,10 @@ cdef class Debyer:
         Beyond this, the method applies a number of optimizations to speed up
         the calculation of omega:
 
-             - if selfOmega == True, the function skips double couting by
+             - if selfOmega == *True*, the function skips double couting by
                taking advantage of the fact that :math:`r_{i,j} == r_{j,i}`.
 
-             - if selfOmega == True, the function skips the calculation of i ==
+             - if selfOmega == *True*, the function skips the calculation of i ==
                j pairs. These pairs contribute, in total, to simply shifting
                the curve vertically by 1.0
 
@@ -417,7 +417,7 @@ cdef class Debyer:
             See :func:`pyPRISM.trajectory.Debyer.Debyer._chunks`
 
         selfOmega: bool
-            Set to True if :math:`\alpha == \beta` and False otherwise.
+            Set to *True* if :math:`\alpha == \beta` and False otherwise.
 
         '''
         cdef cFloatType num_pairs

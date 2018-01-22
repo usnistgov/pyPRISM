@@ -1,26 +1,22 @@
-pyPRISM package
-===============
+API
+===
 
 .. automodule:: pyPRISM
     :members:
     :undoc-members:
     :show-inheritance:
 
-Subpackages
------------
 
 .. toctree::
 
+    pyPRISM.core
     pyPRISM.calculate
     pyPRISM.closure
-    pyPRISM.core
     pyPRISM.omega
     pyPRISM.potential
     pyPRISM.trajectory
     pyPRISM.util
 
-Submodules
-----------
 
 .. toctree::
 

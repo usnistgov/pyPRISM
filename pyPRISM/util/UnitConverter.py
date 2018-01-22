@@ -12,9 +12,8 @@ class UnitConverter(object):
         energy = :math:`e_c`. This class is designed to make some common
         conversions between reduced and real units easier.
         
-        See the Theory.General notebook of the `pyPRISM tutorial
-        <https://github.com/usnistgov/pyPRISM_tutorial>`_ for a more detailed
-        discussion of these units.
+        See the Theory.General notebook of the :ref:`tutorial` for a more detailed
+        discussion of these units and how to work with the UnitConverter utility.
 
     .. note::
 
@@ -95,7 +94,7 @@ class UnitConverter(object):
         return '<UnitConverter  dc:{} | mc:{} | ec:{}>'.format(self.dc.to_base_units(),self.mc.to_base_units(),self.ec.to_base_units())
 
     def toKelvin(self,temperature):
-        r'''Convert thermal energy to temperature units in Kelvin
+        r'''Convert thermal energy to temperature units in :math:`K`
 
         Arguments
         ---------
@@ -105,7 +104,7 @@ class UnitConverter(object):
         Returns
         -------
         temperature: Pint Quantity
-            temperature in Kelvin as a Pint Quantity. Use the magnitude
+            temperature in :math:`K` as a Pint Quantity. Use the magnitude
             attribute (temperature.magnitude) to obtain the numerical value of
             the temperature as a floating point value.
         '''
@@ -144,7 +143,7 @@ class UnitConverter(object):
         Returns
         -------
         wavenumber: Pint Quantity
-            wavenumbers in :math:`Ang^{-1}` as a Pint Quantity. Use the
+            wavenumbers in :math:`AA^{-1}` as a Pint Quantity. Use the
             magnitude attribute (wavenumber.magnitude) to obtain the numerical
             value of the wavenumber as a floating point value.
         '''

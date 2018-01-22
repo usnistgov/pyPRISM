@@ -23,6 +23,10 @@ class Density(object):
                 \rho_{\alpha} + \rho_{\beta} & \text{if } i \neq j
             \end{cases}
 
+    .. math::
+        
+        \rho^{total} = \sum_{\alpha} \rho^{site}_{\alpha,\alpha}
+
 
     **Variable Definitions**
 
@@ -30,9 +34,12 @@ class Density(object):
             Number density of site :math:`\alpha`
 
         :math:`\rho^{pair}_{\alpha,\beta}`
-            Total pair number density of pair :math:`\alpha,\beta`
+            Pair number density of pair :math:`\alpha,\beta`
 
         :math:`\rho^{site}_{\alpha,\beta}`
+            Site number density of pair :math:`\alpha,\beta`
+
+        :math:`\rho^{total}`
             Total site number density of pair :math:`\alpha,\beta`
         
 
@@ -81,10 +88,10 @@ class Density(object):
             Total number density 
 
         site: :class:`pyPRISM.core.MatrixArray`
-            Total site density for each pair.
+            Site density for each pair.
 
         pair: :class:`pyPRISM.core.MatrixArray`
-            Total pair site density for each pair.
+            Pair site density for each pair.
         '''
         self.types = types 
 
@@ -99,7 +106,7 @@ class Density(object):
 
         Raises
         ------
-        ValueError if densities are not all set. 
+        *ValueError* if densities are not all set. 
         
         '''
         self.density.check()

@@ -15,25 +15,23 @@ from copy import deepcopy
 import warnings
 
 class PRISM:
-    r'''Primary container for a PRISM problem and solution
+    r'''Primary container for a storing a PRISM calculation
     
     Each pyPRISM.PRISM object serves as an encapsulation of a fully specified
     PRISM problem including all inputs needed for the calculation and the
-    functional which the will be numerically minimized. 
+    function which the will be numerically minimized. 
     
     Attributes
     ----------
     domain: pyPRISM.Domain
-        The Domain object fully specifies the real- and Fourier- space solution
+        The Domain object fully specifies the Real- and Fourier- space solution
         grids.
     
     directCorr: pyPRISM.MatrixArray
-        The direct correlation function for all pairs of sites
+        The direct correlation function for all pairs of site types
         
     omega: pyPRISM.MatrixArray
-        The intra-molecular correlation function for all pairs of sites. This
-        is often shown as :math:`\Omega` in the PRISM literature and is identical to
-        what those in the scattering fields would call a "form factor".
+        The intra-molecular correlation function for all pairs of site types
     
     closure: pyPRISM.core.PairTable of pyPRISM.closure.Closure
         Table of closure objects used to generate the direct correlation
@@ -41,7 +39,7 @@ class PRISM:
         
     pairCorr: pyPRISM.MatrixArray
         The *inter*-molecular pair correlation functions for all pairs of
-        sites. Also commonly refered to as the radial distribution functions.
+        site types. Also commonly refered to as the radial distribution functions.
     
     totalCorr: pyPRISM.MatrixArray
         The *inter*-molecular total correlation function is simply the pair
@@ -51,7 +49,7 @@ class PRISM:
         Interaction potentials for all pairs of sites
         
     GammaIn,GammaOut: pyPRISM.MatrixArray
-        Primary inputs and outputs of the PRISM functional. Gamma is defined as
+        Primary inputs and outputs of the PRISM cost function. Gamma is defined as
         "totalCorr - directCorr" (in Fourier space) and results from a change
         of variables used to remove divergences in the closure relations. 
     
@@ -63,24 +61,14 @@ class PRISM:
         Current inputs and outputs of the cost function
     
     pairDensityMatrix: float np.ndarray
-        rank by rank array of pair densities between sites 
-        
-        .. math::
-        
-            \rho^{pair}_{i,j} = \rho_i * \rho_j
+        Rank by rank array of pair densities between sites. See :class:`pyPRISM.core.Density`
             
     siteDensityMatrix: float np.ndarray
-        rank by rank array of site densities
-        
-        .. math::
-        
-            \rho^{site}_{i,j} = \rho_i + \rho_j, if i \neq j
-            
-            \rho^{site}_{i,j} = \rho_i         , if i = j
+        Rank by rank array of site densities. See :class:`pyPRISM.core.Density`
     
     Methods
     -------
-    funk:
+    cost:
         Primary cost function used to define the criteria of a "converged"
         PRISM solution. The numerical solver will be given this function 
         and will attempt to find the inputs (self.x) that make the outputs
@@ -108,11 +96,11 @@ class PRISM:
 
         # The omega objects must be converted to a MatrixArray of the actual correlation
         # function values rather than a table of OmegaObjects.
-        applyFunk = lambda x: x.calculate(sys.domain.k)
-        self.omega  = self.sys.omega.apply(applyFunk,inplace=False).exportToMatrixArray(space=Space.Fourier)
+        applyFunc = lambda x: x.calculate(sys.domain.k)
+        self.omega  = self.sys.omega.apply(applyFunc,inplace=False).exportToMatrixArray(space=Space.Fourier)
         self.omega *= sys.density.site #omega should always be scaled by site density 
         
-        # Spaces are set based on when they are used in self.funk(...). In some cases,
+        # Spaces are set based on when they are used in self.cost(...). In some cases,
         # this is redundant because these array's will be overwritten with copies and
         # then their space will be inferred from their parent MatrixArrays
         self.directCorr = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
@@ -125,7 +113,7 @@ class PRISM:
     def __repr__(self):
         return '<PRISM length:{} rank:{}>'.format(self.sys.domain.length,self.sys.rank)
         
-    def funk(self,x):
+    def cost(self,x):
         r'''Cost function 
         
         There are likely several cost functions that could be imagined using
@@ -133,7 +121,7 @@ class PRISM:
         formulation where we expect the input of the PRISM equations to be
         identical to the output. 
 
-        .. image:: ../../img/solve.png
+        .. image:: ../../img/numerical_method.png
             :width: 300px
         
         The goal of the solve method is to numerically optimize the input (:math:`r \gamma_{in}`) 
@@ -179,7 +167,7 @@ class PRISM:
         '''Attempt to numerically solve the PRISM equations
         
         Using the supplied inputs (in the constructor), we attempt to numerically
-        solve the PRISM equations using the scheme layed out in :func:`funk`. If the 
+        solve the PRISM equations using the scheme laid out in :func:`cost`. If the 
         numerical solution process is successful, the attributes of this class
         will contain the solved values for a given input i.e. self.totalCorr will
         contain the numerically optimized (solved) total correlation functions.
@@ -193,21 +181,22 @@ class PRISM:
         ----------
         guess: np.ndarray, size (rank*rank*length)
             The initial guess of :math:`\gamma` to the numerical solution process.
-            The numpy array should be of size rank*rank*length corresponding to 
+            The numpy array should be of size rank x rank x length corresponding to 
             the a full flattened MatrixArray. If not specified, an initial guess
             of all zeros is used. 
             
         method: string
-            Set the type of optimization scheme to use. See 
-            `here
-            <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`_
-            for options
+            Set the type of optimization scheme to use. The scipy documentation
+            for `scipy.optimize.root
+            <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`__
+            details the possible values for this parameter. 
+            
 
         options: dict
-            Dictionary of options specific to the chosen solver method. See
-            `here <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`_
-            for options
-
+            Dictionary of options specific to the chosen solver method. The
+            scipy documentation for `scipy.optimize.root
+            <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html>`__
+            details the possible values for this parameter. 
         
         '''
         if guess is None:
@@ -216,7 +205,7 @@ class PRISM:
         if options is None:
             options = {'disp':True}
 
-        result = root(self.funk,guess,method=method,options=options)
+        result = root(self.cost,guess,method=method,options=options)
 
         #
         if self.totalCorr.space == Space.Fourier:

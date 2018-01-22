@@ -27,6 +27,10 @@ def structure_factor(PRISM,normalize=True):
 
         \hat{s}_{\alpha,\beta}(k) = \rho^{site}_{\alpha,\beta} \hat{\omega}_{\alpha,\beta}(k) + \rho^{pair}_{\alpha,\beta} \hat{h}_{\alpha,\beta}(k)
 
+    .. math::
+
+        \hat{s}_{\alpha,\beta}^{norm}(k) = \hat{s}_{\alpha,\beta}(k) / \rho^{site}_{\alpha,\beta}  
+
     
     **Variable Definitions**
 
@@ -63,11 +67,13 @@ def structure_factor(PRISM,normalize=True):
     
     References
     ----------
-    Chandler, D., Introduction to Modern Statistical Mechanics, 
-    Oxford U. Press, New York, 1987
+    #. Chandler, D., Introduction to Modern Statistical Mechanics, 
+       Oxford U. Press, New York, 1987 [`link
+       <https://books.google.com/books/about/Introduction_to_Modern_Statistical_Mecha.html?id=3taTh5D-CDsC>`__]
 
-    Schweizer, Curro, Thermodynamics of Polymer Blends,
-    J. Chem. Phys., 1989 91 (8) 5059
+    #. Schweizer, Curro, Integral equation theory of the structure and
+       thermodynamics of polymer blends, J. Chem. Phys., 1989 91 (8) 5059 [`link
+       <https://doi.org/10.1063/1.457598>`__]
 
 
     Example

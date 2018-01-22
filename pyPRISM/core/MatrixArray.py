@@ -24,7 +24,8 @@ class MatrixArray(object):
         Access to the MatrixArray is either by supplied types or numerical indices.
         If types are not supplied, captial letters starting from 'A' are used. 
 
-        See the example below and the pyPRISM tutorial for more information. 
+        See the example below and the `pyPRISM Internals` section of the
+        :ref:`tutorial` for more information.
 
     Example
     -------
@@ -108,7 +109,7 @@ class MatrixArray(object):
             string index to the underlying data numpy array
 
         curve: np.ndarray, size (self.length)
-            1-D array representing a curve withing the MatrixArray
+            1-D array representing a curve within the MatrixArray
         '''
         for i,j in product(range(self.rank),range(self.rank)):
             if i<=j: #upper triangle condition
@@ -129,7 +130,7 @@ class MatrixArray(object):
 
 
         Assumes all matrices are symmetric and enforces symmetry by
-        setting both off diagonal elements. 
+        setting the off-diagonal elements to be equal.
 
         '''
         type1,type2 = key 

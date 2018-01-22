@@ -11,12 +11,13 @@ class FromArray(Omega):
     Attributes
     ----------
     omega: np.ndarray
-        intra-molecular omega
+        Intra-molecular omega
 
     k: np.narray, *optional*
-        domain of the array data. Will be checked against the system
-        domain if provided
-        
+        Domain of the array data. If provided, this will be checked against the
+        Fourier-space grid specified in the :class:`pyPRISM.core.Domain`. An
+        exception will be raised is they do not match.
+
     Example
     -------
     .. code-block:: python
@@ -25,7 +26,7 @@ class FromArray(Omega):
         import numpy as np
         import matplotlib.pyplot as plt
 
-        #Set all omega(k) = 1 for type A
+        #set all omega(k) = 1 for type A
         sys = pyPRISM.System(['A','B'],kT=1.0)
         sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         omega = np.ones(sys.domain.k.shape[0])
@@ -33,7 +34,7 @@ class FromArray(Omega):
         x = sys.domain.k
         y = sys.omega['A','A'].calculate(x)
 
-        #plot it!
+        #plot using matplotlib
         plt.plot(x,y)
         plt.gca().set_xscale("log", nonposx='clip')
         plt.gca().set_yscale("log", nonposy='clip')
@@ -49,11 +50,12 @@ class FromArray(Omega):
         ---------
         omega: list,np.ndarray
             Python list or Numpy array containing values of omega as
-	    a function of wavenumber, k.
+            a function of wavenumber :math:`k`.
             
         k: np.ndarray, *optional*
            Python list of Numpy array containing values of k. These must
-	   match the k values stored in the Domain class.  
+           match the k values stored in the :class:`pyPRISM.core.Domain` or an
+           exception will be raised. 
         '''
         self.value = np.array(omega)
         self.k = np.array(k)
@@ -70,10 +72,10 @@ class FromArray(Omega):
             array of wavenumber values to caluclate :math:`\omega` at
         
         '''
-        assert self.value.shape[0] == k.shape[0],'Size of array differs from supplied domain!'
+        assert self.value.shape[0] == k.shape[0],'Size of array differs from domain!'
         if self.k is not None:
-            assert self.k.shape[0] == k.shape[0],'Array domain size differs from supplied domain!'
-            assert np.allclose(self.k,k),'Array domain differs from supplied domain!'
+            assert self.k.shape[0] == k.shape[0],'File k-values differ from domain!'
+            assert np.allclose(self.k,k),'File k-values differ from domain!'
         return self.value
         
         

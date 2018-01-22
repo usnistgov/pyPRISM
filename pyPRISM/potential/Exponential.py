@@ -11,11 +11,11 @@ class Exponential(Potential):
     
     .. math::
     
-        U_{\alpha,\beta}(r \geq \sigma_{\alpha,\beta}) - \epsilon_{\alpha,\beta} \exp(- \frac{r-\sigma_{\alpha,\beta}}{\alpha})
+        U_{\alpha,\beta}(r \geq \sigma_{\alpha,\beta}) - \epsilon_{\alpha,\beta} \exp\left(- \frac{r-\sigma_{\alpha,\beta}}{\alpha}\right)
 
     .. math::
 
-        U_{\alpha,\beta}(r < \sigma_{\alpha,\beta}) = \infty
+        U_{\alpha,\beta}(r < \sigma_{\alpha,\beta}) = C^{high}
 
     
     **Variable Definitions**
@@ -31,19 +31,25 @@ class Exponential(Potential):
     :math:`\epsilon_{\alpha,\beta}`
         Interaction strength between sites 
 	:math:`\alpha` and :math:`\beta`.
+
+    :math:`C^{high}`
+        High value used to approximate an infinite potential due to overlap
     
 
     **Description**
 
     	This potential models an exponential-like attraction between sites with
-	a specified site size and contact distance. For example, in the below
-	reference, this potential is used to model the attraction between a 
+        a specified site size and contact distance. For example, in Reference
+        [1] this potential is used to model the attraction between a 
 	nanoparticle and monomers of a polymer chain. 
 
 
     References
     ----------
-    Hooper, Schweizer, Macromolecules, 2006, 39 (15), pp 5133
+    #. Hooper, J.B. and K.S. Schweizer, Theory of phase separation in polymer
+       nanocomposites. Macromolecules, 2006. 39(15): p. 5133-5142.
+       [`link <https://doi.org/10.1021/ma060577m>`__]
+
     
 
     Example
@@ -65,16 +71,16 @@ class Exponential(Potential):
         Arguments
         ---------
         epsilon: float
-            strength of attraction
+            Strength of attraction
             
         sigma: float
-            contact distance 
+            Contact distance 
             
         alpha: float
-            range of attraction
+            Range of attraction
             
         high_value: float, *optional*
-            value of potential when overlapping
+            High value used to approximate an infinite potential due to overlap
         
         '''
         self.epsilon = epsilon
@@ -86,7 +92,7 @@ class Exponential(Potential):
         return '<Potential: Exponential>'
     
     def calculate(self,r):
-        r'''Calculate potential values
+        r'''Calculate the value of the potential
 
         Attributes
         ----------

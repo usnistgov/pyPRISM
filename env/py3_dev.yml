@@ -19,6 +19,8 @@ dependencies:
   - sphinx
   - sphinx-autobuild
   - sphinx_rtd_theme
+  - nbsphinx
   - graphviz
   - pint
   - pytest
+  - pandoc =1.19.2

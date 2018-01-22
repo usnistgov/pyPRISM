@@ -2,7 +2,7 @@ from pyPRISM.omega.Omega import Omega
 
 from pyPRISM.omega.SingleSite import SingleSite
 from pyPRISM.omega.NoIntra import NoIntra
-from pyPRISM.omega.NoIntra import InterMolecular
+from pyPRISM.omega.InterMolecular import InterMolecular
 
 from pyPRISM.omega.FromFile import FromFile
 from pyPRISM.omega.FromArray import FromArray

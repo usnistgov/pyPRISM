@@ -22,13 +22,13 @@ def chi(PRISM,extrapolate=True):
         A **solved** PRISM object.
 
     extrapolate: bool, *optional*
-        If True, only return the chi value extrapolated to :math:`k=0` rather
-        than reporting the value at the lowest-k
+        If *True*, only return the chi value extrapolated to :math:`k=0` rather
+        than returning :math:`\chi(k)`
     
     Returns
     -------
     chi: pyPRISM.core.PairTable
-        PairTable of all :math:`\chi` vs :math:`k`  or :math:`\chi(k=0)` values
+        PairTable of all :math:`\chi(k)`  or :math:`\chi(k=0)` values
     
 
     **Mathematical Definition**
@@ -46,7 +46,8 @@ def chi(PRISM,extrapolate=True):
     **Variable Definitions**
 
         - :math:`\hat{\chi}_{\alpha,\beta}(k)` 
-            Wavenumber dependent effective interaction parameter
+            Wavenumber dependent effective interaction parameter between site
+            types :math:`\alpha` and :math:`\beta`
     
         - :math:`\rho`
             Total system density from the :class:`pyPRISM.core.Density`
@@ -67,12 +68,13 @@ def chi(PRISM,extrapolate=True):
     **Description**
 
         :math:`\hat{\chi}_{\alpha,\beta}(k)` describes the overall effective
-        interactions between sites :math:`\alpha` and :math:`\beta` as a single
-        number. While there are many different definitions of :math:\chi, this
-        is an effective version that takes into account both *entropic* and
-        *enthalpic* interactions. In this way, this :math:`\chi` is similar to a
-        second virial coefficient. In terms of value, :math:`\chi<0` indicates
-        effective attraction and :math:`\chi>0` effective repulsion. 
+        interactions between site types :math:`\alpha` and :math:`\beta` as a
+        single number. While there are many different definitions of
+        :math:`\chi`, this is an effective version that takes into account both
+        *entropic* and *enthalpic* interactions. In this way, this :math:`\chi`
+        is similar to a second virial coefficient. In terms of value,
+        :math:`\chi<0` indicates effective attraction and :math:`\chi>0`
+        effective repulsion. 
 
         As most theories do not take into account the (potentially contentious)
         wavenumber dependence of :math:`\chi`, the zero-wavenumber extrapolation
@@ -82,15 +84,15 @@ def chi(PRISM,extrapolate=True):
 
     .. warning::
 
-        The :math:`\chi` calculation is only value for multicomponent systems
+        The :math:`\chi` calculation is only valid for multicomponent systems
         i.e. systems with more than one defined type. This method will throw an
         exception if passed a 1-component PRISM object. 
 
     .. warning::
 
         This calculation is only rigorously defined in the two-component case.
-        With that said, pyPRISM allows this method to be called for all
-        multicomponent systems in order to calculate partial,pairwise
+        With that said, pyPRISM allows this method to be called for 
+        multicomponent systems in order to calculate pairwise
         :math:`\chi` values. We urge caution when using this method for
         multicomponent systems as it is not clear if this approach is fully
         rigorous.
@@ -104,7 +106,7 @@ def chi(PRISM,extrapolate=True):
     References
     ----------
     Schweizer, Curro, Thermodynamics of Polymer Blends,
-    J. Chem. Phys., 1989 91 (8) 5059
+    J. Chem. Phys., 1989 91 (8) 5059, DOI: 10.1063/1.457598 [`link <http://dx.doi.org/10.1063/1.457598>`__]
 
 
     Example
@@ -123,8 +125,8 @@ def chi(PRISM,extrapolate=True):
 
         chi = pyPRISM.calculate.chi(PRISM)
 
-        chi_AB = rdf['A','B']
-        chi_AA = rdf['A','A'] #returns None
+        chi_AB = chi['A','B']
+        chi_AA = chi['A','A'] #returns None because self-chi values are not defines
 
     '''
     

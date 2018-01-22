@@ -4,11 +4,11 @@ Convergence Tips
 ================
 One of the most frustrating parts of working with PRISM numerically is that the
 numerical solver is often unable to converge to a solution. This is manifested
-as the funk norm reported by the solver either not decreasing or fluctuating.
-The difficulty is in discerning why the solver is unable to converge. This can
-be related to the users choice of (perhaps unphysical) parameters or a poor
-choice of initial guess passed to the solver. Below are some suggestions on
-what to do if you cannot converge to a solution.
+as the cost function norm reported by the solver either not decreasing or
+fluctuating.  The difficulty is in discerning why the solver is unable to
+converge. This can be related to the users choice of (perhaps unphysical)
+parameters or a poor choice of initial guess passed to the solver. Below are
+some suggestions on what to do if you cannot converge to a solution.
 
 Give the solver a better initial guess
 --------------------------------------
@@ -24,8 +24,7 @@ This is generally done by finding a convergable system that is 'nearby' in
 phase space and then using the solution of that problem (PRISM.x) as the
 'guess' to a new PRISM solution. This process can be iterated to achieve
 convergence in regions of phase space that are not directly convergable.
-This process is demonstrated in several of the examples in the `pyPRISM
-tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_.
+This process is demonstrated in several of the examples in the :ref:`tutorial`.
 
 Change the closures used for some or all of your site pairs
 -----------------------------------------------------------
@@ -37,7 +36,7 @@ discuss some suggestions for closures based on the system under study.
 
 Consider your location in phase-space
 -------------------------------------
-Maybe the equations aren't converging because you aren't within the simple
+Maybe the equations are not converging because you are not within the simple
 isotropic liquid region of your system. Try varying the interaction
 strength, density, composition, etc. Remember, PRISM cannot predict the
 structure of the phase separated state and PRISM may not predict the phase
@@ -52,7 +51,8 @@ smallest feature of interest. It is also important that you have enough
 points in your domain for the discrete sine transform to be correct. We
 recommend choosing a power of 2 that is (at-least) greater than or equal to
 length=1024.  Keeping the number of points in your domain to be a power of
-two, as this choice improves the stability of the Fourier transform. 
+two, as this choice improves the stability and efficiency of the Fourier
+transform. 
 
 Try a different numerical solver or solution scheme
 ---------------------------------------------------

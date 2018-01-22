@@ -7,7 +7,6 @@ class Closure:
     .. note::
     
         Currently, this class doesn't do anything besides group all of the
-        closures under a single inheritance heirarchy. This will change as
-        needs arise.
+        closures under a single inheritance heirarchy. 
     '''
         

@@ -44,11 +44,11 @@ class NonOverlappingFreelyJointedChain(Omega):
         - :math:`\hat{\omega}_{id}(k)` 
             *intra*-molecular correlation function for the ideal freely-jointed 
 	    chain at wavenumber :math:`k`. Please see equation (15)
-	    of the reference cited below for the mathematical representation.
+	    of Reference [1] for the mathematical representation.
         
         - :math:`\hat{\omega}_{\tau}(k)` 
-            Please see equations (17,18,21) of the reference cited below 
-	    for the mathematical representation.
+            Please see equations (17,18,21) of Reference [1] for the
+            mathematical representation.
 	
 	- :math:`N`
             number of repeat units in chain
@@ -68,9 +68,10 @@ class NonOverlappingFreelyJointedChain(Omega):
 
     References
     ----------
-    Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts -
-    Intramolecular Structure, Local Order, and the Correlation Hole,
-    Macromolecules, 1988, 21 (10), pp 3070, doi:10.1021/ma00188a027
+    #. Schweizer, K.S.; Curro, J.G.; Integral-Equation Theory of Polymer Melts
+       - Intramolecular Structure, Local Order, and the Correlation Hole,
+       Macromolecules, 1988, 21 (10), pp 3070
+       [`link <https://doi.org/10.1021/ma00188a027>`__]
 
     Example
     -------
@@ -86,14 +87,14 @@ class NonOverlappingFreelyJointedChain(Omega):
         x = domain.k
         y = omega.calculate(x)
 
-        #plot it!
+        #plot using matplotlib
         plt.plot(x,y)
         plt.gca().set_xscale("log", nonposx='clip')
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
 	
-	#Define a PRISM system and set omega(k) for type A
+	#define a PRISM system and set omega(k) for type A
 	sys = pyPRISM.System(['A','B'],kT=1.0)
 	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.omega['A','A']  = pyPRISM.omega.NonOverlappingFreelyJointedChain(length=100,l=1.0)

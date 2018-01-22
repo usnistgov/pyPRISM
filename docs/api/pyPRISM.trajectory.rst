@@ -6,8 +6,6 @@ pyPRISM\.trajectory package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
 
 .. toctree::
 
