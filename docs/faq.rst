@@ -66,10 +66,9 @@ developers are interested in implementing in the future.
 
 How do I set up my specific system?
 -----------------------------------
-Please make sure you have looked at ALL case studies in the `tutorial
-<https://github.com/usnistgov/pyPRISM_tutorial>`_ and at least skimmed
-the documentation. We have attempted to provide a number of different
-examples and use-cases. If you think there is a deficiency in the
+Please make sure you have looked at ALL case studies in the :ref:`tutorial` and
+at least skimmed this documentation. We have attempted to provide a number of
+different examples and use-cases. If you think there is a deficiency in the
 documentation or tutorial, please file a bug report or submit a question
 via the `Issues <https://github.com/usnistgov/pyPRISM/issues>`_
 interface.

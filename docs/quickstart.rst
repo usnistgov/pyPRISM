@@ -33,7 +33,8 @@ Features Used
 - :class:`pyPRISM.core.PRISM`
 - :class:`pyPRISM.omega.FreelyJointedChain`
 - :class:`pyPRISM.omega.InterMolecular`
-- :class:`pyPRISM.omega.HardSphere`
+- :class:`pyPRISM.potential.HardSphere`
+- :class:`pyPRISM.potential.Exponential`
 - :class:`pyPRISM.closure.PercusYevick`
 - :class:`pyPRISM.closure.HyperNettedChain`
 - :class:`pyPRISM.calculate.pair_correlation`
@@ -90,7 +91,7 @@ Annotated Example
     # Calculate the pair-correlation functions.
     rdf = pyPRISM.calculate.pair_correlation(PRISM)
 
-    # Plot the results
+    # Plot the results using matplotlib
     plt.plot(sys.domain.r,rdf['polymer','polymer'],color='red',lw=1.25)
     plt.plot(sys.domain.r,rdf['polymer','particle'],color='green',lw=1.25)
     plt.plot(sys.domain.r,rdf['particle','particle'],color='blue',lw=1.25)

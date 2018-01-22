@@ -2,6 +2,7 @@
 from __future__ import division,print_function
 from pyPRISM.potential.Potential import Potential
 import numpy as np
+
 class LennardJones(Potential):
     r'''12-6 Lennard-Jones potential
     
@@ -30,7 +31,7 @@ class LennardJones(Potential):
         Distance between sites. 
     
     :math:`r_{cut}`
-        Cuttoff distance between sites. 
+        Cutoff distance between sites. 
    
     **Description**
 
@@ -38,7 +39,7 @@ class LennardJones(Potential):
         molecular simulation, the simulation may be cut and shifted to zero at
         a specified cutoff distance by setting the rcut and shift parameters.
         The full (non-truncated) LJ potential is accessed using
-        :math:`r_{cut}=`*None* and :math:`shift`=*False*. 
+        :math:`r_{cut}` =  *None* and :math:`shift` = *False*.
     
     
     Example

@@ -24,8 +24,7 @@ This is generally done by finding a convergable system that is 'nearby' in
 phase space and then using the solution of that problem (PRISM.x) as the
 'guess' to a new PRISM solution. This process can be iterated to achieve
 convergence in regions of phase space that are not directly convergable.
-This process is demonstrated in several of the examples in the `pyPRISM
-tutorial <https://github.com/usnistgov/pyPRISM_tutorial>`_.
+This process is demonstrated in several of the examples in the :ref:`tutorial`.
 
 Change the closures used for some or all of your site pairs
 -----------------------------------------------------------

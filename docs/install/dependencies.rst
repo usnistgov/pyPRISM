@@ -1,7 +1,7 @@
 .. _dependencies:
 
-pyPRISM Depedencies
-====================
+Depedencies
+===========
 
 The following are the tested depedencies needed to use pyPRISM:
     - Python 2.7 or 3.5

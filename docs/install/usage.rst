@@ -1,7 +1,7 @@
 .. _usage:
 
-Using pyPRISM
-=============
+Usage
+=====
 
 Before ``pyPRISM`` can be used two primary setup tasks must occur
 
@@ -20,4 +20,4 @@ codebase `repository <https://github.com/usnistgov/pyprism/>`__.
 
 This should spawn a jupyter notebook tab in your web browser of choice. If the
 tab doesn't spawn, check the terminal for a link that can be copied and pasted.
-See :ref:`tutorial` for more information.
+See :ref:`tutorial` for more information on the tutorial.

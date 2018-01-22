@@ -22,20 +22,8 @@ Troubleshooting
     - You have not activated the conda environment to which you installed
       pyPRISM
 
-    If you cannot seem to install pyPRISM or add pyPRISM to your
-    environment manually, you can alternatively hack it into your current
-    session as follows. Note that this process will have to be repeated each
-    time you start a new Python or IPython session.
-
-    .. code-block:: python
-        
-        >>> import sys
-        >>> sys.insert(0,'/path/to/pyPRISM/directory/')
-
-    Note that the directory in the above command should be the one that
-    contains `setup.py`. This directory can be located anywhere on your
-    machine.
-
+    See :ref:`noninstall` for details on how to manually add pyPRISM into your
+    environment (assuming that the other installation methods are failing).
 
 #. Bash Terminal vs. Windows Terminal vs. Python Terminal vs. IPython Terminal 
 
