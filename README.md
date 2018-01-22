@@ -21,13 +21,10 @@
     <img src='https://img.shields.io/badge/Release_Version-1.0.0-blue.svg' alt='Release Version' />
 </a>
 
-<a href='https://github.com/usnistgov/pyprism_tutorial'>
-    <img src='https://img.shields.io/badge/Jupyter_Tutorial--orange.svg' alt='Jupyter Tutorial' />
+<a href='https://pyPRISM.readthedocs.io/tutorial'>
+    <img src='https://img.shields.io/badge/Tutorial--orange.svg' alt='Tutorial' />
 </a>
 
-<a href='https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb'>
-    <img src='https://img.shields.io/badge/Online_Tutorial--orange.svg' alt='Online Tutorial' />
-</a>
 
 </p>
 
