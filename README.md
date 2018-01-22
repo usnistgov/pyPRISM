@@ -106,10 +106,10 @@ pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 
 Quick Install
 =============
-The commands below shoul install pyPRISM with all basic dependences via conda
+The commands below should install pyPRISM with all basic dependences via conda
 or pip. These commands should be platform agnostic and work for Unix, OSX, and
-Windows *if* you have Anaconda or pip correctly installed.  For full
-installation instructions please see the documentation. 
+Windows *if* you have Anaconda or pip installed.  For full installation
+instructions please see the documentation. 
 
 ``` bash
 $ conda install -c conda-forge pyPRISM
