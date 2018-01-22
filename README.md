@@ -1,5 +1,5 @@
 <p align="center">
-    <img src='./img/TOC.png' width='500px'/>
+    <img src='./tutorial/img/TOC.png' width='500px'/>
 </p>
 <h1 align="center">pyPRISM</h1>
 
@@ -101,44 +101,8 @@ PRISM.solve()
 pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 ```
 <p align="center">
-    <img src='./img/nanocomposite_rdf.png' />
+    <img src='./tutorial/img/nanocomposite_rdf.png' />
 </p>
-
-Documentation
-=============
-
-- [ReadTheDocs.io](https://pyPRISM.readthedocs.io/)
-
-Code documentation is hosted on ReadTheDocs.io. The most up to
-date code documentation can always be found by compiling from source. 
-
-Depedencies
-===========
-The following are the minimum depedencies needed to use pyPRISM
-
-    - Python 2.7 or 3.5
-    - Numpy >= 1.8.0
-    - Scipy
-
-These dependencies are required for *optional* features
-
-    - Cython (simulation trajectory analyses)
-    - Pint (unit conversion utility)
-
-These dependencies are needed to run the tutorial notebooks 
-    
-    - jupyter
-    - matplotlib
-    - bokeh
-    - holoviews
-
-These depedencies are needed to compile the documentation from source
-    
-    - sphinx
-    - sphinx-autobuild
-    - sphinx_rtd_theme
-    - pandoc <= 1.19.2
-
 
 Quick Install
 =============
@@ -156,6 +120,13 @@ or
 ``` bash
 $ pip install pyPRISM
 ```
+Documentation
+=============
+
+- [ReadTheDocs.io](https://pyPRISM.readthedocs.io/)
+
+Code documentation is hosted on ReadTheDocs.io. The most up to
+date code documentation can always be found by compiling from source. 
 
 Contact Us
 ==========
