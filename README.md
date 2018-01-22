@@ -104,26 +104,6 @@ pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
     <img src='./img/nanocomposite_rdf.png' />
 </p>
 
-Tutorial
-========
-
-- [Jupyter Notebooks](https://github.com/usnistgov/pyPRISM_tutorial) 
-- [Static Website](https://nbviewer.jupyter.org/github/usnistgov/pyPRISM_tutorial/blob/master/NB0.Introduction.ipynb)
-
-A companion tutorial to the documentation can be found on GitHub.  This
-tutorial can be used interactively in a live Jupyter notebook or rendered as a
-static webpage using the nbviewer feature on the Jupyter website. The benefit
-of using a live Jupyter notebook is that users are able to edit and run real
-pyPRISM code while the static website provides a rapid and setup-free way to
-survey the codebase.  
-
-The tutorial not only teaches users how to use pyPRISM, but also covers the
-basics PRISM theory, provide a basic introduction to Python, Jupyter, and some
-related theoretical concepts. These non-codebase related topics are not covered
-in detail in the documentation. The tutorial also goes over several case
-studies from the literature and how pyPRISM can be used to reproduce data from
-these studies. 
-
 Documentation
 =============
 
@@ -157,6 +137,7 @@ These depedencies are needed to compile the documentation from source
     - sphinx
     - sphinx-autobuild
     - sphinx_rtd_theme
+    - pandoc <= 1.19.2
 
 
 Quick Install
@@ -167,7 +148,7 @@ Windows *if* you have Anaconda or pip correctly installed.  For full
 installation instructions please see the documentation. 
 
 ``` bash
-$ conda install pyPRISM
+$ conda install -c conda-forge pyPRISM
 ```
 
 or

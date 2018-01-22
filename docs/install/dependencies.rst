@@ -7,7 +7,10 @@ The following are the tested depedencies needed to use pyPRISM:
     - Python 2.7 or 3.5
     - Numpy >= 1.8.0
     - Scipy
-    - Cython
+
+These dependencies are required for *optional* features
+    - Cython (simulation trajectory analyses)
+    - Pint (unit conversion utility)
 
 These additional dependencies are needed to run the tutorials
     - jupyter
