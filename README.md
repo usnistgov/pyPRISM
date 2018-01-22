@@ -21,7 +21,7 @@
     <img src='https://img.shields.io/badge/Release_Version-1.0.0-blue.svg' alt='Release Version' />
 </a>
 
-<a href='https://pyPRISM.readthedocs.io/tutorial'>
+<a href='https://pyPRISM.readthedocs.io/en/latest/tutorial/tutorial.html'>
     <img src='https://img.shields.io/badge/Tutorial--orange.svg' alt='Tutorial' />
 </a>
 
