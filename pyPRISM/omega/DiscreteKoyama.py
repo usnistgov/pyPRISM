@@ -288,7 +288,7 @@ class DiscreteKoyama(Omega):
         for i in range(1,self.length-1):
             for j in range(i+1,self.length):
                 n = abs(i - j)
-                self.value += self.koyama_kernel(k=k,n=n)
+                self.value += self.koyama_kernel_fourier(k=k,n=n)
         self.value *= 2/self.length
         self.value += 1.0
         
