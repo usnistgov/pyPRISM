@@ -4,11 +4,13 @@ def get_python_version():
     with open('pyPRISM/version.py','r') as f:
         exec(f.read(),globals())
     print('==> Got version {} from python.'.format(version))
-    return __version__
+    return str(__version__)
   
 def get_git_version():
     try:
-        version = subprocess.check_output(shlex.split('git describe')).strip()
+        version = subprocess.check_output(shlex.split('git describe'))
+        version = version.strip()
+        version = version.decode('utf-8')
     except subprocess.CalledProcessError:
         version = None
         print('==> Could not get git version')
@@ -16,9 +18,9 @@ def get_git_version():
         print('==> Got version {} from git repo.'.format(version))
     return version
 
-def write(version,file='pyPRISM/Version.py'):
+def write(version,file='pyPRISM/version.py'):
     with open(file,'w') as f:
-      f.write('\n__version__ = \'{}\'\n'.format(version))
+      f.write('__version__ = \'{}\'\n'.format(version))
       f.write('version = \'{}\'\n'.format(version))
     print('==> Updated version to {} in file: {}'.format(version,file))
 
