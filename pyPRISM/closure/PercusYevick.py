@@ -30,7 +30,7 @@ class PercusYevick(AtomicClosure):
 
         The Percus-Yevick (PY) is derived by expanding the exponential of the
         direct correlation function, :math:`c_{\alpha,\beta}(r)`, in powers of 
-        density shift from a refence state. See Reference [1] for a full
+        density shift from a reference state. See Reference [1] for a full
         derivation.
         
         The change of variables is necessary in order to use potentials with

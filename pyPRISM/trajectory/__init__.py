@@ -1,3 +1,12 @@
+#!python
+'''
+PRISM is often used in conjunction with molecular simulation techniques, such
+as when using Self-Consistent PRISM. This module is intended to provide classes for
+working with and analyzing molecular simulation trajectories.
+
+
+See :ref:`scprism` for more information on the method.
+'''
 import warnings
 from sys import platform as _platform
 

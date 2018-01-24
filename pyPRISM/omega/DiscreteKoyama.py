@@ -186,7 +186,7 @@ class DiscreteKoyama(Omega):
         Arguments
         ---------
         k: np.ndarray, float
-            array of wavenumber values to caluclate :math:`\omega` at
+            array of wavenumber values to calculate :math:`\omega` at
 
         n: int
             Integer separation distance along chain.
@@ -211,7 +211,7 @@ class DiscreteKoyama(Omega):
         Arguments
         ---------
         r: np.ndarray, float
-            array of real-space positions to caluclate :math:`\omega` at
+            array of real-space positions to calculate :math:`\omega` at
 
         n: int
             Integer separation distance along chain.
@@ -239,7 +239,7 @@ class DiscreteKoyama(Omega):
         Arguments
         ---------
         r: np.ndarray, float
-            array of real-space positions to caluclate :math:`\omega` at
+            array of real-space positions to calculate :math:`\omega` at
         '''
         
         factor1 = np.pi*self.sigma**(3.0)*(1-3.0*r/(2.0*self.sigma)+r**(3.0)/(2.0*self.sigma**3.0))/6.0
@@ -280,7 +280,7 @@ class DiscreteKoyama(Omega):
         Arguments
         ---------
         k: np.ndarray, float
-            array of wavenumber values to caluclate :math:`\omega` at
+            array of wavenumber values to calculate :math:`\omega` at
         
         '''
         self.value = np.zeros_like(k)

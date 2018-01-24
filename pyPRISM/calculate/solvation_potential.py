@@ -39,7 +39,7 @@ def solvation_potential(PRISM,closure='HNC'):
     **Variable Definitions**
 
         - :math:`\Delta \hat{\Psi}^{PY}`, :math:`\Delta \hat{\Psi}^{HNC}`
-            Percus-Yevick and Hypernetted Chain derived pairwise decomposied
+            Percus-Yevick and Hypernetted Chain derived pairwise decomposed
             solvation potentials, each described as a  :class:`.MatrixArray`.
             This implies that the multiplication in the above equation is
             actually *matrix* multiplication and the individual solvation

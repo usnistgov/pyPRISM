@@ -128,7 +128,7 @@ class NonOverlappingFreelyJointedChain(Omega):
         Arguments
         ---------
         k: np.ndarray
-            array of wavenumber values to caluclate :math:`\omega` at
+            array of wavenumber values to calculate :math:`\omega` at
         
         '''
         integrate = np.trapz
