@@ -12,7 +12,7 @@ One of the original weaknesses of PRISM theory was the lack of explicit
 coupling between intra- and inter-molecular correlations. This means that the
 global, inter-molecular structure of a system could not affect its
 intra-molecular structure.  In the past, this limited PRISM calculations to
-systems where ideality assumptions could be invoked thateffectively de-coupled
+systems where ideality assumptions could be invoked that effectively de-coupled
 the intra- and inter-molecular correlations. The Self-Consistent PRISM Method
 (SCPRISM) circumvents this limitation by combining PRISM theory and molecular
 simulation. Single-molecule simulations are used to calculate the

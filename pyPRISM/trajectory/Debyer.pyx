@@ -73,8 +73,9 @@ cdef class Debyer:
     One of the most powerful uses of PRISM is to combine it with modern
     simulation techniques to calculate the intra-molecular correlation
     functions :math:`\hat{\omega}(k)`. This allows PRISM to be used for systems
-    which do not have anlytical descriptions for their :math:`\hat{\omega}(k)` and,
-    furthermore, allows PRISM to predic the structure of non-ideal systems.
+    which do not have analytical descriptions for their :math:`\hat{\omega}(k)`
+    and, furthermore, allows PRISM to predic the structure of non-ideal
+    systems.
 
     Unfortunately, this calculation is extremely computationally intensive and
     requires care to calculate correctly. Here we provide a parallelized
@@ -117,7 +118,7 @@ cdef class Debyer:
         threads used in the calculation. This is governed by the
         OMP_NUM_THREADS (at least on \*nix and OSX). If you have many cores on
         your machine, you may actually see improved performance if you reduce
-        the value of OMP_NUM_THREADS from it's maximum. Setting this variable
+        the value of OMP_NUM_THREADS from its maximum. Setting this variable
         is also useful if you're sharing a machine or node. If running a
         script, you can set this variables globally:
 

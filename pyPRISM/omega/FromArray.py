@@ -69,7 +69,7 @@ class FromArray(Omega):
         Arguments
         ---------
         k: np.ndarray
-            array of wavenumber values to caluclate :math:`\omega` at
+            array of wavenumber values to calculate :math:`\omega` at
         
         '''
         assert self.value.shape[0] == k.shape[0],'Size of array differs from domain!'

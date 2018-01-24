@@ -30,7 +30,7 @@ class HyperNettedChain(AtomicClosure):
 
         The Hypernetted Chain Closure (HNC) is derived by expanding the the
         direct correlation function, :math:`c(r)`, in powers of density shift
-        from a refence state. See Reference [1] for a full derivation and
+        from a reference state. See Reference [1] for a full derivation and
         discussion of this closure.
         
         The change of variables is necessary in order to use potentials with

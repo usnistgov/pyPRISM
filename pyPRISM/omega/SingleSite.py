@@ -41,7 +41,7 @@ class SingleSite(Omega):
         Arguments
         ---------
         k: np.ndarray
-            array of wavenumber values to caluclate :math:`\omega` at
+            array of wavenumber values to calculate :math:`\omega` at
         
         '''
         self.value = np.ones_like(k)

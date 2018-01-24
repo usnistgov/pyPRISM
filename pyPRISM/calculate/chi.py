@@ -126,7 +126,7 @@ def chi(PRISM,extrapolate=True):
         chi = pyPRISM.calculate.chi(PRISM)
 
         chi_AB = chi['A','B']
-        chi_AA = chi['A','A'] #returns None because self-chi values are not defines
+        chi_AA = chi['A','A'] #returns None because self-chi values are not defined
 
     '''
     

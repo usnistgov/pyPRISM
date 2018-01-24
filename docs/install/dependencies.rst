@@ -1,9 +1,9 @@
 .. _dependencies:
 
-Depedencies
-===========
+Dependencies
+============
 
-The following are the tested depedencies needed to use pyPRISM:
+The following are the tested dependencies needed to use pyPRISM:
     - Python 2.7 or 3.5
     - Numpy >= 1.8.0
     - Scipy
@@ -18,7 +18,7 @@ These additional dependencies are needed to run the tutorials
     - bokeh
     - holoviews
 
-These additional depedencies are needed to compile the documentation from source
+These additional dependencies are needed to compile the documentation from source
     - sphinx
     - sphinx-autobuild
     - sphinx_rtd_theme

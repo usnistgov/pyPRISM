@@ -99,7 +99,7 @@ class Gaussian(Omega):
         Arguments
         ---------
         k: np.ndarray
-            array of wavenumber values to caluclate :math:`\omega` at
+            array of wavenumber values to calculate :math:`\omega` at
         
         '''
         E = np.exp(-k*k*self.sigma*self.sigma/6.0)
