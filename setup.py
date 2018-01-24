@@ -4,10 +4,8 @@ from Cython.Build import cythonize
 import numpy as np
 
 ## Try to use git-describe to get up-to-date version
-import update_version
-long,short = update_version.get_git_version()
-version = short
-
+import versiontools
+versino = get_python_version()
 
 ## Detect os
 from sys import platform as _platform

@@ -3,7 +3,7 @@ r'''
 The fundamental PRISM equation is written in Fourier space as
 
 .. math::
-    \hat{H}(k) = \hat{\Omega}(k)\hat{C}(k) [\hat{\Omega}(k) + \hat{H}(k)]
+    \hat{H}(k) = \hat{\Omega}(k)\hat{C}(k) \left[\hat{\Omega}(k) + \hat{H}(k)\right]
 
 where :math:`\hat{H}(k)` is the total correlation function,
 :math:`\hat{\Omega}(k)` is the *intra*-molecular correlation function, and
