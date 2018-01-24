@@ -16,9 +16,3 @@ API
     pyPRISM.potential
     pyPRISM.trajectory
     pyPRISM.util
-
-
-.. toctree::
-
-   pyPRISM.Version
-
