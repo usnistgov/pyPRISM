@@ -4,7 +4,7 @@ PRISM uses pairwise decomposed potentials to describe the interactions between
 site-types. pyPRISM provides the potentials listed below.  If you have
 potential that is not listed, please consider filing an `Issue
 <https://github.com/usnistgov/pyPRISM/issues>`_ on GitHub, implementing the
-:math:`\hat{\omega}(k)` and sharing with the community. See :ref:`contribute`
+potential, and sharing with the community. See :ref:`contribute`
 for more details.  
 '''
 from pyPRISM.potential.Potential import Potential

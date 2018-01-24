@@ -25,7 +25,7 @@ The :py:mod:`pyPRISM.closure` module provides closure objects which are necessar
 solving the PRISM equations.
 
 The :py:mod:`pyPRISM.omega` module provides analytical *intra*-molecular
-correlation (:math:`\hat(\omega)(k)`) functions along with methods for loading
+correlation (:math:`\hat{\omega}(k)`) functions along with methods for loading
 them from memory or files.
 
 The :py:mod:`pyPRISM.potential` module provides pair potentials for describing
