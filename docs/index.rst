@@ -44,18 +44,32 @@ polymeric fluids and nanocomposites.
        [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
 
 
-Contents
---------
 .. toctree::
     :maxdepth: 2
+    :caption: Code Reference
 
     api/pyPRISM
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Setup
+
     install/install
     quickstart
     tutorial/tutorial
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Knowledgebase
+
     faq
     scprism
     convergence
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Miscellaneous 
+
     contribute
     contact
     legal
