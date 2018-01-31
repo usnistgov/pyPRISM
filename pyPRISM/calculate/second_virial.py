@@ -14,7 +14,7 @@ def second_virial(PRISM,extrapolate=True):
 
     extrapolate: bool, *optional*
         If *True*, extrapolate :math:`h_{\alpha,\beta}` to :math:`k=0` rather
-        than reporting the value at the lowest-k
+        than reporting the value at the lowest-k. Defaults to *True*.
     
     Returns
     -------
@@ -36,8 +36,8 @@ def second_virial(PRISM,extrapolate=True):
             :math:`\beta`
 
         - :math:`\hat{h}_{\alpha,\beta}(k)`
-            Fourier-space total correlation function between site types 
-	    :math:`\alpha` and :math:`\beta` at wavevector :math:`k`
+            Fourier-space total correlation function between site types
+            :math:`\alpha` and :math:`\beta` at wavevector :math:`k`
 
 
     **Description**

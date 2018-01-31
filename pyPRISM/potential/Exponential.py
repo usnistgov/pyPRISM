@@ -11,7 +11,7 @@ class Exponential(Potential):
     
     .. math::
     
-        U_{\alpha,\beta}(r \geq \sigma_{\alpha,\beta}) - \epsilon_{\alpha,\beta} \exp\left(- \frac{r-\sigma_{\alpha,\beta}}{\alpha}\right)
+        U_{\alpha,\beta}(r \geq \sigma_{\alpha,\beta}) = \epsilon_{\alpha,\beta} \exp\left(- \frac{r-\sigma_{\alpha,\beta}}{\alpha}\right)
 
     .. math::
 

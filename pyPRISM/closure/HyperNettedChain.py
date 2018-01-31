@@ -28,7 +28,7 @@ class HyperNettedChain(AtomicClosure):
     
     **Description**
 
-        The Hypernetted Chain Closure (HNC) is derived by expanding the the
+        The Hypernetted Chain Closure (HNC) is derived by expanding the
         direct correlation function, :math:`c(r)`, in powers of density shift
         from a reference state. See Reference [1] for a full derivation and
         discussion of this closure.
@@ -79,7 +79,7 @@ class HyperNettedChain(AtomicClosure):
         apply_hard_core: bool
             If *True*, the total correlation function will be assumed to be -1
             inside the core (:math:`r_{i,j}<(d_i + d_j)/2.0`) and the closure
-            will not be applied in this region.
+            will not be applied in this region. Defaults to *True*.
         '''
         self.potential = None
         self.value = None

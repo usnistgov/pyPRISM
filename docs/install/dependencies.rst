@@ -4,25 +4,26 @@ Dependencies
 ============
 
 The following are the tested dependencies needed to use pyPRISM:
-    - Python 2.7 or 3.5
-    - Numpy >= 1.8.0
-    - Scipy
+    - `Python <http://python.org>`__ 2.7 or 3.5 
+    - `Numpy <http://numpy.org>`__ >= 1.8.0
+    - `Scipy  <http://scipy.org/>`__
 
 These dependencies are required for *optional* features
-    - Cython (simulation trajectory analyses)
-    - Pint (unit conversion utility)
+    - `Cython <http://cython.org>`__ (simulation trajectory analyses)
+    - `Pint <https://pint.readthedocs.io/en/latest/>`__ (unit conversion utility)
 
 These additional dependencies are needed to run the tutorials
-    - jupyter
-    - matplotlib
-    - bokeh
-    - holoviews
+    - `Jupyter  <http://jupyter.org/>`__
+    - `matplotlib  <http://matplotlib.org/>`__
+    - `Bokeh  <http://bokeh.pydata.org/>`__
+    - `HoloViews  <http://holoviews.org/>`__
 
 These additional dependencies are needed to compile the documentation from source
-    - sphinx
-    - sphinx-autobuild
-    - sphinx_rtd_theme
-    - pandoc <= 1.19.2
+    - `Sphinx <http://sphinx-doc.org>`__
+    - `sphinx-autobuild <https://pypi.python.org/pypi/sphinx-autobuild>`__
+    - `sphinx_rtd_theme <https://pypi.python.org/pypi/sphinx_rtd_theme>`__
+    - `nbsphinx <https://nbsphinx.readthedocs.io>`__
+    - `Pandoc <https://pandoc.org>`__ <= 1.19.2
 
 All of these dependecies can be satisfied by creating a conda environment using
 the .yml files in source distribution. Note that we provide multiple

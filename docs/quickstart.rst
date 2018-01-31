@@ -64,7 +64,7 @@ Annotated Example
     
     # The molecular structure is described via intra-molecular correlation
     # functions (i.e. omegas)
-    sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(N=100,l=4.0/3.0)
+    sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(length=100,l=4.0/3.0)
     sys.omega['polymer','particle']  = pyPRISM.omega.NoIntra()
     sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
     

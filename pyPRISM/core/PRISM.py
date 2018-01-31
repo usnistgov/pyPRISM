@@ -19,7 +19,7 @@ class PRISM:
     
     Each pyPRISM.PRISM object serves as an encapsulation of a fully specified
     PRISM problem including all inputs needed for the calculation and the
-    function which the will be numerically minimized. 
+    function to be numerically minimized. 
     
     Attributes
     ----------

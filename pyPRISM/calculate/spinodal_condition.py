@@ -17,7 +17,7 @@ def spinodal_condition(PRISM,extrapolate=True):
 
     extrapolate: bool, *optional*
         If *True*, only return the value extrapolated to :math:`k=0` rather than
-        reporting the value at the lowest-k
+        reporting the value at the lowest-k. Defaults to *True*.
     
     Returns
     -------

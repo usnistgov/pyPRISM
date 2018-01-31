@@ -3,7 +3,7 @@ from __future__ import division,print_function
 from pyPRISM.core.Space import Space
 
 def pair_correlation(PRISM):
-    r'''Calculate the Real-space pair correlation function 
+    r'''Calculate the Real-space *inter*-molecular pair correlation function 
 
     Parameters
     ----------
@@ -38,7 +38,8 @@ def pair_correlation(PRISM):
         between pairs of sites in Real-space. Also known as the *radial
         distribution function* (rdf), the :math:`g(r)` function is
         related to the underlying spatial probability distributions of a given
-        system.
+        system. In a PRISM calculation, :math:`g(r)` is strictly an
+        *inter*-molecular quantity.
 
         After convergence of a PRISM object, the stored total correlation
         attribute function can simply be shifted to obtain the :math:`g(r)` 

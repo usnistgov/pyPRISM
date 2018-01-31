@@ -6,13 +6,13 @@ import numpy as np
 class FromFile(Omega):
     '''Read *intra*-molecular correlations from file
     
-    This class reads a one or two column file using numpy's
+    This class reads a one or two column file using Numpy's
     loadtxt function. A one-column file is expected to only
     contain intra-molecular correlation data, while a two-column
     file contains the k values of the data in the first column
     as well. If the k-values are provided, an extra check to make
     sure that the file data matches the same k-space grid of the
-    domain is checked. 
+    domain. 
     
     Attributes
     ----------

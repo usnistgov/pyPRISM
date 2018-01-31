@@ -29,18 +29,18 @@ class DiscreteKoyama(Omega):
 
     **Variable Definitions**
         
-	- :math:`\hat{\omega}(k)` 
+        - :math:`\hat{\omega}(k)` 
             *intra*-molecular correlation function at wavenumber :math:`k`
 
         - :math:`\langle r_{\alpha,\beta}^2 \rangle`
-            second moment of the distance distribution between sites 
-	    :math:`\alpha` and :math:`\beta`. Please see equation (17)
-	    of the reference cited below for the mathematical representation.       
+            second moment of the distance distribution between sites
+            :math:`\alpha` and :math:`\beta`. Please see equation (17) of the
+            Reference [1] cited below for the mathematical representation.       
  
-	- :math:`\langle r_{\alpha,\beta}^4 \rangle`
-            fourth moment of the distance distribution between sites 
-	    :math:`\alpha` and :math:`\beta`. Please see equations (18-24)
-	    of the reference cited below for the mathematical representation.       
+        - :math:`\langle r_{\alpha,\beta}^4 \rangle`
+            fourth moment of the distance distribution between sites
+            :math:`\alpha` and :math:`\beta`. Please see equations (18-24) of
+            the reference cited below for the mathematical representation.       
 
 
     **Description**
@@ -80,10 +80,10 @@ class DiscreteKoyama(Omega):
         plt.gca().set_yscale("log", nonposy='clip')
 
         plt.show()
-	
-	#define a PRISM system and set omega(k) for type A
-	sys = pyPRISM.System(['A','B'],kT=1.0)
-	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        
+        #define a PRISM system and set omega(k) for type A
+        sys = pyPRISM.System(['A','B'],kT=1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.omega['A','A']  = pyPRISM.omega.DiscreteKoyama(sigma=1.0,l=1.0,length=100,lp=1.43)
     
     '''
@@ -105,7 +105,7 @@ class DiscreteKoyama(Omega):
             persistence length of chain
         '''
         self.sigma   = sigma
-        self.length  = length
+        self.length  = int(length)
         self.l       = l
         self.lp      = lp
         self.cos0    = 1 - sigma*sigma/(2.0 * l * l)

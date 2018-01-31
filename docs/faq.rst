@@ -78,8 +78,8 @@ What do I do if the solver isn't converging?
 There are a variety of reasons why the solver might seem "stuck", i.e. the
 function norm isn't decreasing. See :ref:`convergence`.
 
-What doesn't pyPRISM doesn't have the feature I need?
------------------------------------------------------
+Why doesn't pyPRISM doesn't have the feature I need?
+----------------------------------------------------
 See :ref:`contribute`
 
 How to file a bug report, suggest a feature or ask a question about pyPRISM?

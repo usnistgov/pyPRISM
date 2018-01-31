@@ -96,7 +96,7 @@ cdef class Debyer:
     
     The positions1 and positions2 arguments are numpy array containing multiple
     frames of coordinates. Each of the two arrays should only contain the
-    coordinates of the of the site-type pair being considered. In other words,
+    coordinates of the site-type pair being considered. In other words,
     positions1 should have a trajectory of positions for site type
     :math:`\alpha` and positions2 for :math:`\beta` when calculating
     :math:`\hat{\omega}_{\alpha,\beta}(k)`. If :math:`\alpha == \beta`, the

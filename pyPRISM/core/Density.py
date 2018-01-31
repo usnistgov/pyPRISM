@@ -40,7 +40,7 @@ class Density(object):
             Site number density of pair :math:`\alpha,\beta`
 
         :math:`\rho^{total}`
-            Total site number density of pair :math:`\alpha,\beta`
+            Total site number density 
         
 
     **Description**
