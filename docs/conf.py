@@ -82,6 +82,7 @@ author = 'Tyler B. Martin'
 ## Hack in versiontools
 import sys; sys.path.insert(0,'../')
 from versiontools import get_version
+del sys.path[0] # need to scrub this either readthedocs won't import the installed lib
 release = get_version('../pyPRISM/version.py')
 version = release.split('-')[0]
 
