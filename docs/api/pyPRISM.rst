@@ -1,5 +1,5 @@
-API
-===
+API Description
+===============
 
 .. automodule:: pyPRISM
     :members:
@@ -8,6 +8,7 @@ API
 
 
 .. toctree::
+    :caption: Full API Listing
 
     pyPRISM.core
     pyPRISM.calculate

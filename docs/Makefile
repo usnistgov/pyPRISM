@@ -25,7 +25,7 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 buildapi:
-	sphinx-apidoc -fMeT ../pyPRISM -o api
+	sphinx-apidoc -MeT ../pyPRISM -o api
 		@echo "Auto-generation of API documentation finished. " \
 		"The generated files are in 'api/'"
 	sed -i -e '/Submodules/,+1d' api/*

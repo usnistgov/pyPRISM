@@ -20,7 +20,7 @@ polymer systems including melts, blends, solutions, block copolymers, ionomers,
 liquid crystal forming polymers and nanocomposites. Using PRISM theory, one can
 calculate thermodynamic (e.g., second virial coefficients, Flory-Huggins
 :math:`\chi` interaction parameters, potentials of mean force) and structural
-(eg., pair correlation functions, structure factors) information for these
+(e.g., pair correlation functions, structure factors) information for these
 macromolecular materials. See the :ref:`faqs` section for examples of systems
 and calculations that are available to PRISM theory.
 
@@ -45,10 +45,17 @@ polymeric fluids and nanocomposites.
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     :caption: Code Reference
 
     api/pyPRISM
+    api/pyPRISM.core
+    api/pyPRISM.calculate
+    api/pyPRISM.closure
+    api/pyPRISM.omega
+    api/pyPRISM.potential
+    api/pyPRISM.trajectory
+    api/pyPRISM.util
 
 .. toctree::
     :maxdepth: 2
