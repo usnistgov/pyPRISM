@@ -123,7 +123,6 @@ def spinodal_condition(PRISM,extrapolate=True):
                 omega_AB *= 1.0/rho_AB
                 omega_BB *= 1.0/rho_BB
                 
-                print(rho_AA,rho_BB,C_AA[0],C_BB[0],C_AB[0],omega_AA[0],omega_BB[0])
                 curve  = +1
                 curve += -1*C_AA * rho_AA * omega_AA
                 curve += -2*C_AB * rho_AB * omega_AB
