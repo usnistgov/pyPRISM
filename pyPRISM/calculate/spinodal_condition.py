@@ -34,8 +34,8 @@ def spinodal_condition(PRISM,extrapolate=True):
         &  -\rho^{site}_{\beta,\beta} \hat{C}_{\beta,\beta} \hat{\omega}_{\beta,\beta}(k) \\
         &  +\rho^{site}_{\alpha,\beta} \rho^{site}_{\alpha,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
         &  -\rho^{site}_{\alpha,\beta} \rho^{site}_{\alpha,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\beta}(k) \hat{\omega}_{\alpha,\beta}(k) \\
-        &  -\rho^{site}_{\alpha,\alpha} \rho^{site}_{\beta,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
-        &  +\rho^{site}_{\alpha,\alpha} \rho^{site}_{\beta,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
+        &  +\rho^{site}_{\alpha,\alpha} \rho^{site}_{\beta,\beta} \hat{C}_{\alpha,\alpha}(k) \hat{C}_{\beta,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
+        &  -\rho^{site}_{\alpha,\alpha} \rho^{site}_{\beta,\beta} \hat{C}_{\alpha,\beta}(k)  \hat{C}_{\alpha,\beta}(k)  \hat{\omega}_{\alpha,\alpha}(k) \hat{\omega}_{\beta,\beta}(k) \\
 
     **Variable Definitions**
 
@@ -118,7 +118,12 @@ def spinodal_condition(PRISM,extrapolate=True):
                 rho_AA = PRISM.sys.density.site[t1,t1]
                 rho_AB = PRISM.sys.density.site[t1,t2]
                 rho_BB = PRISM.sys.density.site[t2,t2]
-
+               
+                omega_AA *= 1.0/rho_AA
+                omega_AB *= 1.0/rho_AB
+                omega_BB *= 1.0/rho_BB
+                
+                print(rho_AA,rho_BB,C_AA[0],C_BB[0],C_AB[0],omega_AA[0],omega_BB[0])
                 curve  = +1
                 curve += -1*C_AA * rho_AA * omega_AA
                 curve += -2*C_AB * rho_AB * omega_AB
