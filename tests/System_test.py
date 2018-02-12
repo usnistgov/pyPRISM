@@ -17,12 +17,12 @@ class System_TestCase(unittest.TestCase):
         
         # These values make no sense but their sufficient
         # for this 'check'
-        sys.domain = 'dummy'
-        sys.density.density.setUnset(1.0)
+        sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
+        sys.density[sys.types] = 1.0
+        sys.diameter[sys.types] = 1.0
         sys.potential.setUnset(1.0)
         sys.closure.setUnset(1.0)
         sys.omega.setUnset(1.0)
-        sys.diameter.setUnset(1.0)
         
         #test should fail if this raises
         try:

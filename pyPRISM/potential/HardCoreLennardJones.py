@@ -65,9 +65,16 @@ class HardCoreLennardJones(Potential):
 	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.potential['A','B'] = pyPRISM.potential.HardCoreLennardJones(epsilon=1.0,sigma=1.0,high_value=10**6)
 
+    .. warning::
+
+        If sigma is specified such that it does not fall on the solution grid
+        of the :class:`~pyPRISM.core.Domain.Domain` object specified in
+        :class:`~pyPRISM.core.System.System`, then the sigma will effectively
+        be rounded. A warning should be emitted during the construction of a
+        :class:`~pyPRISM.core.PRISM.PRISM` object if this occurs.
     
     '''
-    def __init__(self,epsilon,sigma,high_value=1e6):
+    def __init__(self,epsilon,sigma=None,high_value=1e6):
         r''' Constructor
         
         Arguments
@@ -75,8 +82,10 @@ class HardCoreLennardJones(Potential):
         epsilon: float
             Depth of attractive well
             
-        sigma: float
-            Contact distance (i.e. low distance where potential magnitude = 0)
+        sigma: float, *optional*
+            Contact distance. If not specified, sigma will be calculated from 
+            the diameters specified in the :class:`~pyPRISM.core.System.System`
+            object.
             
         high_value: float, *optional*
             High value used to approximate an infinite potential due to overlap
@@ -85,7 +94,7 @@ class HardCoreLennardJones(Potential):
         self.epsilon = epsilon 
         self.sigma = sigma
         self.high_value = high_value
-        self.funk  = lambda r: epsilon * ((sigma/r)**(12.0) - 2.0*(sigma/r)**(6.0))
+        self.funk  = lambda r,sigma: epsilon * ((sigma/r)**(12.0) - 2.0*(sigma/r)**(6.0))
         
     def __repr__(self):
         return '<Potential: HardCoreLennardJones>'
@@ -98,7 +107,9 @@ class HardCoreLennardJones(Potential):
         r: float np.ndarray
             Array of pair distances at which to calculate potential values
         '''
-        magnitude = self.funk(r)
+        assert (self.sigma is not None), 'Sigma must be set before evaluating potential!'
+
+        magnitude = self.funk(r,self.sigma)
         magnitude[r<=self.sigma] = self.high_value
                 
         return magnitude

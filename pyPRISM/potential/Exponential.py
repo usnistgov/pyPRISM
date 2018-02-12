@@ -63,9 +63,16 @@ class Exponential(Potential):
 	sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.potential['A','B'] = pyPRISM.potential.Exponential(epsilon=1.0,sigma=8.0,alpha=0.5,high_value=10**6)
 
+    .. warning::
+
+        If sigma is specified such that it does not fall on the solution grid
+        of the :class:`~pyPRISM.core.Domain.Domain` object specified in
+        :class:`~pyPRISM.core.System.System`, then the sigma will effectively
+        be rounded. A warning should be emitted during the construction of a
+        :class:`~pyPRISM.core.PRISM.PRISM` object if this occurs.
     
     '''
-    def __init__(self,epsilon,sigma,alpha,high_value=1e6):
+    def __init__(self,epsilon,alpha,sigma=None,high_value=1e6):
         r''' Constructor
         
         Arguments
@@ -73,11 +80,13 @@ class Exponential(Potential):
         epsilon: float
             Strength of attraction
             
-        sigma: float
-            Contact distance 
-            
         alpha: float
             Range of attraction
+
+        sigma: float, *optional*
+            Contact distance. If not specified, sigma will be calculated from 
+            the diameters specified in the :class:`~pyPRISM.core.System.System`
+            object.
             
         high_value: float, *optional*
             High value used to approximate an infinite potential due to overlap
@@ -87,7 +96,7 @@ class Exponential(Potential):
         self.sigma = sigma
         self.alpha = alpha
         self.high_value = high_value
-        self.funk  = lambda r: - epsilon * np.exp(-(r-sigma)/(alpha))
+        self.funk  = lambda r,sigma: - epsilon * np.exp(-(r-sigma)/(alpha))
     def __repr__(self):
         return '<Potential: Exponential>'
     
@@ -99,7 +108,9 @@ class Exponential(Potential):
         r: float np.ndarray
             Array of pair distances at which to calculate potential values
         '''
-        magnitude = self.funk(r)
+        assert (self.sigma is not None), 'Sigma must be set before evaluating potential!'
+
+        magnitude = self.funk(r,self.sigma)
         magnitude = np.where(r>self.sigma,magnitude,self.high_value)
         return magnitude
         

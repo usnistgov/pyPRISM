@@ -1,5 +1,6 @@
 #!python 
 from __future__ import division,print_function
+import warnings
 import numpy as np
 from pyPRISM.core.PRISM import PRISM
 from pyPRISM.core.MatrixArray import MatrixArray
@@ -7,6 +8,7 @@ from pyPRISM.core.PairTable import PairTable
 from pyPRISM.core.ValueTable import ValueTable
 from pyPRISM.core.Space import Space
 from pyPRISM.core.Density import Density
+from pyPRISM.core.Diameter import Diameter
 
 from pyPRISM.closure.AtomicClosure import AtomicClosure
 from pyPRISM.closure.MolecularClosure import MolecularClosure
@@ -107,11 +109,11 @@ class System:
         self.kT = kT
         
         self.domain    = None
-        self.diameter  = ValueTable(types,'diameter')
+        self.diameter  = Diameter(types)
         self.density   = Density(types)
         self.potential = PairTable(types,'potential')
         self.closure   = PairTable(types,'closure')
-        self.omega = PairTable(types,'omega')
+        self.omega     = PairTable(types,'omega')
 
     def check(self):
         '''Is everything in the system specified?
@@ -127,6 +129,26 @@ class System:
         if self.domain is None:
             raise ValueError(('System has no domain! '
                               'User must instatiate and assign a domain to the system!'))
+
+        tol = 1e-6
+        # ensure that the diameters are on the real-space grid
+        for i,t,d in self.diameter.diameter:
+            check = np.any(np.abs(self.domain.r - d)<tol)
+            if not check:
+                warn_text  = 'Diameter {} = {} is not a multiple'.format(t,d)
+                warn_text += 'of domain grid spacing dr = {}.'.format(self.domain.dr)
+                warn_text += 'Rounding will occur in closures and potentials!'
+                warnings.warn(warn_text)
+
+        # ensure that the sigmas are on the real-space grid
+        for i,(t1,t2),s in self.diameter.sigma:
+            check = np.any(np.abs(self.domain.r - s)<tol)
+            if not check:
+                warn_text  = 'Sigma {}{} = {} is not a multiple'.format(t1,t2,s)
+                warn_text += 'of domain grid spacing dr = {}.'.format(self.domain.dr)
+                warn_text += 'Rounding will occur in closures and potentials!'
+                warnings.warn(warn_text)
+
     def createPRISM(self):
         '''Construct a PRISM object
 

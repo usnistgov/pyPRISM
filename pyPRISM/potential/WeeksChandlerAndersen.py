@@ -60,15 +60,16 @@ class WeeksChandlerAndersen(LennardJones):
         sys.potential['A','B'] = pyPRISM.potential.WeeksChandlerAndersen(epsilon=1.0,sigma=1.0)
 
     
-    
-    .. math::
-    
-    
-    Parameters
-    ----------
+    .. warning::
+
+        If sigma is specified such that it does not fall on the solution grid
+        of the :class:`~pyPRISM.core.Domain.Domain` object specified in
+        :class:`~pyPRISM.core.System.System`, then the sigma will effectively
+        be rounded. A warning should be emitted during the construction of a
+        :class:`~pyPRISM.core.PRISM.PRISM` object if this occurs.
     
     '''
-    def __init__(self,epsilon,sigma):
+    def __init__(self,epsilon,sigma=None):
         r''' Constructor
         
         Arguments
@@ -76,8 +77,10 @@ class WeeksChandlerAndersen(LennardJones):
     	epsilon: float
             Repulsive strength modifier
         
-    	sigma: float
-            Contact distance 
+        sigma: float, *optional*
+            Contact distance. If not specified, sigma will be calculated from 
+            the diameters specified in the :class:`~pyPRISM.core.System.System`
+            object.
     
         '''
         rcut = sigma * 2**(1.0/6.0)

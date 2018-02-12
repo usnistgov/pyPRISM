@@ -49,6 +49,7 @@ from pyPRISM.core.ValueTable import ValueTable
 from pyPRISM.core.System import System
 from pyPRISM.core.Domain import Domain
 from pyPRISM.core.Density import Density
+from pyPRISM.core.Diameter import Diameter
 
 from pyPRISM import calculate
 from pyPRISM import closure

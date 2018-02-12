@@ -82,12 +82,18 @@ class PRISM:
         # Need to set the potential for each closure object
         for (i,j),(t1,t2),U in self.sys.potential.iterpairs():
             if isinstance(self.sys.closure[t1,t2],AtomicClosure):
+                #only set sigma if not set directly in potential
+                if U.sigma is None:
+                    U.sigma = self.sys.diameter[t1,t2]
+                self.sys.closure[t1,t2].sigma = self.sys.diameter[t1,t2]
                 self.sys.closure[t1,t2].potential = U.calculate(self.sys.domain.r) / self.sys.kT
-                self.sys.closure[t1,t2].sigma = (self.sys.diameter[t1]+self.sys.diameter[t2])/2.0
             elif isinstance(self.sys.closure[t1,t2],MolecularClosure):
                 raise NotImplementedError('Molecular closures are not fully implemented in this release.')
+                #only set sigma if not set directly in potential
+                if U.sigma is None:
+                    U.sigma = self.sys.diameter[t1,t2]
+                self.sys.closure[t1,t2].sigma = self.sys.diameter[t1,t2]
                 self.sys.closure[t1,t2].potential = U.calculate_attractive(self.sys.domain.r) / self.sys.kT
-                self.sys.closure[t1,t2].sigma = (self.sys.diameter[t1]+self.sys.diameter[t2])/2.0
 
         
         #cost function input and output

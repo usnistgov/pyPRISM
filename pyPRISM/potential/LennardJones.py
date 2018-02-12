@@ -53,9 +53,17 @@ class LennardJones(Potential):
         sys.domain = pyPRISM.Domain(dr=0.1,length=1024)
         sys.potential['A','B'] = pyPRISM.potential.LennardJones(epsilon=1.0,sigma=1.0,rcut=2.5,shift=True)
 
+    .. warning::
+
+        If sigma is specified such that it does not fall on the solution grid
+        of the :class:`~pyPRISM.core.Domain.Domain` object specified in
+        :class:`~pyPRISM.core.System.System`, then the sigma will effectively
+        be rounded. A warning should be emitted during the construction of a
+        :class:`~pyPRISM.core.PRISM.PRISM` object if this occurs.
+
     
     '''
-    def __init__(self,epsilon,sigma,rcut=None,shift=False):
+    def __init__(self,epsilon,sigma=None,rcut=None,shift=False):
         r''' Constructor
         
         Arguments
@@ -63,8 +71,10 @@ class LennardJones(Potential):
         epsilon: float
             Depth of attractive well
             
-        sigma: float
-            Contact distance (i.e. U_{\alpha,\beta}(sigma) = 0)
+        sigma: float, *optional*
+            Contact distance. If not specified, sigma will be calculated from 
+            the diameters specified in the :class:`~pyPRISM.core.System.System`
+            object.
             
         rcut: float, *optional*
             Cutoff distance for potential. Useful for comparing directly to results
@@ -80,7 +90,7 @@ class LennardJones(Potential):
         self.sigma = sigma
         self.rcut  = rcut
         self.shift = shift
-        self.funk  = lambda r: 4 * epsilon * ((sigma/r)**(12.0) - (sigma/r)**(6.0))
+        self.funk  = lambda r,sigma: 4 * epsilon * ((sigma/r)**(12.0) - (sigma/r)**(6.0))
         
     def __repr__(self):
         return '<Potential: LennardJones>'
@@ -93,11 +103,13 @@ class LennardJones(Potential):
         r: float np.ndarray
             Array of pair distances at which to calculate potential values
         '''
-        magnitude = self.funk(r)
+        assert (self.sigma is not None), 'Sigma must be set before evaluating potential!'
+
+        magnitude = self.funk(r,self.sigma)
         
         if self.rcut is not None:
             if self.shift:
-                magnitude -= self.funk(self.rcut)
+                magnitude -= self.funk(self.rcut,self.sigma)
             magnitude[r>self.rcut] = 0.0
                 
         return magnitude
@@ -105,6 +117,8 @@ class LennardJones(Potential):
     def calculate_attractive(self,r):
         r'''Calculate the attractive tail of the Lennard Jones potential. Returns zero at :math:`r<\sigma`
         '''
+        assert (self.sigma is not None), 'Sigma must be set before evaluating potential!'
+
         magnitude = np.zeros_like(r)
         mask = r>self.sigma
         magnitude[mask] = self.calculate(r)[mask]
