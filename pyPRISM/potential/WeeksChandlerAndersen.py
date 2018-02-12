@@ -83,10 +83,21 @@ class WeeksChandlerAndersen(LennardJones):
             object.
     
         '''
-        rcut = sigma * 2**(1.0/6.0)
-        super(WeeksChandlerAndersen,self).__init__(epsilon,sigma,rcut=rcut,shift=True)
+        super(WeeksChandlerAndersen,self).__init__(epsilon=epsilon,sigma=sigma,rcut=True,shift=True)
         
     def __repr__(self):
         return '<Potential: WeeksChandlerAndersen>'
+
+    def calculate(self,r):
+        r'''Calculate value of potential
+
+        Attributes
+        ----------
+        r: float np.ndarray
+            Array of pair distances at which to calculate potential values
+        '''
+        assert (self.sigma is not None), 'Sigma must be set before evaluating potential!'
+        self.rcut = self.sigma * 2**(1.0/6.0)
+        return super(WeeksChandlerAndersen,self).calculate(r)
         
         

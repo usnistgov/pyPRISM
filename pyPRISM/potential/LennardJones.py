@@ -90,7 +90,7 @@ class LennardJones(Potential):
         self.sigma = sigma
         self.rcut  = rcut
         self.shift = shift
-        self.funk  = lambda r,sigma: 4 * epsilon * ((sigma/r)**(12.0) - (sigma/r)**(6.0))
+        self.funk  = lambda r,s: 4 * epsilon * ((s/r)**(12.0) - (s/r)**(6.0))
         
     def __repr__(self):
         return '<Potential: LennardJones>'
@@ -121,6 +121,6 @@ class LennardJones(Potential):
 
         magnitude = np.zeros_like(r)
         mask = r>self.sigma
-        magnitude[mask] = self.calculate(r)[mask]
+        magnitude[mask] = self.calculate(r,self.sigma)[mask]
         return magnitude
         

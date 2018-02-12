@@ -60,12 +60,16 @@ class Diameter(object):
         diameter: :class:`pyPRISM.core.ValueTable`
             Table of site site diameter values
 
+        volume: :class:`pyPRISM.core.ValueTable`
+            Table of site site volumes values
+
         sigma: :class:`pyPRISM.core.PairTable`
             Site-site contact distance 
         '''
         self.types = types 
 
         self.diameter = ValueTable(types=types,name='diameter')
+        self.volume = ValueTable(types=types,name='volume')
         self.sigma = PairTable(types=types,name='sigma')
 
     def check(self):
@@ -94,6 +98,8 @@ class Diameter(object):
             d1 = value
             self.diameter[t1] = d1
 
+            self.volume[t1] = (4.0/3.0) * np.pi * (d1/2.0)**(3.0)
+
             self.total = 0.
             for t2 in self.types:
                 # If d2 isn't set yet, we can't set sigma
@@ -102,3 +108,4 @@ class Diameter(object):
                     continue
 
                 self.sigma[t1,t2] = (d1 + d2)/2.0
+

@@ -135,18 +135,18 @@ class System:
         for i,t,d in self.diameter.diameter:
             check = np.any(np.abs(self.domain.r - d)<tol)
             if not check:
-                warn_text  = 'Diameter {} = {} is not a multiple'.format(t,d)
-                warn_text += 'of domain grid spacing dr = {}.'.format(self.domain.dr)
-                warn_text += 'Rounding will occur in closures and potentials!'
+                warn_text  = 'Diameter for site {} = {} is not a multiple '.format(t,d)
+                warn_text += 'of domain grid spacing dr = {}. '.format(self.domain.dr)
+                warn_text += 'Rounding will occur in closures, potentials, and omega!'
                 warnings.warn(warn_text)
 
         # ensure that the sigmas are on the real-space grid
         for i,(t1,t2),s in self.diameter.sigma:
             check = np.any(np.abs(self.domain.r - s)<tol)
             if not check:
-                warn_text  = 'Sigma {}{} = {} is not a multiple'.format(t1,t2,s)
-                warn_text += 'of domain grid spacing dr = {}.'.format(self.domain.dr)
-                warn_text += 'Rounding will occur in closures and potentials!'
+                warn_text  = 'Sigma for pair {}-{} = {} is not a multiple '.format(t1,t2,s)
+                warn_text += 'of domain grid spacing dr = {}. '.format(self.domain.dr)
+                warn_text += 'Rounding will occur in closures, potentials, and omega!'
                 warnings.warn(warn_text)
 
     def createPRISM(self):
