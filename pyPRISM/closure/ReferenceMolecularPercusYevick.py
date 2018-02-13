@@ -50,7 +50,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
     
     **Description**
 
-        TBA
+        TBA TG making edits
 
     
     References
