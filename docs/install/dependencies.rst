@@ -38,14 +38,14 @@ Alternatively, all dependecies can be install in your current Anaconda environme
 
 .. code-block:: bash
 
-    $ conda install numpy scipy cython jupyter matplotlib bokeh holoviews sphinx sphinx-autobuild sphinx_rtd_theme
+    $ conda install -c conda-forge numpy scipy cython pint jupyter matplotlib bokeh holoviews 
 
     
 Alternatively, all dependencies can be installed via pip
 
 .. code-block:: bash
 
-    $ pip install numpy scipy cython jupyter matplotlib bokeh holoviews sphinx sphinx-autobuild sphinx_rtd_theme
+    $ pip install numpy scipy cython pint jupyter matplotlib bokeh holoviews
 
 Alternatively, each package can be downloaded and installed manually.
 
