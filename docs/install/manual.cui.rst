@@ -6,7 +6,7 @@ If the quick-install commands do not work, then you can install pyPRISM
 
 .. note::
 
-    Unless specified explicitly, the command below should work for Linux, OSX,
+    Unless specified explicitly, the commands below should work for Linux, OSX,
     and Windows. 
 
 .. note::
