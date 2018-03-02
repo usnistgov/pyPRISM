@@ -32,7 +32,7 @@ start, we'll make sure you have the latest version of conda.
 
 Now create the ``pyPRISM_py3`` environment by executing the following. Note
 that these commands assume your terminal is located in the base directory of
-the pyPRISM repository.:
+the pyPRISM repository (i.e., the directory with "setup.py"):
 
 .. code-block:: bash
 
