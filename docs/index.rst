@@ -32,7 +32,7 @@ barrier to correctly and appropriately using PRISM theory and to provide a
 platform for rapid calculations of the structure and thermodynamics of
 polymeric fluids and nanocomposites. 
 
-**If you use pyPRISM in your work, you *must* cite both of the following articles**
+**If you use pyPRISM in your work, we ask that you please cite both of the following articles**
 
     1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman,
        A.; pyPRISM: A Computational Tool for Liquid State Theory
