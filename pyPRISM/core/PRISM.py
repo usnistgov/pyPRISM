@@ -213,7 +213,7 @@ class PRISM:
 
         result = root(self.cost,guess,method=method,options=options)
 
-        #
+        
         if self.totalCorr.space == Space.Fourier:
             self.sys.domain.MatrixArray_to_real(self.totalCorr)
 

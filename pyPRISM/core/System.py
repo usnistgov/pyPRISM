@@ -165,4 +165,28 @@ class System:
         self.check() #sanity check
         
         return PRISM(self)
+    def solve(self,*args,**kwargs):
+        '''Construct a PRISM object and attempt a numerical solution
+
+        .. note::
+
+            See :func:`~pyPRISM.core.PRISM.PRISM.solve` for arguments to this function
+
+        .. note::
+
+            This method calls :func:`~pyPRISM.core.System.System.check` before creating the PRISM object.
+        
+        Returns
+        -------
+        PRISM: pyPRISM.core.PRISM
+            **Solved** PRISM object
+            
+        '''
+        self.check() #sanity check
+
+        p = PRISM(self)
+
+        p.solve(*args,**kwargs)
+        
+        return p
         

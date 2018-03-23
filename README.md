@@ -48,7 +48,7 @@ provide a platform for rapid calculations of the structure and thermodynamics
 of polymeric fluids and nanocomposites. 
 </p>
 
-<p align="center"> <b>If you use pyPRISM in your work, you <i>must</i> cite both of the following articles</b></p>
+<p align="center"> <b>If you use pyPRISM in your work, we ask that you please cite both of the following articles</b></p>
 
 1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
    pyPRISM: A Computational Tool for Liquid State Theory Calculations of

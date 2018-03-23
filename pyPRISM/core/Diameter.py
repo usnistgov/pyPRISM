@@ -86,12 +86,13 @@ class Diameter(object):
         return '<Diameter>'
 
     def __getitem__(self,key):
+        key = self.diameter.listify(key)
         if len(key) == 1:
-            return self.diameter[key]
+            return self.diameter[key[0]]
         elif len(key) == 2:
-            return self.sigma[key]
+            return self.sigma[key[0],key[1]]
         else:
-            return ValueError('Too many types passed to diameter!')
+            ValueError('Too many types passed to diameter!')
 
     def __setitem__(self,types1,value):
         for t1 in self.diameter.listify(types1):
