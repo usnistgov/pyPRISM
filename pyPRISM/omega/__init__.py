@@ -41,6 +41,9 @@ from pyPRISM.omega.DiscreteKoyama import DiscreteKoyama
 from pyPRISM.omega.FreelyJointedChain import FreelyJointedChain
 from pyPRISM.omega.FreelyJointedChain import FJC
 
+from pyPRISM.omega.ABDiblockFreelyJointedChain import ABDiblockFreelyJointedChain
+from pyPRISM.omega.ABDiblockFreelyJointedChain import ABDiblockFJC
+
 from pyPRISM.omega.NonOverlappingFreelyJointedChain import NonOverlappingFreelyJointedChain
 from pyPRISM.omega.NonOverlappingFreelyJointedChain import NFJC
 
