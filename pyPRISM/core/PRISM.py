@@ -88,12 +88,12 @@ class PRISM:
                 self.sys.closure[t1,t2].sigma = self.sys.diameter[t1,t2]
                 self.sys.closure[t1,t2].potential = U.calculate(self.sys.domain.r) / self.sys.kT
             elif isinstance(self.sys.closure[t1,t2],MolecularClosure):
-                raise NotImplementedError('Molecular closures are not fully implemented in this release.')
+                #raise NotImplementedError('Molecular closures are not fully implemented in this release.')
                 #only set sigma if not set directly in potential
                 if U.sigma is None:
                     U.sigma = self.sys.diameter[t1,t2]
                 self.sys.closure[t1,t2].sigma = self.sys.diameter[t1,t2]
-                self.sys.closure[t1,t2].potential = U.calculate_attractive(self.sys.domain.r) / self.sys.kT
+                self.sys.closure[t1,t2].potential = U.calculate(self.sys.domain.r) / self.sys.kT
 
         
         #cost function input and output
@@ -148,10 +148,11 @@ class PRISM:
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2])
             elif isinstance(closure,MolecularClosure):
-                raise NotImplementedError('Molecular closures are untested and not fully implemented.')
-                self.directCorr[t1,t2] = closure.calculate(self.GammaIn[t1,t2],self.omega[t1,t1],self.omega[t2,t2])
+                #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
+                self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2],self.sys.domain.to_real(self.omega[t1,t1]),self.sys.domain.to_real(self.omega[t2,t2]))
             else:
                 raise ValueError('Closure type not recognized')
+                
             
         self.sys.domain.MatrixArray_to_fourier(self.directCorr)
         

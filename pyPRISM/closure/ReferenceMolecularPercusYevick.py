@@ -4,6 +4,7 @@ from pyPRISM.closure.MolecularClosure import MolecularClosure
 from pyPRISM.closure.PercusYevick import PercusYevick
 
 from scipy.signal import fftconvolve
+from scipy.optimize import fsolve
 import numpy as np
 
 class ReferenceMolecularPercusYevick(MolecularClosure):
@@ -61,13 +62,28 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         10.1063/1.464465
 
     '''
-    def __init__(self,C0):
-        raise NotImplementedError('Molecular closures are untested and not fully implemented.')
+    def __init__(self,C0,apply_hard_core=False):
+        r'''Contstructor
+
+        Parameters
+        ----------
+        C0: np.ndarray
+            array of :math:`C_{\alpha,\alpha}_0(r)` values obtained for the solved
+            athermal reference system
+        
+        apply_hard_core: bool
+            If True, the total correlation function will be assumed to be -1
+            inside the core (:math:`r_{i,j}<(d_i + d_j)/2.0`) and the closure
+            will not be applied in this region.
+        '''
+        #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
 
         self._potential = None
         self.value = None
-        self.PY = PercusYevick()
+        self._sigma = None
+        #self.PY = PercusYevick(apply_hard_core=True)
         self.C0 = C0
+        self.apply_hard_core=apply_hard_core
         
     def __repr__(self):
         return '<MolecularClosure: ReferenceMolecularPercusYevick>'
@@ -76,35 +92,69 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
     @property
     def potential(self):
         return self._potential
+    
+    @property
+    def sigma(self):
+        return self._sigma
 
     @potential.setter
     def potential(self,value):
         self._potential =  value
-        self.PY.potential = value
+        #self.PY.potential = value
     
-    def calculate(self,gamma,omega1,omega2):
+    @sigma.setter
+    def sigma(self,value):
+        self._sigma =  value
+        #self.PY.sigma = value
+   
+    def funk(self,value, *args):
+        C0,potential,gamma,omega1,omega2 = args
+        temp = C0+(1.0-np.exp(potential))*(1.0+gamma+value)
+        return fftconvolve(fftconvolve(omega1,temp,mode='same'),omega2,mode='same')-value
+    
+    def calculate(self,r,gamma,omega1,omega2):
         r'''Calculate direct correlation function
 
         Arguments
         ---------
+        r: np.ndarray
+            array of real-space values associated with :math:`\gamma`
+        
         gamma: np.ndarray
             array of :math:`\gamma` values used to calculate the direct
             correlation function
 
         omega1,omega2: np.ndarray
-            array of :math:`\omega_{\alpha,\alpha}` or
-            :math:`\omega_{\beta,\beta}` values used to calculate the direct
-            correlation function
+            array of :math:`\omega_{\alpha,\alpha}(r)` or
+            :math:`\omega_{\beta,\beta}(r)` values used to calculate the direct
+            correlation function. NOTE: these need to be in real-space!
         
         '''
         
         assert self.potential is not None,'Potential for this closure is not set!'
         
         assert len(gamma) == len(self.potential),'Domain mismatch!'
-
         
-        value = self.C0 + self.PY.calculate(gamma)
+        if self.apply_hard_core:
+            assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
 
-        self.value = fftconvolve(fftconvolve(omega1,value,mode='same'),omega2,mode='same')
+            # apply hard core condition:
+            self.value = -1 - gamma
+            # calculate closure outside hard core
+            mask = r>self.sigma
+            self.value[mask] = gamma[mask]
+            args = (self.C0[mask],self.potential[mask],gamma[mask],omega1[mask],omega2[mask])
+            self.value[mask] = fsolve(self.funk,self.value[mask], args=args)
+            print(self.value)
+            
+        else:
+            raise AssertionError('Please specify apply_hard_core=True!')
+            #value = self.C0 + self.PY.calculate(r,gamma)
+            #self.value = fftconvolve(fftconvolve(omega1,value,mode='same'),omega2,mode='same')
         
         return self.value
+
+
+class RMPY(ReferenceMolecularPercusYevick):
+    '''Alias of ReferenceMolecularPercusYevick'''
+    pass
