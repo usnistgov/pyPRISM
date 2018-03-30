@@ -144,14 +144,23 @@ class PRISM:
         # directCorr is calculated directly in Real space but immediately 
         # inverted to Fourier space. We must reset this from the last call.
         self.directCorr.space = Space.Real 
+        MolClosureFlag = 0
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2])
             elif isinstance(closure,MolecularClosure):
                 #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
-                self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2],self.sys.domain.to_real(self.omega[t1,t1]),self.sys.domain.to_real(self.omega[t2,t2]))
+                #self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2],self.sys.domain.to_real(self.omega[t1,t1]),self.sys.domain.to_real(self.omega[t2,t2]))
+                MolClosureFlag = 1
             else:
                 raise ValueError('Closure type not recognized')
+        
+        if MolClosureFlag:
+            self.sys.domain.MatrixArray_to_real(self.totalCorr)
+            self.sys.domain.MatrixArray_to_real(self.omega)
+            self.directCorr = closure.calculate(self.sys.domain.r,self.totalCorr,self.directCorr,self.omega)
+            self.sys.domain.MatrixArray_to_fourier(self.totalCorr)
+            self.sys.domain.MatrixArray_to_fourier(self.omega)
                 
             
         self.sys.domain.MatrixArray_to_fourier(self.directCorr)

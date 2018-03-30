@@ -2,6 +2,7 @@
 from __future__ import division,print_function
 from pyPRISM.closure.MolecularClosure import MolecularClosure
 from pyPRISM.closure.PercusYevick import PercusYevick
+#from pyPRISM.core.MatrixArray import MatrixArray
 
 from scipy.signal import fftconvolve
 from scipy.optimize import fsolve
@@ -107,12 +108,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         self._sigma =  value
         #self.PY.sigma = value
    
-    def funk(self,value, *args):
-        C0,potential,gamma,omega1,omega2 = args
-        temp = C0+(1.0-np.exp(potential))*(1.0+gamma+value)
-        return fftconvolve(fftconvolve(omega1,temp,mode='same'),omega2,mode='same')-value
-    
-    def calculate(self,r,gamma,omega1,omega2):
+    def calculate(self,r,totalCorr,directCorr,omega):
         r'''Calculate direct correlation function
 
         Arguments
@@ -133,26 +129,25 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         
         assert self.potential is not None,'Potential for this closure is not set!'
         
-        assert len(gamma) == len(self.potential),'Domain mismatch!'
+        assert totalCorr.data.shape[0] == len(self.potential),'Domain mismatch!'
         
         if self.apply_hard_core:
             assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
 
             # apply hard core condition:
-            self.value = -1 - gamma
+            value = self.C0
+            
             # calculate closure outside hard core
             mask = r>self.sigma
-            self.value[mask] = gamma[mask]
-            args = (self.C0[mask],self.potential[mask],gamma[mask],omega1[mask],omega2[mask])
-            self.value[mask] = fsolve(self.funk,self.value[mask], args=args)
-            print(self.value)
+            value[mask,:,:] += (1.0-np.exp(self.potential[mask][:, np.newaxis, np.newaxis]))*(1.0+totalCorr.data[mask,:,:])
+            
+            directCorr.data = value
+            directCorr = omega.MatrixConvolve(directCorr).MatrixConvolve(omega)
             
         else:
             raise AssertionError('Please specify apply_hard_core=True!')
-            #value = self.C0 + self.PY.calculate(r,gamma)
-            #self.value = fftconvolve(fftconvolve(omega1,value,mode='same'),omega2,mode='same')
         
-        return self.value
+        return directCorr
 
 
 class RMPY(ReferenceMolecularPercusYevick):

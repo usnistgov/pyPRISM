@@ -3,6 +3,7 @@ from pyPRISM.core.Space import Space
 import string
 from itertools import product
 import numpy as np
+from scipy.signal import fftconvolve
 
 class MatrixArray(object):
     '''A container for creating and interacting with arrays of matrices
@@ -314,6 +315,41 @@ class MatrixArray(object):
             data = np.einsum('lij,ljk->lik', self.data, other.data)
             return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
         
+    def MatrixConvolve(self,other,inplace=False):
+        ''' Matrix multiplication-like convolution for to MatrixArrays 
+        
+        Parameters
+        ----------
+        other: object, MatrixArray
+            Must be an object of MatrixArray type of the same length
+            and dimension
+            
+        inplace: bool
+            If False, a new MatrixArray is returned, otherwise just
+            update the internal data.
+        
+        '''
+        if isinstance(other,MatrixArray):
+            assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
+        
+        rows_self = self.data.shape[1]
+        cols_self = self.data.shape[2]
+        rows_other = other.data.shape[1]
+        cols_other = other.data.shape[2]
+        
+        result = np.zeros_like(self.data)
+        for i in range(rows_self):
+          for j in range(cols_other):
+            for k in range(cols_self):
+              result[:,i,j] += fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='same')
+
+        if inplace:
+            self.data = result 
+            return self
+        else:
+            data = result 
+            return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
+    
     def __matmul__(self,other):
         assert (self.space == other.space) or (Space.NonSpatial in (self.space,other.space)),MatrixArray.SpaceError
         return self.dot(other,inplace=False)
