@@ -35,11 +35,19 @@ class UnitConverter(object):
 
         domain = pyPRISM.Domain(length=4096,dr=0.25)
 
+        # create unit converter utility 
         uc = pyPRISM.util.UnitConverter(dc=1.5,dc_unit='nm')
 
+        # convert wavenumber from LJ units to real units 
+        # using built-in conversion
         real_k = uc.toInvAngstrom(domain.k)
-
         real_k_magnitudes = real_k.magnitude
+
+        # convert radius in real units to reduced units
+        # manually using pint
+        real_radius = 123.5 # angstrom
+        reduced_radius = real_radius * uc('angstrom').to('dc').magnitude
+
 
     
     '''
@@ -92,6 +100,10 @@ class UnitConverter(object):
 
     def __repr__(self):
         return '<UnitConverter  dc:{} | mc:{} | ec:{}>'.format(self.dc.to_base_units(),self.mc.to_base_units(),self.ec.to_base_units())
+    
+    def __call__(self,unit_string):
+        '''Convenience method for accessing the pint UnitRegistry'''
+        return self.pint(unit_string)
 
     def toKelvin(self,temperature):
         r'''Convert thermal energy to temperature units in :math:`K`
