@@ -32,11 +32,12 @@ barrier to correctly and appropriately using PRISM theory and to provide a
 platform for rapid calculations of the structure and thermodynamics of
 polymeric fluids and nanocomposites. 
 
+
 **If you use pyPRISM in your work, we ask that you please cite both of the following articles**
 
     1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman,
        A.; pyPRISM: A Computational Tool for Liquid State Theory
-       Calculations of Macromolecular Materials (submitted)
+       Calculations of Macromolecular Materials [`link <https://dx.doi.org/10.1021/acs_macromol_8b00011>`__]
 
     2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure
        of Polymer Melts, Physical Review Letters, 1987, 58 (3) 246-249
@@ -44,18 +45,15 @@ polymeric fluids and nanocomposites.
        [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
 
 
+.. image:: ../img/GitHubLogo.png
+    :align: center
+    :target: https://github.com/usnistgov/pyprism
+
 .. toctree::
     :maxdepth: 1
     :caption: Code Reference
 
     api/pyPRISM
-    api/pyPRISM.core
-    api/pyPRISM.calculate
-    api/pyPRISM.closure
-    api/pyPRISM.omega
-    api/pyPRISM.potential
-    api/pyPRISM.trajectory
-    api/pyPRISM.util
 
 .. toctree::
     :maxdepth: 2

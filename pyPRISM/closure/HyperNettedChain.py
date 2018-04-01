@@ -7,7 +7,7 @@ class HyperNettedChain(AtomicClosure):
 
     **Mathematial Definition**
 
-        .. math:: c_{\alpha,\beta}(r) = exp(\gamma_{\alpha,\beta}(r)-U_{\alpha,\beta}(r)) - 1.0 -  \gamma_{\alpha,\beta}(r)
+        .. math:: c_{\alpha,\beta}(r) = \exp\left(\gamma_{\alpha,\beta}(r)-U_{\alpha,\beta}(r)\right) - 1.0 -  \gamma_{\alpha,\beta}(r)
 
         .. math:: \gamma_{\alpha,\beta}(r) =  h_{\alpha,\beta}(r) - c_{\alpha,\beta}(r)
 

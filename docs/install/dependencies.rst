@@ -28,13 +28,15 @@ These additional dependencies are needed to compile the documentation from sourc
 All of these dependecies can be satisfied by creating a conda environment using
 the .yml files in source distribution. Note that we provide multiple
 environments for difference use-cases (e.g., Python 2 vs. Python 3, basic user
-vs. developer). The environments can be created using
+vs. developer). The environments can be created using the following command
+from setup.py directory of the download `repository
+<https://github.com/usnistgov/pyprism>`__. 
 
 .. code-block:: bash
 
     $ conda env create -f env/py3.yml
 
-Alternatively, all dependecies can be install in your current Anaconda environment using
+Alternatively, all dependecies can be installed in your current Anaconda environment using
 
 .. code-block:: bash
 
