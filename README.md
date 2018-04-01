@@ -52,11 +52,10 @@ of polymeric fluids and nanocomposites.
 
 1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
    pyPRISM: A Computational Tool for Liquid State Theory Calculations of
-   Macromolecular Materials (submitted)
+   Macromolecular Materials [link](https://dx.doi.org/10.1021/acs.macromol.8b00011)
 
 2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure of
-   Polymer Melts, Physical Review Letters, 1987, 58 (3) p246-249 doi:
-   http://dx.doi.org/10.1103/PhysRevLett.58.246
+   Polymer Melts, Physical Review Letters, 1987, 58 (3) p246-249 [link](https://doi.org/10.1103/PhysRevLett.58.246)
 
 
 Example
