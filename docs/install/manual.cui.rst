@@ -1,3 +1,5 @@
+.. _manual_cui_install:
+
 Manual Command-Line Install
 ===========================
 If the quick-install commands do not work, then you can install pyPRISM
