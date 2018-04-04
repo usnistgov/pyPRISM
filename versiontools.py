@@ -1,6 +1,7 @@
 import subprocess,shlex
 
-def get_version(version_path = './pyPRISM/version.py'):
+default_path = './pyPRISM/version.py'
+def get_version(version_path = default_path):
     py_version = get_python_version(version_path)
     git_version = get_git_version()
 
@@ -13,7 +14,7 @@ def get_version(version_path = './pyPRISM/version.py'):
 
     return version
 
-def get_python_version(version_path):
+def get_python_version(version_path = default_path):
     with open(version_path,'r') as f:
         exec(f.read(),globals())
     print('==> Got version {} from python.'.format(version))

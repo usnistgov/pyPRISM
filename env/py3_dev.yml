@@ -25,3 +25,6 @@ dependencies:
   - pint
   - pytest
   - pandoc =1.19.2
+  - twine
+  - wheel
+  - virtualenv
