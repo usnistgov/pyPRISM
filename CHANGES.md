@@ -5,3 +5,10 @@ v1.0.0
 ------
 - Date: 18/04/01
 - Initial Release! 
+
+v1.0.1
+------
+- Date: 18/04/04
+- Added LICENSE to MANIFEST.in
+    - Yes, this required a version bump
+    - See here: https://github.com/pypa/packaging-problems/issues/74
