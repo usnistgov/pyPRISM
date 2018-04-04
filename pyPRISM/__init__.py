@@ -58,6 +58,8 @@ from pyPRISM import omega
 
 from pyPRISM import util
 
+from pyPRISM.version import *
+
 
 
 

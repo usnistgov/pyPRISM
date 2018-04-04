@@ -1,4 +1,9 @@
-include *.md doc/Makefile 
-recursive-include doc *.rst
-include versiontools.py env/*yml env/*sh
+include *\.md 
+include doc/Makefile 
+include versiontools.py 
+include env/*\.yml 
+include env/*\.sh
 include requirements.txt
+include pyPRISM/trajectory/Debyer.c
+include pyPRISM/trajectory/Debyer.pyx
+recursive-include doc *.rst
