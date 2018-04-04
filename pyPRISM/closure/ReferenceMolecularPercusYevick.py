@@ -142,7 +142,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
             value[mask,:,:] += (1.0-np.exp(self.potential[mask][:, np.newaxis, np.newaxis]))*(1.0+totalCorr.data[mask,:,:])
             
             directCorr.data = value
-            directCorr = omega.MatrixConvolve(directCorr).MatrixConvolve(omega)
+            directCorr = omega.MatrixConvolve(directCorr,r[1]-r[0]).MatrixConvolve(omega,r[1]-r[0])
             
         else:
             raise AssertionError('Please specify apply_hard_core=True!')

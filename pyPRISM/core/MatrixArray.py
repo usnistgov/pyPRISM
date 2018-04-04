@@ -4,6 +4,7 @@ import string
 from itertools import product
 import numpy as np
 from scipy.signal import fftconvolve
+from scipy.ndimage.filters import convolve
 
 class MatrixArray(object):
     '''A container for creating and interacting with arrays of matrices
@@ -315,7 +316,7 @@ class MatrixArray(object):
             data = np.einsum('lij,ljk->lik', self.data, other.data)
             return MatrixArray(length=self.length,rank=self.rank,data=data,space=self.space,types=self.types)
         
-    def MatrixConvolve(self,other,inplace=False):
+    def MatrixConvolve(self,other,dr,inplace=False):
         ''' Matrix multiplication-like convolution for to MatrixArrays 
         
         Parameters
@@ -341,8 +342,11 @@ class MatrixArray(object):
         for i in range(rows_self):
           for j in range(cols_other):
             for k in range(cols_self):
-              result[:,i,j] += fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='same')
-
+              #temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='same')
+              temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='full')[:self.data.shape[0]]
+              #temp = convolve(self.data[:,i,k],other.data[:,k,j],mode='constant')
+              result[:,i,j] += temp*dr
+        
         if inplace:
             self.data = result 
             return self
