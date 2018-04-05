@@ -2,7 +2,6 @@
 from __future__ import division,print_function
 from pyPRISM.closure.MolecularClosure import MolecularClosure
 from pyPRISM.closure.PercusYevick import PercusYevick
-#from pyPRISM.core.MatrixArray import MatrixArray
 
 from scipy.signal import fftconvolve
 from scipy.optimize import fsolve
@@ -108,7 +107,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         self._sigma =  value
         #self.PY.sigma = value
    
-    def calculate(self,r,totalCorr,directCorr,omega):
+    def calculate(self,r,totalCorr):
         r'''Calculate direct correlation function
 
         Arguments
@@ -135,19 +134,17 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
             assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
 
             # apply hard core condition:
-            value = self.C0
+            self.value = self.C0
             
             # calculate closure outside hard core
             mask = r>self.sigma
-            value[mask,:,:] += (1.0-np.exp(self.potential[mask][:, np.newaxis, np.newaxis]))*(1.0+totalCorr.data[mask,:,:])
-            
-            directCorr.data = value
-            directCorr = omega.MatrixConvolve(directCorr,r[1]-r[0]).MatrixConvolve(omega,r[1]-r[0])
+
+            self.value.data[mask,:,:] += (1.0-np.exp(self.potential[mask][:, np.newaxis, np.newaxis]))*(1.0+totalCorr.data[mask,:,:])
             
         else:
             raise AssertionError('Please specify apply_hard_core=True!')
         
-        return directCorr
+        return self.value
 
 
 class RMPY(ReferenceMolecularPercusYevick):

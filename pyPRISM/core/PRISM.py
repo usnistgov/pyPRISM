@@ -114,6 +114,8 @@ class PRISM:
         self.GammaIn    = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
         self.GammaOut   = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
         self.OC         = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
+        self.C0delC     = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
+        self.WCW        = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
         self.I          = IdentityMatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
         
     def __repr__(self):
@@ -144,25 +146,25 @@ class PRISM:
         # directCorr is calculated directly in Real space but immediately 
         # inverted to Fourier space. We must reset this from the last call.
         self.directCorr.space = Space.Real 
+        self.C0delC.space = Space.Real 
         MolClosureFlag = 0
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2])
             elif isinstance(closure,MolecularClosure):
                 #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
-                #self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2],self.sys.domain.to_real(self.omega[t1,t1]),self.sys.domain.to_real(self.omega[t2,t2]))
-                MolClosureFlag = 1
+                if MolClosureFlag == 0:
+                    self.sys.domain.MatrixArray_to_real(self.totalCorr)
+                    print(self.totalCorr.data[:,0,0])
+                    self.C0delC = closure.calculate(self.sys.domain.r,self.totalCorr)
+                    self.sys.domain.MatrixArray_to_fourier(self.C0delC)
+                    self.WCW = self.omega.dot(self.C0delC).dot(self.omega)
+                    self.sys.domain.MatrixArray_to_fourier(self.totalCorr)
+                    MolClosureFlag = 1
+                self.directCorr[t1,t2] = self.sys.domain.to_real(self.WCW[t1,t2]) 
             else:
                 raise ValueError('Closure type not recognized')
         
-        if MolClosureFlag:
-            self.sys.domain.MatrixArray_to_real(self.totalCorr)
-            self.sys.domain.MatrixArray_to_real(self.omega)
-            self.directCorr = closure.calculate(self.sys.domain.r,self.totalCorr,self.directCorr,self.omega)
-            self.sys.domain.MatrixArray_to_fourier(self.totalCorr)
-            self.sys.domain.MatrixArray_to_fourier(self.omega)
-                
-            
         self.sys.domain.MatrixArray_to_fourier(self.directCorr)
         
         self.OC = self.omega.dot(self.directCorr)
