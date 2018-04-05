@@ -37,5 +37,18 @@ Interactive Tutorial
       the *tutorial* directory. See :ref:`usage` for more details on how to use
       these notebooks.
 
-- MyBinder 
-    - Coming Soon
+.. |binder| image:: https://mybinder.org/badge.svg 
+    :target: https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial
+
+- Binder |binder|
+    - Try out the pyPRISM tutorial without installing!
+
+    .. warning::
+
+        MyBinder is a *free* service that we are taking advantage of to give
+        users a zero-effort chance to try pyPRISM. Users should only run the
+        tutorial examples and not custom notebooks. Please do not abuse this
+        resource. Once a user has decided to use pyPRISM for research or
+        teaching, please download and install pyPRISM locally as described in
+        the :ref:`install`.
+

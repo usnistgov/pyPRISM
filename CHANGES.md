@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v1.0.3
+------
+- Date:  18/04/05
+- MyBinder Support
+
 v1.0.2
 ------
 - Date:  18/04/04
