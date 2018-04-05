@@ -1,4 +1,4 @@
-python =3
+python 
 numpy >=1.8.0
 scipy
 pint
