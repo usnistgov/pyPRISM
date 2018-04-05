@@ -1,5 +1,6 @@
 #!python
 from __future__ import division,print_function
+import os
 import unittest
 import numpy as np
 from pyPRISM.trajectory.Debyer import Debyer
@@ -35,7 +36,9 @@ class Debyer_TestCase(unittest.TestCase):
                                  box,
                                  selfHist)
 
-        k, omega_control = np.loadtxt('./data/Omega-Test-1Rod.dat')
+        base_path = os.path.split(__file__)[0]
+        file_path = os.path.join(base_path,'data','Omega-Test-1Rod.dat')
+        k, omega_control = np.loadtxt(file_path)
         np.testing.assert_array_almost_equal(omega,omega_control,decimal=3)
     def test_non_self_omega(self):
         '''Can we calculate a non-self omega?'''
@@ -61,7 +64,9 @@ class Debyer_TestCase(unittest.TestCase):
                                  box,
                                  selfHist)
 
-        k, omega_control = np.loadtxt('./data/Omega-Test-2Rod.dat')
+        base_path = os.path.split(__file__)[0]
+        file_path = os.path.join(base_path,'data','Omega-Test-2Rod.dat')
+        k, omega_control = np.loadtxt(file_path)
         np.testing.assert_array_almost_equal(omega,omega_control)
 
         

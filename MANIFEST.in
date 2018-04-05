@@ -7,4 +7,5 @@ include env/*\.sh
 include requirements.txt
 include pyPRISM/trajectory/Debyer.c
 include pyPRISM/trajectory/Debyer.pyx
+include pyPRISM/test/data/*
 recursive-include doc *.rst
