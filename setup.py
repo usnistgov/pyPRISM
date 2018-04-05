@@ -106,6 +106,7 @@ setup(
 	},
     install_requires = ['numpy>=1.8.0','scipy','Cython','pint'],
     packages=find_packages(where='.'),
+    package_data={'pyPRISM':['test/data/*dat','test/data/*csv']},
 	ext_modules= ext_modules,
     cmdclass = cmdclass,
 )

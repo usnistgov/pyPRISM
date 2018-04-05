@@ -21,6 +21,10 @@
     <img src='https://img.shields.io/badge/Release_Version-1.0.0-blue.svg' alt='Release Version' />
 </a>
 
+<a href='https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial'>
+    <img src='https://mybinder.org/badge.svg' alt='Binder' />
+</a>
+
 <a href='https://pyPRISM.readthedocs.io/en/latest/tutorial/tutorial.html'>
     <img src='https://img.shields.io/badge/Tutorial--orange.svg' alt='Tutorial' />
 </a>
