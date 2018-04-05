@@ -13,6 +13,28 @@ Jupyter notebooks, Python, and PRISM theory.The tutorial also goes over several
 case studies from the literature and illustrates how pyPRISM can be used to
 reproduce results from these studies. 
 
+Interactive Tutorial
+--------------------
+- Jupyter Notebooks [`link <https://github.com/usnistgov/pyprism/>`__]
+    - The tutorial notebooks are packaged in the main codebase repository under
+      the *tutorial* directory. See :ref:`usage` for more details on how to use
+      these notebooks.
+
+.. |binder| image:: https://mybinder.org/badge.svg 
+    :target: https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial
+
+- Binder |binder|
+    - Try out the pyPRISM tutorial without installing!
+
+    .. warning::
+
+        Binder is a *free* service that we are taking advantage of to give
+        users a zero-effort chance to try pyPRISM. Users should only run the
+        tutorial examples and not custom notebooks. Please do not abuse this
+        resource. Once a user has decided to use pyPRISM for research or
+        teaching, please download and install pyPRISM locally as described in
+        the :ref:`install`.
+
 
 Non-Interactive Tutorial
 ------------------------
@@ -30,25 +52,4 @@ Non-Interactive Tutorial
     NB8.pyPRISM.Internals
     NB9.pyPRISM.Advanced
 
-Interactive Tutorial
---------------------
-- Jupyter Notebooks [`link <https://github.com/usnistgov/pyprism/>`__]
-    - The tutorial notebooks are packaged in the main codebase repository under
-      the *tutorial* directory. See :ref:`usage` for more details on how to use
-      these notebooks.
-
-.. |binder| image:: https://mybinder.org/badge.svg 
-    :target: https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial
-
-- Binder |binder|
-    - Try out the pyPRISM tutorial without installing!
-
-    .. warning::
-
-        MyBinder is a *free* service that we are taking advantage of to give
-        users a zero-effort chance to try pyPRISM. Users should only run the
-        tutorial examples and not custom notebooks. Please do not abuse this
-        resource. Once a user has decided to use pyPRISM for research or
-        teaching, please download and install pyPRISM locally as described in
-        the :ref:`install`.
 
