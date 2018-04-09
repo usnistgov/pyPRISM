@@ -107,7 +107,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         self._sigma =  value
         #self.PY.sigma = value
    
-    def calculate(self,r,totalCorr):
+    def calculate(self,r,WCW,gamma):
         r'''Calculate direct correlation function
 
         Arguments
@@ -128,7 +128,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         
         assert self.potential is not None,'Potential for this closure is not set!'
         
-        assert totalCorr.data.shape[0] == len(self.potential),'Domain mismatch!'
+        assert WCW.data.shape[0] == len(self.potential),'Domain mismatch!'
         
         if self.apply_hard_core:
             assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
@@ -139,7 +139,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
             # calculate closure outside hard core
             mask = r>self.sigma
 
-            self.value.data[mask,:,:] += (1.0-np.exp(self.potential[mask][:, np.newaxis, np.newaxis]))*(1.0+totalCorr.data[mask,:,:])
+            self.value.data[mask,:,:] += (1.0-np.exp(self.potential[mask][:, np.newaxis, np.newaxis]))*(1.0+WCW.data[mask,:,:]+gamma.data[mask,:,:])
             
         else:
             raise AssertionError('Please specify apply_hard_core=True!')
