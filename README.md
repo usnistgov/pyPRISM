@@ -137,7 +137,7 @@ Contact Us
 - Mr. Thomas Gartner, University of Delaware, 
     [GitHub](https://github.com/tgartner),
     [Scholar](https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en)
-- Dr. Ron Jones, NIST, 
+- Dr. Ronald Jones, NIST, 
     [Webpage](https://www.nist.gov/people/ronald-l-jones),
     [Scholar](https://scholar.google.com/citations?user=TKAtIUIAAAAJ&hl=en)
 - Dr. Chad Snyder, NIST,

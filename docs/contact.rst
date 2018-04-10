@@ -8,7 +8,7 @@ Contact Us
 - Mr. Thomas Gartner, University of Delaware, 
     `GitHub <https://github.com/tgartner>`__,
     `Scholar <https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en>`__
-- Dr. Ron Jones, NIST, 
+- Dr. Ronald Jones, NIST, 
     `Webpage <https://www.nist.gov/people/ronald-l-jones>`__,
     `Scholar <https://scholar.google.com/citations?user=TKAtIUIAAAAJ&hl=en>`__
 - Dr. Chad Snyder, NIST,
