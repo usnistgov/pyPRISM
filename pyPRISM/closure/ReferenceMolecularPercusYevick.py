@@ -67,8 +67,8 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
 
         Parameters
         ----------
-        C0: np.ndarray
-            array of :math:`C_{\alpha,\alpha}_0(r)` values obtained for the solved
+        C0: MatrixArray
+            MatrixArray of :math:`C_{\alpha,\alpha}_0(r)` values obtained for the solved
             athermal reference system
         
         apply_hard_core: bool
@@ -115,13 +115,13 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         r: np.ndarray
             array of real-space values associated with :math:`\gamma`
         
-        gamma: np.ndarray
-            array of :math:`\gamma` values used to calculate the direct
+        gamma: MatrixArray
+            MatrixArray of :math:`\gamma` values used to calculate the direct
             correlation function
 
-        omega1,omega2: np.ndarray
-            array of :math:`\omega_{\alpha,\alpha}(r)` or
-            :math:`\omega_{\beta,\beta}(r)` values used to calculate the direct
+        WCW: MatrixArray
+            MatrixArray of :math:`\Omega(r)*C(r)*\Omega(r)*` values 
+            used to calculate the direct
             correlation function. NOTE: these need to be in real-space!
         
         '''

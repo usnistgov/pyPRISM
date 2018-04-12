@@ -117,9 +117,8 @@ class PRISM:
         self.GammaOut   = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
         self.OC         = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
         self.C0delC     = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
-        self.WCW        = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
         self.WCWIn      = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
-        self.WCWOut     = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
+        self.WCWOut     = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
         self.I          = IdentityMatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Fourier,types=sys.types)
         
     def __repr__(self):
@@ -151,7 +150,6 @@ class PRISM:
         # inverted to Fourier space. We must reset this from the last call.
         self.directCorr.space = Space.Real 
         self.C0delC.space = Space.Real 
-        #self.totalCorr = self.GammaIn + self.directCorr
 
         MolClosureFlag = 0
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
@@ -160,14 +158,9 @@ class PRISM:
             elif isinstance(closure,MolecularClosure):
                 #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
                 if MolClosureFlag == 0:
-                    #self.sys.domain.MatrixArray_to_real(self.totalCorr)
-                    #self.C0delC = closure.calculate(self.sys.domain.r,self.totalCorr)
-                    #self.sys.domain.MatrixArray_to_fourier(self.C0delC)
-                    #self.WCW = self.omega.dot(self.C0delC).dot(self.omega)
-                    #self.sys.domain.MatrixArray_to_fourier(self.totalCorr)
-                    self.WCWOut.data = self.WCWsolve(guess=self.GammaIn.data.reshape((-1,)))
+                    WCWresult = self.WCWsolve(guess=self.GammaIn.data.reshape((-1,)))
                     MolClosureFlag = 1
-                self.directCorr[t1,t2] = self.sys.domain.to_real(self.WCW[t1,t2]) 
+                self.directCorr[t1,t2] = self.sys.domain.to_real(self.WCWOut[t1,t2]) 
             else:
                 raise ValueError('Closure type not recognized')
         
@@ -249,16 +242,13 @@ class PRISM:
     def WCWcost(self,WCWx):
         r'''Cost function 
         
-        There are likely several cost functions that could be imagined using
-        the PRISM equations. In this case we formulate a self-consistent 
-        formulation where we expect the input of the PRISM equations to be
-        identical to the output. 
+        Cost function to iteratively solve for the :math:`\Omega(r)*C(r)*\Omega(r)`
+        function.
 
-        .. image:: ../../img/numerical_method.png
-            :width: 300px
-        
-        The goal of the solve method is to numerically optimize the input (:math:`r \gamma_{in}`) 
-        so that the output (:math:`r(\gamma_{in}-\gamma_{out})`) is minimized to zero.
+        The goal of the solve method is to numerically optimize the input
+        (:math:`[\Omega(r)*C(r)*\Omega(r)]_{in}`) 
+        so that the output (:math:`[\Omega(r)*C(r)*\Omega(r)]_{in}-[\Omega(r)*C(r)*\Omega(r)]_{out}`) 
+        is minimized to zero.
         
         '''
         self.WCWx = WCWx #store input
@@ -266,41 +256,39 @@ class PRISM:
         # The np.copy is important otherwise x saves state between calls to
         # this function.
         self.WCWIn.data = np.copy(WCWx.reshape((-1,self.sys.rank,self.sys.rank)))
-        self.WCWIn     /= self.sys.domain.long_r
+        #self.WCWIn     /= self.sys.domain.long_r
         
         self.C0delC.space = Space.Real 
-        self.WCW.space = Space.Fourier 
+        self.WCWOut.space = Space.Fourier 
         
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,MolecularClosure):
               self.C0delC = closure.calculate(self.sys.domain.r,self.WCWIn,self.GammaIn)
+              break
         self.sys.domain.MatrixArray_to_fourier(self.C0delC)
-        self.WCW = self.omega.dot(self.C0delC).dot(self.omega)
+        self.WCWOut = self.omega.dot(self.C0delC).dot(self.omega)
         
-        self.sys.domain.MatrixArray_to_real(self.WCW)
+        self.sys.domain.MatrixArray_to_real(self.WCWOut)
         
-        self.WCWy = self.sys.domain.long_r*(self.WCW.data - self.WCWIn.data)
+        self.WCWy = (self.WCWOut.data - self.WCWIn.data)
+        #self.WCWy = self.sys.domain.long_r*(self.WCWOut.data - self.WCWIn.data)
         
         return self.WCWy.reshape((-1,))
     
     def WCWsolve(self,guess=None,method='krylov',options=None):
-        '''Attempt to numerically solve the PRISM equations
+        '''Attempt to numerically solve for the W*C*W matrix
         
         Using the supplied inputs (in the constructor), we attempt to numerically
-        solve the PRISM equations using the scheme laid out in :func:`cost`. If the 
+        solve for the W*C*W matrix using the scheme laid out in :func:`cost`. If the 
         numerical solution process is successful, the attributes of this class
-        will contain the solved values for a given input i.e. self.totalCorr will
-        contain the numerically optimized (solved) total correlation functions.
+        will contain the solved values for a given input i.e. self.WCWOut will
+        contain the numerically optimized (solved) WCWOut.
 
-        This function also does basic checks to ensure that the results are 
-        physical. At this point, this consists of checking to make sure that
-        the pair correlation functions are not negative. If this isn't true
-        a warning is issued to the user. 
-        
         Parameters
         ----------
         guess: np.ndarray, size (rank*rank*length)
-            The initial guess of :math:`\gamma` to the numerical solution process.
+            The initial guess of :math:`\Omega(r)*C(r)*\Omega(r)` to the numerical 
+            solution process.
             The numpy array should be of size rank x rank x length corresponding to 
             the a full flattened MatrixArray. If not specified, an initial guess
             of all zeros is used. 
