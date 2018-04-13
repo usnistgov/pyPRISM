@@ -155,14 +155,20 @@ class PRISM:
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2])
+                self.C0delC[t1,t2] = self.directCorr[t1,t2] 
             elif isinstance(closure,MolecularClosure):
                 #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
-                if MolClosureFlag == 0:
-                    WCWresult = self.WCWsolve(guess=self.GammaIn.data.reshape((-1,)))
-                    MolClosureFlag = 1
-                self.directCorr[t1,t2] = self.sys.domain.to_real(self.WCWOut[t1,t2]) 
+                MolClosureFlag = 1
             else:
                 raise ValueError('Closure type not recognized')
+        
+        if MolClosureFlag:
+            self.sys.domain.MatrixArray_to_real(self.totalCorr)
+            WCWresult = self.WCWsolve(guess=(self.totalCorr.data-self.GammaIn.data).reshape((-1,)),method='df-sane')
+            self.sys.domain.MatrixArray_to_fourier(self.totalCorr)
+            for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
+                if isinstance(closure,MolecularClosure):
+                    self.directCorr[t1,t2] = self.WCWOut[t1,t2] 
         
         self.sys.domain.MatrixArray_to_fourier(self.directCorr)
         
@@ -258,17 +264,19 @@ class PRISM:
         self.WCWIn.data = np.copy(WCWx.reshape((-1,self.sys.rank,self.sys.rank)))
         #self.WCWIn     /= self.sys.domain.long_r
         
-        self.C0delC.space = Space.Real 
+        if self.C0delC.space == Space.Fourier:
+          self.sys.domain.MatrixArray_to_real(self.C0delC)
         self.WCWOut.space = Space.Fourier 
         
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,MolecularClosure):
-              self.C0delC = closure.calculate(self.sys.domain.r,self.WCWIn,self.GammaIn)
-              break
+              self.C0delC[t1,t2] = closure.calculate(self.sys.domain.r,self.WCWIn[t1,t2],self.GammaIn[t1,t2])
+        
         self.sys.domain.MatrixArray_to_fourier(self.C0delC)
         self.WCWOut = self.omega.dot(self.C0delC).dot(self.omega)
-        
         self.sys.domain.MatrixArray_to_real(self.WCWOut)
+        #dr = self.sys.domain.long_r[1]-self.sys.domain.long_r[0]
+        #self.WCWOut = self.omega.MatrixConvolve(self.C0delC,dr).MatrixConvolve(self.omega,dr)
         
         self.WCWy = (self.WCWOut.data - self.WCWIn.data)
         #self.WCWy = self.sys.domain.long_r*(self.WCWOut.data - self.WCWIn.data)

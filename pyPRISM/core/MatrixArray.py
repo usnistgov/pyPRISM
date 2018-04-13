@@ -345,7 +345,7 @@ class MatrixArray(object):
               #temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='same')
               temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='full')[:self.data.shape[0]]
               #temp = convolve(self.data[:,i,k],other.data[:,k,j],mode='constant')
-              result[:,i,j] += temp*dr
+              result[:,i,j] += (temp*dr).flatten()
         
         if inplace:
             self.data = result 
