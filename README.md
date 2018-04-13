@@ -52,7 +52,9 @@ provide a platform for rapid calculations of the structure and thermodynamics
 of polymeric fluids and nanocomposites. 
 </p>
 
-<p align="center"> <b>If you use pyPRISM in your work, we ask that you please cite both of the following articles</b></p>
+Citation
+========
+**If you use pyPRISM in your work, we ask that you please cite both of the following articles**
 
 1. Martin, T.B.; Gartner, T.E III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
    pyPRISM: A Computational Tool for Liquid State Theory Calculations of
@@ -67,11 +69,11 @@ Example
 Below is an example python script where we use pyPRISM to calculate the pair
 correlation functions for a nanocomposite (polymer + particle) system with
 attractive polymer-particle interactions. Below the script is a plot of the
-pair correlation functions from this calculation.
+pair correlation functions from this calculation. See [here](http://pyprism.readthedocs.io/en/latest/quickstart.html)
+for a more detailed discussion of this example. 
 
 ```python
 import pyPRISM
-from pyPRISM.calculate.pair_correlation import pair_correlation
 
 sys = pyPRISM.System(['particle','polymer'],kT=1.0)
 sys.domain = pyPRISM.Domain(dr=0.01,length=4096)
@@ -86,17 +88,15 @@ sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(length=100,l
 sys.omega['polymer','particle']  = pyPRISM.omega.InterMolecular()
 sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
 
-sys.potential['polymer','polymer']   = pyPRISM.potential.HardSphere(sigma=1.0)
-sys.potential['polymer','particle']  = pyPRISM.potential.Exponential(sigma=3.0,alpha=0.5,epsilon=1.0)
-sys.potential['particle','particle'] = pyPRISM.potential.HardSphere(sigma=5.0)
+sys.potential['polymer','polymer']   = pyPRISM.potential.HardSphere()
+sys.potential['polymer','particle']  = pyPRISM.potential.Exponential(alpha=0.5,epsilon=1.0)
+sys.potential['particle','particle'] = pyPRISM.potential.HardSphere()
 
 sys.closure['polymer','polymer']   = pyPRISM.closure.PercusYevick()
 sys.closure['polymer','particle']  = pyPRISM.closure.PercusYevick()
 sys.closure['particle','particle'] = pyPRISM.closure.HyperNettedChain()
 
-PRISM = sys.createPRISM()
-
-PRISM.solve()
+PRISM = sys.solve()
 
 pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 ```
@@ -123,13 +123,13 @@ $ pip install pyPRISM
 Documentation
 =============
 
-- [ReadTheDocs.io](https://pyPRISM.readthedocs.io/)
-
-Code documentation is hosted on ReadTheDocs.io. The most up to
-date code documentation can always be found by compiling from source. 
+Code documentation is hosted on [pyprism.readthedocs.io](https://pyPRISM.readthedocs.io/). The most up to
+date code documentation can always be found by [compiling](http://pyprism.readthedocs.io/en/latest/install/documentation.html) from source. 
 
 Contact Us
 ==========
+Please use the [Issue](https://github.com/usnistgov/pyPRISM/issues) tracker to submit questions or suggestions for the project. For other correspondence, please contact one of the team-members below. 
+
 - Dr. Tyler Martin, NIST, 
     [GitHub](https://github.com/martintb),
     [Webpage](https://www.nist.gov/people/tyler-martin),
