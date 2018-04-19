@@ -198,28 +198,28 @@ class MatrixArray_TestCase(unittest.TestCase):
         MA1.dot(MA2,inplace=True)
         np.testing.assert_array_almost_equal(MA1.data,MA3.data)
         
-    def test_itercurve(self):
-        ''' Can we iterate over the curves?'''
+    def test_iterpairs(self):
+        ''' Can we iterate over the pair-functions?'''
         length = 100
         rank = 5
         (MA1,_),(array1,_) = self.set_up_test_arrays(length,rank)
         
         ncols = 0
-        for (i,j),(t1,t2),col in MA1.itercurve():
+        for (i,j),(t1,t2),col in MA1.iterpairs():
             # with self.subTest(i=i,j=j):
             #     np.testing.assert_array_almost_equal(col,array1[:,i,j])
             np.testing.assert_array_almost_equal(col,array1[:,i,j])
             ncols+=1
         self.assertEqual(ncols,rank*(rank+1)//2)
                 
-    def test_itercurve_assign(self):
-        ''' Can we assign as we iterate over the curves?'''
+    def test_iterpair_assign(self):
+        ''' Can we assign as we iterate over the pair functions?'''
         length = 100
         rank = 4
         (MA1,_),(array1,_) = self.set_up_test_arrays(length,rank)
         
         ncols = 0
-        for (i,j),(t1,t2),col in MA1.itercurve():
+        for (i,j),(t1,t2),col in MA1.iterpairs():
             MA1[t1,t2] = np.ones(length)*i + j/2.0
             array1[:,i,j] = np.ones(length)*i + j/2.0
             array1[:,j,i] = np.ones(length)*i + j/2.0

@@ -43,8 +43,8 @@ def solvation_potential(PRISM,closure='HNC'):
             solvation potentials, each described as a  :class:`.MatrixArray`.
             This implies that the multiplication in the above equation is
             actually *matrix* multiplication and the individual solvation
-            potentials are extracted as curves of the MatrixArrays. Note that
-            the solvation potential MatrixArrays are inverted back to
+            potentials are extracted as pair-functions of the MatrixArrays.
+            Note that the solvation potential MatrixArrays are inverted back to
             Real-space for use. 
 
         - :math:`\hat{C}(k)`
