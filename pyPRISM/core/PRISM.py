@@ -219,7 +219,7 @@ class PRISM:
 
         tol = 1e-5
         warnstr = 'Pair correlations are negative (value = {:3.2e}) for {}-{} pair!'
-        for i,(t1,t2),H in self.totalCorr.itercurve():
+        for i,(t1,t2),H in self.totalCorr.iterpairs():
             if np.any(H<-(1.0+tol)):
                 val = np.min(H)
                 warnings.warn(warnstr.format(val,t1,t2))
