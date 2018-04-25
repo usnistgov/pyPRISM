@@ -1,4 +1,4 @@
-.. _manual_cui_install:
+.. _manual_cli_install:
 
 Manual Command-Line Install
 ===========================

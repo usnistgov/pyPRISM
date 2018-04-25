@@ -6,8 +6,8 @@ Installation Instructions
 .. toctree::
     :maxdepth: 1
 
-    quick.cui
-    manual.cui
+    quick.cli
+    manual.cli
     noninstall
     dependencies
     usage
