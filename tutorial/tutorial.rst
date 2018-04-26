@@ -53,3 +53,7 @@ Non-Interactive Tutorial
     NB9.pyPRISM.Advanced
 
 
+.. image:: ../img/tracks.svg
+    :width: 600px
+    :align: center
+

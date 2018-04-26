@@ -3,9 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: ../img/TOC_600x.png
+.. image:: ../img/TOC.svg
+    :width: 500px
     :align: center
-
 
 pyPRISM
 =======
@@ -45,10 +45,13 @@ polymeric fluids and nanocomposites.
        [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
 
 
-.. image:: ../img/github.png
+.. image:: ../img/GitHub.svg
     :align: center
+    :width: 400px
     :target: https://github.com/usnistgov/pyprism
     
+
+
 
 .. toctree::
     :maxdepth: 1

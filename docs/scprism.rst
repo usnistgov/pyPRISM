@@ -1,5 +1,5 @@
 
-.. image:: ../img/scprism.png
+.. image:: ../img/scprism.svg
     :width: 300px
     :align: center
 

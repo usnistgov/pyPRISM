@@ -1,5 +1,5 @@
 <p align="center">
-    <img src='./tutorial/img/TOC.png' width='500px'/>
+    <img src='./tutorial/img/TOC.svg' width='500px'/>
 </p>
 <h1 align="center">pyPRISM</h1>
 
@@ -101,7 +101,7 @@ PRISM = sys.solve()
 pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 ```
 <p align="center">
-    <img src='./tutorial/img/nanocomposite_rdf.png' />
+    <img src='./tutorial/img/nanocomposite_rdf.svg' />
 </p>
 
 Quick Install

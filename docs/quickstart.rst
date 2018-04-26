@@ -97,9 +97,9 @@ Annotated Example
     plt.plot(sys.domain.r,rdf['particle','particle'],color='blue',lw=1.25)
     plt.show()
 
-.. image:: ../img/nanocomposite_rdf.png
+.. image:: ../img/nanocomposite_rdf.svg
     :align: center
-    :width: 300px
+    :width: 500px
 
 
 Discussion

@@ -127,7 +127,7 @@ class PRISM:
         formulation where we expect the input of the PRISM equations to be
         identical to the output. 
 
-        .. image:: ../../img/numerical_method.png
+        .. image:: ../../img/numerical_method.svg
             :width: 300px
         
         The goal of the solve method is to numerically optimize the input (:math:`r \gamma_{in}`) 

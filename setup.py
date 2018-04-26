@@ -68,7 +68,7 @@ else:
     
 setup(
     name='pyPRISM',
-    description='A python tool for Polymer Reference Interactions Site Model (PRISM) calculations',
+    description='A python tool for Polymer Reference Interaction Site Model (PRISM) calculations',
     author='Tyler B. Martin',
     author_email = 'tyler.martin@nist.gov',
     url = 'https://github.com/usnistgov/pyprism',
