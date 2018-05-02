@@ -106,7 +106,18 @@ class PRISM:
         # function values rather than a table of OmegaObjects.
         applyFunc = lambda x: x.calculate(sys.domain.k)
         self.omega  = self.sys.omega.apply(applyFunc,inplace=False).exportToMatrixArray(space=Space.Fourier)
+
+        self.omega_real = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
+        for (i,j),(t1,t2),O in self.omega.itercurve():
+            if t1 == t2:
+                # I believe our FFT only works for functions which decay to zero.
+                self.omega_real[t1,t2] = self.sys.domain.to_real((O-1.0))
+            else:
+                self.omega_real[t1,t2] = self.sys.domain.to_real(O)
+            
         self.omega *= sys.density.site #omega should always be scaled by site density 
+        self.omega_real *= sys.density.site #omega should always be scaled by site density 
+        self.omega_real += np.eye(sys.rank) 
         
         # Spaces are set based on when they are used in self.cost(...). In some cases,
         # this is redundant because these array's will be overwritten with copies and
@@ -163,9 +174,9 @@ class PRISM:
                 raise ValueError('Closure type not recognized')
         
         if MolClosureFlag:
-            self.sys.domain.MatrixArray_to_real(self.totalCorr)
-            WCWresult = self.WCWsolve(guess=(self.totalCorr.data-self.GammaIn.data).reshape((-1,)),method='df-sane')
-            self.sys.domain.MatrixArray_to_fourier(self.totalCorr)
+            guess = (-1.0-self.GammaIn.data)
+            # guess = self.sys.domain.long_r*(-1.0-self.GammaIn.data)
+            WCWresult = self.WCWsolve(guess=guess.reshape((-1,)),method='krylov',options={'disp':False})
             for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
                 if isinstance(closure,MolecularClosure):
                     self.directCorr[t1,t2] = self.WCWOut[t1,t2] 
@@ -262,24 +273,29 @@ class PRISM:
         # The np.copy is important otherwise x saves state between calls to
         # this function.
         self.WCWIn.data = np.copy(WCWx.reshape((-1,self.sys.rank,self.sys.rank)))
-        #self.WCWIn     /= self.sys.domain.long_r
+        # self.WCWIn     /= self.sys.domain.long_r
         
         if self.C0delC.space == Space.Fourier:
           self.sys.domain.MatrixArray_to_real(self.C0delC)
         self.WCWOut.space = Space.Fourier 
         
+        # XXX Need to better handle the case where you have mixed
+        # atomic/molecular closures. We don't want to be 
+        #
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,MolecularClosure):
               self.C0delC[t1,t2] = closure.calculate(self.sys.domain.r,self.WCWIn[t1,t2],self.GammaIn[t1,t2])
         
-        self.sys.domain.MatrixArray_to_fourier(self.C0delC)
-        self.WCWOut = self.omega.dot(self.C0delC).dot(self.omega)
-        self.sys.domain.MatrixArray_to_real(self.WCWOut)
-        #dr = self.sys.domain.long_r[1]-self.sys.domain.long_r[0]
-        #self.WCWOut = self.omega.MatrixConvolve(self.C0delC,dr).MatrixConvolve(self.omega,dr)
+        # self.sys.domain.MatrixArray_to_fourier(self.C0delC)
+        # self.WCWOut = self.omega.dot(self.C0delC).dot(self.omega)
+        # self.sys.domain.MatrixArray_to_real(self.WCWOut)
+
+        dr = self.sys.domain.long_r[1]-self.sys.domain.long_r[0]
+        # dr = 1
+        self.WCWOut = self.omega_real.MatrixConvolve(self.C0delC,dr).MatrixConvolve(self.omega_real,dr)
         
         self.WCWy = (self.WCWOut.data - self.WCWIn.data)
-        #self.WCWy = self.sys.domain.long_r*(self.WCWOut.data - self.WCWIn.data)
+        # self.WCWy = self.sys.domain.long_r*(self.WCWOut.data - self.WCWIn.data)
         
         return self.WCWy.reshape((-1,))
     

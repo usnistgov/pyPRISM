@@ -13,8 +13,9 @@ from sys import platform as _platform
 
 try:
     from pyPRISM.trajectory.Debyer import Debyer
+    from pyPRISM.trajectory.Histogrammer import Histogrammer
 except ImportError:
-    warnings.warn('Cannot import Debyer: compiled Cython module not found.')
+    warnings.warn('Cannot import Cython plugins: compiled Cython module not found.')
     '''
     See http://pyprism.readthedocs.io/en/latest/install/cython.plugins.html
     '''

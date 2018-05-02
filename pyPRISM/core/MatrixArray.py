@@ -342,9 +342,10 @@ class MatrixArray(object):
         for i in range(rows_self):
           for j in range(cols_other):
             for k in range(cols_self):
-              #temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='same')
+              # temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='same')
               temp = fftconvolve(self.data[:,i,k],other.data[:,k,j],mode='full')[:self.data.shape[0]]
-              #temp = convolve(self.data[:,i,k],other.data[:,k,j],mode='constant')
+              # temp = convolve(self.data[:,i,k],other.data[:,k,j],mode='constant')
+              # temp = np.convolve(self.data[:,i,k],other.data[:,k,j],mode='full')[:self.data.shape[0]]
               result[:,i,j] += (temp*dr).flatten()
         
         if inplace:
