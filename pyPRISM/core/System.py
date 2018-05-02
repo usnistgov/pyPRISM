@@ -114,6 +114,7 @@ class System:
         self.potential = PairTable(types,'potential')
         self.closure   = PairTable(types,'closure')
         self.omega     = PairTable(types,'omega')
+        self.omega_real     = PairTable(types,'omega_real')
 
     def check(self):
         '''Is everything in the system specified?

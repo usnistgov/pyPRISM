@@ -102,22 +102,38 @@ class PRISM:
         self.WCWx         = np.zeros(sys.rank*sys.rank*sys.domain.length)
         self.WCWy         = np.zeros(sys.rank*sys.rank*sys.domain.length)
 
+        # check for molecular closures
+        self.MolecularClosure=False
+        for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
+            if isinstance(closure,MolecularClosure):
+                self.MolecularClosure=True
+                break # one molecular closure found, no need to search futher
+
+
         # The omega objects must be converted to a MatrixArray of the actual correlation
         # function values rather than a table of OmegaObjects.
         applyFunc = lambda x: x.calculate(sys.domain.k)
         self.omega  = self.sys.omega.apply(applyFunc,inplace=False).exportToMatrixArray(space=Space.Fourier)
-
-        self.omega_real = MatrixArray(length=sys.domain.length,rank=sys.rank,space=Space.Real,types=sys.types)
-        for (i,j),(t1,t2),O in self.omega.itercurve():
-            if t1 == t2:
-                # I believe our FFT only works for functions which decay to zero.
-                self.omega_real[t1,t2] = self.sys.domain.to_real((O-1.0))
-            else:
-                self.omega_real[t1,t2] = self.sys.domain.to_real(O)
-            
         self.omega *= sys.density.site #omega should always be scaled by site density 
-        self.omega_real *= sys.density.site #omega should always be scaled by site density 
-        self.omega_real += np.eye(sys.rank) 
+
+        # omega_real is optional so we need to hendle this carefully
+        try:
+            self.sys.omega_real.check()
+        except ValueError:
+            # some or all omega_real not specified
+            self.omega_real = None
+        else:
+            applyFunc = lambda x: x.calculate(sys.domain.r)
+            self.omega_real  = self.sys \
+                                   .omega_real \
+                                   .apply(applyFunc,inplace=False) \
+                                   .exportToMatrixArray(space=Space.Real)
+            self.omega_real *= sys.density.site #omega should always be scaled by site density 
+
+        # if user tries to use molecular closures without providing omega_real, throw error
+        if self.MolecularClosure and (self.omega_real is None):
+            err = 'All omega(r) pairs must be specified in sys.omega_real to use molecular closures'
+            raise ValueError(err)
         
         # Spaces are set based on when they are used in self.cost(...). In some cases,
         # this is redundant because these array's will be overwritten with copies and
@@ -162,20 +178,17 @@ class PRISM:
         self.directCorr.space = Space.Real 
         self.C0delC.space = Space.Real 
 
-        MolClosureFlag = 0
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,AtomicClosure):
                 self.directCorr[t1,t2] = closure.calculate(self.sys.domain.r,self.GammaIn[t1,t2])
                 self.C0delC[t1,t2] = self.directCorr[t1,t2] 
             elif isinstance(closure,MolecularClosure):
-                #raise NotImplementedError('Molecular closures are untested and not fully implemented.')
-                MolClosureFlag = 1
+                pass # all molecular closures are handled simulaneously below
             else:
                 raise ValueError('Closure type not recognized')
         
-        if MolClosureFlag:
+        if self.MolecularClosure:
             guess = (-1.0-self.GammaIn.data)
-            # guess = self.sys.domain.long_r*(-1.0-self.GammaIn.data)
             WCWresult = self.WCWsolve(guess=guess.reshape((-1,)),method='krylov',options={'disp':False})
             for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
                 if isinstance(closure,MolecularClosure):
@@ -290,8 +303,7 @@ class PRISM:
         # self.WCWOut = self.omega.dot(self.C0delC).dot(self.omega)
         # self.sys.domain.MatrixArray_to_real(self.WCWOut)
 
-        dr = self.sys.domain.long_r[1]-self.sys.domain.long_r[0]
-        # dr = 1
+        dr = self.sys.domain.dr
         self.WCWOut = self.omega_real.MatrixConvolve(self.C0delC,dr).MatrixConvolve(self.omega_real,dr)
         
         self.WCWy = (self.WCWOut.data - self.WCWIn.data)

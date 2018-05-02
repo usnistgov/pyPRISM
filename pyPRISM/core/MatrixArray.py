@@ -337,6 +337,9 @@ class MatrixArray(object):
         cols_self = self.data.shape[2]
         rows_other = other.data.shape[1]
         cols_other = other.data.shape[2]
+
+        # sanity check
+        assert cols_self == rows_other
         
         result = np.zeros_like(self.data)
         for i in range(rows_self):
