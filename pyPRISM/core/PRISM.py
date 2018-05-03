@@ -189,7 +189,7 @@ class PRISM:
         
         if self.MolecularClosure:
             guess = (-1.0-self.GammaIn.data)
-            WCWresult = self.WCWsolve(guess=guess.reshape((-1,)),method='krylov',options={'disp':False})
+            WCWresult = self.WCWsolve(guess=guess.reshape((-1,)),method='df-sane',options={'disp':False})
             for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
                 if isinstance(closure,MolecularClosure):
                     self.directCorr[t1,t2] = self.WCWOut[t1,t2] 
@@ -297,7 +297,13 @@ class PRISM:
         #
         for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
             if isinstance(closure,MolecularClosure):
-              self.C0delC[t1,t2] = closure.calculate(self.sys.domain.r,self.WCWIn[t1,t2],self.GammaIn[t1,t2])
+                closure.calculate(self.sys.domain.r,self.WCWIn[t1,t2],self.GammaIn[t1,t2])
+
+                #mask_lo = self.sys.domain.r<closure.sigma
+                value = closure.value.copy()
+                #value[mask_lo] = 0.0# closure.C0[mask_lo]
+                
+                self.C0delC[t1,t2] = value
         
         # self.sys.domain.MatrixArray_to_fourier(self.C0delC)
         # self.WCWOut = self.omega.dot(self.C0delC).dot(self.omega)
@@ -305,6 +311,15 @@ class PRISM:
 
         dr = self.sys.domain.dr
         self.WCWOut = self.omega_real.MatrixConvolve(self.C0delC,dr).MatrixConvolve(self.omega_real,dr)
+
+        for (i,j),(t1,t2),closure in self.sys.closure.iterpairs():
+            if isinstance(closure,MolecularClosure):
+                #closure values should still be set from previous iter
+
+                mask_lo = self.sys.domain.r<closure.sigma
+                value = self.WCWOut[t1,t2].copy()
+                value[mask_lo] = -1 - self.GammaIn[t1,t2][mask_lo]
+                self.WCWOut[t1,t2] = value
         
         self.WCWy = (self.WCWOut.data - self.WCWIn.data)
         # self.WCWy = self.sys.domain.long_r*(self.WCWOut.data - self.WCWIn.data)

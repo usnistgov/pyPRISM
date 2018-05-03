@@ -81,18 +81,21 @@ class ReferenceMolecularLinearPercusYevick(MolecularClosure):
         assert WCW.shape[0] == len(self.potential),'Domain mismatch!'
         
         self.value = np.zeros_like(self.potential)
+        self.value_lo = np.zeros_like(self.potential)
+        self.value_hi  = np.zeros_like(self.potential)
         if self.apply_hard_core:
             assert self.sigma is not None, 'If apply_hard_core=True, sigma parameter must be set!'
 
             # calculate closure inside hard core
             mask = r<self.sigma
-            self.value[mask] += -1.0-gamma[mask]
+            self.value_lo[mask] = -1.0-gamma[mask]
             
             # calculate closure outside hard core
             mask = r>self.sigma
-            self.value[mask] += -self.potential[mask]*(1.0+WCW[mask]+gamma[mask])
-            self.value[mask] += self.C0[mask]
-            
+            self.value_hi[mask] = -self.potential[mask]*(1.0+WCW[mask]+gamma[mask])
+            self.value_hi[mask] += self.C0[mask]
+
+            self.value = self.value_lo + self.value_hi
         else:
             raise AssertionError('Please specify apply_hard_core=True!')
         

@@ -1,0 +1,56 @@
+variable dt equal 0.001
+variable thermo_freq equal  10000
+variable dump_freq equal  100000
+variable nsteps equal  25e6
+
+units         lj		
+atom_style		molecular
+read_data		  data.lmpmolecular
+
+bond_style harmonic
+bond_coeff  1 100 1.0
+angle_style none
+dihedral_style none
+
+group polymer type 1 2
+
+pair_style soft 1.0
+pair_coeff * * 0.0
+variable prefactor equal ramp(0,100)
+special_bonds lj/coul 0.0 1.0 1.0
+
+timestep 		${dt}
+thermo ${thermo_freq}
+thermo_style custom step temp etotal ke pe ebond epair eangle edihed lx ndanger
+thermo_modify flush yes norm no
+
+fix ramp1 all adapt 1 pair soft a * * v_prefactor
+fix nve1 polymer nve
+fix lang1 polymer langevin 1.0 1.0 1.0 1213654
+
+dump 1 all custom 50 init.trj id mol type x y z
+dump_modify 1 sort id
+
+run				10000
+unfix ramp1
+unfix nve1
+unfix lang1
+
+fix nve1 polymer nve
+fix lang1 polymer langevin 1.0 1.0 1.0 1213654
+
+pair_style lj/cut/opt 2.5
+pair_coeff * * 0.0 1.0 1.122
+pair_modify shift yes
+
+special_bonds lj/coul 0.0 1.0 1.0
+
+undump 1 
+dump 2 all custom ${dump_freq} dump.trj id mol type x y z xu yu zu
+dump_modify 2 sort id
+
+dump 3 all dcd  ${dump_freq} dump.dcd
+dump_modify 3 sort id
+
+run			${nsteps}
+
