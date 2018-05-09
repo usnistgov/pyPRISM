@@ -4,32 +4,42 @@
 <h1 align="center">pyPRISM</h1>
 
 <p align="center"> 
+    <a href='https://travis-ci.com/usnistgov/pyPRISM'>
+        <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=master' alt='Master Build Status' />
+    </a>
+    <a href='https://travis-ci.com/usnistgov/pyPRISM'>
+        <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=dev' alt='Dev Build Status' />
+    </a>
+    <a href='http://pyprism.readthedocs.io/en/latest/?badge=latest'>
+        <img src='http://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
+    </a>
+</p>
 
-<a href='https://travis-ci.com/usnistgov/pyPRISM'>
-    <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=master' alt='Master Build Status' />
-</a>
+<p align="center"> 
+    <a href="https://anaconda.org/conda-forge/pyprism">
+        <img src="https://anaconda.org/conda-forge/pyprism/badges/version.svg" /> 
+    </a>
+    <a href="https://anaconda.org/conda-forge/pyprism"> 
+        <img src="https://anaconda.org/conda-forge/pyprism/badges/license.svg" /> 
+    </a>
+    <a href="https://anaconda.org/conda-forge/pyprism"> 
+        <img src="https://anaconda.org/conda-forge/pyprism/badges/platforms.svg" /> 
+    </a>
+    <a href="https://anaconda.org/conda-forge/pyprism">
+        <img src="https://anaconda.org/conda-forge/pyprism/badges/downloads.svg" /> 
+    </a>
+</p>
 
-<a href='https://travis-ci.com/usnistgov/pyPRISM'>
-    <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=dev' alt='Dev Build Status' />
-</a>
-
-<a href='http://pyprism.readthedocs.io/en/latest/?badge=latest'>
-    <img src='http://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
-</a>
-
-<a href='https://github.com/usnistgov/pyprism'>
-    <img src='https://img.shields.io/badge/Release_Version-1.0.0-blue.svg' alt='Release Version' />
-</a>
-
-<a href='https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial'>
-    <img src='https://mybinder.org/badge.svg' alt='Binder' />
-</a>
-
-<a href='https://pyPRISM.readthedocs.io/en/latest/tutorial/tutorial.html'>
-    <img src='https://img.shields.io/badge/Tutorial--orange.svg' alt='Tutorial' />
-</a>
-
-
+<p align="center"> 
+    <a href='https://pyPRISM.readthedocs.io/en/latest/'>
+        <img src='https://img.shields.io/badge/Documentation--blue.svg' alt='Documentation' />
+    </a>
+    <a href='https://pyPRISM.readthedocs.io/en/latest/tutorial/tutorial.html'>
+        <img src='https://img.shields.io/badge/Tutorial--orange.svg' alt='Tutorial' />
+    </a>
+    <a href='https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial'>
+        <img src='https://mybinder.org/badge.svg' alt='Binder' />
+    </a>
 </p>
 
 <p>
@@ -108,7 +118,7 @@ pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 Quick Install
 =============
 The commands below should install pyPRISM with all basic dependences via conda
-or pip. These commands should be platform agnostic and work for Unix, OSX, and
+or pip. These commands should be platform agnostic and work for Linux, macOS, and
 Windows *if* you have Anaconda or pip installed.  For full installation
 instructions please see the documentation. 
 
