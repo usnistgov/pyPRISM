@@ -79,27 +79,25 @@ Annotated Example
     sys.closure['polymer','particle']  = pyPRISM.closure.PercusYevick()
     sys.closure['particle','particle'] = pyPRISM.closure.HyperNettedChain()
     
-    # The system class has a helper function to automatically transfer and set up
-    # a PRISM object. The PRISM object holds all of the correlation function
-    # arrays and the cost function which will be numerically minimized to
-    # 'solve' the PRISM equations.
-    PRISM = sys.createPRISM()
-    
-    # Call the numerical solver. By default, this is a Newton-Krylov solver. 
-    PRISM.solve()
+    # Calling the .solve() method of the system object attempts to numerically
+    # solv the PRISM equation and, if successful, it returns a PRISM object
+    # containing all of the solved correlation functions.
+    PRISM = sys.solve()
     
     # Calculate the pair-correlation functions.
     rdf = pyPRISM.calculate.pair_correlation(PRISM)
 
     # Plot the results using matplotlib
-    plt.plot(sys.domain.r,rdf['polymer','polymer'],color='red',lw=1.25)
-    plt.plot(sys.domain.r,rdf['polymer','particle'],color='green',lw=1.25)
-    plt.plot(sys.domain.r,rdf['particle','particle'],color='blue',lw=1.25)
+    plt.plot(sys.domain.r,rdf['polymer','polymer'],color='gold',lw=1.25,ls='-')
+    plt.plot(sys.domain.r,rdf['polymer','particle'],color='red',lw=1.25,ls='--')
+    plt.plot(sys.domain.r,rdf['particle','particle'],color='blue',lw=1.25,ls=':')
+    plt.ylabel('pair correlation')
+    plt.xlabel('separation distance')
     plt.show()
 
-.. image:: ../img/nanocomposite_rdf.png
+.. image:: ../img/nanocomposite_rdf.svg
     :align: center
-    :width: 300px
+    :width: 350px
 
 
 Discussion
@@ -137,7 +135,8 @@ References
    Stabilization in Dense Polymer Particle Mixtures, Macromolecules 2005, 38,
    8858-8869 [`link <https://doi.org/10.1021/ma060577m>`__]
 
-#. Martin, T.B.; Gartner, T.E. III; Jones, R.L.; Snyder, C.R.; Jayaraman, A.;
-   pyPRISM: A Computational Tool for Liquid State Theory Calculations of
-   Macromolecular Materials. (submitted)
+#. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman,
+   A.; pyPRISM: A Computational Tool for Liquid State Theory
+   Calculations of Macromolecular Materials, Macromolecules, 2018, 51 (8),
+   p2906-2922 [`link <https://dx.doi.org/10.1021/acs.macromol.8b00011>`__]
 

@@ -6,20 +6,14 @@ Installation Instructions
 .. toctree::
     :maxdepth: 1
 
-    quick.cui
-    manual.cui
+    quick.cli
+    manual.cli
     noninstall
     dependencies
     usage
     verify
     documentation
     trouble
-
-.. warning::
-    
-    While the pyPRISM code is now publically available, the developers are
-    still working on integrating the code into other systems (PyPI, Conda-Forge,
-    Binder). We thank you for your patience as we work on these features. 
 
 .. warning::
     

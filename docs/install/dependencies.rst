@@ -27,10 +27,11 @@ These additional dependencies are needed to compile the documentation from sourc
 
 All of these dependecies can be satisfied by creating a conda environment using
 the .yml files in source distribution. Note that we provide multiple
-environments for difference use-cases (e.g., Python 2 vs. Python 3, basic user
+environments for different use-cases (e.g., Python 2 vs. Python 3, basic user
 vs. developer). The environments can be created using the following command
-from setup.py directory of the download `repository
-<https://github.com/usnistgov/pyprism>`__. 
+from root directory of the `repository
+<https://github.com/usnistgov/pyprism>`__. The root directory is the directory
+with the file `setup.py` in it.
 
 .. code-block:: bash
 

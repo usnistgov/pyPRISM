@@ -3,9 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: ../img/TOC_600x.png
+.. image:: ../img/TOC.svg
+    :width: 500px
     :align: center
-
 
 pyPRISM
 =======
@@ -37,22 +37,53 @@ polymeric fluids and nanocomposites.
 
     1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman,
        A.; pyPRISM: A Computational Tool for Liquid State Theory
-       Calculations of Macromolecular Materials [`link <https://dx.doi.org/10.1021/acs.macromol.8b00011>`__]
+       Calculations of Macromolecular Materials, Macromolecules, 2018, 51 (8),
+       p2906-2922 [`link <https://dx.doi.org/10.1021/acs.macromol.8b00011>`__]
 
     2. Schweizer, K.S.; Curro, J.G.; Integral Equation Theory of the Structure
-       of Polymer Melts, Physical Review Letters, 1987, 58 (3) 246-249
+       of Polymer Melts, Physical Review Letters, 1987, 58 (3), p246-249
        doi:10.1103/PhysRevLett.58.246
        [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
 
 
-.. image:: ../img/github.png
-    :align: center
+.. |GitHub1| image:: ../img/GitHub.svg
+    :width: 100px
     :target: https://github.com/usnistgov/pyprism
+
+.. |GitHub2| image:: ../img/GitHubIssues.svg
+    :width: 150px
+    :target: https://github.com/usnistgov/pyprism/issues
+
+.. |Conda| image:: ../img/anaconda_cloud.svg
+    :width: 150px
+    :target: https://anaconda.org/conda-forge/pyprism 
+
+.. |PyPI| image:: ../img/pypi.svg
+    :width: 50px
+    :target: https://pypi.org/project/pyPRISM/
+
+.. |binder| image:: https://mybinder.org/badge.svg 
+    :target: https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial
+
+
+
+External Resources
+==================
+.. csv-table:: 
+
+    Source Code Repository, |GitHub1|
+    Question/Issue Tracker, |GitHub2|
+    Interactive Binder Tutorial, |binder|
+    Anaconda Cloud, |Conda|
+    Python Package Index, |PyPI|
+
     
+Table of Contents
+=================
 
 .. toctree::
     :maxdepth: 1
-    :caption: Code Reference
+    :caption: Code Manual 
 
     api/pyPRISM
 
@@ -76,6 +107,7 @@ polymeric fluids and nanocomposites.
     :maxdepth: 2
     :caption: Miscellaneous 
 
+    publications
     contribute
     contact
     legal

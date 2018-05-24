@@ -9,6 +9,7 @@ dependencies:
   - cython 
   - jupyter
   - jupyterlab
+  - nodejs
   - matplotlib
   - bokeh
   - holoviews
@@ -28,3 +29,6 @@ dependencies:
   - twine
   - wheel
   - virtualenv
+
+# JupyterLab Extensions
+# jupyter labextension install jupyterlab_vim jupyterlab_bokeh @pyviz/jupyterlab_holoviews 

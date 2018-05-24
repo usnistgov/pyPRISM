@@ -3,6 +3,7 @@ from pyPRISM.core.Space import Space
 import string
 from itertools import product
 import numpy as np
+import warnings
 
 class MatrixArray(object):
     '''A container for creating and interacting with arrays of matrices
@@ -14,12 +15,12 @@ class MatrixArray(object):
         and the last two dimenions corresponding to the vertical and horizontal 
         index of each matrix element.
         
-        The terminology *Curve* is used to refer to the set of values from
+        The terminology *pair-function* is used to refer to the set of values from
         all matrices in the array at a given matrix index pair. In Numpy slicing 
         parlance::
         
-            curve_11 = numpy_array[:,1,1]
-            curve_12 = numpy_array[:,1,2]
+            pair_11 = numpy_array[:,1,1]
+            pair_12 = numpy_array[:,1,2]
 
         Access to the MatrixArray is either by supplied types or numerical indices.
         If types are not supplied, captial letters starting from 'A' are used. 
@@ -65,7 +66,7 @@ class MatrixArray(object):
 
         types: list, *optional*
             List of semantic types that are be used to reference data. These
-            types will be output by the itercurve method as well. If not
+            types will be output by the iterpair method as well. If not
             supplied, uppercase letters will be used.
 
         '''
@@ -96,9 +97,16 @@ class MatrixArray(object):
     def get_copy(self):
         '''Return an independent copy of this MatrixArray'''
         return MatrixArray(length=self.length,rank=self.rank,data=np.copy(self.data),space=self.space,types=self.types)
-    
+
     def itercurve(self):
-        '''Iterate over the curves in this MatrixArray
+        warnings.warn(
+                "itercurve() is deprecated and will be removed in a future release. Use iterpairs() instead",
+                DeprecationWarning
+        )
+        return self.iterpairs()
+
+    def iterpairs(self):
+        '''Iterate over the pair-function in this MatrixArray
 
         Yields
         ------
@@ -108,8 +116,8 @@ class MatrixArray(object):
         (t1,t2): 2-tuple of string types
             string index to the underlying data numpy array
 
-        curve: np.ndarray, size (self.length)
-            1-D array representing a curve within the MatrixArray
+        pair-function: np.ndarray, size (self.length)
+            1-D array representing a pair-function within the MatrixArray
         '''
         for i,j in product(range(self.rank),range(self.rank)):
             if i<=j: #upper triangle condition
@@ -118,15 +126,15 @@ class MatrixArray(object):
                 yield (i,j),(type1,type2),self.data[:,i,j]
             
     def __setitem__(self,key,val):
-        '''Curve setter 
+        '''pair-function setter 
 
         Arguments
         ---------
         key: tuple of types
-            Type pair used to identify curve pair
+            Type pair used to identify pair
 
         val: np.ndarray
-            Values of curve
+            Values of pair-function
 
 
         Assumes all matrices are symmetric and enforces symmetry by
@@ -150,15 +158,15 @@ class MatrixArray(object):
             self.data[:,index2,index1] = val
         
     def __getitem__(self,key):
-        '''Curve getter
+        '''pair-function getter
 
         Arguments
         ---------
         key: tuple of types
-            Type pair used to identify curve pair
+            Type pair used to identify pair
 
         val: np.ndarray
-            Values of curve
+            Values of pair-function
         '''
 
         type1,type2 = key 
@@ -176,7 +184,7 @@ class MatrixArray(object):
         return self.data[:,index1,index2]
     
     def get(self,index1,index2):
-        '''Curve getter via indices
+        '''pair-function getter via indices
 
         This method should be slightly more efficient than the standard
         __getitem__. 
