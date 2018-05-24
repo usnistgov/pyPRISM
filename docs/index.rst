@@ -46,17 +46,44 @@ polymeric fluids and nanocomposites.
        [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
 
 
-.. image:: ../img/GitHub.svg
-    :align: center
-    :width: 400px
+.. |GitHub1| image:: ../img/GitHub.svg
+    :width: 100px
     :target: https://github.com/usnistgov/pyprism
+
+.. |GitHub2| image:: ../img/GitHubIssues.svg
+    :width: 150px
+    :target: https://github.com/usnistgov/pyprism/issues
+
+.. |Conda| image:: ../img/anaconda_cloud.svg
+    :width: 150px
+    :target: https://anaconda.org/conda-forge/pyprism 
+
+.. |PyPI| image:: ../img/pypi.svg
+    :width: 50px
+    :target: https://pypi.org/project/pyPRISM/
+
+.. |binder| image:: https://mybinder.org/badge.svg 
+    :target: https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial
+
+
+
+External Resources
+==================
+.. csv-table:: 
+
+    Source Code Repository, |GitHub1|
+    Question/Issue Tracker, |GitHub2|
+    Interactive Binder Tutorial, |binder|
+    Anaconda Cloud, |Conda|
+    Python Package Index, |PyPI|
+
     
-
-
+Table of Contents
+=================
 
 .. toctree::
     :maxdepth: 1
-    :caption: Code Reference
+    :caption: Code Manual 
 
     api/pyPRISM
 
@@ -80,6 +107,7 @@ polymeric fluids and nanocomposites.
     :maxdepth: 2
     :caption: Miscellaneous 
 
+    publications
     contribute
     contact
     legal

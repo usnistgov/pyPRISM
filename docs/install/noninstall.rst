@@ -13,7 +13,7 @@ and notebook servers run in this evironment will be able to access pyPRISM.
 
 .. code-block:: bash
 
-    (Linux/OSX) $ export PYTHONPATH=${PYTHONPATH}:/path/to/pyPRISM/dir
+    (macOS/Linux) $ export PYTHONPATH=${PYTHONPATH}:/path/to/pyPRISM/dir
 
     (Windows) > set PATH=%PATH%;C:\path\to\pyPRISM\dir
 
@@ -22,7 +22,7 @@ and notebook servers run in this evironment will be able to access pyPRISM.
     The path in the above examples should be to the directory **containing**
     pyPRISM. The specified directory should be the one containing ``setup.py`` in
     the repository you downloaded or cloned from GitHub and not the one
-    containing __init__.py>.
+    containing ``__init__.py``.
 
 .. warning::
 
@@ -44,7 +44,7 @@ placing the following code at the top of your script or notebook.
     The path in the above examples should be to the directory **containing**
     pyPRISM. The specified directory should be the one containing ``setup.py`` in
     the repository you downloaded or cloned from GitHub and not the one
-    containing __init__.py>.
+    containing ``__init__.py``.
 
 .. warning::
 

@@ -12,7 +12,7 @@ What systems can be studied with PRISM?
 - polymer solutions
 - nanoparticle solutions
 - polymer nanocomposites
-- liquid crystals (anistropic formalism)
+- liquid crystals (anisotropic formalism)
 - micelle Solutions
 - polyelectrolytes
 - rod-like polymers

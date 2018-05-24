@@ -8,7 +8,7 @@ If the quick-install commands do not work, then you can install pyPRISM
 
 .. note::
 
-    Unless specified explicitly, the commands below should work for Linux, OSX,
+    Unless specified explicitly, the commands below should work for Linux, macOS,
     and Windows. 
 
 .. note::
@@ -48,7 +48,7 @@ When installation is complete you must activate the environment.
 
 .. code-block:: bash
 
-   (OSX/Linux) $ source activate pyPRISM_py3
+   (macOS/Linux) $ source activate pyPRISM_py3
 
 Later, when you are ready to exit the environment, you can type:
 
@@ -58,7 +58,7 @@ Later, when you are ready to exit the environment, you can type:
 
 .. code-block:: bash
 
-   (OSX/Linux) $ source deactivate
+   (macOS/Linux) $ source deactivate
 
 If for some reason you want to remove the environment entirely, you can do so by
 writing:

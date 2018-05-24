@@ -97,7 +97,7 @@ Annotated Example
 
 .. image:: ../img/nanocomposite_rdf.svg
     :align: center
-    :width: 500px
+    :width: 350px
 
 
 Discussion
