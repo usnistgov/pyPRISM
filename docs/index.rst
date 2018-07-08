@@ -33,6 +33,8 @@ platform for rapid calculations of the structure and thermodynamics of
 polymeric fluids and nanocomposites. 
 
 
+Citations
+---------
 **If you use pyPRISM in your work, we ask that you please cite both of the following articles**
 
     1. Martin, T.B.; Gartner, T.E. III;  Jones, R.L.; Snyder, C.R.; Jayaraman,
@@ -44,6 +46,48 @@ polymeric fluids and nanocomposites.
        of Polymer Melts, Physical Review Letters, 1987, 58 (3), p246-249
        doi:10.1103/PhysRevLett.58.246
        [`link <https://doi.org/10.1103/PhysRevLett.58.246>`__]
+
+pyPRISM Example
+---------------
+
+Below is an example python script where we use pyPRISM to calculate the pair
+correlation functions for a nanocomposite (polymer + particle) system with
+attractive polymer-particle interactions. Below the script is a plot of the pair
+correlation functions from this calculation. See :ref:`quickstart` for a more
+detailed discussion of this example. 
+
+.. code:: python
+
+    import pyPRISM
+    
+    sys = pyPRISM.System(['particle','polymer'],kT=1.0)
+    sys.domain = pyPRISM.Domain(dr=0.01,length=4096)
+        
+    sys.density['polymer']  = 0.75
+    sys.density['particle'] = 6e-6
+    
+    sys.diameter['polymer']  = 1.0
+    sys.diameter['particle'] = 5.0
+    
+    sys.omega['polymer','polymer']   = pyPRISM.omega.FreelyJointedChain(length=100,l=4.0/3.0)
+    sys.omega['polymer','particle']  = pyPRISM.omega.InterMolecular()
+    sys.omega['particle','particle'] = pyPRISM.omega.SingleSite()
+    
+    sys.potential['polymer','polymer']   = pyPRISM.potential.HardSphere()
+    sys.potential['polymer','particle']  = pyPRISM.potential.Exponential(alpha=0.5,epsilon=1.0)
+    sys.potential['particle','particle'] = pyPRISM.potential.HardSphere()
+    
+    sys.closure['polymer','polymer']   = pyPRISM.closure.PercusYevick()
+    sys.closure['polymer','particle']  = pyPRISM.closure.PercusYevick()
+    sys.closure['particle','particle'] = pyPRISM.closure.HyperNettedChain()
+    
+    PRISM = sys.solve()
+
+    pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
+
+.. image:: ../img/nanocomposite_rdf.svg
+    :align: center
+    :width: 350px
 
 
 .. |GitHub1| image:: ../img/GitHub.svg
@@ -64,8 +108,6 @@ polymeric fluids and nanocomposites.
 
 .. |binder| image:: https://mybinder.org/badge.svg 
     :target: https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial
-
-
 
 External Resources
 ==================
