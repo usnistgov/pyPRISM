@@ -211,7 +211,7 @@ class PRISM:
         if options is None:
             options = {'disp':True}
 
-        result = root(self.cost,guess,method=method,options=options)
+        self.minimize_result = root(self.cost,guess,method=method,options=options)
 
         
         if self.totalCorr.space == Space.Fourier:
