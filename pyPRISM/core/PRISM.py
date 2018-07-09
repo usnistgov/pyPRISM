@@ -224,6 +224,6 @@ class PRISM:
                 val = np.min(H)
                 warnings.warn(warnstr.format(val,t1,t2))
         
-        return result
+        return self.minimize_result
         
     
