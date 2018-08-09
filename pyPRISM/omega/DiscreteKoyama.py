@@ -110,18 +110,31 @@ class DiscreteKoyama(Omega):
         self.lp      = lp
         self.cos0    = 1 - sigma*sigma/(2.0 * l * l)
         self.value   = None
-
-        if self.lp<4.0/3.0:
-            raise ValueError('DiscreteKoyama does not support persistence lengths < 4.0/3.0.')
-        elif self.lp == 4.0/3.0:
-            self.epsilon = 0.0
-            self.cos1 = 0.5*(self.cos0-1.0)/(self.cos0 + 1.0)
-            self.cos2 = (self.cos0**(3.0) + 1)/(3*self.cos0 + 3)
+        if self.l > self.sigma/2.0:
+            self.lp_min = (4.0*self.l**3)/(4.0*self.l**2-self.sigma**2)
         else:
+            raise ValueError("Values of l <= sigma/2 are not allowed as this generates overlaps " \
+                              "between sites separated by two bonds.")
 
+        if self.lp<self.lp_min:
+            raise ValueError("For l={} and sigma={} the minimum valid lp={}, otherwise overlaps " \
+                             "between sites separated by two bonds will occur.".format(self.l, self.sigma, self.lp_min))
+        #If lp is close to the minimum (freely jointed limit) the solver has 
+        #issues finding the bending energy due to the divergence in Eqn. 23 of 
+        #the above mentioned reference. 
+        #This uses a linearization approximation if the minimum is approached.
+        #A tolerance of 0.001 seems good.
+        elif (self.lp - self.lp_min)/self.lp_min < 0.001:
+            self.cos1 = l/lp - 1.0
+            self.epsilon = 6.0*(self.cos0-1.0-2.0*self.cos1)/(1.0+self.cos0)**2
+            self.cos2 = ( (1.0/3.0)*(1.0+(self.cos0-1.0)*self.cos0) - 
+                          (1.0/12.0)*((self.cos0-1.0)*(1.0+self.cos0)**2)*self.epsilon )
+        #Actually solve the non-linear equation for the bending energy when far enough
+        #away from the freely jointed limit.
+        else:
             self.cos1 = l/lp - 1
             funk = lambda e: self.cos_avg(e) - self.cos1
-            result  = root(funk,1.0)
+            result  = root(funk, 0.5)
 
             if result.success != True:
                 raise ValueError('DiscreteKoyama initialization failure. Could not solve for bending energy.')
