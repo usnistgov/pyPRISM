@@ -8,7 +8,25 @@ via Ananconda) along with pyPRISM before running the test suite.
 
 .. code-block:: bash
 
-    $ cd <pyPRISM base directory>/test
+    $ cd <pyPRISM base directory>/pyPRISM/test
 
     $ python -m pytest --verbose
+
+If the above command throws an error about "No module named pytest", then you
+must install the pytest package. This can be done via `Anaconda
+<https://www.anaconda.com/download/>`__ or `pip
+<https://pypi.python.org/pypi/pip>`__ .
+
+.. code-block:: bash
+
+    $ conda install pytest
+
+or
+
+.. code-block:: bash
+
+    $ pip install pytest
+
+
+
 
