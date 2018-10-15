@@ -2,6 +2,7 @@
 from __future__ import division,print_function
 import warnings
 import numpy as np
+from itertools import product
 from pyPRISM.core.PRISM import PRISM
 from pyPRISM.core.MatrixArray import MatrixArray
 from pyPRISM.core.PairTable import PairTable
@@ -165,6 +166,31 @@ class System:
         self.check() #sanity check
         
         return PRISM(self)
+
+    def iterpairs(self,full=False,diagonal=True):
+        '''Convenience function for looping over type pairs.
+        
+        Parameters
+        ----------
+        full: bool
+            If *True*, all i,j pairs (upper and lower diagonal) will be looped over
+            
+        diagonal: bool
+            If *True*, only the i==j (on-diagonal) pairs will be considered when looping
+        
+        '''
+        
+        if full:
+            test = lambda i,j: True
+        elif diagonal:
+            test = lambda i,j: i<=j
+        else:
+            test = lambda i,j: i<j
+
+        for (i,t1),(j,t2) in product(enumerate(self.types),enumerate(self.types)):
+            if test(i,j):
+                yield (i,j),(t1,t2)
+            
     def solve(self,*args,**kwargs):
         '''Construct a PRISM object and attempt a numerical solution
 
