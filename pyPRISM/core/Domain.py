@@ -42,7 +42,7 @@ class Domain(object):
 
             F_i = (i+1)\Delta r\ f((i+1)\Delta r) = r f(r)
 
-        The above equations describe a Real to Real, type-II discrete sine
+        The above equations describe a Real to Real, type-I discrete sine
         transform (DST). To tranform to and from Fourier space we will use the
         type-II and type-III DST's respectively. With Scipy's interface to
         fftpack, the following functional coeffcients are
