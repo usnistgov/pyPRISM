@@ -58,7 +58,11 @@ class FromArray(Omega):
            exception will be raised. 
         '''
         self.value = np.array(omega)
-        self.k = np.array(k)
+
+        if k is not None:
+            self.k = np.array(k)
+        else:
+            self.k = None
         
     def __repr__(self):
         return '<Omega: FromArray>'
@@ -73,7 +77,7 @@ class FromArray(Omega):
         
         '''
         assert self.value.shape[0] == k.shape[0],'Size of array differs from domain!'
-        if k is not None:
+        if self.k is not None:
             assert self.k.shape[0] == k.shape[0],'File k-values differ from domain!'
             assert np.allclose(self.k,k),'File k-values differ from domain!'
         return self.value
