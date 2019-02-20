@@ -73,7 +73,7 @@ class FromArray(Omega):
         
         '''
         assert self.value.shape[0] == k.shape[0],'Size of array differs from domain!'
-        if self.k is not None:
+        if k is not None:
             assert self.k.shape[0] == k.shape[0],'File k-values differ from domain!'
             assert np.allclose(self.k,k),'File k-values differ from domain!'
         return self.value
