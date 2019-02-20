@@ -58,6 +58,16 @@ def spinodal_condition(PRISM,extrapolate=True):
         :math:`\alpha` and :math:`\beta` when
         :math:`\hat{\Lambda}_{\alpha,\beta}(k\rightarrow 0)=0`
 
+    .. warning::
+        
+        Using standard atomic closures (e.g, PY, HNC, MSA), PRISM theory may
+        not predict the correct scaling of spinodal temperatures for phase
+        separating systems. While this issue is mitigated by using molecular
+        closures,[3] these closures are not currently implemented in pyPRISM.
+        For more information, this issue is referenced in the pyPRISM
+        paper.[5]. We urge users to do their due diligence in understanding how
+        well these closures and PRISM theory perform for their systems of
+        interest.
 
     .. warning::
 
