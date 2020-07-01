@@ -1,26 +1,38 @@
-Change Log
-==========
+#Changelog
+See https://keepachangelog.com/en/1.0.0/
 
-v1.0.3
-------
-- Date:  18/04/05
+## [1.0.4] - 2020/07/01
+### Added
+- PRISM objects now store minimization object from scipy.root as PRISM.minimize_result
+- Pair iterator utility to the core.System object
+
+### Changed
+- Many documentation fixes/tweaks
+     
+### Fixed
+- FJC limit of omega.DiscreteKoyama was incorrect (thanks @Jadrich!)
+- structure factor normalization flag was being ignored
+- fixed domain check in omega.FromArray
+- test suite for when test suite isn't available
+
+## [1.0.3] - 2018/04/05
+### Added
 - MyBinder Support
 
-v1.0.2
-------
-- Date:  18/04/04
+## [1.0.2] - 2018/04/04
+### Changed
 - Moved tests back under pyPRISM
+
+### Added
 - Added test() method to pyPRISM/__init__.py
 
-v1.0.1
-------
-- Date: 18/04/04
+## [1.0.1] - 18/04/04
+###Added
 - Added LICENSE to MANIFEST.in
     - Yes, this required a version bump
     - See here: https://github.com/pypa/packaging-problems/issues/74
 
-v1.0.0
-------
-- Date: 18/04/01
+## [1.0.0] - 2018/04/01
+### Added
 - Initial Release! 
 

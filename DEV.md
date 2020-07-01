@@ -31,9 +31,10 @@ $ python setup.py build_ext
 $ python setup.py sdist
 ```
 8. Upload to pypi
-    - twine upload --skip--existing dist/*
-9.  Update conda-forge 
-'''
+```bash
+$ twine upload --skip--existing dist/*
+```
+9.  Update conda-forge [link](https://github.com/conda-forge/pyprism-feedstock#updating-pyprism-feedstock)
 
 Compiling C-Extentsions
 -----------------------

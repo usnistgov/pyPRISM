@@ -34,3 +34,5 @@ dependencies:
 
 # JupyterLab Extensions
 # jupyter labextension install jupyterlab_vim jupyterlab_bokeh @pyviz/jupyterlab_holoviews 
+#
+#@axlair/jupyterlab_vim @jupyter-widgets/jupyterlab-manager @jupyterlab/git
