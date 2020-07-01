@@ -145,7 +145,7 @@ Please use the [Issue](https://github.com/usnistgov/pyPRISM/issues) tracker to s
     [GitHub](https://github.com/martintb),
     [Webpage](https://www.nist.gov/people/tyler-martin),
     [Scholar](https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en)
-- Mr. Thomas Gartner, University of Delaware, 
+- Dr. Thomas Gartner, Princeton University, 
     [GitHub](https://github.com/tgartner),
     [Scholar](https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en)
 - Dr. Ronald Jones, NIST, 

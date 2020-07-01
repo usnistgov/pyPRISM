@@ -6,7 +6,7 @@ Contact Us
     `GitHub <https://github.com/martintb>`__,
     `Webpage <https://www.nist.gov/people/tyler-martin>`__,
     `Scholar <https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en>`__
-- Mr. Thomas Gartner, University of Delaware, 
+- Dr. Thomas Gartner, Princeton University, 
     `GitHub <https://github.com/tgartner>`__,
     `Scholar <https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en>`__
 - Dr. Ronald Jones, NIST, 
