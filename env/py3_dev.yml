@@ -16,6 +16,7 @@ dependencies:
   - holoviews
   - pandas 
   - pandas-datareader
+  - xarray
   - snakeviz
   - memory_profiler
   - line_profiler
