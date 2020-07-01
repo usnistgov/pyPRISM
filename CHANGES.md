@@ -1,4 +1,4 @@
-#Changelog
+# Changelog
 See https://keepachangelog.com/en/1.0.0/
 
 ## [1.0.4] - 2020/07/01
@@ -23,10 +23,10 @@ See https://keepachangelog.com/en/1.0.0/
 ### Changed
 - Moved tests back under pyPRISM
 
-### Added
-- Added test() method to pyPRISM/__init__.py
+### Added 
+- test() method to pyPRISM/__init__.py
 
-## [1.0.1] - 18/04/04
+## [1.0.1] - 2018/04/04
 ###Added
 - Added LICENSE to MANIFEST.in
     - Yes, this required a version bump
