@@ -65,8 +65,9 @@ of polymeric fluids and nanocomposites.
 tlytle1978/pyPRISM Differences from usnistgov/pyPRISM
 =======
 1. Includes molecular closures R-MPY, R-MSA, and R-LWC
-2. Includes a Picard iteration solver for the PRISM equations
-3. Suggested installation: install version from usnistgov/pyPRISM. Download code from tlytle1978/pyPRISM, and copy the files to the same location as the usnistgov/pyPRISM installed files. 
+2. Added an initial guess calculator which calculates the intitial cost function from a reference repulsive system
+3. Includes a Picard iteration solver for the PRISM equations
+4. Suggested installation: install version from usnistgov/pyPRISM. Download code from tlytle1978/pyPRISM, and copy the files to the same location as the usnistgov/pyPRISM installed files. 
 
 Citation
 ========
