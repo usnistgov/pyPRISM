@@ -62,6 +62,12 @@ provide a platform for rapid calculations of the structure and thermodynamics
 of polymeric fluids and nanocomposites. 
 </p>
 
+tlytle1978/pyPRISM Differences from usnistgov/pyPRISM
+=======
+1. Includes molecular closures R-MPY, R-MSA, and R-LWC
+2. Includes a Picard iteration solver for the PRISM equations
+3. Suggested installation: install version from usnistgov/pyPRISM. Download code from tlytle1978/pyPRISM, and copy the files to the same location as the usnistgov/pyPRISM installed files. 
+
 Citation
 ========
 **If you use pyPRISM in your work, we ask that you please cite both of the following articles**
