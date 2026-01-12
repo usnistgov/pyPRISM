@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.Domain import Domain
 from pyPRISM.core.Space import Space
 from pyPRISM.closure.MolecularClosure import MolecularClosure
@@ -101,8 +100,9 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
 
         hr = Domain.to_real(domain,array=hk)
 
-        potential_calculation = self.potential #we need to set the potential for r<=sigma equal to 0 for the fft to work correctly
-
+        # We need to set the potential for r<=sigma equal to 0 for the fft to work correctly
+        # IMPORTANT: Use np.copy() to avoid modifying self.potential in place
+        potential_calculation = np.copy(self.potential)
         mask = r<=self.sigma
         potential_calculation[mask]=0.0
 

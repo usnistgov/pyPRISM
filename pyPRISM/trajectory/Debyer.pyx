@@ -21,9 +21,9 @@ from libc.math cimport sin as c_sin
 from libc.stdio cimport printf
 
 # Define numerical types
-intType    = np.int
+intType    = np.intp
 floatType  = np.float32
-ctypedef np.int_t     cIntType
+ctypedef np.intp_t    cIntType
 ctypedef np.float32_t cFloatType
 
 

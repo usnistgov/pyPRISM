@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 
 from pyPRISM.core.Space import Space
 from pyPRISM.core.MatrixArray import MatrixArray
@@ -193,7 +192,7 @@ class PRISM:
         return self.y.reshape((-1,))
 
     def solve_picard(self,guess=None,step=None,tol=None,cr0=None,hk0=None,hk_initial=None): 
-        '''Attempt to numerically solve the PRISM equations using Picard iteration
+        r'''Attempt to numerically solve the PRISM equations using Picard iteration
         
         Using the supplied inputs (in the constructor), we attempt to numerically
         solve the PRISM equations using the scheme laid out in :func:`cost`. If the 
@@ -273,7 +272,7 @@ class PRISM:
         return self.minimize_result
 
     def solve(self,guess=None,method='krylov',options=None,tol=None,cr0=None,hk0=None,hk_initial=None):
-        '''Attempt to numerically solve the PRISM equations
+        r'''Attempt to numerically solve the PRISM equations
         
         Using the supplied inputs (in the constructor), we attempt to numerically
         solve the PRISM equations using the scheme laid out in :func:`cost`. If the 
@@ -340,7 +339,7 @@ class PRISM:
                 if closure.name == "RMPY":
                     warnings.warn(warnstr)
 
-        self.minimize_result = root(self.cost,guess,args=(cr0,hk0),method=method,options=options)
+        self.minimize_result = root(self.cost,guess,args=(cr0,hk0),method=method,tol=tol,options=options)
         
         if self.totalCorr.space == Space.Fourier:
             self.sys.domain.MatrixArray_to_real(self.totalCorr)

@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.potential.LennardJones import LennardJones
 import numpy as np
 class WeeksChandlerAndersen(LennardJones):

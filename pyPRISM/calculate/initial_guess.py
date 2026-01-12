@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.PairTable import PairTable
 from pyPRISM.core.MatrixArray import MatrixArray
 from pyPRISM.core.Space import Space

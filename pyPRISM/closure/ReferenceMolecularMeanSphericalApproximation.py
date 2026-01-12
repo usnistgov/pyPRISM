@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.Domain import Domain
 from pyPRISM.closure.MolecularClosure import MolecularClosure
 import numpy as np
@@ -109,9 +108,10 @@ class ReferenceMolecularMeanSphericalApproximation(MolecularClosure):
         
         assert len(gamma) == len(self.potential),'Domain mismatch!'
     
-        potential_calculation = self.potential 
-
-        mask = r<=self.sigma #we need to set the potential for r<=sigma equal to 0 for the fft to work correctly
+        # We need to set the potential for r<=sigma equal to 0 for the fft to work correctly
+        # IMPORTANT: Use np.copy() to avoid modifying self.potential in place
+        potential_calculation = np.copy(self.potential)
+        mask = r<=self.sigma
         potential_calculation[mask]=0.0
 
         cr0_k = Domain.to_fourier(domain,array=cr0)

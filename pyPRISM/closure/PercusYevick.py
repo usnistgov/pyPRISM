@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 class PercusYevick(AtomicClosure):
@@ -86,7 +85,7 @@ class PercusYevick(AtomicClosure):
         return '<AtomicClosure: PercusYevick>'
     
     def calculate(self,r,gamma):
-        '''Calculate direct correlation function based on supplied :math:`\gamma`
+        r'''Calculate direct correlation function based on supplied :math:`\gamma`
 
         Arguments
         ---------

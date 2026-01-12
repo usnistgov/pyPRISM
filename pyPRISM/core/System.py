@@ -1,5 +1,4 @@
 #!python 
-from __future__ import division,print_function
 import warnings
 import numpy as np
 from itertools import product
@@ -15,7 +14,7 @@ from pyPRISM.closure.AtomicClosure import AtomicClosure
 from pyPRISM.closure.MolecularClosure import MolecularClosure
 
 class System:
-    '''Primary class used to spawn PRISM calculations
+    r'''Primary class used to spawn PRISM calculations
 
     **Description**
 

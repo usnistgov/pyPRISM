@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.Space import Space
 import numpy as np
 from scipy.fftpack import dst
@@ -157,7 +156,7 @@ class Domain(object):
         return dst(self.DST_II_coeffs*array,type=2)/self.k
     
     def to_real(self,array):
-        ''' Discrete Sine Transform of a numpy array 
+        r''' Discrete Sine Transform of a numpy array 
         
         Arguments
         ---------
@@ -171,7 +170,7 @@ class Domain(object):
 
         Peforms a Real-to-Real Discrete Sine Transform  of type III
         on a numpy array of non-complex values. For radial data that is 
-        symmetric in :math:`\phi` and :math`\theta`, this is a correct transform
+        symmetric in :math:`\phi` and :math:`\theta`, this is a correct transform
         to go from Real-space to Fourier-space. 
         
         '''

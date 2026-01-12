@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 import numpy as np
 class Potential(object):
     '''Baseclass for all intermolecular-pairwise potentials

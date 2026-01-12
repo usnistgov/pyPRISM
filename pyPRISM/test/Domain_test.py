@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.MatrixArray import MatrixArray
 from pyPRISM.core.Domain import Domain
 import unittest

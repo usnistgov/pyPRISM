@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 import warnings 
@@ -89,7 +88,7 @@ class MeanSphericalApproximation(AtomicClosure):
     
         
     def calculate(self,r,gamma):
-        '''Calculate direct correlation function based on supplied :math:`\gamma`
+        r'''Calculate direct correlation function based on supplied :math:`\gamma`
 
         Arguments
         ---------

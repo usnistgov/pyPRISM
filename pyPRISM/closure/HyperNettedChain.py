@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 class HyperNettedChain(AtomicClosure):
@@ -90,7 +89,7 @@ class HyperNettedChain(AtomicClosure):
         return '<AtomicClosure: HyperNettedChain>'
     
     def calculate(self,gamma):
-        '''Calculate direct correlation function based on supplied :math:`\gamma`
+        r'''Calculate direct correlation function based on supplied :math:`\gamma`
 
         Arguments
         ---------
@@ -110,7 +109,7 @@ class HyperNettedChain(AtomicClosure):
         
         
     def calculate(self,r,gamma):
-        '''Calculate direct correlation function based on supplied :math:`\gamma`
+        r'''Calculate direct correlation function based on supplied :math:`\gamma`
 
         Arguments
         ---------

@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.omega.Omega import Omega
 from pyPRISM.omega.FreelyJointedChain import FreelyJointedChain
 import numpy as np
