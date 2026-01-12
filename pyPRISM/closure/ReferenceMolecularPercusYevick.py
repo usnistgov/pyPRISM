@@ -106,8 +106,7 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         mask = r<=self.sigma
         potential_calculation[mask]=0.0
 
-        exp_potential_r = np.exp(potential_calculation)
-        exp_potential_r = (1.0-exp_potential_r)*(hr+1.0)
+        exp_potential_r = (np.exp(+potential_calculation) - 1.0) * ( hr + 1.0)
         exp_potential_k = Domain.to_fourier(domain,array=exp_potential_r)
         exp_potential_k = omega_k_i*exp_potential_k*omega_k_j
         exp_potential_r = Domain.to_real(domain,array=exp_potential_k)
@@ -117,13 +116,8 @@ class ReferenceMolecularPercusYevick(MolecularClosure):
         convoluted_cr0 = Domain.to_real(domain,array=convoluted_cr0_k)
 
         if self.apply_hard_core:
-            # apply hard core condition 
             self.value = -1 - gamma
-            
-            # calculate closure outside hard core
-            mask = r>self.sigma
-            
-            # self.value is the convoluted c(r)
+            mask = r > self.sigma
             self.value[mask] = convoluted_cr0[mask] + exp_potential_r[mask]
 
         else:

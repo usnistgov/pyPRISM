@@ -116,13 +116,8 @@ class ReferenceLariaWuChandler(MolecularClosure):
         convoluted_cr0 = Domain.to_real(domain,array=convoluted_cr0_k)
 
         if self.apply_hard_core:
-            # apply hard core condition 
             self.value = -1 - gamma
-            
-            # calculate closure outside hard core
-            mask = r>self.sigma
-            
-            # self.value is the convoluted c(r)
+            mask = r > self.sigma
             self.value[mask] = (hr0[mask]+1.0)*np.exp(convoluted_cr0[mask]-convoluted_potential_r[mask]+gamma[mask]-hr0[mask])-1.0-gamma[mask]
 
         else:

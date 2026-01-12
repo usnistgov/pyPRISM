@@ -123,18 +123,12 @@ class ReferenceMolecularMeanSphericalApproximation(MolecularClosure):
         convoluted_potential = Domain.to_real(domain,array=convoluted_potential_k)
 
         if self.apply_hard_core:
-            # apply hard core condition 
             self.value = -1 - gamma
-            
-            # calculate closure outside hard core
-            mask = r>self.sigma
-            
-            # self.value is the convoluted c(r)
+            mask = r > self.sigma
             self.value[mask] = convoluted_cr0[mask] - convoluted_potential[mask]
                     
         else:
            # self.value is the convoluted c(r)
-
             self.value = convoluted_cr0 - convoluted_potential
         
         return self.value
