@@ -3,3 +3,4 @@
 *swp
 .ipynb_checkpoints
 .DS_Store
+dev/*

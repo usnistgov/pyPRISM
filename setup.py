@@ -13,13 +13,14 @@ try:
     from Cython.Build import cythonize
     import numpy as np
 except ImportError:
-    # Cython is not installed! Create C-extensions using c-files
-    use_cython = False
-    print('Using Cython to build extension from pyx!')
+    # Cython is required to build from .pyx files
+    raise ImportError(
+        "Cython is required to build pyPRISM. Please install it with: pip install Cython"
+    )
 else:
     # Cython is installed! Create C-extensions using pyx-files
     use_cython = True
-    print('Warning! Building extension from c-files, which may be out-of-date.')
+    print('Using Cython to build extension from pyx!')
 
 
 ## DETECT OS
@@ -56,15 +57,6 @@ if use_cython:
     
     ext_modules = cythonize(ext_modules)
     cmdclass.update({'build_ext':build_ext})
-else:
-    ext_modules += [
-                    Extension('pyPRISM.trajectory.Debyer', 
-                              [ 'pyPRISM/trajectory/Debyer.c' ],  
-                              #include_dirs=[np.get_include()],
-                              extra_compile_args=extra_compile_args,
-                              extra_link_args=extra_link_args
-                              ),
-                   ]
     
 setup(
     name='pyPRISM',
@@ -87,12 +79,12 @@ setup(
 		'Operating System :: Microsoft',
 		'Operating System :: Unix',
 		'Programming Language :: Python',
-		'Programming Language :: Python :: 2',
-		'Programming Language :: Python :: 2.7',
-		'Programming Language :: Python :: 2 :: Only',
 		'Programming Language :: Python :: 3',
-		'Programming Language :: Python :: 3.5',
-		'Programming Language :: Python :: 3.6',
+		'Programming Language :: Python :: 3.9',
+		'Programming Language :: Python :: 3.10',
+		'Programming Language :: Python :: 3.11',
+		'Programming Language :: Python :: 3.12',
+		'Programming Language :: Python :: 3.13',
 		'Programming Language :: Python :: Implementation :: CPython',
 		'Topic :: Scientific/Engineering',
 		'Topic :: Scientific/Engineering :: Chemistry',
@@ -104,6 +96,7 @@ setup(
 		'Source': 'https://github.com/usnistgov/pyprism',
 		'Documentation': 'http://pyPRISM.readthedocs.io',
 	},
+    python_requires='>=3.9',
     install_requires = ['numpy>=1.8.0','scipy','Cython','pint'],
     packages=find_packages(where='.'),
     package_data={'pyPRISM':['test/data/*dat','test/data/*csv']},
