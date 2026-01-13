@@ -1,16 +1,9 @@
 #!python
 
-try:
-    from enum import Enum
-except ImportError:
-    # Python 2.x
-    parent = object
-else:
-    # Python 3.x
-    parent = Enum
+from enum import Enum
 
 
-class Space(parent):
+class Space(Enum):
     ''' An enumeration to track which space an object is in
 
     **Description**

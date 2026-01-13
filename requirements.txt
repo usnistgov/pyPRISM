@@ -1,9 +1,0 @@
-numpy >= 1.8.0
-pytest
-cython
-scipy
-sphinx
-sphinx-autobuild
-sphinx_rtd_theme
-nbsphinx
-pint

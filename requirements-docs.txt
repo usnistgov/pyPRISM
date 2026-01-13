@@ -1,0 +1,14 @@
+# Runtime dependencies (also in pyproject.toml)
+numpy >= 2.0.0
+scipy >= 1.11.0
+pint >= 0.20.0
+
+# Development dependencies (install with: pip install -e ".[dev]")
+pytest >= 7.0.0
+packaging >= 23.0
+
+# Documentation dependencies (install with: pip install -e ".[docs]")
+sphinx >= 7.0.0
+sphinx-autobuild
+sphinx_rtd_theme
+nbsphinx

@@ -21,9 +21,10 @@ from libc.math cimport sin as c_sin
 from libc.stdio cimport printf
 
 # Define numerical types
-intType    = np.int
+# Updated for NumPy 2.0+ compatibility (np.int and np.int_t are deprecated)
+intType    = np.intp  # Platform-specific signed integer for indexing
 floatType  = np.float32
-ctypedef np.int_t     cIntType
+ctypedef np.intp_t    cIntType  # C-type for platform-specific signed integer
 ctypedef np.float32_t cFloatType
 
 
@@ -187,8 +188,8 @@ cdef class Debyer:
     cdef cFloatType dk
     cdef cFloatType rmax
     cdef cFloatType rmaxsq
-    cdef cIntType num_chunks
-    cdef cIntType num_bins
+    cdef Py_ssize_t num_chunks  # Use Py_ssize_t for prange and indexing
+    cdef Py_ssize_t num_bins    # Use Py_ssize_t for prange and indexing
 
     def __init__(self, domain, nthreads=None):
         '''Constructor
@@ -242,7 +243,7 @@ cdef class Debyer:
             that the second column is shifted by 1 so that the end index will
             work correctly with range().
         '''
-        cdef cIntType[:,:] chunked_indices = np.zeros((num_chunks,2),dtype=intType)
+        cdef Py_ssize_t[:,:] chunked_indices = np.zeros((num_chunks,2),dtype=np.intp)
         index_list = range(num_indices)
         len_index_list = len(index_list)
         chunk_size = int(ceil(len_index_list/float(num_chunks)))
@@ -292,10 +293,10 @@ cdef class Debyer:
         -------
         omega: np.ndarray
             Intra-molecular correlation function 
-            
+
         '''
 
-        cdef cIntType frame,k
+        cdef Py_ssize_t frame, k  # Loop indices for memoryview indexing
 
         cdef cFloatType[:,:,:] R1_all = positions1.astype(floatType)
         cdef cFloatType[:,:,:] R2_all = positions2.astype(floatType)
@@ -310,7 +311,7 @@ cdef class Debyer:
         cdef cIntType nbeads1 = positions1.shape[1]
         cdef cIntType nbeads2 = positions2.shape[1]
 
-        cdef cIntType[:,:] chunks         = self._chunk(nbeads1,self.num_chunks)
+        cdef Py_ssize_t[:,:] chunks       = self._chunk(nbeads1,self.num_chunks)
         cdef cFloatType[:,:] Base2D       = np.zeros((self.num_chunks,self.num_bins), dtype=floatType)
         cdef cFloatType[:,:] thread_omega = np.zeros((self.num_chunks,self.num_bins), dtype=floatType)
 
@@ -318,9 +319,9 @@ cdef class Debyer:
         cdef cFloatType[:] omega          = np.zeros(self.num_bins, dtype=floatType)
         cdef cFloatType[:] frame_omega    = np.zeros(self.num_bins, dtype=floatType)
 
-        cdef cIntType numFrames = R1_all.shape[0]
+        cdef Py_ssize_t numFrames = R1_all.shape[0]
 
-        cdef cIntType count = 0
+        cdef Py_ssize_t count = 0
         for frame in range(numFrames):
             count += 1
 
@@ -351,8 +352,8 @@ cdef class Debyer:
         return np.array(omega)
 
     cdef void _calculate(self,
-                             cFloatType[:,:] R1, 
-                             cFloatType[:,:] R2, 
+                             cFloatType[:,:] R1,
+                             cFloatType[:,:] R2,
                              cIntType[:] M1,
                              cIntType[:] M2,
                              cIntType nbeads1,
@@ -360,7 +361,7 @@ cdef class Debyer:
                              cFloatType[:] L,
                              cFloatType[:] omega,
                              cFloatType[:,:] thread_omega,
-                             cIntType[:,:] chunks,
+                             Py_ssize_t[:,:] chunks,
                              bint selfOmega) nogil:
         r'''omega calculation driver
 

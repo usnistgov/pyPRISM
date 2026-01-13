@@ -1,0 +1,44 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11','3.12','3.13']
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install graphviz
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y graphviz graphviz-dev
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+        
+    - name: Run tests
+      run: |
+        pytest tests/ --cov=AFL.double_agent --cov-report=xml --cov-report=term
+        
+    - name: Create Coverage Summary
+      if: matrix.python-version == '3.11'
+      run: |
+        COVERAGE=$(python -c "import xml.etree.ElementTree as ET; print(round(float(ET.parse('coverage.xml').getroot().get('line-rate')) * 100))")
+        echo "::notice title=Code Coverage::Total coverage is $COVERAGE%"
+        echo "## Test Coverage Summary" >> $GITHUB_STEP_SUMMARY
+        echo "Total coverage: **$COVERAGE%**" >> $GITHUB_STEP_SUMMARY 

@@ -58,7 +58,12 @@ from pyPRISM import omega
 
 from pyPRISM import util
 
-from pyPRISM.version import *
+from importlib.metadata import version, PackageNotFoundError
+
+try:
+    __version__ = version("pyPRISM")
+except PackageNotFoundError:
+    __version__ = "unknown"
 
 def test():
     r"""

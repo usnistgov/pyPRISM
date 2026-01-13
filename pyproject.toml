@@ -1,0 +1,149 @@
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-vcs",
+    "hatch-cython",
+    "numpy",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyPRISM"
+dynamic = ["version"]
+description = "A python tool for Polymer Reference Interaction Site Model (PRISM) calculations"
+readme = "README.md"
+license = {text = "NIST License"}
+requires-python = ">=3.12"
+authors = [
+    {name = "Tyler B. Martin", email = "tyler.martin@nist.gov"},
+]
+keywords = [
+    "materials science",
+    "polymer",
+    "theory",
+    "simulation",
+    "X-ray",
+    "neutron",
+    "scattering",
+    "liquid-state",
+    "nanocomposite",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: Freely Distributable",
+    "License :: Public Domain",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Cython",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "numpy>=2.0.0",
+    "scipy>=1.11.0",
+    "pint>=0.20.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/usnistgov/pyprism"
+Documentation = "http://pyPRISM.readthedocs.io"
+Repository = "https://github.com/usnistgov/pyprism"
+"Bug Reports" = "https://github.com/usnistgov/pyprism/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "Cython>=3.0.0",
+    "packaging>=23.0",
+]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-autobuild",
+    "sphinx_rtd_theme",
+    "nbsphinx",
+]
+tutorials = [
+    "jupyter",
+    "matplotlib",
+    "bokeh",
+    "holoviews",
+    "pandas",
+]
+
+[tool.setuptools]
+# Configure setuptools for when hatch-cython internally uses it
+# This prevents the "multiple top-level packages" error
+packages = ["pyPRISM"]
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "v1.0.4"
+
+[tool.hatch.version.raw-options]
+version_scheme = "post-release"
+local_scheme = "no-local-version"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/pyPRISM",
+    "/docs",
+    "/requirements.txt",
+    "/binder",
+    "/env",
+    "/README.md",
+    "/LICENSE",
+    "/CONTRIBUTING.md",
+    "/CHANGES.md",
+]
+exclude = [
+    "*.pyc",
+    "__pycache__",
+    ".pytest_cache",
+    "*.so",
+    "*.c",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pyPRISM"]
+exclude = [
+    "img",
+    "dev",
+    "data",
+    "binder",
+    "tutorial",
+]
+artifacts = [
+    "pyPRISM/test/data/*.dat",
+    "pyPRISM/test/data/*.csv",
+]
+
+# Cython compilation configuration
+# IMPORTANT: Only .pyx files should be compiled, NOT .py files
+# All .pyx files must be explicitly listed in the extensions below
+[tool.hatch.build.hooks.cython]
+dependencies = ["hatch-cython"]
+
+[tool.hatch.build.hooks.cython.options]
+compile_py = false  # CRITICAL: Do not compile .py files, only .pyx files
+include_numpy = true  # Automatically include NumPy headers
+boundscheck = false
+cdivision = true
+nonecheck = false
+embedsignature = true
+language_level = "3"
+
+# Explicitly list each .pyx file to compile
+# Do NOT use wildcards or patterns that might include .py files
+[[tool.hatch.build.hooks.cython.extensions]]
+name = "pyPRISM.trajectory.Debyer"
+sources = ["pyPRISM/trajectory/Debyer.pyx"]  # Only the .pyx file, not .py
+# include_dirs handled automatically by include_numpy = true above
+language = "c"

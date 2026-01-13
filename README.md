@@ -124,10 +124,10 @@ pcf = pyPRISM.calculate.prism.pair_correlation(PRISM)
 
 Quick Install
 =============
-The commands below should install pyPRISM with all basic dependences via conda
+The commands below should install pyPRISM with all basic dependencies via conda
 or pip. These commands should be platform agnostic and work for Linux, macOS, and
-Windows *if* you have Anaconda or pip installed.  For full installation
-instructions please see the documentation. 
+Windows *if* you have Anaconda or pip installed. For full installation
+instructions please see the [documentation](https://pyPRISM.readthedocs.io/).
 
 ``` bash
 $ conda install -c conda-forge pyPRISM
@@ -138,6 +138,34 @@ or
 ``` bash
 $ pip install pyPRISM
 ```
+
+Building from Source
+====================
+pyPRISM uses a modern build system based on `pyproject.toml` (PEP 517/518) with the following features:
+- Automatic version management from git tags using `hatch-vcs`
+- Automatic Cython compilation for performance-critical extensions
+- Optional dependency groups for different use cases
+
+To install from source:
+
+``` bash
+# Clone the repository
+$ git clone https://github.com/usnistgov/pyPRISM.git
+$ cd pyPRISM
+
+# Basic installation
+$ pip install .
+
+# Install with optional dependencies
+$ pip install ".[dev]"        # Development tools (pytest, Cython)
+$ pip install ".[docs]"       # Documentation tools (Sphinx, etc.)
+$ pip install ".[tutorials]"  # Tutorial dependencies (Jupyter, matplotlib, etc.)
+
+# Install everything for development
+$ pip install -e ".[dev,docs,tutorials]"
+```
+
+The modern build system automatically handles build dependencies like Cython during installation, so you don't need to install them manually first.
 Documentation
 =============
 

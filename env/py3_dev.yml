@@ -1,38 +1,38 @@
 name: pyPRISM_py3_dev
 channels:
-  - conda-forge 
+  - conda-forge
   - defaults
 dependencies:
-  - python =3.11
+  - python >= 3.12
   - pyzmq
-  - numpy >= 1.8.0
-  - scipy
-  - cython 
+  - numpy >= 2.0.0
+  - scipy >= 1.11.0
+  - cython >= 3.0.0
   - jupyter
   - jupyterlab
   - nodejs
   - matplotlib
   - bokeh
   - holoviews
-  - pandas 
+  - pandas
   - pandas-datareader
   - xarray
   - snakeviz
   - memory_profiler
   - line_profiler
-  - sphinx
+  - sphinx >= 7.0.0
   - sphinx-autobuild
   - sphinx_rtd_theme
   - nbsphinx
   - graphviz
-  - pint
-  - pytest
+  - pint >= 0.20.0
+  - pytest >= 7.0.0
   - pandoc =1.19.2
   - twine
   - wheel
   - virtualenv
 
 # JupyterLab Extensions
-# jupyter labextension install jupyterlab_vim jupyterlab_bokeh @pyviz/jupyterlab_holoviews 
+# jupyter labextension install jupyterlab_vim jupyterlab_bokeh @pyviz/jupyterlab_holoviews
 #
 #@axlair/jupyterlab_vim @jupyter-widgets/jupyterlab-manager @jupyterlab/git
