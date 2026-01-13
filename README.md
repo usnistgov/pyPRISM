@@ -3,22 +3,6 @@
 </p>
 <h1 align="center">pyPRISM</h1>
 
-<p align="center"> 
-    <a href='http://pyprism.readthedocs.io/en/latest/?badge=latest'>
-        <img src='http://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
-    </a>
-
-    <a href='https://pyPRISM.readthedocs.io/en/latest/'>
-        <img src='https://img.shields.io/badge/Documentation--blue.svg' alt='Documentation' />
-    </a>
-    <a href='https://pyPRISM.readthedocs.io/en/latest/tutorial/tutorial.html'>
-        <img src='https://img.shields.io/badge/Tutorial--orange.svg' alt='Tutorial' />
-    </a>
-    <a href='https://mybinder.org/v2/gh/usnistgov/pyprism/master?filepath=tutorial'>
-        <img src='https://mybinder.org/badge.svg' alt='Binder' />
-    </a>
-</p>
-
 <p>
 Polymer Reference Interaction Site Model (PRISM) theory describes the
 equilibrium spatial-correlations of liquid-like polymer systems including
