@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 import pyPRISM
 import unittest
 import numpy as np

@@ -10,7 +10,7 @@ Troubleshooting
 
     .. code-block:: bash
 
-        python -c "from __future__ import print_function; import sys;print(sys.path)"
+        python -c "import sys;print(sys.path)"
 
     If pyPRISM is not listed, there are several reasons why this might have
     occurred:
@@ -50,5 +50,4 @@ Troubleshooting
 
     Please file a bug report on GitHub. Please see :ref:`contribute` for
     instructions on how to do this. 
-
 

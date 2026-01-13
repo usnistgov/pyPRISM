@@ -19,9 +19,8 @@ If the quick-install commands do not work, then you can install pyPRISM
 
 Step 1: Dependencies via Anaconda
 ---------------------------------
-The easiest way to get an environment set up is by using the ``env/py2.yml``
-or ``env/py3.yml`` we have provided for a python2 or
-python3 based environment. We recommend the python3 version. If you don't
+The easiest way to get an environment set up is by using the ``env/py3.yml``
+we have provided for a Python 3.11-based environment. If you don't
 already have it, install `conda <https://www.continuum.io/downloads>`_. Note that
 all of the below instructions can be executed via the anaconda-navigator GUI. To
 start, we'll make sure you have the latest version of conda.
@@ -85,4 +84,3 @@ After the depdendencies are satisfied and/or the conda environment is created
     $ cd <pyPRISM base directory>
 
     $ python setup.py install
-

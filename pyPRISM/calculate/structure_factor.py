@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.Space import Space
 
 def structure_factor(PRISM,normalize=True):

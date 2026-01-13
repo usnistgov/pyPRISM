@@ -1,5 +1,4 @@
 #!python 
-from __future__ import division,print_function
 import warnings
 import numpy as np
 from itertools import product

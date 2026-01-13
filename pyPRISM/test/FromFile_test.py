@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.omega.FromFile import FromFile
 import unittest
 import numpy as np

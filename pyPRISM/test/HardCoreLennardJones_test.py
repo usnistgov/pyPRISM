@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 import unittest
 from pyPRISM.potential.HardCoreLennardJones import HardCoreLennardJones
 import numpy as np
