@@ -4,33 +4,10 @@
 <h1 align="center">pyPRISM</h1>
 
 <p align="center"> 
-    <a href='https://travis-ci.com/usnistgov/pyPRISM'>
-        <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=master' alt='Master Build Status' />
-    </a>
-    <a href='https://travis-ci.com/usnistgov/pyPRISM'>
-        <img src='https://travis-ci.com/usnistgov/pyPRISM.svg?token=FULcw9eHMtj7oJcV26rG&branch=dev' alt='Dev Build Status' />
-    </a>
     <a href='http://pyprism.readthedocs.io/en/latest/?badge=latest'>
         <img src='http://readthedocs.org/projects/pyprism/badge/?version=latest' alt='Documentation Status' />
     </a>
-</p>
 
-<p align="center"> 
-    <a href="https://anaconda.org/conda-forge/pyprism">
-        <img src="https://anaconda.org/conda-forge/pyprism/badges/version.svg" /> 
-    </a>
-    <a href="https://anaconda.org/conda-forge/pyprism"> 
-        <img src="https://anaconda.org/conda-forge/pyprism/badges/license.svg" /> 
-    </a>
-    <a href="https://anaconda.org/conda-forge/pyprism"> 
-        <img src="https://anaconda.org/conda-forge/pyprism/badges/platforms.svg" /> 
-    </a>
-    <a href="https://anaconda.org/conda-forge/pyprism">
-        <img src="https://anaconda.org/conda-forge/pyprism/badges/downloads.svg" /> 
-    </a>
-</p>
-
-<p align="center"> 
     <a href='https://pyPRISM.readthedocs.io/en/latest/'>
         <img src='https://img.shields.io/badge/Documentation--blue.svg' alt='Documentation' />
     </a>
@@ -61,13 +38,6 @@ reduce the barrier to correctly and appropriately using PRISM theory and to
 provide a platform for rapid calculations of the structure and thermodynamics
 of polymeric fluids and nanocomposites. 
 </p>
-
-tlytle1978/pyPRISM Differences from usnistgov/pyPRISM
-=======
-1. Includes molecular closures R-MPY, R-MSA, and R-LWC
-2. Added an initial guess calculator which calculates the intitial cost function from a reference repulsive system
-3. Includes a Picard iteration solver for the PRISM equations
-4. Suggested installation: install version from usnistgov/pyPRISM. Download code from tlytle1978/pyPRISM, and copy the files to the same location as the usnistgov/pyPRISM installed files. 
 
 Citation
 ========
@@ -130,12 +100,8 @@ Windows *if* you have Anaconda or pip installed. For full installation
 instructions please see the [documentation](https://pyPRISM.readthedocs.io/).
 
 ``` bash
-$ conda install -c conda-forge pyPRISM
-```
-
-or
-
-``` bash
+$ python -m venv
+$ source .venv/bin/activate
 $ pip install pyPRISM
 ```
 
@@ -180,7 +146,7 @@ Please use the [Issue](https://github.com/usnistgov/pyPRISM/issues) tracker to s
     [GitHub](https://github.com/martintb),
     [Webpage](https://www.nist.gov/people/tyler-martin),
     [Scholar](https://scholar.google.com/citations?user=9JmVnIIAAAAJ&hl=en)
-- Dr. Thomas Gartner, Princeton University, 
+- Prof. Thomas Gartner, Lehigh University, 
     [GitHub](https://github.com/tgartner),
     [Scholar](https://scholar.google.com/citations?user=lzao5SAAAAAJ&hl=en)
 - Dr. Ronald Jones, NIST, 
