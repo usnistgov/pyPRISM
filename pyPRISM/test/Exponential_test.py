@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 import unittest
 from pyPRISM.potential.Exponential import Exponential
 import numpy as np

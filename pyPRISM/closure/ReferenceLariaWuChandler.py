@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.Domain import Domain
 from pyPRISM.core.Space import Space
 from pyPRISM.closure.MolecularClosure import MolecularClosure

@@ -6,7 +6,7 @@ The goal of this file is to give users a clean and descriptive check of their en
 '''
 import sys
 import os
-from distutils.version import LooseVersion
+from packaging.version import Version as LooseVersion
 
 with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
     reqs = f.readlines()

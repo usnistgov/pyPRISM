@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 import unittest
 from pyPRISM.potential.WeeksChandlerAndersen import WeeksChandlerAndersen
 import numpy as np

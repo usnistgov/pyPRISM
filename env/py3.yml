@@ -1,15 +1,15 @@
 name: pyPRISM_py3
 channels:
-  - conda-forge 
+  - conda-forge
   - defaults
 dependencies:
-  - python =3
-  - numpy >= 1.8.0
-  - cython
-  - scipy
+  - python >= 3.12
+  - numpy >= 2.0.0
+  - cython >= 3.0.0
+  - scipy >= 1.11.0
   - jupyter
   - matplotlib
   - bokeh
   - holoviews
-  - pandas 
-  - pint
+  - pandas
+  - pint >= 0.20.0

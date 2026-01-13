@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.closure.AtomicClosure import AtomicClosure
 import numpy as np
 class HyperNettedChain(AtomicClosure):
