@@ -51,4 +51,3 @@ Troubleshooting
     Please file a bug report on GitHub. Please see :ref:`contribute` for
     instructions on how to do this. 
 
-
