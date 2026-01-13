@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.omega.Omega import Omega
 import numpy as np
 
