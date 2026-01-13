@@ -18,10 +18,10 @@ and notebook servers run in this evironment will be able to access pyPRISM.
     (Windows) > set PATH=%PATH%;C:\path\to\pyPRISM\dir
 
 .. note::
-    
+
     The path in the above examples should be to the directory **containing**
-    pyPRISM. The specified directory should be the one containing ``setup.py`` in
-    the repository you downloaded or cloned from GitHub and not the one
+    pyPRISM. The specified directory should be the one containing ``pyproject.toml``
+    in the repository you downloaded or cloned from GitHub and not the one
     containing ``__init__.py``.
 
 .. warning::
@@ -40,10 +40,10 @@ placing the following code at the top of your script or notebook.
     >>> sys.insert(0,'/path/to/pyPRISM/directory/')
 
 .. note::
-    
+
     The path in the above examples should be to the directory **containing**
-    pyPRISM. The specified directory should be the one containing ``setup.py`` in
-    the repository you downloaded or cloned from GitHub and not the one
+    pyPRISM. The specified directory should be the one containing ``pyproject.toml``
+    in the repository you downloaded or cloned from GitHub and not the one
     containing ``__init__.py``.
 
 .. warning::

@@ -76,7 +76,7 @@ See :ref:`dependencies` for more information.
 
 Step 2: Install pyPRISM
 -----------------------
-After the depdendencies are satisfied and/or the conda environment is created
+After the dependencies are satisfied and/or the conda environment is created
 **and activated**, pyPRISM can be installed to the system by running:
 
 .. code-block:: bash
@@ -85,15 +85,53 @@ After the depdendencies are satisfied and/or the conda environment is created
 
     $ pip install .
 
-Alternatively, for development installations (editable mode):
+.. note::
+
+    As of version 2.0, pyPRISM uses a modern build system (``pyproject.toml`` with
+    PEP 517/518). Build dependencies like Cython are automatically installed during
+    the build process, so you don't need to install them manually first.
+
+Installation with Optional Dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can install pyPRISM with optional dependency groups defined in ``pyproject.toml``:
+
+.. code-block:: bash
+
+    # Install with development dependencies (pytest, Cython)
+    $ pip install ".[dev]"
+
+    # Install with documentation dependencies (Sphinx, etc.)
+    $ pip install ".[docs]"
+
+    # Install with tutorial dependencies (Jupyter, matplotlib, etc.)
+    $ pip install ".[tutorials]"
+
+    # Install with all optional dependencies
+    $ pip install ".[dev,docs,tutorials]"
+
+Development/Editable Installation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For development work where you want changes to the source code to immediately
+affect the installed package without reinstalling:
 
 .. code-block:: bash
 
     $ pip install -e ".[dev]"
 
-Or using the modern uv package manager:
+This installs pyPRISM in "editable" mode and includes development dependencies
+like pytest and Cython.
+
+Alternative: Using uv Package Manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For faster installation, you can use the modern `uv <https://github.com/astral-sh/uv>`__ package manager:
 
 .. code-block:: bash
 
     $ uv pip install .
+
+    # Or with optional dependencies
+    $ uv pip install ".[dev,docs,tutorials]"
 
