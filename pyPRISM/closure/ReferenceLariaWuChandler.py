@@ -1,5 +1,4 @@
 #!python
-from __future__ import division,print_function
 from pyPRISM.core.Domain import Domain
 from pyPRISM.core.Space import Space
 from pyPRISM.closure.MolecularClosure import MolecularClosure
@@ -102,8 +101,9 @@ class ReferenceLariaWuChandler(MolecularClosure):
         hr = Domain.to_real(domain,array=hk)
         hr0 = Domain.to_real(domain,array=hk0)
 
-        potential_calculation = self.potential #we need to set the potential for r<=sigma equal to 0 for the fft to work correctly
-
+        # We need to set the potential for r<=sigma equal to 0 for the fft to work correctly
+        # IMPORTANT: Use np.copy() to avoid modifying self.potential in place
+        potential_calculation = np.copy(self.potential)
         mask = r<=self.sigma
         potential_calculation[mask]=0.0
 
@@ -116,13 +116,8 @@ class ReferenceLariaWuChandler(MolecularClosure):
         convoluted_cr0 = Domain.to_real(domain,array=convoluted_cr0_k)
 
         if self.apply_hard_core:
-            # apply hard core condition 
             self.value = -1 - gamma
-            
-            # calculate closure outside hard core
-            mask = r>self.sigma
-            
-            # self.value is the convoluted c(r)
+            mask = r > self.sigma
             self.value[mask] = (hr0[mask]+1.0)*np.exp(convoluted_cr0[mask]-convoluted_potential_r[mask]+gamma[mask]-hr0[mask])-1.0-gamma[mask]
 
         else:
